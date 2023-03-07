@@ -1,0 +1,1 @@
+// Aqui ficará algumas funcs, não mexer por hora
