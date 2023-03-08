@@ -8,6 +8,7 @@ body,html{
     margin: 0;
     padding: 0;
     background-color: #FFFFFF;
+    color: rgb(19, 19, 41);
 }
 
 nav{
@@ -128,4 +129,20 @@ a{
 }
 #centro{
     background-color: #EFEAD0;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+}
+.area-videoBusway{
+    width: 50%;
+}
+.area-imagemBusway{
+    width: 50%;
+    text-align: center;
+}
+.img-onibus{
+    width: 300px;
+    height: 100%;
 }
