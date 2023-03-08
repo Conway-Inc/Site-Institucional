@@ -149,6 +149,9 @@ a{
 }
 .justificativa{
     text-align: center;
+    width: 70%;
+    margin: auto;
+    font-size: 40px;
 }
 #iconeNav{
     width: 60px;
