@@ -91,6 +91,7 @@
 <script>
     let id = 0;
     let vista = false;
+    //Aqui fazemos a passagem da div do formulario
     function proximo() {
         if (id == 0) {
             id++;
@@ -127,6 +128,7 @@
         }
 
     }
+    // aqui fazemos a volta do formulario
     function fvoltar() {
         if (id == 0) {
             alert("wtf como tu fez isso?")
@@ -166,11 +168,13 @@
         }
 
     }
+    // mostra o formulario e embaça o fundo
     function mostrar() {
         formulario.style = 'display: block;  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); position: absolute;'
         idNav.style = "filter: blur(1.5rem)";
         idMain.style = "filter: blur(1.5rem)";
     }
+    //fecha e tira o embaçado do fundo
     function fechar() {
         formulario.style = 'display: none;  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);'
         idNav.style = "filter: blur(0rem)";
