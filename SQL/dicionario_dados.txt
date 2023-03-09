@@ -5,6 +5,7 @@ projetoConway
 
 
 tabela entradas:
+tabEntradas:
     idEntradas bigint primary key auto_increment
     idOnibus int foreign key
     horaEntrada datetime CURRENT_TIMESTAMP
