@@ -1,1 +1,20 @@
-Dicionario de dados: um protótipo de como a estrutura do banco do projeto irá funcionar
+Dicionario ALPHA:
+
+banco de dados:
+projetoConway
+
+
+tabela entradas:
+    idEntradas bigint primary key auto_increment
+    idOnibus int foreign key
+    horaEntrada datetime CURRENT_TIMESTAMP
+
+
+
+tabela onibus
+tabOnibus:
+    idOnibus int primary key
+    onibusRota ???
+    numeroOnibus smallint NOT NULL
+    pontoPartida varchar(70) NOT NULL
+    pontoVolta varchar(50) NOT NULL
