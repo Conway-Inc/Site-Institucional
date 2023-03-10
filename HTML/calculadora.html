@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Financeira</title>
     <link rel="stylesheet" href="../css/calculadora.css">
+    <link rel="stylesheet" href="../css/base_todos.css">
 </head>
 
 <body>
-
     <nav id="idNav">
 
     </nav>
@@ -93,6 +93,7 @@
 <script>
     let id = 0;
     let vista = false;
+    //Aqui fazemos a passagem da div do formulario
     function proximo() {
         if (id == 0) {
             id++;
@@ -129,6 +130,7 @@
         }
 
     }
+    // aqui fazemos a volta do formulario
     function fvoltar() {
         if (id == 0) {
             alert("Por favor reinicie a página")
@@ -168,11 +170,13 @@
         }
 
     }
+    // mostra o formulario e embaça o fundo
     function mostrar() {
         formulario.style = 'display: block;  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); position: absolute;'
         idNav.style = "filter: blur(1.5rem)";
         idMain.style = "filter: blur(1.5rem)";
     }
+    //fecha e tira o embaçado do fundo
     function fechar() {
         formulario.style = 'display: none;  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);'
         idNav.style = "filter: blur(0rem)";

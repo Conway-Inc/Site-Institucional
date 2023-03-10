@@ -3,31 +3,6 @@
     font-family: fontPrincipal;
     src: url(../FONTS/Agrandir-Regular.otf);
 }
-body,html{
-    font-family: fontPrincipal;
-    margin: 0;
-    padding: 0;
-    background-color: #FFFFFF;
-    color: rgb(19, 19, 41);
-}
-
-nav{
-    display: flex;
-    flex-direction: row;
-    height: 70px;
-    align-items: center;
-    background-color: #69503C;
-    margin-bottom: 4%;
-    color: black;
-}
-.navbar-area{
-    width: 40%;
-    height: 100%;
-    float: right;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 .logo-area{
     width: 60%;
     height: 100%;
@@ -152,8 +127,4 @@ a{
     width: 70%;
     margin: auto;
     font-size: 40px;
-}
-#iconeNav{
-    width: 60px;
-    height: 60px;
 }
