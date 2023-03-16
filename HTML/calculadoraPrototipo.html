@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+    <link rel="stylesheet" href="../CSS/calculadoraPrototipo.css">
+</head>
+
+<body>
+        <h1 id="titulo">COMO E PORQUÊ VOCÊ PERDE DINHEIRO COM SUA VIA DE ÔNIBUS</h1>
+        <div id="centro">
+            <p id="contexto">Nas metrópoles, um problema bastante recorrente é a superlotação do transporte público.
+                Determinadas rotas apresentam diversos problemas, como superlotação em determinados locais e vagões
+                totalmente vazios em outros. Esse obstáculo acaba se espalhando por diversos lados, causando desconforto
+                e prejuízos para todos que utilizam e administram esse meio de transporte.
+            </p>
+        </div>
+        <br><br>
+        <br><br>
+        <h1 id="justificativa">
+            "Com nossa solução podemos ajudar a empresa interessada a administrar linhas mal otimizadas,
+            gerando assim mais lucro para a mesma. "
+        </h1>
+        <br><br>
+        <div id="contextualizandoProblema">
+            <p>Nós da CONWAY temos certeza que se você tem um ônibus você demonstrou um interesse nisso, deseja
+                descobrir como arrumar
+                esse problema de logística? Ou melhor, deseja saber o quanto você ganhará por nos contratar?
+            </p>
+        </div>
+        <div id="area-botao">
+            <button id='botaoMostrar' onclick="mostrar()"> VEJA POR AQUI </button>
+        </div>
+        <br><br><br>
+    <!-- Formulario Invisível da calculadora -->
+    <div id="formulario">
+        <h1>Calcule suas perdas</h1>
+        <h3 id="sub">e veja como aumentar seus lucros</h3>
+
+        <div id="divNome">
+            <label for="nome">Nome de sua Empresa</label><input type="text" id="nome"><br><br>
+        </div>
+        <div id="divRota" style="display: none">
+            <label for="rota">Numero da rota</label><input type="text" id="rota"><br><br>
+        </div>
+        <div id="divQtdOnibus" style="display: none">
+            <label for="rota">Quantidade de Veículos Operando</label><input type="text" id="numOnibus"><br><br>
+        </div>
+        <div id="divmediaPassageiros" style="display: none">
+            <label for="mediaPassageiros">Qual a media diária de passageiros por ônibus?</label><input type="text"
+                id="mediaPassageiros"><br><br>
+        </div>
+        <div id="precoPassagem" style="display: none">
+            <label for="precoPassagem">Preço da passagem</label><input type="text" id="iptPassagem"><br><br>
+        </div>
+        <div id="divcombustivel" style="display: none">
+            <label for="combustivel">Qual o gasto com combustível diário?</label><input type="text"
+                id="combustivel"><br><br>
+        </div>
+        <div id="buttonsDiv">
+            <button onclick="proximo()" id="btnProximo">Próximo</button>
+            <button id='calc' onclick="calcular()" style="display: none;">Calcular</button>
+            <button id="voltar" onclick="fvoltar()" style="display: none;">Anterior</button>
+        </div>
+        <div id="res"></div>
+        <div id="calculadora"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    var id = 0;
+    var id2 = 1;
+    //Aqui fazemos a passagem da div do formulario
+    function proximo() {
+        if (id == 0) {
+            if(id2 == 1){
+                id++;
+                id2--;
+                divNome.style = "display:none"
+                divRota.style = "display:block"
+                calc.style = "display: none"
+                voltar.style = "display: block"
+                btnProximo.style = "display: block" 
+            }
+        }
+        if (id == 1) {
+            if(id2 == 1){
+                id++;
+                id2--;
+                divRota.style = "display:none";
+                divQtdOnibus.style = "display:block"
+                calc.style = "display: none"
+                voltar.style = "display: block"
+                btnProximo.style = "display: block"
+            }
+        }if (id == 2) {
+            if(id2 == 1){
+                id++;
+                id2--;
+                divQtdOnibus.style = "display:none";
+                divmediaPassageiros.style = "display:block"
+                calc.style = "display: none"
+                voltar.style = "display: block"
+                btnProximo.style = "display: block"
+            }
+        }
+        if (id == 3) {
+            if(id2 == 1){
+                id++;
+                id2--;
+                divmediaPassageiros.style = "display:none";
+                precoPassagem.style = "display:block"
+                calc.style = "display: none"
+                voltar.style = "display: block"
+                btnProximo.style = "display: block"
+            }
+        }
+
+        if (id == 4) {
+            if(id2 == 1){
+                id++;
+                id2--;
+                precoPassagem.style = "display:none";
+                divcombustivel.style = "display:block"
+                calc.style = "display: block"
+                voltar.style = "display: block"
+                btnProximo.style = "display: none"
+            } 
+        }
+        id2 = 1;
+    }
+    // aqui fazemos a volta do formulario
+    function fvoltar() {
+        if (id == 0) {
+            alert("Por favor reinicie a página")
+        }
+        if (id == 1) {
+            id--
+            divNome.style = "display:block";
+            divRota.style = "display:none  "
+            calc.style = "display: none"
+            voltar.style = "display: none"
+            btnProximo.style = "display: block"
+        }
+        if (id == 2) {
+            id--
+            divQtdOnibus.style = "display:none"
+            divRota.style = "display:block"
+            calc.style = "display: none"
+            voltar.style = "display: block"
+            btnProximo.style = "display: block"
+        }
+        if (id == 3) {
+            id--
+            divmediaPassageiros.style = "display:none"
+            divQtdOnibus.style = "display:block"
+            calc.style = "display: none"
+            voltar.style = "display: block"
+            btnProximo.style = "display: block"
+        }
+
+        if (id == 4) {
+            id--
+            precoPassagem.style = "display:none"
+            divmediaPassageiros.style = "display:block"
+            calc.style = "display: none"
+            voltar.style = "display: block"
+            btnProximo.style = "display: block"
+        }
+        if (id == 5) {
+            id--;
+            precoPassagem.style = "display:block";
+            divcombustivel.style = "display:none"
+            calc.style = "display: none"
+            voltar.style = "display: block"
+            btnProximo.style = "display: block"
+        }
+
+    }
+
+    function mostrar() {
+        formulario.style = 'display: block;'
+    }
+    
+    function calcular() {
+        precoPassagem.style = "display:none";
+        divcombustivel.style = "display:none"
+        calc.style = "display: none"
+        voltar.style = "display: none"
+        btnProximo.style = "display: none"
+        sub.style = "display: none";
+
+        var qtdPassageiros = Number(mediaPassageiros.value)
+        var vlrPassagem = Number(iptPassagem.value)
+        var qtdOnibus = Number(numOnibus.value)
+        var gastoC = Number(combustivel.value)
+        var qtdPassageirosTotal = qtdPassageiros * qtdOnibus
+        var mediaAnual = (qtdPassageirosTotal * vlrPassagem * 365)
+        var novosPassageiros = qtdPassageirosTotal + (qtdPassageirosTotal * 0.34)
+        var novaMediaAnual = (novosPassageiros * vlrPassagem * 365)
+
+        var gastoCMensal = (gastoC * 30 *   qtdOnibus)
+        var novoGastoC = (gastoC - (gastoC * 0.2)) * 30
+
+        var porc1 = (100 - ((mediaAnual / novaMediaAnual) * 100))
+        var porc2 = (100 - ((novoGastoC / gastoCMensal) * 100))
+
+        valorFinal = Number(iptPassagem.value) * Number(mediaPassageiros.value) * Number(combustivel.value)
+        //res.innerHTML = `Olá ${nome.value}, a rota número ${rota.value} <b> perde cerca de R$${valorFinal.toFixed(2)} mensalmente</b>, isso pode ser corrigido entrando em contato com nossa empresa. 
+        res.innerHTML += '<p> Olá '+ nome.value +', Com nosso sistema, haverá um aumento de <b>R$' +
+            (novaMediaAnual - mediaAnual).toFixed(2) + ' (' + porc1.toFixed(2) +
+            '%)</b> no total arrecadado no ano, totalizando <b>R$' + novaMediaAnual.toFixed(2) + '</b>! </p>';
+        res.innerHTML += '<p> Adicionalmente, com a otimização da linha ' + rota.value +
+            ', o gasto de combustível mensal sofrerá uma redução de <b>R$' + (gastoCMensal - novoGastoC).toFixed(2) +
+            ' (' + porc2.toFixed(2) + '%)</b>, otimizando mais a linha!<br>'
+    }
+</script>
