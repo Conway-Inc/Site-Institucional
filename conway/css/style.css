@@ -152,3 +152,29 @@ p {
 .next-page svg {
     padding-left: 15px;
 }
+
+.header .no-logo {
+    justify-content: flex-end;
+}
+
+.busway {
+  flex-direction: column;
+}
+
+.busway p {
+  width: 50%;
+}
+
+.busway h1 {
+  margin-bottom: 20px;
+}
+
+hr {
+  color: #69503c;
+}
+
+.previous-page {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
