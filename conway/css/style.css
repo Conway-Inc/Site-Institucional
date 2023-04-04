@@ -3,10 +3,11 @@ body {
 }
 
 .header {
-  width: 50%;
+  width: 90%;
   position: fixed;
   top: 30px;
   right: 20px;
+  font-size: x-large;
 }
 
 .container {
