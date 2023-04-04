@@ -1,85 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 @font-face {
-    font-family: 'Agrandir Regular';
-    src: url(../assets/Agrandir-Regular.otf);
- }
-
-body{
-    margin: 0;
+  font-family: "Agrandir Regular";
+  src: url(../assets/Agrandir-Regular.otf);
 }
 
-.teste{
-    background-color: burlywood;
-    width: 100%;
-    height: 500px;
+body {
+  margin: 0;
 }
 
-footer{
-    background-color: #69503C;
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    color: white;
-    padding: 0;
-    
+.teste {
+  background-color: burlywood;
+  width: 100%;
+  height: 500px;
 }
 
-footer h2{
-    margin: 0;
-    font-family: 'Agrandir Regular';
-    font-size: 35px;
-    padding: 20px 0px 10px 0px;
+footer {
+  background-color: #69503c;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  color: white;
+  padding: 0;
 }
 
-.paiFooter{
-    margin: auto;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
+footer h2 {
+  margin: 0;
+  font-family: "Agrandir Regular";
+  font-size: 35px;
+  padding: 20px 0px 10px 0px;
 }
 
-ul{
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    padding: 0px 0px 0px 0px;
+.paiFooter {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
 }
 
-li{
-    list-style: none;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 0px 0px 10px 0px;
+.paiFooter ul {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding: 0px 0px 0px 0px;
 }
 
-ul img{
-    width: 10%;
-    padding-right: 5px;
+.paiFooter li {
+  list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0px 0px 10px 0px;
 }
 
-ul li a{
-    text-decoration: none;
-    color: white;
+.paiFooter ul img {
+  width: 10%;
+  padding-right: 5px;
 }
 
-ul li a:hover{
-    color: gray;
+.paiFooter ul li a {
+  text-decoration: none;
+  color: white;
 }
 
-.redes, .acesso, .contato{
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
+.paiFooter ul li a:hover {
+  color: gray;
 }
 
-i{
-    padding-right: 10px;
+.redes,
+.acesso,
+.contato {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+i {
+  padding-right: 10px;
 }
