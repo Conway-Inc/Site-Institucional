@@ -1,24 +1,25 @@
-* {
-  font-family: arial;
-}
-
 body {
   margin: 0;
 }
 
 .header {
-  width: 100%;
+  width: 50%;
+  position: fixed;
+  top: 30px;
+  right: 20px;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 100px;
 }
 
 .header .container {
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 ul {
@@ -28,7 +29,12 @@ ul {
   justify-content: space-around;
 }
 
+li {
+  font-family: 'Poppins', sans-serif;
+}
+
 a {
+  font-family: 'Poppins';
   text-decoration: none;
   color: #69503c;
 }
@@ -66,6 +72,7 @@ a {
 }
 
 h1 {
+  font-family: 'Agrandir Regular';
   font-size: 50px;
   width: 45%;
   color: #69503c;
@@ -137,24 +144,21 @@ h1 {
 p {
   color: #69503c;
   font-size: large;
+  font-family: 'Poppins';
 }
 
-.header h1 {
+.about h1 {
   padding-left: 50px;
   width: 20%;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 
-.next-page .container a {
+.next-section .container a {
   width: 6%;
 }
 
-.next-page svg {
-    padding-left: 15px;
-}
-
-.header .no-logo {
-    justify-content: flex-end;
+.next-section svg {
+  padding-left: 10px;
 }
 
 .busway {
@@ -173,8 +177,18 @@ hr {
   color: #69503c;
 }
 
-.previous-page {
+
+
+.previous-section {
   display: flex;
   justify-content: flex-end;
+  padding-right: 45px;
+}
+
+.about .previous-section {
   padding-right: 20px;
+}
+
+.previous-section .container {
+  margin-bottom: 50px;
 }
