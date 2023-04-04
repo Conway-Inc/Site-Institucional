@@ -1,0 +1,212 @@
+*{
+    font-family: 'Lora', serif;
+    }
+    
+    body{
+        margin:0;
+    }
+    
+    .header{
+        width: 100%;
+        background-color:white;
+        border-bottom: 3px;
+        display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 10px;
+    }
+    
+   
+    .container{
+        display: flex;
+        width: 80%;
+        margin: auto;
+    }
+    
+    .header .container{
+        justify-content: space-between;
+        align-items: center;
+    
+    }
+
+    .banner-text{
+      text-align: justify;
+    }
+
+    .navBar {
+        display: flex;
+        width: 300px;
+        list-style:none;
+        justify-content: flex-end;
+        align-items: center;
+        background-color: white;
+        padding: 10px;
+        margin-left: 88% ;
+      }
+      
+      .navBar li {
+        font-weight: bold;
+        color: #69503C;
+        font-size: 20px;
+        margin-right: 40px;
+      }
+      
+      .navBar li:nth-child(3) {
+        font-size: 60px;
+      }
+      
+    
+    /* Fim do header */
+    .banner{
+        width: 100%;
+        height:450px;
+    
+    }
+    /* Começo do Banner */
+  
+
+      .banner .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height:100%;
+      }
+
+      .banner .container .titulo-banner {
+        font-size: 60px;
+        font-weight: bold;
+        color:#69503C;
+        width: 300px;
+        margin-right: auto;
+        margin-left: 5px;
+        margin-bottom: 5px;
+        margin-top: -40px;
+      }
+      
+      .banner .container .texto-banner {
+        font-size: 30px;
+        font-weight: bold;
+        color: #69503C;
+        width: 300px;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-left: 15px;
+      }
+      
+      
+      
+.problema {
+    color: #69503C;
+    margin-top: 30px;
+    padding-left: 0;
+    padding-right: 5px ;
+    font-size: 20px;
+
+  }
+
+
+  .empresa{
+    color: #69503C;
+    padding-left: 600px;
+    padding-right: 5px;
+    font-size: 20px;
+    padding-bottom: 90%; 
+    margin-left: 90px;
+    margin-top: -265px;
+  }
+
+.bus-img{
+  float: right;
+  margin-right: 100px;
+  position: absolute;
+  top:30%;
+  right: 0;
+  width: 130px;
+  height: 130px;
+  margin-left: -20%;
+  margin-top: -11%;
+  left: 30%;
+
+}
+
+.bus-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rota-img{
+  float: right;
+  margin-right: 100px;
+  position: absolute;
+  top:45%;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  margin-left: 50%;
+  margin-top: 4%;
+  left: 10%;
+
+}
+
+.rota-img img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+  
+  
+  .banner-text li {
+    margin-bottom: 5px;
+    margin-right: 5px ;
+    list-style: none;
+  }
+      
+
+  
+        .como-funciona {
+            position: fixed;
+            bottom: 30px;
+            right: 50%;
+            transform: translateX(50%);
+            font-size: 30px;
+            color: #69503C;
+            cursor: pointer;
+          }
+          
+
+      .como-funciona a {
+        color: #69503C;
+        text-decoration: none;
+      }
+      
+      .como-funciona:before {
+        font-weight: 900;
+        font-size: 20px;
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #69503C;
+        padding: 5px;
+        border-radius: 50%;
+      }
+
+      ul li a{
+        text-decoration: none;
+        padding: 5px 0;
+        display: inline-block;
+        margin: 15px 10px;
+        color: #69503C;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-bottom: 3px solid transparent;
+        transition: all 0.25ms ease-in-out;
+      }
+        
+      ul li a:hover{
+        border-bottom: 3px solid #69503C;
+      }
+          
+    
