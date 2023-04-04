@@ -192,3 +192,8 @@ hr {
 .previous-section .container {
   margin-bottom: 50px;
 }
+
+#busway-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
