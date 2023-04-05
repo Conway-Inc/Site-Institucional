@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculadora de Eficiência de Transporte</title>
+    <script>
+        function calcularEficiencia() {
+            // Obter os dados de entrada do usuário
+            var passageiros = Number(document.getElementById("passageiros").value);
+            var distancia = Number(document.getElementById("distancia").value);
+            var tempo = Number(document.getElementById("tempo").value);
+            var custo = Number(document.getElementById("custo").value);
+
+            // Calcular a eficiência com base nos dados fornecidos
+            var eficiencia = (passageiros * distancia) / (tempo * custo) * 100;
+
+            // Definir o rank de eficiência com base no resultado obtido
+            var rank;
+            if (eficiencia >= 90) {
+                rank = "Excelente";
+            } else if (eficiencia >= 70) {
+                rank = "Bom";
+            } else if (eficiencia >= 50) {
+                rank = "Regular";
+            } else {
+                rank = "Ruim";
+            }
+
+            // Exibir o resultado para o usuário
+            document.getElementById("resultado").innerHTML = eficiencia.toFixed(2) + "%";
+            document.getElementById("rank").innerHTML = rank;
+
+            // Calcular o prejuízo da empresa caso não adote o projeto
+            var custoTotal = passageiros * 5; // custo médio por passageiro
+            var lucroTotal = passageiros * 2.5; // lucro médio por passageiro
+            var custoManutencao = 500; // custo médio de manutenção do veículo por mês
+            var precoCombustivel = 3.5; // preço médio do combustível por litro
+            var consumoCombustivel = 10; // consumo médio de combustível do veículo (em km/L)
+
+            var distanciaMensal = passageiros * distancia * 30; // distância percorrida mensalmente considerando 30 dias úteis
+            var litrosCombustivel = distanciaMensal / consumoCombustivel;
+            var custoCombustivel = litrosCombustivel * precoCombustivel;
+            var custoTotalMensal = custoTotal + custoManutencao + custoCombustivel;
+            var lucroTotalMensal = lucroTotal * passageiros * 30; // lucro mensal considerando 30 dias úteis
+
+            document.getElementById("dados").innerHTML = `Seu lucro total mensal é: R$${lucroTotalMensal}<br><br>
+            Seus gastos mensais considerando manutenção e combustível: R$${custoTotalMensal}<br><br>`;
+
+            var money;
+            if (custoTotalMensal > lucroTotalMensal || rank == "Ruim") {
+                document.getElementById("dados").innerHTML += `A linha está com desempenho ruim, entre em contato com a Conway para entregarmos dados que podem ajudar a melhorar a eficiência dessa linha.`
+            }
+            else {
+                if (rank == "Regular") {
+                    document.getElementById("dados").innerHTML += `A linha não está eficiênte, ela pode melhorar usando nosso sistema.`
+                }
+                else {
+                    if (rank == "Bom") {
+                        document.getElementById("dados").innerHTML += `A linha está eficiênte, mas pode melhorar usando nosso sistema.`
+                    }
+                    else {
+                        if (rank == "Excelente") {
+                            document.getElementById("dados").innerHTML += `A linha está em sua eficiencia máxima, se você deseja manter esse padrão e se preparar para crises contate a Conway.`
+                        }
+
+                    }
+                }
+            }
+
+
+
+            div_msg.innerHTML = `Considerando o cenário atual, a empresa tem uma eficiência média de transporte de ${eficiencia.toFixed(2)}%. Se a empresa adotar o
+            projeto, é garantido um aumento inicial para ${(eficiencia + 20).toFixed(2)}%. Com base nisso, podemos fazer a seguinte
+            análise de viabilidade:`
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Calculadora de Eficiência de Transporte</h1>
+    <p>Insira os dados abaixo para calcular a eficiência do transporte:</p>
+    <label for="passageiros">Número Total de Passageiros:</label>
+    <input type="number" id="passageiros"><br><br>
+    <label for="distancia">Distância Total Percorrida (em km):
+        <input type="number" id="distancia"><br><br>
+        <label for="tempo">Tempo de Viagem (em horas):</label>
+        <input type="number" id="tempo"><br><br>
+        <label for="custo">Custo Total da Viagem:</label>
+        <input type="number" id="custo"><br><br>
+        <button type="button" onclick="calcularEficiencia()">Calcular</button>
+        <br>
+        <p>A eficiência do transporte é: <span id="resultado"></span></p>
+        <p>O rank de eficiência é: <span id="rank"></span></p>
+        <p><span id="dados"></span></p>
+        <details>
+        <h2>Como o projeto pode ajudar?</h2>
+        <p>O projeto pode ajudar a coletar dados de passageiros automaticamente, utilizando sensores instalados
+            nos veículos de transporte. Com esses dados, é possível obter uma visão mais precisa da eficiência do
+            transporte em tempo real, possibilitando ajustes e melhorias constantes.</p>
+
+        <h2>Outros dados relevantes:</h2>
+        <ul>
+            <li>Custo médio por passageiro: R$ 5,00</li>
+            <li>Lucro médio por passageiro: R$ 2,50</li>
+            <li>Custo médio de manutenção do veículo: R$ 500,00 por mês</li>
+            <li>Custo médio de combustível: R$ 3,50 por litro</li>
+            <li>Consumo médio de combustível do veículo: 10 km/L</li>
+        </ul>
+
+        <h2>Análise de Viabilidade:</h2>
+        <p>
+        <div id="div_msg"></div>
+        </p>
+
+        <ul>
+            <li>Custo total do projeto: R$ 10.000,00</li>
+            <li>Economia média mensal com combustível: R$ 1.000,00</li>
+            <li>Economia média mensal com manutenção: R$ 500,00</li>
+            <li>Aumento médio de lucro por passageiro: R$ 0,50</li>
+            <li>Tempo de retorno do investimento: 12 meses</li>
+        </ul>
+
+        <p>Com base nos dados acima, conclui-se que o projeto é viável para a empresa, pois o tempo de retorno
+            do investimento é de 12 meses, o que indica que o projeto será capaz de gerar economias e lucros suficientes
+            para cobrir o custo inicial do investimento.</p>
+        </details>
