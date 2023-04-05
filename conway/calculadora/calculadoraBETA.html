@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Calculadora de Eficiência de Transporte</h1>
+    <p>Insira os dados abaixo para calcular a eficiência do transporte:</p>
+
+    Número total de Passageiros: <input type="text" id="ipt_passageiros">
+    <br><br>
+    Distância Percorrida (em km): <input type="text" id="ipt_distancia">
+    <br><br>
+    Tempo de Viagem (em horas): <input type="text" id="ipt_tempo">
+    <br><br>
+    Custo Total do Transporte: <input type="text" id="ipt_custo"> <br>
+    (gasolina, manutenção, motorista, etc.)
+    <br><br>
+
+    <div id="div_msg"></div>
+
+    <button>Calcular</button>
+
+</body>
+
+</html>
+
+<script>
+    function calcular() {
+        // Obter os dados de entrada do usuário
+
+        var passageiros = ipt_passageiros.value
+        var distancia = ipt_distancia.value
+        var tempo = ipt_tempo.value
+        var custo = ipt_custo.value
+        var eficiencia = (passageiros * distancia) / (tempo * custo) * 100
+    }
+
+
+    // Definir o rank de eficiência com base no resultado obtido
+    var rank;
+    if (eficiencia >= 90) {
+        rank = "Excelente";
+    } else if (eficiencia >= 70) {
+        rank = "Bom";
+    } else if (eficiencia >= 50) {
+        rank = "Regular";
+    } else {
+        rank = "Ruim";
+    }
+</script>
