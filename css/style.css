@@ -2,24 +2,10 @@ body {
   margin: 0;
 }
 
-.header {
-  width: 90%;
-  position: fixed;
-  top: 30px;
-  right: 20px;
-  font-size: x-large;
-}
-
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.header .container {
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
 ul {

@@ -1,0 +1,32 @@
+.header {
+  width: 90%;
+  position: fixed;
+  top: 30px;
+  right: -10px;
+  font-size: x-large;
+}
+
+.header .container {
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header .container ul {
+  width: 40%;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+}
+
+h1 {
+  font-family: "Agrandir Regular";
+  font-size: 50px;
+  width: 45%;
+  color: #69503c;
+  margin-bottom: 160px;
+}
+
+ul li a:hover {
+  border-bottom: 3px solid #69503c;
+}
