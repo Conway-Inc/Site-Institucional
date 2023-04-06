@@ -1,9 +1,10 @@
 .header {
-  width: 90%;
+  width: 100%;
   position: fixed;
-  top: 30px;
-  right: -10px;
+  top: 0px;
+  right: 0px;
   font-size: x-large;
+  background-color: rgba(255, 255, 255, 0.349);
 }
 
 .header .container {
@@ -17,6 +18,16 @@
   display: flex;
   list-style: none;
   justify-content: space-around;
+  align-items: center;
+}
+
+.header .container ul li a{
+  display: flex;
+  align-items: center;
+}
+
+.header .container ul li img{
+  width: 35px;
 }
 
 h1 {
