@@ -4,6 +4,9 @@
 
 body {
   margin: 0;
+  background-image: url("../images/bgTextura.png");
+  background-size: contain;
+  background-attachment: fixed;
 }
 
 .container {

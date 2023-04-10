@@ -1,5 +1,8 @@
 body {
   margin: 0;
+  background-image: url("../images/bgTextura.png");
+  background-size: contain;
+  background-attachment: fixed;
 }
 
 .container {
@@ -29,10 +32,6 @@ a {
   width: 125px;
   padding-top: 25px;
   padding-left: 50px;
-}
-
-.banner {
-  /* margin-bottom: 500px; */
 }
 
 .banner-img {
@@ -81,10 +80,6 @@ h1 {
   cursor: pointer;
 }
 
-.about {
-  /* margin-bottom: 500px; */
-}
-
 .about .container {
   justify-content: space-between;
 }
@@ -113,6 +108,7 @@ h1 {
   width: 35%;
   height: 100%;
   border-radius: 50px;
+  background-color: #ffff;
   box-shadow: 15px 15px #69503c;
   padding-bottom: 10px;
   padding-top: 10px;
