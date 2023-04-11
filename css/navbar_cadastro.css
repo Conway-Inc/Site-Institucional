@@ -5,23 +5,25 @@
     height: 150px;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    margin: auto;
-  }  
-
 .navbar h1{
     font-size: 80px;
 }
 
-.esquerda{
+.form {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.form .container {
+    width: 20%;
+}
+
+.esquerda, .direita{
+    display: flex;
+flex-direction: column;
     align-content: space-around;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 500px;
     height: 400px;
     /* background-color: aqua; */
@@ -29,34 +31,23 @@
     margin: 10px;
 }
 
-.direita{
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-around;
-    justify-content: space-between;
-    align-items: center;
-    /* justify-content: end; */
-    width: 500px;
-    height: 400px;
-    /* background-color: bisque; */
-    padding: 20px;
-    margin: 10px;
-}
-
 input{
     border-radius: 15px;
     border-color: #69503c;
+    padding: 2px 10px;
 }
 
-.campo{
+.campos{
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 .botao{
     display: flex;
     justify-content: center;
 }
-.botao button{
+.botao button {
+    cursor: pointer;
    display: flex;
    align-self: center;
    align-items: center;
@@ -64,11 +55,10 @@ input{
    border-radius: 15px;
    font-size: 20px;
    color: white;
-   border-color: #69503c;
    background-color: #69503c;
    width: 130px;
    height: 30px;
-
+   border-style: none;
 }
 
 
