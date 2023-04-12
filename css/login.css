@@ -1,0 +1,71 @@
+.logo{
+    display: flex;
+    gap: 10px;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.formLogin{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    color: #69503c;
+}
+
+.formLogin button{
+    width: 15%;
+}
+
+.email, .senha{
+    margin-bottom: 20px;
+}
+
+.informativo{
+    width: 50%;
+    padding: 50px;
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+}
+
+.informativo p{
+    margin: 0;
+    padding-bottom: 20px;
+    font-weight: 500;
+}
+
+.informativo button{
+    align-self: center;
+}
+
+input{
+    border-color: #69503c;
+    border-radius: 10px;
+    width: 100%;
+    height: 25px;
+}
+
+button{
+    color: white;
+    border: none;
+    border-radius: 10px;
+    background-color: #69503c;
+    height: 25px;
+    text-decoration: underline;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+a{
+    text-decoration: underline;
+}
