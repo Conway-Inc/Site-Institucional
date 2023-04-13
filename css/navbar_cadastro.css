@@ -11,7 +11,7 @@
 
 .form {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .form .container {
@@ -20,15 +20,16 @@
 
 .esquerda, .direita{
     display: flex;
-flex-direction: column;
+    flex-direction: column;
     align-content: space-around;
-    justify-content: space-between;
     align-items: flex-start;
-    width: 500px;
     height: 400px;
     /* background-color: aqua; */
     padding: 20px;
-    margin: 10px;
+    margin: 0 10%;
+}
+.esquerda .campos, .direita .campos{
+    margin: 10px 0;
 }
 
 input{
@@ -45,6 +46,7 @@ input{
 .botao{
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 .botao button {
     cursor: pointer;
