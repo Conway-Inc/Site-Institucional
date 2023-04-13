@@ -14,16 +14,12 @@ body {
   margin: auto;
 }
 
-.banner-text {
-  display: flex;
-  text-align: justify;
-}
 /* Fim do header */
 .banner {
   display: flex;
   width: 100%;
   height: 450px;
-  margin-bottom: 200px;
+  margin-bottom: 5.5%;
 }
 /* Começo do Banner */
 
@@ -50,21 +46,17 @@ body {
   margin-left: 15px;
 }
 
-.problema {
+.problema, .empresa {
   color: #69503c;
-  margin-top: 30px;
   font-size: 20px;
-  width: 100%;
+  width: 30%;
 }
 
 .empresa {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  color: #69503c;
-  font-size: 20px;
-  width: 50%;
 }
 
 .bus-img {
@@ -101,15 +93,6 @@ ul li a {
 
 ul li a:hover {
   border-bottom: 3px solid #69503c;
-}
-
-p {
-  font-family: "Poppins";
-  width: 100%;
-}
-
-.problema p {
-  width: 40%;
 }
 
 .banner .container .titulo-banner {
@@ -159,4 +142,11 @@ p {
 
 .sensores {
   list-style: circle;
+}
+
+.bannertext{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
 }
