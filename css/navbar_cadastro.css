@@ -72,5 +72,7 @@ input{
    border-style: none;
 }
 
-
+.botao p a{
+    color: rgb(102, 51, 134);
+}
   
