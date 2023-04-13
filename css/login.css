@@ -4,15 +4,33 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
 .logo{
     display: flex;
-    gap: 10px;
+    align-items: center;
+    margin: 0;
+    width: min-content;
+    height: 150px;
+    padding: 0;
+    margin: 10px 0 10px 2.5%;
+}
+
+.logo svg{
+    width: 85px;
+    height: 85px;
+    margin-right: 15px;
+}
+.logo h1{
+    font-size: 85px;
+    height: 85px;
+    margin: 0;
 }
 
 main{
     width: 100%;
-    height: 100%;
+    height: 425px;
     display: flex;
+    align-items: center;
 }
 
 .formLogin{
