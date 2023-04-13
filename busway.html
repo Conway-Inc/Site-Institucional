@@ -161,7 +161,7 @@
     var cor;
     if (eficiencia >= 90) {
       rank = "Excelente";
-      cor = "#Ce9500";
+      cor = "#0792e3";
     } else if (eficiencia >= 70) {
       rank = "Bom";
       cor = "#75dc0d";
@@ -222,12 +222,13 @@
     var possivel = 100; 
     if(eficiencia>=100){
       possivel = 0;
+      cor = "#0792e3";
     }
     const avaliacao = {
       labels: ["Otimização Atual","Otimização possível"],
       datasets: [{
         label: "A",
-        backgroundColor: [cor,"#69503c"],
+        backgroundColor: [cor,"white"],
         data: [Number(eficiencia),possivel],
         hoverOffset:4
       }

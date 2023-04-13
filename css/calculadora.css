@@ -3,6 +3,9 @@
     flex-direction: column;
     align-items: center;
     background-color: #69503c;
+    background-image: url("../images/simbg.gif");
+    background-attachment: fixed;
+    background-size: cover;
 }
 #calculadora h1{
     margin-bottom: 10px;
