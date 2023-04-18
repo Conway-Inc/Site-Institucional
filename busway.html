@@ -40,7 +40,7 @@
   </div>
   <div class="banner">
     <div class="container">
-      <div class="bannertext">
+      <div class="banner-text">
         <p class="problema">
           Em metrópoles, um problema muito recorrente é a
           <b>superlotação dos transportes públicos</b>, afinal estespossuem
@@ -103,23 +103,13 @@
       </div>
     </div>
     <div class="field">
-      <p>Distância Total Percorrida (em quilometros):</p>
+      <p>Distância Total Percorrida (em metros):</p>
       <div class="iconInput">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 512">
           <path
             d="M565.6 36.2C572.1 40.7 576 48.1 576 56V392c0 10-6.2 18.9-15.5 22.4l-168 64c-5.2 2-10.9 2.1-16.1 .3L192.5 417.5l-160 61c-7.4 2.8-15.7 1.8-22.2-2.7S0 463.9 0 456V120c0-10 6.1-18.9 15.5-22.4l168-64c5.2-2 10.9-2.1 16.1-.3L383.5 94.5l160-61c7.4-2.8 15.7-1.8 22.2 2.7zM48 136.5V421.2l120-45.7V90.8L48 136.5zM360 422.7V137.3l-144-48V374.7l144 48zm48-1.5l120-45.7V90.8L408 136.5V421.2z" />
         </svg>
         <input type="number" id="distancia">
-      </div>
-    </div>
-    <div class="field">
-      <p>Tempo de Viagem (em horas):</p>
-      <div class="iconInput">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 512">
-          <path
-            d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-        </svg>
-        <input type="number" id="tempo">
       </div>
     </div>
     <div class="field">
@@ -134,116 +124,63 @@
     </div>
     <div class="field buttons">
       <button type="button" onclick="calcularEficiencia()">Calcular</button>
-      <button type="button" onclick="calcularEficiencia()">Saiba mais</button>
+      <button type="button" onclick="saibaMais()">Saiba mais</button>
     </div>
 
     <p>A eficiência do transporte é: <span id="resultado"></span></p>
-    <p>O rank de eficiência é: <span id="rank"></span></p>
+    <p>O rank de eficiência é: <b>
+        <span id="spanRank"></span>
+      </b>
+    </p>
     <p><span id="dados"></span></p>
     <div id="div_msg"></div>
     <div id="graficos">
       <canvas id="graficoAvaliacao"></canvas>
+      <div class="tela2" id="tela2" style="display: none;">
+        <h1 id="saibaM">>Saiba Mais</h1>
+        <div class="caixa">
+            <h1>Como o projeto pode ajudar?</h1>
+            <p>O projeto pode ajudar a coletar dados de passageiros automaticamente, utilizando sensores instalados
+                nos veículos de transporte. Com esses dados, é possível obter uma visão mais precisa da eficiência
+                do transporte em tempo real, possibilitando ajustes e melhorias constantes.</p>
+        </div>
+        <div class="caixa">
+            <h1>Outros dados relevantes: </h1>
+            <ul>
+                <li>Custo médio por passageiro: R$ 5,00</li>
+                <li>Lucro médio por passageiro: R$ 2,50</li>
+                <li>Custo médio de manutenção do veículo: R$ 500,00 por mês</li>
+                <li>Custo médio de combustível: R$ 3,50 por litro</li>
+                <li>Consumo médio de combustível do veículo: 10 km/L</li>
+            </ul>
+        </div>
+        <div class="caixa">
+            <h1>Análise de Viabilidade:</h1>
+            <ul>
+                <li>Custo total do projeto: R$ 10.000,00</li>
+                <li>Economia média mensal com combustível: R$ 1.000,00</li>
+                <li>Economia média mensal com manutenção: R$ 500,00</li>
+                <li>Aumento médio de lucro por passageiro: R$ 0,50</li>
+                <li>Tempo de retorno do investimento: 12 meses</li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="tela3" id="tela3" style="display: none;">
+    <div class="resultado">
+        <div class="img">
+            <img src="img/Calculator-pana.svg">
+        </div>
+        <div class="text">
+                <p class="titulo-banner">Resultados para a minha empresa</p>
+        </div>
+    </div>
+    </div>
   </div>
-  </div>
+ </div> 
 </body>
 
 </html>
-<script>
-  function calcularEficiencia() {
-    // Obter os dados de entrada do usuário
-    var passageiros = Number(document.getElementById("passageiros").value);
-    var distancia = Number(document.getElementById("distancia").value);
-    var tempo = Number(document.getElementById("tempo").value);
-    var custo = Number(document.getElementById("custo").value);
+<script src="js/calculadora.js">
 
-    // Calcular a eficiência com base nos dados fornecidos
-    var eficiencia = (passageiros * distancia) / (tempo * custo) * 100;
-
-    // Definir o rank de eficiência com base no resultado obtido
-    var rank;
-    var cor;
-    if (eficiencia >= 90) {
-      rank = "Excelente";
-      cor = "#0792e3";
-    } else if (eficiencia >= 70) {
-      rank = "Bom";
-      cor = "#75dc0d";
-    } else if (eficiencia >= 50) {
-      rank = "Regular";
-      cor = "#F9f006";
-    } else {
-      rank = "Ruim";
-      cor = "#F90d29";
-    }
-
-    // Exibir o resultado para o usuário
-    document.getElementById("resultado").innerHTML = eficiencia.toFixed(2) + "%";
-    document.getElementById("rank").innerHTML = rank;
-
-    // Calcular o prejuízo da empresa caso não adote o projeto
-    var custoTotal = passageiros * 5; // custo médio por passageiro
-    var lucroTotal = passageiros * 2.5; // lucro médio por passageiro
-    var custoManutencao = 500; // custo médio de manutenção do veículo por mês
-    var precoCombustivel = 3.5; // preço médio do combustível por litro
-    var consumoCombustivel = 10; // consumo médio de combustível do veículo (em km/L)
-
-    var distanciaMensal = passageiros * distancia * 30; // distância percorrida mensalmente considerando 30 dias úteis
-    var litrosCombustivel = distanciaMensal / consumoCombustivel;
-    var custoCombustivel = litrosCombustivel * precoCombustivel;
-    var custoTotalMensal = custoTotal + custoManutencao + custoCombustivel;
-    var lucroTotalMensal = lucroTotal * passageiros * 30; // lucro mensal considerando 30 dias úteis
-
-    document.getElementById("dados").innerHTML = `Seu lucro total mensal é: R$${lucroTotalMensal}<br><br>
-      Seus gastos mensais considerando manutenção e combustível: R$${custoTotalMensal}<br><br>`;
-
-    var money;
-    if (custoTotalMensal > lucroTotalMensal || rank == "Ruim") {
-      document.getElementById("dados").innerHTML += `A linha está com desempenho ruim, entre em contato com a Conway para entregarmos dados que podem ajudar a melhorar a eficiência dessa linha.`
-    }
-    else {
-      if (rank == "Regular") {
-        document.getElementById("dados").innerHTML += `A linha não está eficiênte, ela pode melhorar usando nosso sistema.`
-      }
-      else {
-        if (rank == "Bom") {
-          document.getElementById("dados").innerHTML += `A linha está eficiênte, mas pode melhorar usando nosso sistema.`
-        }
-        else {
-          if (rank == "Excelente") {
-            document.getElementById("dados").innerHTML += `A linha está em sua eficiencia máxima, se você deseja manter esse padrão e se preparar para crises contate a Conway.`
-          }
-
-        }
-      }
-    }
-    div_msg.innerHTML = `Considerando o cenário atual, a empresa tem uma eficiência média de transporte de ${eficiencia.toFixed(2)}%. Se a empresa adotar o
-      projeto, é garantido um aumento inicial para ${(eficiencia + 20).toFixed(2)}%. Com base nisso, podemos fazer a seguinte
-      análise de viabilidade:`
-    gerarGrafico(eficiencia, rank, cor);
-  }
-  function gerarGrafico(eficiencia, rank, cor) {
-    var possivel = 100; 
-    if(eficiencia>=100){
-      possivel = 0;
-      cor = "#0792e3";
-    }
-    const avaliacao = {
-      labels: ["Otimização Atual","Otimização possível"],
-      datasets: [{
-        label: "A",
-        backgroundColor: [cor,"white"],
-        data: [Number(eficiencia),possivel],
-        hoverOffset:4
-      }
-      ]
-    }
-    const configAvaliacao = {
-      type: "doughnut",
-      data: avaliacao
-    }
-    const graficoAvaliacao = new Chart(
-        document.getElementById("graficoAvaliacao"),
-        configAvaliacao
-    );
-  }
 </script>
