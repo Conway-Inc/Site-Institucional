@@ -197,8 +197,9 @@ ul li a:hover {
     font-size: 70px;
     font-weight: bold;
     color: #69503C;
-    margin-top: 90px;
+    margin-top: 50px;
     margin-left: 40px;
+    margin-bottom: 0;
 }
 
 .tela3 .texto-banner {
