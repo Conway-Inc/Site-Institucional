@@ -124,7 +124,7 @@
     </div>
     <div class="field buttons">
       <button type="button" onclick="calcularEficiencia()">Calcular</button>
-      <button type="button" onclick="SaibaMais()">Saiba mais</button>
+      <button type="button" onclick="saibaMais()">Saiba mais</button>
     </div>
 
     <p>A eficiência do transporte é: <span id="resultado"></span></p>
@@ -136,6 +136,45 @@
     <div id="div_msg"></div>
     <div id="graficos">
       <canvas id="graficoAvaliacao"></canvas>
+      <div class="tela2" id="tela2" style="display: none;">
+        <h1 id="saibaM">>Saiba Mais</h1>
+        <div class="caixa">
+            <h1>Como o projeto pode ajudar?</h1>
+            <p>O projeto pode ajudar a coletar dados de passageiros automaticamente, utilizando sensores instalados
+                nos veículos de transporte. Com esses dados, é possível obter uma visão mais precisa da eficiência
+                do transporte em tempo real, possibilitando ajustes e melhorias constantes.</p>
+        </div>
+        <div class="caixa">
+            <h1>Outros dados relevantes: </h1>
+            <ul>
+                <li>Custo médio por passageiro: R$ 5,00</li>
+                <li>Lucro médio por passageiro: R$ 2,50</li>
+                <li>Custo médio de manutenção do veículo: R$ 500,00 por mês</li>
+                <li>Custo médio de combustível: R$ 3,50 por litro</li>
+                <li>Consumo médio de combustível do veículo: 10 km/L</li>
+            </ul>
+        </div>
+        <div class="caixa">
+            <h1>Análise de Viabilidade:</h1>
+            <ul>
+                <li>Custo total do projeto: R$ 10.000,00</li>
+                <li>Economia média mensal com combustível: R$ 1.000,00</li>
+                <li>Economia média mensal com manutenção: R$ 500,00</li>
+                <li>Aumento médio de lucro por passageiro: R$ 0,50</li>
+                <li>Tempo de retorno do investimento: 12 meses</li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="tela3" id="tela3" style="display: none;">
+    <div class="resultado">
+        <div class="img">
+            <img src="img/Calculator-pana.svg">
+        </div>
+        <div class="text">
+                <p class="titulo-banner">Resultados para a minha empresa</p>
+        </div>
+    </div>
     </div>
   </div>
  </div> 
