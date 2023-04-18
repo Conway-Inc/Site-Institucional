@@ -50,7 +50,7 @@
             <div class="senha">
                 Senha: <input type="password" id="ipt_senha">
             </div>
-            <button>Entrar</button>
+            <button onclick="validar_entrada()">Entrar</button>
             <a href=""><p>Recuperar senha</p></a>
         </div>
         <div class="informativo">
@@ -64,3 +64,18 @@
     
 </body>
 </html>
+<script>
+  function validar_entrada() {
+
+    const ax_email = ipt_email.value;
+    var correcao_email01 = ax_email == ""; 
+    var correcao_email02 = ax_email.indexOf('@gmail') <= -1;
+
+    if (correcao_email01) {
+      alert("Favor inserir o e-mail correspondente a sua conta.")
+    } else
+    if (correcao_email02) {
+      alert("Favor inserir o e-mail corretamente.")
+    }
+  }
+</script>

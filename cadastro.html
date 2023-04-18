@@ -88,29 +88,40 @@
     const ax_representante = ipt_representante.value;
     const ax_email = ipt_email.value;
     const ax_cpf = ipt_cpf.value;
+    const ax_celular = ipt_cel.value;
+
+    var correcao_nome_fantasia = ax_nome_fantasia == "";
+    var correcao_cnpj = ax_cnpj == "" || ax_cnpj.length > 14 || ax_cnpj < 0;
+    var correcao_representante = ax_representante == "";
+    var correcao_email = ax_email == "" || ax_email.indexOf('@gmail') <= -1;
+    var correcao_cpf = ax_cpf == "" || ax_cpf.length > 11;
+    var correcao_contato = ax_celular == "";
 
     
-    if (ax_nome_fantasia == "") {
+    if (correcao_nome_fantasia) {
 
         alert ("Favor inserir nome da empresa.")
-
     } 
-    if (ax_cnpj == "" || ax_cnpj.length > 14 || ax_cnpj < 0) {
+    if (correcao_cnpj) {
 
         alert("Favor inserir/corrigir o cnpj.")
 
     }
-    if (ax_representante == "") {
+    if (correcao_representante) {
 
         alert("Favor inserir o nome de um representante (Pessoa que terá amplo acesso e poderá conceder acesso a outros usuários).")
 
     }
-    if (ax_email == "" || ax_email.indexOf('@gmail') <= -1) {
+    if (correcao_email) {
 
         alert("Favor corrigir o e-mail (aceitamos apenas 'gmail').")
     }
-    if (ax_cpf == "" || ax_cpf.length > 11) {
+    if (correcao_cpf) {
         alert("Favor inserir corretamente o número do CPF (não inserir com traço, ponto ou barra).")
     }
+    if (correcao_contato) {
+        alert("Favor inserir um número de contato(prefencialmente, o número de um celular).")
+    }
+
   }
 </script>
