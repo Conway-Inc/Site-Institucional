@@ -54,4 +54,11 @@
     font-size: 38px;
     margin:0 40px;
     cursor: pointer;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.field button a{
+    color: white;
+    text-decoration: none;
 }
