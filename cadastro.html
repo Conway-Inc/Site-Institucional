@@ -53,21 +53,21 @@
                 
                 
             <span class="campos">Nome fantasia: <input id="ipt_nome_empresa" placeholder="nome empresa"></span>
-            <span class="campos">CNPJ: <input id="ipt_cnpj"></span>
+            <span class="campos">CNPJ: <input id="ipt_cnpj" placeholder="apenas números"></span>
             <span class="campos">Nome do representante: <input id="ipt_representante" placeholder="acesso principal"></span>
             <span class="campos">Cargo do representante: <input id="ipt_cargo" placeholder="area em que atua"></span>
             <span class="campos">E-mail: <input type="email" id="ipt_email"></span>
         </div>
         <div class="direita">
 
-            <span class="campos">CPF: <input id="ipt_cpf"></span>
+            <span class="campos">CPF: <input id="ipt_cpf" placeholder="apenas números"></span>
             <span class="campos">Celular de contato: <input id="ipt_cel" placeholder="(DDD)_____-____"></span>
             <span class="campos">Senha: <input type="password" id="ipt_senha" placeholder="•••••"></span>
             <span class="campos">Confirmar senha: <input type="password" id="ipt_confSenha" placeholder="•••••"></span>
 
             <div class="botao">
                 <p>
-                    <button>Cadastrar</button>
+                    <button onclick="validando()">Cadastrar</button>
                 </p>
                 <p>
                     <a href="login.html"> Já possuo uma conta cadastrada.</a> 
@@ -79,3 +79,38 @@
 </body>
 
 </html>
+
+<script>
+  function validando() {
+    
+    const ax_nome_fantasia = ipt_nome_empresa.value;
+    const ax_cnpj = ipt_cnpj.value;
+    const ax_representante = ipt_representante.value;
+    const ax_email = ipt_email.value;
+    const ax_cpf = ipt_cpf.value;
+
+    
+    if (ax_nome_fantasia == "") {
+
+        alert ("Favor inserir nome da empresa.")
+
+    } 
+    if (ax_cnpj == "" || ax_cnpj.length > 14 || ax_cnpj < 0) {
+
+        alert("Favor inserir/corrigir o cnpj.")
+
+    }
+    if (ax_representante == "") {
+
+        alert("Favor inserir o nome de um representante (Pessoa que terá amplo acesso e poderá conceder acesso a outros usuários).")
+
+    }
+    if (ax_email == "" || ax_email.indexOf('@gmail') <= -1) {
+
+        alert("Favor corrigir o e-mail (aceitamos apenas 'gmail').")
+    }
+    if (ax_cpf == "" || ax_cpf.length > 11) {
+        alert("Favor inserir corretamente o número do CPF (não inserir com traço, ponto ou barra).")
+    }
+  }
+</script>
