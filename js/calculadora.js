@@ -1,4 +1,11 @@
+function saibaMais() {
+  tela2.style.display = 'flex'
+  tela3.style.display = 'none'
+}
+
 function calcularEficiencia() {
+  tela2.style.display = 'none'
+  tela3.style.display = 'flex'
   // Obter os dados de entrada do usuário
   const limitePassageiros = 70;
   var passageiros = Number(document.getElementById("passageiros").value);
@@ -55,8 +62,8 @@ function calcularEficiencia() {
   var custoTotalMensal = custoTotal * 30 + custoManutencao + custoCombustivel;
 
   document.getElementById("dados").innerHTML = `
-        Seus gastos mensais considerando manutenção e combustível: 
-        R$-${custoTotalMensal.toFixed(2)}<br><br>`;
+      Seus gastos mensais considerando manutenção e combustível: 
+      R$-${custoTotalMensal.toFixed(2)}<br><br>`;
 
   var money;
   if (rank == "Ruim") {
@@ -83,10 +90,10 @@ function calcularEficiencia() {
   div_msg.innerHTML = `Considerando o cenário atual, a empresa tem uma eficiência média de transporte de ${eficiencia.toFixed(
     2
   )}%. Se a empresa adotar o
-      projeto, é garantido um aumento inicial para ${(eficiencia + 20).toFixed(
-        2
-      )}%. Com base nisso, podemos fazer a seguinte
-      análise de viabilidade:`;
+    projeto, é garantido um aumento inicial para ${(eficiencia + 20).toFixed(
+    2
+  )}%. Com base nisso, podemos fazer a seguinte
+    análise de viabilidade:`;
 
   gerarGrafico(eficiencia, rank, cor);
   tela3.style.display = "flex";
@@ -116,8 +123,4 @@ function gerarGrafico(eficiencia, rank, cor) {
     document.getElementById("graficoAvaliacao"),
     configAvaliacao
   );
-}
-
-function saibaMais() {
-  tela2.style.display = "flex";
 }
