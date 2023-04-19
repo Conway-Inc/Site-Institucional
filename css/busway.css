@@ -162,7 +162,7 @@ ul li a:hover {
 }
 
 .tela3 {
-  width: 50%;
+  width: 100%;
   background-image: url(../images/bgTextura.png);
   background-size: contain;
   background-attachment: fixed;
@@ -198,9 +198,10 @@ ul li a:hover {
   margin-top: 50px;
   margin-left: 40px;
   margin-bottom: 0;
+  width: 60%;
 }
 
-.tela3 .texto-banner {
+.tela3 .area-banner {
   display: flex;
   font-size: 25px;
   font-weight: bold;
@@ -209,6 +210,10 @@ ul li a:hover {
   margin-left: 30px;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.tela3 .texto-banner {
+  width: 60%;
 }
 
 .img {
