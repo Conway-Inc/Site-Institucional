@@ -1,11 +1,4 @@
-function saibaMais() {
-  tela2.style.display = 'flex'
-  tela3.style.display = 'none'
-}
-
 function calcularEficiencia() {
-  tela2.style.display = 'none'
-  tela3.style.display = 'flex'
   // Obter os dados de entrada do usuário
   const limitePassageiros = 70;
   var passageiros = Number(document.getElementById("passageiros").value);
@@ -22,28 +15,28 @@ function calcularEficiencia() {
     eficiencia = (eficiencia - 100) * -1;
     rank = "Superlotado";
     cor = "#0792e3";
-    resultado.style.color = "red";
-    spanRank.style.color = "red";
+    resultado.style.color = cor;
+    spanRank.style.color = cor;
   } else if (eficiencia >= 90) {
     rank = "Excelente";
     cor = "#0792e3";
-    resultado.style.color = "green";
-    spanRank.style.color = "green";
+    resultado.style.color = cor;
+    spanRank.style.color = cor;
   } else if (eficiencia >= 70) {
     rank = "Bom";
     cor = "#75dc0d";
-    resultado.style.color = "blue";
-    spanRank.style.color = "blue";
+    resultado.style.color = cor;
+    spanRank.style.color = cor;
   } else if (eficiencia >= 50) {
     rank = "Regular";
     cor = "#F9f006";
-    resultado.style.color = "yellow";
-    spanRank.style.color = "yellow";
+    resultado.style.color = cor;
+    spanRank.style.color = cor;
   } else {
     rank = "Ruim";
     cor = "#F90d29";
-    resultado.style.color = "red";
-    spanRank.style.color = "red";
+    resultado.style.color = cor;
+    spanRank.style.color = cor;
   }
 
   // Exibir o resultado para o usuário
@@ -62,8 +55,8 @@ function calcularEficiencia() {
   var custoTotalMensal = custoTotal * 30 + custoManutencao + custoCombustivel;
 
   document.getElementById("dados").innerHTML = `
-      Seus gastos mensais considerando manutenção e combustível: 
-      R$-${custoTotalMensal.toFixed(2)}<br><br>`;
+  Seus gastos mensais considerando manutenção e combustível: 
+  R$-${custoTotalMensal.toFixed(2)}<br><br>`;
 
   var money;
   if (rank == "Ruim") {
@@ -90,37 +83,36 @@ function calcularEficiencia() {
   div_msg.innerHTML = `Considerando o cenário atual, a empresa tem uma eficiência média de transporte de ${eficiencia.toFixed(
     2
   )}%. Se a empresa adotar o
-    projeto, é garantido um aumento inicial para ${(eficiencia + 20).toFixed(
-    2
-  )}%. Com base nisso, podemos fazer a seguinte
-    análise de viabilidade:`;
+        projeto, é garantido um aumento inicial para ${(
+          eficiencia + 20
+        ).toFixed(2)}%. Com base nisso, podemos fazer a seguinte
+          análise de viabilidade:`;
 
   gerarGrafico(eficiencia, rank, cor);
   tela3.style.display = "flex";
 }
+
+var ctxAvaliacao = document.getElementById("graficoAvaliacao").getContext("2d");
+ctxAvaliacao.canvas.width = 20;
+ctxAvaliacao.canvas.height = 20;
 function gerarGrafico(eficiencia, rank, cor) {
-  var possivel = 100;
-  if (eficiencia >= 100) {
-    possivel = 0;
-    cor = "#0792e3";
-  }
-  const avaliacao = {
-    labels: ["Otimização Atual", "Otimização possível"],
+  var avaliacao = {
+    labels: ["Avaliação"],
     datasets: [
       {
-        label: "A",
-        backgroundColor: [cor, "white"],
-        data: [Number(eficiencia), possivel],
+        backgroundColor: [cor, "rgba(255, 255, 255, 0)"],
+        data: [eficiencia, 100 - eficiencia],
         hoverOffset: 4,
       },
     ],
   };
-  const configAvaliacao = {
+  var configAvaliacao = {
     type: "doughnut",
     data: avaliacao,
+    // responsive: true
   };
-  const graficoAvaliacao = new Chart(
-    document.getElementById("graficoAvaliacao"),
-    configAvaliacao
-  );
+  var graficoAvaliacao = new Chart(ctxAvaliacao, configAvaliacao);
+}
+function saibaMais() {
+  tela2.style.display = "flex";
 }
