@@ -14,7 +14,7 @@ function calcularEficiencia() {
   if (eficiencia > 100) {
     eficiencia = (eficiencia - 100) * -1;
     rank = "Superlotado";
-    cor = "#0792e3";
+    cor = "#F90d29";
     resultado.style.color = cor;
     spanRank.style.color = cor;
   } else if (eficiencia >= 90) {
@@ -92,10 +92,15 @@ function calcularEficiencia() {
   tela3.style.display = "flex";
 }
 
-var ctxAvaliacao = document.getElementById("graficoAvaliacao").getContext("2d");
-ctxAvaliacao.canvas.width = 20;
-ctxAvaliacao.canvas.height = 20;
+var ctxAvaliacao = document.getElementById("ctxAvaliacao").getContext("2d");
+
+var graficoAvaliacao = new Chart(ctxAvaliacao, {
+  type: "doughnut",
+  data: [0],
+});
+
 function gerarGrafico(eficiencia, rank, cor) {
+  graficoAvaliacao.destroy();
   var avaliacao = {
     labels: ["Avaliação"],
     datasets: [
@@ -111,7 +116,7 @@ function gerarGrafico(eficiencia, rank, cor) {
     data: avaliacao,
     // responsive: true
   };
-  var graficoAvaliacao = new Chart(ctxAvaliacao, configAvaliacao);
+  graficoAvaliacao = new Chart(ctxAvaliacao, configAvaliacao);
 }
 function saibaMais() {
   tela2.style.display = "flex";
