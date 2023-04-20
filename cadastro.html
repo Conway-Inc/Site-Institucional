@@ -180,13 +180,13 @@
     var correcao_email = ax_email == "" || ax_email.indexOf('@') <= -1;
     var correcao_cpf = ax_cpf == "" || ax_cpf.length > 11 ;
     var correcao_contato = ax_celular == "";
+    var correcao_senha = ax_senha == "";
 
-    
-    var correcao_senha = ax_senha == "" || ax_email.indexOf('@') <= -1;
-    var correcao_correcao_senha = ax_confirmar_senha != ax_senha;
+    var correcao_confirmacao_senha = ax_confirmar_senha != ax_senha;
+    var correcao_confirmacao_senha2 = ax_confirmar_senha == "";
 
     var senha_correta = ax_senha.indexOf(0) >= 1 || ax_senha.indexOf(1) >= 1 || ax_senha.indexOf(2) >= 1 || ax_senha.indexOf(3) >= 1 || ax_senha.indexOf(4) >= 1 || ax_senha.indexOf(5) >= 1 || ax_senha.indexOf(6) >= 1 || ax_senha.indexOf(7) >= 1 || ax_senha.indexOf(8) >= 1 || ax_senha.indexOf(9) >= 1;
-
+    
     var senha_correta02 = ax_senha.indexOf("*") == 1 || ax_senha.indexOf("#") == 1 || ax_senha.indexOf("_") >= 1;
     
     if (correcao_nome_fantasia) {
@@ -218,7 +218,13 @@
         alert("Insira uma senha, para a segurança de seus dados.")
     }
     if (senha_correta == false && senha_correta02 == false) {
-        alert("Insira prlo menos um número e um caracter espercial (*, # ou _ )")
+        alert("Insira pelo menos um número e um caracter espercial (*, # ou _ )")
+    }
+    if (correcao_confirmacao_senha) {
+      alert("A senha inserida está diferente da senha inserida anteriormente. Favor corrigir.")
+    }
+    if (correcao_confirmacao_senha2) {
+      alert("Por favor, confirme a senha.")
     }
 
   }

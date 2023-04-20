@@ -150,14 +150,20 @@
   function validar_entrada() {
 
     const ax_email = ipt_email.value;
+    const ax_confirmar_senha = ipt_confSenha.value;
+
     var correcao_email01 = ax_email == ""; 
-    var correcao_email02 = ax_email.indexOf('@gmail') <= -1;
+    var correcao_email02 = ax_email.indexOf('@') <= -1;
+    var correcao_senha = ax_senha == "";
 
     if (correcao_email01) {
       alert("Favor inserir o e-mail correspondente a sua conta.")
     } else
     if (correcao_email02) {
       alert("Favor inserir o e-mail corretamente.")
+    }
+    if (correcao_senha) {
+      alert("Insira sua senha para ter acesso a sua conta.")
     }
   }
 </script>
