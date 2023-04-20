@@ -4,6 +4,9 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.container{
+    padding: 20px 0;
+}
 
 .logo{
     display: flex;
@@ -43,7 +46,11 @@ main{
 }
 
 .formLogin button{
-    width: 15%;
+    height: fit-content;
+    font-size: 20px;
+    padding: 0 10px;
+    text-decoration: none;
+    border-radius: 15px;
 }
 
 .email, .senha{
@@ -56,7 +63,7 @@ main{
     padding-top: 0;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     text-align: start;
 }
 
@@ -64,10 +71,7 @@ main{
     margin: 0;
     padding-bottom: 20px;
     font-weight: 500;
-}
-
-.informativo button{
-    align-self: center;
+    align-self: flex-start;
 }
 
 input{
@@ -86,6 +90,7 @@ button{
     background-color: #69503c;
     height: 25px;
     text-decoration: underline;
+    padding: 0 15px;
 }
 
 button:hover{
@@ -95,10 +100,5 @@ button:hover{
 a p{
     text-decoration: underline;
     color: rgb(102, 51, 134);
-}
-
-.informativo a{
-    display: flex;
-    justify-content: center;
-    width: 87%;
+    margin: 10px;
 }
