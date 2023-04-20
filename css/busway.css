@@ -166,8 +166,8 @@ ul li a:hover {
   background-image: url(../images/bgTextura.png);
   background-size: contain;
   background-attachment: fixed;
-  height: 300px;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .tela3 h1 {
@@ -213,7 +213,7 @@ ul li a:hover {
 }
 
 .tela3 .texto-banner {
-  width: 60%;
+  width: 850px;
 }
 
 .img {
@@ -352,6 +352,7 @@ body {
 canvas {
   width: 400px !important;
   height: 400px !important;
+  margin-left: 200px;
 }
 
 .text {
