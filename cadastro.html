@@ -89,18 +89,28 @@
     const ax_email = ipt_email.value;
     const ax_cpf = ipt_cpf.value;
     const ax_celular = ipt_cel.value;
+    const ax_senha = ipt_senha.value;
+    const ax_confirmar_senha = ipt_confSenha.value;
 
     var correcao_nome_fantasia = ax_nome_fantasia == "";
     var correcao_cnpj = ax_cnpj == "" || ax_cnpj.length > 14 || ax_cnpj < 0;
     var correcao_representante = ax_representante == "";
-    var correcao_email = ax_email == "" || ax_email.indexOf('@gmail') <= -1;
-    var correcao_cpf = ax_cpf == "" || ax_cpf.length > 11;
+    var correcao_email = ax_email == "" || ax_email.indexOf('@') <= -1;
+    var correcao_cpf = ax_cpf == "" || ax_cpf.length > 11 ;
     var correcao_contato = ax_celular == "";
 
+    
+    var correcao_senha = ax_senha == "" || ax_email.indexOf('@') <= -1;
+    var correcao_correcao_senha = ax_confirmar_senha != ax_senha;
+
+    var senha_correta = ax_senha.indexOf(0) >= 1 || ax_senha.indexOf(1) >= 1 || ax_senha.indexOf(2) >= 1 || ax_senha.indexOf(3) >= 1 || ax_senha.indexOf(4) >= 1 || ax_senha.indexOf(5) >= 1 || ax_senha.indexOf(6) >= 1 || ax_senha.indexOf(7) >= 1 || ax_senha.indexOf(8) >= 1 || ax_senha.indexOf(9) >= 1;
+
+    var senha_correta02 = ax_senha.indexOf("*") == 1 || ax_senha.indexOf("#") == 1 || ax_senha.indexOf("_") >= 1;
     
     if (correcao_nome_fantasia) {
 
         alert ("Favor inserir nome da empresa.")
+
     } 
     if (correcao_cnpj) {
 
@@ -114,13 +124,19 @@
     }
     if (correcao_email) {
 
-        alert("Favor corrigir o e-mail (aceitamos apenas 'gmail').")
+        alert("Favor corrigir o e-mail.")
     }
     if (correcao_cpf) {
         alert("Favor inserir corretamente o número do CPF (não inserir com traço, ponto ou barra).")
     }
     if (correcao_contato) {
         alert("Favor inserir um número de contato(prefencialmente, o número de um celular).")
+    }
+    if (correcao_senha) {
+        alert("Insira uma senha, para a segurança de seus dados.")
+    }
+    if (senha_correta == false && senha_correta02 == false) {
+        alert("Insira prlo menos um número e um caracter espercial (*, # ou _ )")
     }
 
   }
