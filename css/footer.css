@@ -54,7 +54,10 @@ footer h2 {
 
 .paiFooter ul li a {
   text-decoration: none;
+  text-transform: none;
+  font-size: 16px;
   color: white;
+  border: none;
 }
 
 .paiFooter ul li a:hover {
