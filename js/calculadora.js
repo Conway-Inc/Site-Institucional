@@ -62,8 +62,8 @@ function calcularEficiencia() {
     var money;
     if (rank == "Ruim") {
       document.getElementById(
-        ).innerHTML += `A linha está com desempenho ruim, entre em contato com a Conway para entregarmos dados que podem ajudar a melhorar a eficiência dessa linha.`;
         "dados"
+        ).innerHTML += `A linha está com desempenho ruim, entre em contato com a Conway para entregarmos dados que podem ajudar a melhorar a eficiência dessa linha.`;
     } else if (rank == "Regular") {
       document.getElementById(
         "dados"
@@ -130,6 +130,18 @@ function gerarGrafico(eficiencia, rank, cor) {
   };
   graficoAvaliacao = new Chart(ctxAvaliacao, configAvaliacao);
 }
+var saibaMaisAberto = false;
 function saibaMais() {
-  tela2.style.display = "flex";
+  if(saibaMaisAberto == false){
+    tela2.style.display = "flex";
+    btnSaibaMais.style = "background-color:#69503c";
+    btnSaibaMais.innerHTML = '<a href="busway.html#calculadora">Fechar</a>';
+    saibaMaisAberto = true;
+  }
+  else{
+    tela2.style.display = "none";
+    btnSaibaMais.style = "background-color:#B2957F";
+    btnSaibaMais.innerHTML = '<a href="busway.html#tela2">Saiba Mais</a>';
+    saibaMaisAberto = false;
+  }
 }

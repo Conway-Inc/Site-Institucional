@@ -40,7 +40,6 @@
   </div>
   <div class="banner">
     <div class="container">
-      <div class="banner-text">
         <p class="problema">
           Em metrópoles, um problema muito recorrente é a
           <b>superlotação dos transportes públicos</b>, afinal estespossuem
@@ -58,35 +57,32 @@
             O BusWay auxiliá a empresa interessada a administrar melhor suas
             linhas, visando reduzir as perdas para quase 0.
           </p>
-          <div class="rota-img">
-            <img src="images/rota.svg" alt="rota" />
-          </div>
+          <img src="images/rota.svg" alt="rota" />
         </div>
-      </div>
     </div>
   </div>
   <div class="banner">
-    <div class="container">
-      <div class="como-funciona">
-        <p class="titulo-banner">Como funciona?</p>
-        <p class="texto-banner">
-          Serão instalados três sensores no veículo, são esses:
-        </p>
-        <ul class="sensores">
-          <li>
-            <b>Sensor 1:</b> Estará localizado na porta de entrada e ele
-            verificará se as portas forem abertas;
-          </li>
-          <li>
-            <b>Sensor 2:</b> Também estará localizado na porta de entrada mas
-            este contabilizará as entradas;
-          </li>
-          <li>
-            <b>Sensor 3:</b>Estará localizado na porta de saída contabilizando
-            o número total de passageiros que deixaram o transporte.
-          </li>
-        </ul>
-      </div>
+    <div class="container comoFunciona">
+      <div class="container topicos">
+          <p class="titulo-banner">Como funciona?</p>
+          <p class="texto-banner">
+            Serão instalados três sensores no veículo, são esses:
+          </p>
+          <ul class="sensores">
+            <li>
+              <b>Sensor 1:</b> Estará localizado na porta de entrada e ele
+              verificará se as portas forem abertas;
+            </li>
+            <li>
+              <b>Sensor 2:</b> Também estará localizado na porta de entrada mas
+              este contabilizará as entradas;
+            </li>
+            <li>
+              <b>Sensor 3:</b>Estará localizado na porta de saída contabilizando
+              o número total de passageiros que deixaram o transporte.
+            </li>
+          </ul>
+        </div>
       <div class="circle-img"></div>
     </div>
   </div>
@@ -124,7 +120,7 @@
     </div>
     <div class="field buttons">
       <button type="button" onclick="calcularEficiencia()"><a href="busway.html#tela3">Calcular</a></button>
-      <button type="button" onclick="saibaMais()"><a href="busway.html#tela2">Saiba Mais</a></button>
+      <button type="button" onclick="saibaMais()" id="btnSaibaMais"><a href="busway.html#tela2">Saiba Mais</a></button>
       <div id="div_msg"></div>
     </div>
 
@@ -133,7 +129,7 @@
   <div class="tela2" id="tela2" style="display: none;">
     <div class="caixa">
       <h1>Como o projeto pode ajudar?</h1>
-      <p class="caixa1">O projeto pode ajudar a coletar dados de passageiros automaticamente, utilizando sensores
+      <p>O projeto pode ajudar a coletar dados de passageiros automaticamente, utilizando sensores
         instalados
         nos veículos de transporte. Com esses dados, é possível obter uma visão mais precisa da eficiência
         do transporte em tempo real, possibilitando ajustes e melhorias constantes.</p>
@@ -161,31 +157,27 @@
   </div>
 
   <div class="tela3" id="tela3" style="display: none;">
-    <div class="resultado">
-      <div class="text">
+      <div class="resultados">
         <p class="titulo-banner">Resultados para a minha empresa</p>
         <div class="area-banner">
           <div class="texto-banner">
-
             <p>A eficiência do transporte é: <span id="resultado"></span></p>
             <p>O rank de eficiência é: <b>
               <span id="spanRank"></span>
             </b>
-             </p>
-            <p><span id="dados"></span></p>
-            <div id="div_msg"></div>
-          </div>
-        <canvas id="ctxAvaliacao"></canvas>
+          </p>
+          <p><span id="dados"></span></p>
+          <div id="div_msg"></div>
         </div>
-      </div>
-          
-      </div>
-    </div>
-    <div class="footer">
-      <div class="container">
-        <p> Conway 2023 @ v.2.0.0 </p>
+        <canvas id="ctxAvaliacao"></canvas>
       </div>
     </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <p> Conway 2023 @ v.2.0.0 </p>
+    </div>
+  </div>
   </div>
   </div>
   </div>
@@ -194,6 +186,6 @@
 </html>
 
 <script src="js/calculadora.js">
-  
+
 
 </script>

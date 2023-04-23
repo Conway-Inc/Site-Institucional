@@ -9,17 +9,15 @@ body {
   background-attachment: fixed;
 }
 
-.container {
-  width: 90%;
-  margin: auto;
+p{
+  margin: 0;
 }
 
 /* Fim do header */
 .banner {
   display: flex;
   width: 100%;
-  height: 450px;
-  margin-bottom: 5.5%;
+  margin: 20px 0;
 }
 
 /* Começo do Banner */
@@ -27,52 +25,71 @@ body {
 .banner .container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  text-align: justify;
 }
 
-.bus-img .titulo-banner {
+.titulo-banner {
   font-family: "Agrandir Regular";
   font-size: 100px;
   font-weight: bold;
   color: #69503c;
-  width: 300px;
 }
 
 .banner .container .texto-banner {
   font-size: 30px;
   font-weight: bold;
   color: #69503c;
-  width: 300px;
-  margin-right: auto;
-  margin-top: 20px;
-  margin-left: 15px;
 }
 
 .problema,
 .empresa {
   color: #69503c;
   font-size: 20px;
-  width: 30%;
+  margin: 0 10px;
+  height: fit-content;
 }
-
+.problema{
+  width: 40%;
+}
 .empresa {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  width: 40%;
+}
+.empresa img{
+  height: 250px;
+}
+.circle-img {
+  background-image: url(../images/bus.jpg);
+  background-size: cover;
+  border-radius: 100%;
+  margin: 0 50px;
+  width: 240px;
+  height: 240px;
 }
 
 .bus-img {
   display: flex;
-  padding-left: 125px;
-  padding-top: 15px;
+  align-items: center;
+  padding: 15px 125px;
 }
 
 .bus-img img {
   margin-right: 40px;
 }
 
+.comoFunciona{
+  align-items: center;
+}
+.topicos{
+  width: 60%;
+  flex-direction: column !important;
+}
 .rota-img img {
-  width: 50%;
+  width: 40%;
 }
 
 .banner-text b {
@@ -102,16 +119,12 @@ ul li a:hover {
   font-size: 100px;
   font-weight: bold;
   color: #69503c;
-  margin-left: 5px;
-  margin-bottom: 10px;
-  margin-top: -80px;
 }
 
 .banner .container .texto-banner {
   font-family: "Agrandir Regular";
   font-size: 25px;
   color: #69503c;
-  margin-top: 10px;
 }
 
 .banner .container .como-funciona {
@@ -123,7 +136,6 @@ ul li a:hover {
 
 .sensores {
   color: #69503c;
-  margin-top: 20px;
   font-size: 20px;
 }
 
@@ -131,26 +143,10 @@ ul li a:hover {
   display: flex;
   flex-direction: column;
   margin-bottom: 5px;
-  width: 60%;
-}
-
-.circle-img {
-  background-image: url(../images/bus.jpg);
-  height: 500px;
-  width: 500px;
-  background-size: cover;
-  border-radius: 100%;
 }
 
 .sensores {
   list-style: circle;
-}
-
-.banner-text {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
 }
 
 /* Tela 3 Comandos  Resultados*/
@@ -163,11 +159,6 @@ ul li a:hover {
 
 .tela3 {
   width: 100%;
-  background-image: url(../images/bgTextura.png);
-  background-size: contain;
-  background-attachment: fixed;
-  border-radius: 5px;
-  margin-bottom: 20px;
 }
 
 .tela3 h1 {
@@ -191,29 +182,22 @@ ul li a:hover {
   object-fit: cover;
 }
 
-.tela3 .text .titulo-banner {
+.resultados{
+  width: 100%;
+  margin: 20px;
+}
+.resultados .titulo-banner {
   font-size: 70px;
   font-weight: bold;
   color: #69503c;
-  margin-top: 50px;
-  margin-left: 40px;
-  margin-bottom: 0;
-  width: 60%;
 }
-
-.tela3 .area-banner {
+.resultados .area-banner {
   display: flex;
   font-size: 25px;
   font-weight: bold;
   color: #69503c;
-  margin-right: auto;
-  margin-left: 30px;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.tela3 .texto-banner {
-  width: 850px;
 }
 
 .img {
@@ -235,40 +219,23 @@ ul li a:hover {
 
 /* Tela 2 Comandos Saiba Mais*/
 
-.tela2 img {
-  width: 150px;
-  height: 150px;
-}
-
-.tela2 .caixa1 {
-  color: white;
-  font-size: 25px;
-}
-
-.tela2 h1 {
-  color: white;
-  font-size: 25px;
-}
-
 .tela2 {
   width: 100%;
-  background-image: url(../images/bgTextura.png);
-  background-size: contain;
-  background-attachment: fixed;
-}
-
-.tela2 h1 {
-  font-size: 40px;
-  color: white;
-}
-
-.tela2 .saibaM .card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 15px;
+  padding: 10px;
 }
-
+.tela2 h1, .tela2 p, .tela2 ul{
+  color: white;
+}
+.tela2 h1 {
+  font-size: 25px;
+}
+.tela2 ul{
+  list-style: none;
+  padding: 0;
+}
 .caixa {
   display: flex;
   flex-direction: column;
@@ -286,76 +253,8 @@ ul li a:hover {
   padding: 30px;
   text-align: center;
   align-items: center;
-  margin-top: 200px;
 }
-
 .footer p {
   color: white;
   font-size: 30px;
-}
-
-.tela2 .saibaM {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 20px 15px;
-}
-
-ul {
-  list-style: none;
-  color: white;
-  font-size: 25px;
-}
-
-.caixa h1 {
-  color: white;
-}
-
-body {
-  margin: 0;
-}
-
-.tela2 {
-  width: 100%;
-  background-color: white;
-  border-bottom: 3px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-}
-
-.saibaM {
-  display: flex;
-  width: 80%;
-  max-width: 90vw;
-  margin: 0 auto;
-}
-
-.tela2 .saibaM {
-  justify-content: space-between;
-  align-items: center;
-}
-
-.caixa {
-  width: 25%;
-  height: 450px;
-}
-
-.tela2 .saibaM {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 100%;
-}
-
-canvas {
-  width: 400px !important;
-  height: 400px !important;
-  margin-left: 200px;
-}
-
-.text {
-  display: flex;
-  flex-direction: column;
 }
