@@ -38,12 +38,13 @@ const serial = async (
         console.log(`A leitura do arduino foi iniciada na porta ${portaArduino.path} utilizando Baud Rate de ${SERIAL_BAUD_RATE}`);
     });
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
-        const valores = data.split(';');
+        const valores = data
         const dht11Umidade = parseFloat(valores[0]);
         const dht11Temperatura = parseFloat(valores[1]);
         const luminosidade = parseFloat(valores[2]);
         const lm35Temperatura = parseFloat(valores[3]);
-        const chave = parseInt(valores[4]);
+        const chave = parseInt(valores);
+        // console.log(data)
 
         valoresDht11Umidade.push(dht11Umidade);
         valoresDht11Temperatura.push(dht11Temperatura);
