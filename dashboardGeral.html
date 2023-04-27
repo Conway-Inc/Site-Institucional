@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>775N - Dados Gerais</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!--Começando a barra lateral das KPIs-->
+    <div id="sidebar">
+        <div id="KPIHorarios">
+            <span>Horários Vazios</span>
+            <p>13:00</p>
+            <span>Média em horários vazios</span>
+            <p>4,5 passageiros por ponto</p>
+        </div>
+        <div id="KPIPontosRuins" class="KPIAlerta">
+            <span>Horários Vazios</span>
+            <p>19:00</p>
+            <span>Pontos ruins</span>
+            <p class="alerta">1</p>
+        </div>
+        <div id="KPIMovimentaçãoPontos">
+            <span>Ponto mais movimentado</span>
+            <p>7</p>
+            <p>Av. Rebouças, 2549</p>
+            <span>Ponto menos movimentado</span>
+            <p>2</p>
+            <p>R. Pe. Alarico, 1412</p>
+        </div>
+        <div id="KPIVeiculos" class="KPIAlerta">
+            <span>Viagens Superlotadas</span>
+            <p>Padron 0%</p>
+            <p class="alerta">Articulado 50%</p>
+        </div>
+    </div>
+    <!--Terminada a barra lateral das KPIs-->
+    <!--Início do conteúdo principal da dashboard-->
+    <div id="conteudoDashboard">
+        <!--Início do corpo da dashboard-->
+        <div id="corpoDashboard">
+            <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
+            <div id="cabecalhoDashboard">
+                <div id="tituloRota">
+                    <h1>775N</h1>
+                    <div id="infosRota">
+                        <p><i>Rota Normal</i> (10)</p>
+                        <p><u>Lgo. da Pólvora</u></p>
+                        <p>Jd. Maria Luiza</p>
+                    </div>
+                </div>
+                <span>Clique no nome de ida ou volta para trocar o sentido da rota</span>
+            </div>
+            <!--Fim do cabeçalho da dashboard-->
+            <!--Início da área do gráfico da dashboard-->
+            <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
+                <h2>Média geral dos horários da rota</h2><!--cada horário por si só.-->
+                <p>
+                    Clique em um dos horários para ver informações de cada dia em específico, 
+                    dentro de um intervalo de tempo customizável.
+                </p>
+                <canvas id="graficoRota"></canvas>
+            </div>
+            <!--Fim da área do gráfico da dashboard-->
+        </div>
+        <!--Fim do corpo da dashboard-->
+        <!--Início da barra lateral da classificação e dos veículos nessa rota-->
+            <div id="sidebarOutrosDados">
+                <div id="classificacao">
+                    <canvas id="graficoClassificacao"></canvas>
+                    <p>Classificação</p>
+                </div>
+                <div id="veiculosDashboard">
+                    <h3>Veículos</h3>
+                    <div id="tabelaVeiculosDashboard">
+                        <div id="tabelaVeiculosCabecalho" class="tabelaVeiculosLinha">
+                           <p>Placa</p>
+                            <p>Lotação</p>
+                            <p>Modelo</p>
+                        </div>
+                        <div class="tabelaVeiculosLinha">
+                            <p>CCV-4234</p>
+                            <p>80</p>
+                            <p>Padron</p>
+                        </div>
+                        <div class="tabelaVeiculosLinha">
+                            <p>EEL-6867</p>
+                            <p>80</p>
+                            <p>Padron</p>
+                        </div>
+                        <div class="tabelaVeiculosLinha">
+                            <p>EXR-4682</p>
+                            <p>90</p>
+                            <p>Articulado</p>
+                        </div>
+                    </div>
+                    <button id="btnAdicionarMaisVeiculosRota">Adicionar mais</button>
+                </div>
+                <canvas id="graficoVeiculosRota"></canvas>
+                <a href="dashboard.html">← VOLTAR</a>
+            </div>
+            <!--Fim da barra lateral dos veículos nessa rota-->
+    </div>
+    <!--Fim do conteúdo principal da dashboard-->
+</body>
+</html>

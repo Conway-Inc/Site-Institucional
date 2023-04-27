@@ -1,0 +1,215 @@
+
+.navbar {
+    display: flex;
+    margin: 10px;
+    height: 150px;
+    align-items: center;
+    margin: 10px 2.5%;
+}
+
+.navbar h1 {
+    margin: 0;
+    margin-left: 15px;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.navbar svg {
+    width: 85px;
+    height: 85px;
+    margin-right: 15px;
+}
+
+ul {
+    width: 100%;
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+li {
+    font-family: 'Poppins', sans-serif;
+
+}
+
+a {
+    font-family: 'Poppins';
+    text-decoration: none;
+    color: #69503c;
+}
+
+main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.conteudos{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content{
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    flex-wrap: wrap;
+    background-color: #E4D4C7;
+    border-radius: 20px;
+}
+
+.suasRotas{
+    margin: 0;
+    margin-left: 15px;
+    font-size: 40px;
+    font-weight: 500;
+    font-family: 'Poppins';
+    color: #69503c;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.visu01, .visu02, .visu03{
+    display: flex;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #BD916E;
+    width: 350px;
+    min-width: 350px;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    flex-wrap: wrap;
+}
+
+.visu04{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #BD916E;
+    width: 350px;
+    min-width: 350px;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F1F1F1;
+}
+
+.visu04 h2{
+    font-size: 50px;
+    margin: 0;
+    font-weight: 800;
+}
+
+.visu04 p{
+    margin: 0;
+}
+
+.tituloBus{
+    display: flex;
+    align-items: center;
+}
+
+.tituloBus p{
+    padding-left: 10px;
+}
+
+.qtdVeic{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qtdVeic h2{
+    font-size: 40px;
+    margin: 0;
+}
+
+.qtdVeic p{
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+aside{
+    background-color: #BD916E;
+    width: 20%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imgHeader{
+    background-color: white;
+    width: 80%;
+    height: 100px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgHeader img{
+    width: 90%;
+}
+
+.funcionarios{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    width: 80%;
+}
+
+aside p{
+    padding: 0;
+}
+
+aside ul{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+aside ul li{
+    font-family: 'Poppins', sans-serif;
+    list-style: disc;
+}
+
+.funcionarios p:nth-of-type(1){
+    font-size: 20px;
+}
+
+.funcionarios p:nth-of-type(2){
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.funcionarios p:nth-of-type(3){
+    margin-top: 0;
+    align-self: center;
+}
+
+aside button{
+    width: 100%;
+    background-color: white;
+    color: #69503C;
+    border: none;
+    border-radius: 30px;
+    height: 50px;
+    font-size: 15px;
+}

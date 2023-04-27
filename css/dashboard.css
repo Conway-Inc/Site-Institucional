@@ -1,215 +1,197 @@
-
-.navbar {
-    display: flex;
-    margin: 10px;
-    height: 150px;
-    align-items: center;
-    margin: 10px 2.5%;
-}
-
-.navbar h1 {
-    margin: 0;
-    margin-left: 15px;
-    font-size: 50px;
-    font-weight: 500;
-}
-
-.navbar svg {
-    width: 85px;
-    height: 85px;
-    margin-right: 15px;
-}
-
-ul {
-    width: 100%;
-    display: flex;
-    list-style: none;
-    justify-content: space-around;
-    margin-top: 40px;
-}
-
-li {
-    font-family: 'Poppins', sans-serif;
-
-}
-
-a {
+body{
     font-family: 'Poppins';
-    text-decoration: none;
-    color: #69503c;
-}
-
-main{
-    width: 100%;
     display: flex;
-    justify-content: center;
 }
 
-.conteudos{
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.content{
-    width: 75%;
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    flex-wrap: wrap;
-    background-color: #E4D4C7;
-    border-radius: 20px;
-}
-
-.suasRotas{
-    margin: 0;
-    margin-left: 15px;
-    font-size: 40px;
-    font-weight: 500;
-    font-family: 'Poppins';
-    color: #69503c;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.visu01, .visu02, .visu03{
-    display: flex;
-    color: white;
-    padding: 10px;
-    border-radius: 20px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #BD916E;
-    width: 350px;
-    min-width: 350px;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    flex-wrap: wrap;
-}
-
-.visu04{
+#sidebar{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #BD916E;
-    width: 350px;
-    min-width: 350px;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    flex-wrap: wrap;
-    padding: 10px;
-    border-radius: 20px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #F1F1F1;
-}
-
-.visu04 h2{
-    font-size: 50px;
-    margin: 0;
-    font-weight: 800;
-}
-
-.visu04 p{
-    margin: 0;
-}
-
-.tituloBus{
-    display: flex;
-    align-items: center;
-}
-
-.tituloBus p{
-    padding-left: 10px;
-}
-
-.qtdVeic{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.qtdVeic h2{
-    font-size: 40px;
-    margin: 0;
-}
-
-.qtdVeic p{
-    font-size: 20px;
-    margin: 0;
-    margin-bottom: 20px;
-}
-
-aside{
-    background-color: #BD916E;
+    background-color: #69503C;
     width: 20%;
-    border-radius: 20px;
+    padding: 10px 0;
+}
+#sidebar div{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-}
-
-.imgHeader{
-    background-color: white;
-    width: 80%;
-    height: 100px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 20px;
+    margin: 5px 15px;
+    background-color: #BD916E;
+    border-radius: 38px;
+}
+#sidebar div span, #sidebar div p{
+    color: white;
+    font-size: 18px;
+    margin: 0;
+}
+#sidebar div span{
+    font-weight: bold;
 }
 
-.imgHeader img{
+#sidebar .KPIAlerta{
+    border: solid 5px #DB0300;
+}
+#sidebar div .alerta{
+    color: #DB0300;
+    font-weight: bold;
+}
+
+#conteudoDashboard{
+    display: flex;
+    flex-direction: row;
+}
+
+#cabecalhoDashboard{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: fit-content;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+#tituloRota{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    border-radius: 0 38px 38px 0;
+    background-color: #BE383B;
+    font-family: 'Agrandir Medium';
+    padding-right: 30px;
+}
+#tituloRota h1, #tituloRota p{
+    margin: 0 10px;
+    color: white;
+}
+#tituloRota h1{
+    font-size: 58px;
+}
+#tituloRota #infosRota{
+    width: 100%;
+    margin: 10px;
+}
+#tituloRota p{
+    font-size: 22px;
+}
+#cabecalhoDashboard span{
+    width: 30%;
+    font-size: 18px;
+    color: #BD916E;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+#corpoDashboard{
+    display: flex;
+    flex-direction: column;
     width: 90%;
 }
-
-.funcionarios{
+#graficoDashboard{
     display: flex;
     flex-direction: column;
-    align-items: start;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    width: 80%;
+    align-items: center;
+    margin: 0 5px 0 20px;
 }
-
-aside p{
-    padding: 0;
-}
-
-aside ul{
-    display: flex;
-    flex-direction: column;
+#graficoDashboard h2{
     margin: 0;
-    padding: 0;
-}
-
-aside ul li{
-    font-family: 'Poppins', sans-serif;
-    list-style: disc;
-}
-
-.funcionarios p:nth-of-type(1){
-    font-size: 20px;
-}
-
-.funcionarios p:nth-of-type(2){
-    margin-bottom: 0;
-    text-align: center;
-}
-
-.funcionarios p:nth-of-type(3){
-    margin-top: 0;
-    align-self: center;
-}
-
-aside button{
-    width: 100%;
-    background-color: white;
     color: #69503C;
+    font-weight: bold;
+}
+#graficoDashboard p{
+    width: 95%;
+    margin: 5px 0 5px 0;
+    color: #BD916E;
+    text-align: justify;
+}
+#graficoRota{
+    width: 100%;
+    height: 500px;
+    background-color: #BD916E;
+}
+
+#sidebarOutrosDados{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 30%;
+    margin: 0 10px 0 5px;
+}
+#classificacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0 5px 0;
+}
+#classificacao canvas{
+    height: 110px;
+    width: 65%;
+    background-color: #BE383B;
+}
+#classificacao p{
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+#veiculosDashboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #69503C;
+    padding: 20px;
+    border-radius: 38px;
+}
+#veiculosDashboard h3, #veiculosDashboard p{
+    color: white;
+    margin: 0;
+}
+#veiculosDashboard h3{
+    font-family: 'Agrandir Medium';
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+#tabelaVeiculosDashboard{
+    width: 100%;
+}
+.tabelaVeiculosLinha{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px 0;
+    border-bottom: solid 0.5px #BD916E;
+    /*Usando 'border-bottom' tanto para as bordas aparecerem só na horizontal, quanto para as linhas mais centrais não
+    juntarem duas bordas (a top de uma e a bottom da outra) em uma borda só mais grossa*/
+}
+.tabelaVeiculosLinha p{
+    width: 30%;
+}
+#tabelaVeiculosCabecalho{
+    font-weight: bold;
+    border-top: solid 0.5px #BD916E;
+    /*Aqui é usado o 'border-top' para fechar a tabela por cima, já que só as bordas de baixo de cada linha são pintadas,
+    como descrito acima*/
+}
+#btnAdicionarMaisVeiculosRota{
+    margin-top: 15px;
     border: none;
-    border-radius: 30px;
-    height: 50px;
-    font-size: 15px;
+    border-radius: 38px;
+    padding: 5px 10px;
+    font-size: 17px;
+    background-color: #BD916E;
+    color: white;
+    font-weight: bold;
+}
+#graficoVeiculosRota{
+    background-color: #BD916E;
+    align-self: center;
+    height: 180px;
+    width: 70%;
+    margin: 10px 0;
+}
+#sidebarOutrosDados a{
+    align-self: center;
+    font-size: 22px;
 }
