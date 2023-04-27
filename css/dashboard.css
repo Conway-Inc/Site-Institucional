@@ -4,7 +4,7 @@
   font-family: "Agrandir Regular";
   src: url(../fonts/Agrandir-Regular.otf);
 }
-body, button{
+body, button, select{
     font-family: 'Poppins';
     display: flex;
 }
@@ -53,6 +53,7 @@ body, button{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     height: fit-content;
     margin-top: 15px;
     margin-bottom: 5px;
@@ -81,13 +82,38 @@ body, button{
 #tituloRota p{
     font-size: 22px;
 }
-#cabecalhoDashboard span{
+#selecionarHorario{
+    display: flex;
+    flex-direction: column;
     width: 30%;
-    font-size: 18px;
-    color: #BD916E;
+}
+#selecionarHorario p{
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+#selecionarHorario div{
+    display: flex;
+    flex-direction: row;
+}
+#selecionarHorario div select, #selecionarHorario div button{
+    background-color: #BD916E;
+    color: white;
+    border: none;
+    border-radius: 38px;
+    padding: 5px 5px;
     text-align: center;
+}
+#selecionarHorario div button{
+    padding: 10px 20px;
     font-weight: bold;
-    margin: 0 20px;
+    margin: 0 15px;
+    cursor: pointer;
+}
+details{
+    color: #BD916E;
+    font-size: 12px;
+    text-align: justify;
 }
 
 #corpoDashboard{

@@ -20,10 +20,10 @@
             <p>4,5 passageiros por ponto</p>
         </div>
         <div id="KPIPontosRuins" class="KPIAlerta">
-            <span>Horários Vazios</span>
+            <span>Horários Cheios</span>
             <p>19:00</p>
-            <span>Pontos ruins</span>
-            <p class="alerta">1</p>
+            <span>Média em horários cheios</span>
+            <p class="alerta">7 passageiros por ponto</p>
         </div>
         <div id="KPIMovimentaçãoPontos">
             <span>Ponto mais movimentado</span>
@@ -54,7 +54,21 @@
                         <p>Rio Pequeno</p>
                     </div>
                 </div>
-                <span>Clique no nome de ida ou volta para trocar o sentido da rota</span>
+                <div id="selecionarHorario">
+                    <p>Selecionar um horário</p>
+                    <div>
+                        <select>
+                            <option value="optN">Selecionar</option>
+                            <option value="opt13">13:00</option>
+                            <option value="opt19">19:00</option>
+                        </select>
+                        <a href="dashboardHora.html"><button>Ir</button></a>
+                    </div>
+                    <details>
+                        <summary>?</summary>
+                        Selecione um horário de saída para ver informações de dias específicos
+                    </details>
+                </div>
             </div>
             <!--Fim do cabeçalho da dashboard-->
             <!--Início da área do gráfico da dashboard-->
@@ -74,6 +88,11 @@
                 <div id="classificacao">
                     <canvas id="graficoClassific"></canvas>
                     <p>Classificação</p>
+                    <details>
+                        Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice 
+                        de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma 
+                        classificação baixa.
+                    </details>
                 </div>
                 <div id="veiculosDashboard">
                     <h3>Veículos</h3>
@@ -104,7 +123,7 @@
                 <div id="containerGraficoVeiculos">
                     <canvas id="graficoVeiculos"></canvas>
                 </div>
-                <a href="menuDashboard.html">← VOLTAR</a>
+                <a href="menuDashboard.html">< VOLTAR</a>
             </div>
             <!--Fim da barra lateral dos veículos nessa rota-->
     </div>
@@ -177,7 +196,8 @@
     const dadosVeiculos = {
         labels:modelos,
         datasets: [{
-                data: [2,1]
+                data: [2,1],
+                backgroundColor: ['#69503C','#BD916E']
             }
         ]
     }
