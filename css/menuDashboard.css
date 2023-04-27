@@ -51,8 +51,13 @@ main{
     justify-content: space-between;
 }
 
-.content{
+.caixaContent{
     width: 75%;
+    margin: 0;
+}
+
+.content{
+    width: 100%;
     display: flex;
     justify-content: center;
     margin: 0;
@@ -61,15 +66,38 @@ main{
     border-radius: 20px;
 }
 
-.suasRotas{
-    margin: 0;
-    margin-left: 15px;
-    font-size: 40px;
-    font-weight: 500;
-    font-family: 'Poppins';
-    color: #69503c;
+.titulos{
     width: 100%;
-    margin-bottom: 20px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.suasRotas, .suasFrotas{
+    margin: 0;
+    font-size: 35px;
+    font-weight: 600;
+    font-family: 'Poppins';
+    color: #BD916E;
+    width: 40%;
+    background-color: #E4D4C7;
+    text-align: center;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.suasFrotas{
+    background-color: rgba(228, 212, 199, 0.5);
+    color: rgba(189, 145, 110, 0.5);
+}
+
+.grafico{
+    width: 50%;
+    margin-left: 20px;
+}
+
+.suasFrotas:hover, .suasRotas:hover{
+    cursor: pointer;
 }
 
 .visu01, .visu02, .visu03{
@@ -85,6 +113,14 @@ main{
     margin-bottom: 20px;
     margin-right: 20px;
     flex-wrap: wrap;
+}
+
+.txtTitulo{
+    font-size: 35px;
+}
+
+.visu01, .visu02{
+    margin-top: 20px;
 }
 
 .visu04{
