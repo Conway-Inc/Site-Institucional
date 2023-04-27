@@ -1,4 +1,10 @@
-body{
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Agrandir Regular";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+body, button{
     font-family: 'Poppins';
     display: flex;
 }
@@ -7,7 +13,7 @@ body{
     display: flex;
     flex-direction: column;
     background-color: #69503C;
-    width: 20%;
+    width: 35%;
     padding: 10px 0;
 }
 #sidebar div{
@@ -23,7 +29,7 @@ body{
 }
 #sidebar div span, #sidebar div p{
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0;
 }
 #sidebar div span{
@@ -58,7 +64,7 @@ body{
     height: 100%;
     border-radius: 0 38px 38px 0;
     background-color: #BE383B;
-    font-family: 'Agrandir Medium';
+    font-family: 'Agrandir Regular';
     padding-right: 30px;
 }
 #tituloRota h1, #tituloRota p{
@@ -108,8 +114,7 @@ body{
 }
 #graficoRota{
     width: 100%;
-    height: 500px;
-    background-color: #BD916E;
+    background-color: white;
 }
 
 #sidebarOutrosDados{
@@ -127,9 +132,7 @@ body{
     margin: 15px 0 5px 0;
 }
 #classificacao canvas{
-    height: 110px;
     width: 65%;
-    background-color: #BE383B;
 }
 #classificacao p{
     margin: 0;
@@ -149,7 +152,7 @@ body{
     margin: 0;
 }
 #veiculosDashboard h3{
-    font-family: 'Agrandir Medium';
+    font-family: 'Agrandir Regular';
     font-size: 28px;
     margin-bottom: 10px;
 }
@@ -166,6 +169,7 @@ body{
     juntarem duas bordas (a top de uma e a bottom da outra) em uma borda só mais grossa*/
 }
 .tabelaVeiculosLinha p{
+    font-size: 12px;
     width: 30%;
 }
 #tabelaVeiculosCabecalho{
@@ -174,7 +178,7 @@ body{
     /*Aqui é usado o 'border-top' para fechar a tabela por cima, já que só as bordas de baixo de cada linha são pintadas,
     como descrito acima*/
 }
-#btnAdicionarMaisVeiculosRota{
+#btnAdicionarMaisVeiculos{
     margin-top: 15px;
     border: none;
     border-radius: 38px;
@@ -184,12 +188,10 @@ body{
     color: white;
     font-weight: bold;
 }
-#graficoVeiculosRota{
-    background-color: #BD916E;
-    align-self: center;
-    height: 180px;
-    width: 70%;
+#containerGraficoVeiculos{
+    align-self: center; 
     margin: 10px 0;
+    width: 50%;
 }
 #sidebarOutrosDados a{
     align-self: center;

@@ -7,6 +7,8 @@
     <title>775N - Dados Gerais</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
 </head>
 <body>
     <!--Começando a barra lateral das KPIs-->
@@ -33,8 +35,8 @@
         </div>
         <div id="KPIVeiculos" class="KPIAlerta">
             <span>Viagens Superlotadas</span>
+            <p class="alerta">Básico 50%</p>
             <p>Padron 0%</p>
-            <p class="alerta">Articulado 50%</p>
         </div>
     </div>
     <!--Terminada a barra lateral das KPIs-->
@@ -48,8 +50,8 @@
                     <h1>775N</h1>
                     <div id="infosRota">
                         <p><i>Rota Normal</i> (10)</p>
-                        <p><u>Lgo. da Pólvora</u></p>
-                        <p>Jd. Maria Luiza</p>
+                        <p><u>Term. Vila Madalena</u></p>
+                        <p>Rio Pequeno</p>
                     </div>
                 </div>
                 <span>Clique no nome de ida ou volta para trocar o sentido da rota</span>
@@ -70,7 +72,7 @@
         <!--Início da barra lateral da classificação e dos veículos nessa rota-->
             <div id="sidebarOutrosDados">
                 <div id="classificacao">
-                    <canvas id="graficoClassificacao"></canvas>
+                    <canvas id="graficoClassific"></canvas>
                     <p>Classificação</p>
                 </div>
                 <div id="veiculosDashboard">
@@ -83,27 +85,149 @@
                         </div>
                         <div class="tabelaVeiculosLinha">
                             <p>CCV-4234</p>
-                            <p>80</p>
-                            <p>Padron</p>
+                            <p>70</p>
+                            <p>Básico</p>
                         </div>
                         <div class="tabelaVeiculosLinha">
                             <p>EEL-6867</p>
-                            <p>80</p>
-                            <p>Padron</p>
+                            <p>70</p>
+                            <p>Básico</p>
                         </div>
                         <div class="tabelaVeiculosLinha">
                             <p>EXR-4682</p>
-                            <p>90</p>
-                            <p>Articulado</p>
+                            <p>80</p>
+                            <p>Padron</p>
                         </div>
                     </div>
-                    <button id="btnAdicionarMaisVeiculosRota">Adicionar mais</button>
+                    <button id="btnAdicionarMaisVeiculos">Adicionar mais</button>
                 </div>
-                <canvas id="graficoVeiculosRota"></canvas>
-                <a href="dashboard.html">← VOLTAR</a>
+                <div id="containerGraficoVeiculos">
+                    <canvas id="graficoVeiculos"></canvas>
+                </div>
+                <a href="menuDashboard.html">← VOLTAR</a>
             </div>
             <!--Fim da barra lateral dos veículos nessa rota-->
     </div>
     <!--Fim do conteúdo principal da dashboard-->
 </body>
 </html>
+<script>
+    //Gráfico geral da rota
+    const pontos = [
+        "Av José Felipe, 580",
+        "R. Pe. Alarico, 31",
+        "Av. Eng. Heitor, 1421",
+        "Av Corifeu, 1975",
+        "Av. Dr. Vital Brasil, 569",
+        "Av. Eusébio Matoso, 133",
+        "Av Rebouças, 2549",
+        "Av. Paulista, 2319",
+        "Av. Brig. Luís Antônio, 1289",
+        "Av. da Liberdade, 333"
+    ]
+    const cor1 = "#6CE5E8";
+    const cor2 = "#FFDE59";
+    const lotacaoOnibus = 80;
+    const dadosGeral = {
+        labels:pontos,
+        datasets: [{
+                label: "13:00 (CCV-4234)",
+                backgroundColor: cor1,
+                borderColor: cor1,
+                data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
+            },
+            {
+                label: "19:00 (CCV-4234)",
+                backgroundColor: cor2,
+                borderColor: cor2,
+                data: [15.3,30,37.5,45,53.5,64,61,32.5,25.5,10]
+            }
+        ]
+    }
+    const configGraficoGeral = {
+        type: "line",
+        data: dadosGeral,
+        options: {
+            scales: {
+                y: {
+                    max: lotacaoOnibus
+            }
+            }
+        }
+    }
+    const graficoGeral = new Chart(
+        document.getElementById("graficoRota"),
+        configGraficoGeral
+    );
+
+    // Gráfico dos ônibus na rota
+    // Todos os modelos:
+    // const modelos = [
+    //     "Miniônibus",
+    //     "Midiônibus",
+    //     "Básico",
+    //     "Padron",
+    //     "Articulado",
+    //     "Biarticulado"
+    // ]
+     const modelos = [
+         "Básico",
+         "Padron",
+    ]
+    const dadosVeiculos = {
+        labels:modelos,
+        datasets: [{
+                data: [2,1]
+            }
+        ]
+    }
+    const configGraficoVeiculos = {
+        type: "pie",
+        data: dadosVeiculos,
+        options: {
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    }
+    const graficoVeiculos = new Chart(
+        document.getElementById("graficoVeiculos"),
+        configGraficoVeiculos
+    );
+
+    //Gráfico classificação
+    const corClassific = '#DB0300';
+    //document.getElementById("tituloRota").style = `backgroundColor: ${corClassific}`;
+    //NAO CONSEGUI FAZER - GUS 27/04
+    const classificacao = ["Otimização Atual","Melhora possível"]
+    const dadosClassfic = {
+        labels: classificacao,
+        datasets: [{
+                backgroundColor: [corClassific,"white"],
+                borderColor: [corClassific],
+                borderWidth: "0.5",
+                data: [33,77],
+                circumference: 180,
+                rotation: 270
+            }
+        ]
+    }
+    const configGraficoClassific = {
+        type: "doughnut",
+        data: dadosClassfic,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    }
+    const graficoClassific = new Chart(
+        document.getElementById("graficoClassific"),
+        configGraficoClassific
+    );
+</script>
