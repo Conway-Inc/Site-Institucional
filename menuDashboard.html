@@ -8,6 +8,7 @@
     
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/menuDashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 <body>
@@ -37,50 +38,59 @@
     <!-- Conteúdo - Gráficos -->
     <main>
         <div class="conteudos">
-            <div class="content">
-                <h2 class="suasRotas">Suas Rotas:</h2>
-                <div class="visu01">
-                    <div class="tituloBus">
-                        <h2>775N</h2>
-                        <p>Metrô Vila Madalena/Rio Pequeno</p>
-                    </div>
-                    <div class="qtdVeic">
-                        <h2>2</h2>
-                        <p>Veículos</p>
-                    </div>
-                    <div class="grafico">
-                        <h2>GRAFICO</h2>
-                    </div>
+
+            <div class="caixaContent">
+                <div class="titulos">
+                    <h2 class="suasRotas" id="idSuasRotas" onclick="suaRota()">Suas Rotas</h2>
+                    <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">Sua Frota</h2>
                 </div>
-                <div class="visu02">
-                    <div class="tituloBus">
-                        <h2>715M</h2>
-                        <p>Largo da Pólvora/Jd. Maria Luíza</p>
+                <div class="content">
+                    <div class="visu01">
+                        <div class="tituloBus">
+                            <h2 id="titulo01" class="txtTitulo">775N</h2>
+                            <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
+                        </div>
+                        <div class="qtdVeic">
+                            <h2>2</h2>
+                            <p>Veículos</p>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico01"></canvas>
+                            <p>Ruim</p>
+                        </div>
                     </div>
-                    <div class="qtdVeic">
-                        <h2>8</h2>
-                        <p>Veículos</p>
+                    <div class="visu02">
+                        <div class="tituloBus">
+                            <h2 id="titulo02" class="txtTitulo">715M</h2>
+                            <p id="info02">Largo da Pólvora/Jd. Maria Luíza</p>
+                        </div>
+                        <div class="qtdVeic">
+                            <h2>8</h2>
+                            <p>Veículos</p>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico02"></canvas>
+                            <p>Ideal</p>
+                        </div>
                     </div>
-                    <div class="grafico">
-                        <h2>GRAFICO</h2>
+                    <div class="visu03">
+                        <div class="tituloBus">
+                            <h2 id="titulo03" class="txtTitulo">8707</h2>
+                            <p id="info03">Term. Princesa Isabel/Rio Pequeno</p>
+                        </div>
+                        <div class="qtdVeic">
+                            <h2>4</h2>
+                            <p>Veículos</p>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico03"></canvas>
+                            <p>Boa</p>
+                        </div>
                     </div>
-                </div>
-                <div class="visu03">
-                    <div class="tituloBus">
-                        <h2>8707</h2>
-                        <p>Term. Princesa Isabel/Rio Pequeno</p>
+                    <div class="visu04">
+                        <h2>+</h2>
+                        <p id="info04">Adicionar nova rota</p>
                     </div>
-                    <div class="qtdVeic">
-                        <h2>4</h2>
-                        <p>Veículos</p>
-                    </div>
-                    <div class="grafico">
-                        <h2>GRAFICO</h2>
-                    </div>
-                </div>
-                <div class="visu04">
-                    <h2>+</h2>
-                    <p>Adicionar nova rota</p>
                 </div>
             </div>
 
@@ -116,3 +126,150 @@
     
 </body>
 </html>
+
+<script>
+
+    function suaFrota(){
+        idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
+        idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
+
+        idSuasFrotas.style.color = "#BD916E";
+        idSuasFrotas.style.backgroundColor = "#E4D4C7";
+
+        titulo01.innerHTML = "NAG-9496";
+        titulo02.innerHTML = "JTC-2740";
+        titulo03.innerHTML = "MOI-7346";
+
+        info01.innerHTML = "Básico";
+        info02.innerHTML = "Padron";
+        info03.innerHTML = "Super articulado";
+        info04.innerHTML = "Adicionar novo Veículo";
+
+        grafico01.style.display = "none";
+        grafico02.style.display = "none";
+        grafico03.style.display = "none";
+    }
+
+    function suaRota(){
+        idSuasFrotas.style.color = "rgba(189, 145, 110, 0.5)";
+        idSuasFrotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
+
+        idSuasRotas.style.color = "#BD916E";
+        idSuasRotas.style.backgroundColor = "#E4D4C7";
+
+        titulo01.innerHTML = "775N";
+        titulo02.innerHTML = "715M";
+        titulo03.innerHTML = "8707"
+
+        info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
+        info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
+        info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
+        info04.innerHTML = "Adicionar nova rota";
+
+        grafico01.style.display = "block";
+        grafico02.style.display = "block";
+        grafico03.style.display = "block";
+    }
+
+
+
+</script>
+<script>
+
+//Gráfico 01
+    const corClassific = '#DB0300';
+    const classificacao = ["Otimização Atual","Melhora possível"]
+    const dadosClassfic = {
+        labels: classificacao,
+        datasets: [{
+                backgroundColor: [corClassific,"#494F56"],
+                borderColor: [corClassific],
+                borderWidth: "0.5",
+                data: [33,77],
+                circumference: 180,
+                rotation: 270
+            }
+        ]
+    }
+    const configGraficoClassific = {
+        type: "doughnut",
+        data: dadosClassfic,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    }
+    const graficoClassific = new Chart(
+        document.getElementById("grafico01"),
+        configGraficoClassific
+    );
+
+    //Gráfico 02
+    const corClassific02 = '#00BF63';
+    const classificacao02 = ["Otimização Atual","Melhora possível"]
+    const dadosClassfic02 = {
+        labels: classificacao,
+        datasets: [{
+                backgroundColor: [corClassific02,"#00BF63"],
+                borderColor: [corClassific02],
+                borderWidth: "0.5",
+                data: [77,0],
+                circumference: 180,
+                rotation: 270
+            }
+        ]
+    }
+    const configGraficoClassific02 = {
+        type: "doughnut",
+        data: dadosClassfic02,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    }
+    const graficoClassific02 = new Chart(
+        document.getElementById("grafico02"),
+        configGraficoClassific02
+    );
+
+    //Gráfico 03
+    const corClassific03 = '#FFDE59';
+    const classificacao03 = ["Otimização Atual","Melhora possível"]
+    const dadosClassfic03 = {
+        labels: classificacao,
+        datasets: [{
+                backgroundColor: [corClassific03,"#494F56"],
+                borderColor: [corClassific03],
+                borderWidth: "0.5",
+                data: [66,40],
+                circumference: 180,
+                rotation: 270
+            }
+        ]
+    }
+    const configGraficoClassific03 = {
+        type: "doughnut",
+        data: dadosClassfic03,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    }
+    const graficoClassific03 = new Chart(
+        document.getElementById("grafico03"),
+        configGraficoClassific03
+    );
+    
+</script>
