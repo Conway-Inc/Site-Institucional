@@ -8,6 +8,7 @@
     
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/menuDashboard.css">
+    <link rel="stylesheet" href="css/modal.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
@@ -103,18 +104,38 @@
                 <div class="funcionarios">
                     <p>Seus Funcionários:</p>
                     <ul>
-                        <li>Ana Teixeira</li>
-                        <li>Ágatha Azul</li>
-                        <li>Tábata Amaral</li>
-                        <li>Sérgio Silva</li>
-                        <li>Fernanda Pacheco</li>
-                        <li>Luiz da Costa</li>
-                        <li>Luan D'ávila</li>
+                        <li><a href="">Ana Teixeira</a></li>
+                        <li><a href="">Ágatha Azul</a></li>
+                        <li><a href="">Tábata Amaral</a></li>
+                        <li><a href="">Sérgio Silva</a></li>
+                        <li><a href="">Fernanda Pacheco</a></li>
+                        <li><a href="">Luiz da Costa</a></li>
+                        <li><a href="">Luan D'ávila</a></li>
                     </ul>
 
                     <p><b>Clique em algum deles para gerenciá-los</b></p>
                     <p><b>ou</b></p>
-                    <button>Adicione um novo</button>
+                    <!-- Inicio do Modal para cadastrar funcionário -->
+                    <label id="btnAdicionarMaisFuncionarios" for="modal-1">Adicionar</label>
+                    <input class="modal-state" id="modal-1" type="checkbox" />
+                    <div class="modal">
+                        <label class="modal__bg" for="modal-1"></label>
+                        <div class="modal__inner">
+                            <div class="container">
+                                <label class="modal__close" for="modal-1"></label>
+                                <span class="addFuncionario"><svg style="height: 100px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" fill="rgb(255,255,255)"/></svg>
+                                    <br>
+                                    <input class="ipt_func" placeholder="Nome"><br>
+                                    <input class="ipt_func" placeholder="CPF"><br>
+                                <input class="ipt_func" placeholder="Email"><br>
+                                <input class="ipt_func" placeholder="Senha"><br>
+                                <input class="ipt_func" placeholder=" Confirme a Senha"><br>    
+                                <button class="btnFunc"><b>Registrar</b></button>
+                            </span>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- Fim do Modal para cadastrar funcionário -->
                 </div>
             </aside>
             <!-- Fim do Conteúdo - Funcionários -->
