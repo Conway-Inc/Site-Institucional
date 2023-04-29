@@ -7,6 +7,7 @@
     <title>775N - Dados Gerais</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/modal.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
 </head>
@@ -115,7 +116,23 @@
                             <p>Padron</p>
                         </div>
                     </div>
-                    <button id="btnAdicionarMaisVeiculos">Adicionar mais</button>
+                    <label class="btn" id="btnAdicionarMaisVeiculos" for="modal-1">Adicionar mais</label>
+                    <input class="modal-state" id="modal-1" type="checkbox" />
+                    <div class="modal">
+                        <label class="modal__bg" for="modal-1"></label>
+                        <div class="modal__inner">
+                            <div class="container">
+                                <label class="modal__close" for="modal-1"></label>
+                                <h2>Veículos</h2>
+                                <select name="veiculos" id="selectVeiculos">
+                                  <option value="EXR-4682 Articulado 93">EXR-4682 Articulado 93</option>
+                                  <option value="EEL-6867 Padron 80">EEL-6867 Padron 80</option>
+                                  <option value="CCV-4234 Basico 70">CCV-4234 Basico 70</option>
+                                </select>
+                                <button class="btn">Adicionar</button>
+                            </div>
+                        </div>
+                      </div>
                 </div>
                 <div id="containerGraficoVeiculos">
                     <canvas id="graficoVeiculos"></canvas>
