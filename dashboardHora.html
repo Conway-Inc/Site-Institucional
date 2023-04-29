@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>775N - Dados Gerais</title>
+    <title>775N - 12:00</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -12,31 +12,24 @@
 </head>
 <body>
     <!--Começando a barra lateral das KPIs-->
-    <div id="sidebar">
-        <div id="KPIHorariosCheios" class="KPIAlerta">
-            <span>Horário mais cheio</span>
-            <p>19:00</p>
-            <span>Média em horários cheios</span>
-            <p class="alerta">7 passageiros por ponto</p>
-        </div>
-        <div id="KPIHorariosVazios">
-            <span>Horário mais vazio</span>
-            <p>15:00</p>
-            <span>Média em horários vazios</span>
-            <p>4,5 passageiros por ponto</p>
+    <div id="sidebar" class="sidebarHora">
+        <div id="KPIDias">
+            <span>Dia Mais Cheio:</span>
+            <p>Segunda-Feira</p>
+            <span>Dia Mais Vazio:</span>
+            <p>Sábado</p>
         </div>
         <div id="KPIMovimentaçãoPontos">
-            <span>Ponto mais movimentado</span>
+            <span>Ponto de Maior Pico</span>
             <p>7</p>
             <p>Av. Rebouças, 2549</p>
-            <span>Ponto menos movimentado</span>
-            <p>2</p>
-            <p>R. Pe. Alarico, 1412</p>
+            <span>Ponto de Menor Pico</span>
+            <p>3</p>
+            <p>Av. Eng. Heitor, 1421</p>
         </div>
         <div id="KPIVeiculos" class="KPIAlerta">
-            <span>Viagens Superlotadas</span>
-            <p class="alerta">Básico 50%</p>
-            <p>Padron 0%</p>
+            <span>Percentual de viagens mal aproveitadas</span>
+            <p class="alerta">16% das viagens</p>
         </div>
     </div>
     <!--Terminada a barra lateral das KPIs-->
@@ -54,26 +47,15 @@
                         <p>Rio Pequeno</p>
                     </div>
                 </div>
-                <div id="selecionarHorario">
-                    <p>Selecionar um horário</p>
-                    <div>
-                        <select>
-                            <option value="optN">Selecionar</option>
-                            <option value="opt13">12:00</option>
-                            <option value="opt19">19:00</option>
-                        </select>
-                        <a href="dashboardHora.html"><button>Ir</button></a>
-                    </div>
-                    <details>
-                        <summary>?</summary>
-                        Selecione um horário de saída para ver informações de dias específicos
-                    </details>
+                <div id="dicaDias">
+                    Clique em um dos dias na legenda para ocultá-lo, facilitando a visualização dos demais. Para exibi-lo
+                    novamente, basta clicá-lo que ele volta a aparecer no gráfico.  
                 </div>
             </div>
             <!--Fim do cabeçalho da dashboard-->
             <!--Início da área do gráfico da dashboard-->
             <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
-                <h2>Média geral dos horários da rota</h2><!--cada horário por si só.-->
+                <h2>Média do horário das 12:00</h2><!--cada horário por si só.-->
                 <canvas id="graficoRota"></canvas>
             </div>
             <!--Fim da área do gráfico da dashboard-->
@@ -83,7 +65,7 @@
             <div id="sidebarOutrosDados">
                 <div id="classificacao">
                     <canvas id="graficoClassific"></canvas>
-                    <p>Classificação da Rota</p>
+                    <p>Classificação da hora</p>
                     <details>
                         Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice 
                         de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma 
@@ -92,17 +74,12 @@
                 </div>
                 <div id="veiculosDashboard">
                     <h3>Veículos</h3>
-                    <span>utilizados nessa rota</span>
+                    <span>utilizados nesse horário</span>
                     <div id="tabelaVeiculosDashboard">
                         <div id="tabelaVeiculosCabecalho" class="tabelaVeiculosLinha">
                            <p>Placa</p>
                             <p>Lotação</p>
                             <p>Modelo</p>
-                        </div>
-                        <div class="tabelaVeiculosLinha">
-                            <p>CCV-4234</p>
-                            <p>70</p>
-                            <p>Básico</p>
                         </div>
                         <div class="tabelaVeiculosLinha">
                             <p>EEL-6867</p>
@@ -120,7 +97,7 @@
                 <div id="containerGraficoVeiculos">
                     <canvas id="graficoVeiculos"></canvas>
                 </div>
-                <a href="menuDashboard.html">< VOLTAR</a>
+                <a href="dashboardGeral.html">< VOLTAR</a>
             </div>
             <!--Fim da barra lateral dos veículos nessa rota-->
     </div>
@@ -136,36 +113,55 @@
         "Av Corifeu, 1975",
         "Av. Dr. Vital Brasil, 569",
         "Av. Eusébio Matoso, 133",
+        "Av Rebouças, 2903",
         "Av Rebouças, 2549",
+        "Av Rebouças, 2012",
+        "Av Rebouças, 1723",
+        "Av Rebouças, 1123",
+        "Av Rebouças, 782",
+        "Av Rebouças, 201",
         "Av. Paulista, 2319",
+        "Av. Paulista, 1833",
         "Av. Brig. Luís Antônio, 1289",
         "Av. da Liberdade, 333"
     ]
-    const lotacaoOnibus = 80;
-    const dadosGeral = {
+    const lotacaoOnibus = 70;
+    const dadosHora = {
         labels:pontos,
         datasets: [{
-                label: "12:00 (CCV-4234)",
-                data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
+                label: "06/01, seg.",
+                data: [10,15,22,28,35,42,46,49,54,59,64,58,50,39,30,24,13]
             },
             {
-                label: "15:00 (CCV-4234)",
-                data: [0,5,8,10,12,19,24,19,12,7]
+                label: "07/01, ter.",
+                data: [8,13,20,25,32,36,40,43,50,53,60,53,49,40,36,29,18]
             },
             {
-                label: "19:00 (CCV-4234)",
-                data: [15.3,30,37.5,45,53.5,64,61,32.5,25.5,10]
-            }
+                label: "08/01, qua.",
+                data: [10,15,22,28,35,42,46,49,54,59,64,58,50,39,30,24,13]
+            },
+            {
+                label: "09/01, qui.",
+                data: [8,15,20,27,32,39,45,49,54,58,64,57,50,44,39,27,16]
+            },
+            {
+                label: "10/01, sex.",
+                data: [12,19,27,30,39,45,53,60,64,70,73,71,76,69,60,53,47]
+            },
+            {
+                label: "11/01, sab.",
+                data: [2,0,4,8,12,16,17,17,20,21,20,23,23,18,14,8,4]
+            },
         ]
     }
     const configGraficoGeral = {
         type: "line",
-        data: dadosGeral,
+        data: dadosHora,
         options: {
             maintainAspectRatio: false,
             scales: {
                 y: {
-                    max: (lotacaoOnibus + 25)
+                    max: (lotacaoOnibus +25)
             }
             }
         }
@@ -214,7 +210,7 @@
     );
 
     //Gráfico classificação
-    const corClassific = '#DB0300';
+    const corClassific = '#00BF63';
     //document.getElementById("tituloRota").style = `backgroundColor: ${corClassific}`;
     //NAO CONSEGUI FAZER - GUS 27/04
     const classificacao = ["Otimização Atual","Melhora possível"]
@@ -224,7 +220,7 @@
                 backgroundColor: [corClassific,"white"],
                 borderColor: [corClassific],
                 borderWidth: "0.5",
-                data: [33,77],
+                data: [77,33],
                 circumference: 180,
                 rotation: 270
             }
