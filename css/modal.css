@@ -35,7 +35,7 @@
   top: 0;
 }
 
-/* Alexandra - Mudei o width e o height e deixei comentado as medidas anteriores */
+
 .modal__inner {
   transition: top 0.25s ease;
   position: absolute;
@@ -43,15 +43,13 @@
   right: 0;
   bottom: 0;
   left: 0;
-  /* width: 20%; */
-  width: 300px;
+  width: 20%;
   margin: auto;
   overflow: auto;
   background: #BD916E;
   border-radius: 5%;
   padding: 1em 2em;
-  /* height: 40%; */
-  height: 420px;
+  height: 40%;
 }
 
 .modal__close {
@@ -135,39 +133,4 @@ p img {
     font-size: 50px;
     font-family: 'Agrandir Regular';
     color: #fff;
-}
-
-
-/* -------------------------------------------------------------------------------------- */
-
-/* Cadastro de funcionário */
-.addImgFuncionario{
-  display: flex;
-  /* align-items: center; */
-  justify-content: center;
-  /* flex-wrap: wrap; */
-  flex-direction: column;
-}
-
-.ipt_func{
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  border-radius: 7px;
-  font-size: 20px;
-  height: 30px;
-  width: 240px;
-  border-color: white;
-}
-
-.btnFunc{
-  width: 100px;
-}
-
-
-/* -------------------------------------------------------------------------------------- */
-
-/* Editar Funcionário */
-.funcionarios a{
-   color: #fff;
 }
