@@ -94,6 +94,8 @@ main{
 .grafico{
     width: 50%;
     margin-left: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .suasFrotas:hover, .suasRotas:hover{
@@ -113,6 +115,7 @@ main{
     margin-bottom: 20px;
     margin-right: 20px;
     flex-wrap: wrap;
+    height: 220px;
 }
 
 .txtTitulo{
@@ -248,4 +251,45 @@ aside button{
     border-radius: 30px;
     height: 50px;
     font-size: 15px;
+}
+
+aside button:hover{
+    cursor: pointer;
+}
+
+.classificRuim, .classificBoa, .classificIdeal{
+    font-size: 30px;
+    margin: 0;
+    position: absolute;
+    margin-top: 60px;
+}
+
+.classificRuim{
+    color: #DB0300;
+}
+
+.classificIdeal{
+    color: #00BF63;
+    -webkit-text-stroke: black 0.5px;
+}
+
+.classificBoa{
+    color: #FFDE59;
+}
+
+#rotas, #rotas02, #rotas03{
+    display: none;
+    position: absolute;
+    margin-top: 80px;
+    padding: 0;
+}
+
+.qtdVeic img{
+    display: none;
+    width: 200px;
+    margin-top: 20px;
+}
+
+#imgSupArti{
+    width: 300px;
 }
