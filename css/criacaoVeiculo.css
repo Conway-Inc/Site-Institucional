@@ -91,3 +91,7 @@ button:hover {
 #btnExcluir {
     color: #C81F1D;
 }
+
+.funcionarios a {
+    color: #fff;
+}
