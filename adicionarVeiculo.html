@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+
+        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/criacaoVeiculo.css" />
+        <link rel="stylesheet" href="css/menuDashboard.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script
+          src="https://kit.fontawesome.com/89d28f01ec.js"
+          crossorigin="anonymous"
+        ></script>
+      </head>
+      <body>
+        <!--Começo do header-->
+
+        <div class="navbar">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+              d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+              fill="rgb(105,80,60)"
+            />
+          </svg>
+
+          <h1>Adicionar novo veículo</h1>
+        </div>
+
+        <div class="header">
+          <div class="container">
+            <ul>
+              <li><a href=""> CONFIGURAÇÕES </a></li>
+              <li><a href="menuDashboard.html"> VOLTAR </a></li>
+            </ul>
+          </div>
+        </div>
+        <!--Fim do header-->
+
+        <!-- Conteúdo - Gráficos -->
+        <main>
+          <div class="conteudos">
+            <div class="caixaContent">
+              <div class="content">
+                <div class="form">
+                  <label for="iptPlaca">
+                    <p>Placa:</p>
+                    <input type="text" id="iptPlaca" />
+                  </label>
+                  <label for="selectModelo">
+                    <p>Modelo</p>
+                    <select name="selectModelo" id="selectModelo">
+                      <option value="">Superarticulado</option>
+                      <option value="">Basico</option>
+                      <option value="">Padron</option>
+                      <option value="">Biarticulado</option>
+                      <option value="">Articulado</option>
+                      <option value="">Miniônibus</option>
+                    </select>
+                  </label>
+                </div>
+                <img
+                  src="images/Superarticulado.png"
+                  alt=""
+                  id="imgOnibusCriacao"
+                />
+              </div>
+              <button>+ Adicionar</button>
+            </div>
+
+            <!-- Conteúdo - Veículos -->
+            <aside>
+              <div class="imgHeader">
+                <img src="images/transpass.png" alt="" />
+              </div>
+
+              <div class="funcionarios">
+                <p>Seus Veículos Registrados:</p>
+                <ul>
+                  <li>Veiculo: NAG-9496</li>
+                  <li>Veiculo: JTC-2740</li>
+                  <li>Veiculo: MOI-7346</li>
+                </ul>
+
+                <p><b>Clique no veículo para gerenciá-lo ou excluí-lo</b></p>
+              </div>
+            </aside>
+            <!-- Fim do Conteúdo - Veículos -->
+          </div>
+        </main>
+        <!-- Fim do Conteúdo - Gráficos -->
+      </body>
+    </html>
+  </body>
+</html>

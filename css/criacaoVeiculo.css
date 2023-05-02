@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Agrandir Regular";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+
+#imgOnibusCriacao {
+    margin-top: 100px;
+    margin-bottom: 60px;
+    width: 80%;
+    align-self: center;
+}
+
+.content {
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.conteudos .caixaContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+p, input, option, select {
+    color: #69503C;
+    font-family: 'Poppins';
+}
+
+.caixaContent button {
+    width: 15%;
+    align-self: center;
+    border-radius: 38px;
+    border-style: none;
+    background-color: #BD916E;
+    color: #fff;
+    padding: 10px 25px 10px 25px;
+    font-size: medium;
+    margin-top: 20px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.caixaContent input, select {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 150%;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.form {
+    align-items: center;
+}
+
+.funcionarios p {
+    color: #fff;
+}
+
+.lista-rotas {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-left: 215px;
+    margin-top: 20px;
+}
+
+.lista-rotas ul {
+    display: block;
+    font-weight: bold;
+    list-style: disc;
+    text-decoration: underline;
+    margin-top: 0;
+}
+
+.btn-area {
+    display: flex;
+    align-self: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+#btnExcluir {
+    color: #C81F1D;
+}
