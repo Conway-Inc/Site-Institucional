@@ -52,7 +52,7 @@
                     <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">Sua Frota</h2>
                 </div>
                 <div class="content">
-                    <div class="visu01">
+                    <a href="dashboardGeral.html"><div class="visu01">
                         <div class="tituloBus">
                             <h2 id="titulo01" class="txtTitulo">775N</h2>
                             <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
@@ -67,7 +67,7 @@
                             <canvas id="grafico01"></canvas>
                             <p class="classificRuim" id="classificRuim">Ruim</p>
                         </div>
-                    </div>
+                    </div></a>
                     <div class="visu02">
                         <div class="tituloBus">
                             <h2 id="titulo02" class="txtTitulo">715M</h2>
@@ -100,10 +100,18 @@
                             <p class="classificBoa" id="classificBoa">Boa</p>
                         </div>
                     </div>
-                    <div class="visu04">
-                        <h2>+</h2>
-                        <p id="info04">Adicionar nova rota</p>
-                    </div>
+                    <a href=""><div id="visu04">
+                        <div class="visu04">
+                            <h2>+</h2>
+                            <p>Adicionar nova rota</p>
+                        </div>
+                    </div></a>
+                    <a href="adicionarVeiculo.html"><div id="visu05">
+                        <div class="visu05">
+                            <h2>+</h2>
+                            <p>Adicionar novo veículo</p>
+                        </div>
+                    </div></a>
                 </div>
             </div>
 
@@ -217,7 +225,6 @@
         info01.innerHTML = "Básico";
         info02.innerHTML = "Padron";
         info03.innerHTML = "Super articulado";
-        info04.innerHTML = "Adicionar novo Veículo";
 
         grafico01.style.display = "none";
         grafico02.style.display = "none";
@@ -241,6 +248,9 @@
         imgBasico.style.display = "block";
         imgPadron.style.display = "block";
         imgSupArti.style.display = "block";
+
+        visu04.style.display = "none";
+        visu05.style.display = "block";
     }
 
     function suaRota() {
@@ -257,7 +267,6 @@
         info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
         info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
         info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
-        info04.innerHTML = "Adicionar nova rota";
 
         grafico01.style.display = "block";
         grafico02.style.display = "block";
@@ -281,6 +290,9 @@
         imgBasico.style.display = "none";
         imgPadron.style.display = "none";
         imgSupArti.style.display = "none";
+
+        visu04.style.display = "block";
+        visu05.style.display = "none";
     }
 
 

@@ -32,6 +32,13 @@ p, input, option, select {
     font-family: 'Poppins';
 }
 
+.caixaContent a{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+}
+
 .caixaContent button {
     width: 15%;
     align-self: center;
