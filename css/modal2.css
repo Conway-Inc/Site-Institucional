@@ -127,7 +127,11 @@ svg{
 .btnFunc{
   display: flex;
   align-self: center;
-  width: 100px;
+}
+
+.btnFunc .btn_adicionar_mais{
+  padding: 10px 15px;
+  margin: 0 5px;
 }
 
 /* .btn_adicionar_mais{

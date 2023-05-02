@@ -30,7 +30,7 @@ ul {
 
 li {
     font-family: 'Poppins', sans-serif;
-
+    cursor: pointer;
 }
 
 a {
@@ -221,7 +221,7 @@ aside ul{
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 0;
+    padding-left: 20px;
 }
 
 aside ul li{
@@ -243,17 +243,18 @@ aside ul li{
     align-self: center;
 }
 
-aside button{
+aside .btn_adicionar_mais{
+    text-align: center;
     width: 100%;
     background-color: white;
     color: #69503C;
     border: none;
     border-radius: 30px;
-    height: 50px;
     font-size: 15px;
+    padding: 10px 0;
 }
 
-aside button:hover{
+aside .btn_adicionar_mais:hover{
     cursor: pointer;
 }
 
