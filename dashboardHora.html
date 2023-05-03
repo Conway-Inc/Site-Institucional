@@ -39,7 +39,7 @@
         <div id="corpoDashboard">
             <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
             <div id="cabecalhoDashboard">
-                <div id="tituloRota">
+                <div id="tituloRota" class="tituloBom">
                     <h1>775N</h1>
                     <div id="infosRota">
                         <p><i>Rota Normal</i> (10)</p>
@@ -64,6 +64,7 @@
         <!--Início da barra lateral da classificação e dos veículos nessa rota-->
             <div id="sidebarOutrosDados">
                 <div id="classificacao">
+                    <p class="classificIdeal" id="classificIdeal">Boa</p>
                     <canvas id="graficoClassific"></canvas>
                     <p>Classificação da hora</p>
                     <details>
@@ -92,7 +93,6 @@
                             <p>Padron</p>
                         </div>
                     </div>
-                    <button id="btnAdicionarMaisVeiculos">Adicionar mais</button>
                 </div>
                 <div id="containerGraficoVeiculos">
                     <canvas id="graficoVeiculos"></canvas>
