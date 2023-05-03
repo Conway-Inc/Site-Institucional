@@ -126,7 +126,7 @@ main{
     margin-top: 20px;
 }
 
-.visu04{
+.visu04, .visu05{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,15 +142,20 @@ main{
     border-radius: 20px;
     font-family: 'Poppins', sans-serif;
     background-color: #F1F1F1;
+    height: 220px;
 }
 
-.visu04 h2{
+#visu05{
+    display: none;
+}
+
+.visu04 h2, .visu05 h2{
     font-size: 50px;
     margin: 0;
     font-weight: 800;
 }
 
-.visu04 p{
+.visu04 p, .visu05 p{
     margin: 0;
 }
 

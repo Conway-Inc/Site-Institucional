@@ -51,7 +51,7 @@
             <div class="senha">
                 Senha: <input type="password" id="ipt_senha">
             </div>
-            <button onclick="validar_entrada()">Entrar</button>
+            <a href="menuDashboard.html"><button onclick="validar_entrada()">Entrar</button></a>
             <a href=""><p>Recuperar senha</p></a>
         </div>
         <div class="informativo">
@@ -150,7 +150,7 @@
   function validar_entrada() {
 
     const ax_email = ipt_email.value;
-    const ax_confirmar_senha = ipt_confSenha.value;
+    const ax_senha = ipt_senha.value;
 
     var correcao_email01 = ax_email == ""; 
     var correcao_email02 = ax_email.indexOf('@') <= -1;
