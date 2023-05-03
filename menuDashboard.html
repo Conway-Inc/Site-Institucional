@@ -53,7 +53,7 @@
                     <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">Sua Frota</h2>
                 </div>
                 <div class="content">
-                    <a href="dashboardGeral.html"><div class="visu01">
+                    <a href="dashboardGeral.html" id="link01"><div class="visu01">
                         <div class="tituloBus">
                             <h2 id="titulo01" class="txtTitulo">775N</h2>
                             <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
@@ -62,7 +62,7 @@
                         <div class="qtdVeic">
                             <h2 id="idQtdVeic">2</h2>
                             <p id="idQtdVeic02">Veículos</p>
-                            <img src="images/Básico.png" alt="" id="imgBasico">
+                            <img src="images/modelosOnibus/Básico.png" alt="" id="imgBasico">
                         </div>
                         <div class="grafico">
                             <canvas id="grafico01"></canvas>
@@ -78,7 +78,7 @@
                         <div class="qtdVeic">
                             <h2 id="idQtdVeic03">8</h2>
                             <p id="idQtdVeic04">Veículos</p>
-                            <img src="images/Padron.png" alt="" id="imgPadron">
+                            <img src="images/modelosOnibus/Padron.png" alt="" id="imgPadron">
                         </div>
                         <div class="grafico">
                             <canvas id="grafico02"></canvas>
@@ -94,14 +94,14 @@
                         <div class="qtdVeic">
                             <h2 id="idQtdVeic05">4</h2>
                             <p id="idQtdVeic06">Veículos</p>
-                            <img src="images/Superarticulado.png" alt="" id="imgSupArti">
+                            <img src="images/modelosOnibus/Superarticulado.png" alt="" id="imgSupArti">
                         </div>
                         <div class="grafico">
                             <canvas id="grafico03"></canvas>
                             <p class="classificBoa" id="classificBoa">Boa</p>
                         </div>
                     </div>
-                    <a href=""><div id="visu04">
+                    <a href="" id="link04"><div id="visu04">
                         <div class="visu04">
                             <h2>+</h2>
                             <p>Adicionar nova rota</p>
@@ -141,7 +141,7 @@
                                         <p><b>Ana Teixeira</b></p>
                                         <p>Funcionária da transpass</p>
                                         <p>CPF: 032.704.618-01</p>
-                                        <p>Email: ana@teixeira@gmail.com</p>
+                                        <p>Email: anny.teixeiraa@gmail.com</p>
                                         <p>Senha:*********</p>
                                        
                                 <div class="btnFunc">
@@ -226,6 +226,8 @@
         info01.innerHTML = "Básico";
         info02.innerHTML = "Padron";
         info03.innerHTML = "Super articulado";
+
+        link01.href = "alterarVeiculo.html";
 
         grafico01.style.display = "none";
         grafico02.style.display = "none";
