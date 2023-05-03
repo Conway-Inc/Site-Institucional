@@ -36,14 +36,14 @@
             />
           </svg>
 
-          <h1>Alterar veículo</h1>
+          <h1>Adicionar Rota</h1>
         </div>
 
         <div class="header">
           <div class="container">
             <ul>
               <li><a href=""> CONFIGURAÇÕES </a></li>
-              <li><a href="adicionarVeiculo.html"> VOLTAR </a></li>
+              <li><a href="menuDashboard.html"> VOLTAR </a></li>
             </ul>
           </div>
         </div>
@@ -54,39 +54,29 @@
           <div class="conteudos">
             <div class="caixaContent">
               <div class="content">
-                <div class="form">
+                <div class="form" style="display: flex;">
                   <label for="iptPlaca">
-                    <p>Placa:</p>
-                    <input type="text" id="iptPlaca" />
+                    <p>Nome da rota:</p>
+                    <input type="text" placeholder="775N" id="iptPlaca" />
+                    <p>Quantidade de Veículos:</p>
+                    <input type="text" id="iptQtdveiculos" />
+                    <p>Ponto Inicial:</p>
+                    <input type="text" id="iptQtdveiculos" />
+                    <p>Ponto Final:</p>
+                    <input type="text" id="iptQtdveiculos" />
                   </label>
                   <label for="selectModelo">
-                    <p>Modelo</p>
-                    <select name="selectModelo" id="selectModelo">
-                      <option value="">Superarticulado</option>
-                      <option value="">Basico</option>
-                      <option value="">Padron</option>
-                      <option value="">Biarticulado</option>
-                      <option value="">Articulado</option>
-                      <option value="">Miniônibus</option>
-                    </select>
                   </label>
                 </div>
                 <div class="lista-rotas">
-                  <p> Rota(s): </p>
+                  <p></p>
+                  
                   <ul>
-                    <li>715M-10</li>
-                    <li>748R-10</li>
                   </ul>
                 </div>
-                <img
-                  src="images/Superarticulado.png"
-                  alt=""
-                  id="imgOnibusCriacao"
-                />
               </div>
               <div class="btn-area">
-                  <button>Alterar</button>
-                  <button id="btnExcluir">Excluir</button>
+                  <a href="menuDashboard.html"><button><b>Adicionar+</b></button></a>
               </div>
             </div>
 
@@ -97,14 +87,14 @@
               </div>
 
               <div class="funcionarios">
-                <p>Seus Veículos Registrados:</p>
+                <p>Suas Rotas:</p>
                 <ul>
-                  <li><a href="alterarVeiculo.html"> Veiculo: NAG-9496 </a></li>
-                  <li><a href="alterarVeiculo.html"> Veiculo: JTC-2740 </a></li>
-                  <li><a href="alterarVeiculo.html"> Veiculo: MOI-7346 </a></li>
+                  <li><a href="alterarVeiculo.html"> 775N-10 </a></li>
+                  <li><a href="alterarVeiculo.html"> 8707-10, 8707-31 </a></li>
+                  <li><a href="alterarVeiculo.html"> 715M-10, 748R-10 </a></li>
                 </ul>
 
-                <p><b>Clique no veículo para gerenciá-lo ou excluí-lo</b></p>
+                <p><b>Clique na rota para gerenciá-la ou excluí-la</b></p>
               </div>
             </aside>
             <!-- Fim do Conteúdo - Veículos -->
