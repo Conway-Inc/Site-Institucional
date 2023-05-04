@@ -11,6 +11,7 @@
     width: 800px;
     align-self: center;
     object-fit: contain;
+    margin-top: 80px;
 }
 
 .content {
