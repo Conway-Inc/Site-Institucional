@@ -133,7 +133,20 @@ svg{
   padding: 10px 15px;
   margin: 0 5px;
 }
+input{
+  border-style: none;
+}
 
+.btnFunc button{
+  text-align: center;
+    width: 100px;
+    background-color: white;
+    color: #69503C;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    padding: 12px 0;
+}
 /* .btn_adicionar_mais{
 
 } */
