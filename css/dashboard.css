@@ -263,3 +263,8 @@ details{
 .tituloBom{
     background-color: #00BF63 !important;
 }
+
+.imgSaibaMais{
+    width: 290%;
+    align-self:center;
+}
