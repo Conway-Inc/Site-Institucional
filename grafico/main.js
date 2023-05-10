@@ -4,7 +4,8 @@ const mysql = require('mysql2');
 
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3000;
-const HABILITAR_OPERACAO_INSERIR = false;
+var habilitarOperacaoInserir = false;
+var idFluxo = 110
 
 const serial = async (
     valoresDht11Umidade,
@@ -17,9 +18,9 @@ const serial = async (
         {
             host: 'localhost',
             port: 3306,
-            user: 'root',
+            user: 'urubu100',
             password: 'urubu100',
-            database: 'metricas'
+            database: 'buswayDb'
         }
     ).promise();
 
@@ -52,10 +53,11 @@ const serial = async (
         valoresLm35Temperatura.push(lm35Temperatura);
         valoresChave.push(chave);
 
-        if (HABILITAR_OPERACAO_INSERIR) {
+        if (habilitarOperacaoInserir) {
             await poolBancoDados.execute(
-                'INSERT INTO sensores (dht11_umidade, dht11_temperatura, luminosidade, lm35_temperatura, chave) VALUES (?, ?, ?, ?, ?)',
-                [dht11Umidade, dht11Temperatura, luminosidade, lm35Temperatura, chave]
+                'INSERT INTO Fluxo (idFluxo, passageirosFluxo, dataHoraFluxo, fkViagem) VALUES (?, ?, ?, ?)',
+                [idFluxo, chave, Date.now().toLocaleString(), 1],
+                idFluxo++
             );
         }
 
@@ -81,21 +83,29 @@ const servidor = (
     app.listen(SERVIDOR_PORTA, () => {
         console.log(`API executada com sucesso na porta ${SERVIDOR_PORTA}`);
     });
-    app.get('/sensores/dht11/umidade', (_, response) => {
-        return response.json(valoresDht11Umidade);
-    });
-    app.get('/sensores/dht11/temperatura', (_, response) => {
-        return response.json(valoresDht11Temperatura);
-    });
-    app.get('/sensores/luminosidade', (_, response) => {
-        return response.json(valoresLuminosidade);
-    });
-    app.get('/sensores/lm35/temperatura', (_, response) => {
-        return response.json(valoresLm35Temperatura);
-    });
+    // app.get('/sensores/dht11/umidade', (_, response) => {
+    //     return response.json(valoresDht11Umidade);
+    // });
+    // app.get('/sensores/dht11/temperatura', (_, response) => {
+    //     return response.json(valoresDht11Temperatura);
+    // });
+    // app.get('/sensores/luminosidade', (_, response) => {
+    //     return response.json(valoresLuminosidade);
+    // });
+    // app.get('/sensores/lm35/temperatura', (_, response) => {
+    //     return response.json(valoresLm35Temperatura);
+    // });
     app.get('/sensores/chave', (_, response) => {
         return response.json(valoresChave);
     });
+    app.get('/porta', (request, response) => {
+        return response.json(habilitarOperacaoInserir)
+    })
+    app.post('/porta/:fechar', (request, response) => {
+        req = request.params.fechar
+        habilitarOperacaoInserir = Boolean(req)
+        return response.json(habilitarOperacaoInserir)
+    })
 }
 
 (async () => {
