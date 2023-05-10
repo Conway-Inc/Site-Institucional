@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!DOCTYPE html>
     <html lang="pt-br">
       <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dashboard</title>
+        <title>Adicionar veículo</title>
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
 
         <link rel="stylesheet" href="css/header.css" />
         <link rel="stylesheet" href="css/criacaoVeiculo.css" />
@@ -60,23 +52,25 @@
                   </label>
                   <label for="selectModelo">
                     <p>Modelo</p>
-                    <select name="selectModelo" id="selectModelo">
-                      <option value="">Superarticulado</option>
-                      <option value="">Basico</option>
-                      <option value="">Padron</option>
-                      <option value="">Biarticulado</option>
-                      <option value="">Articulado</option>
-                      <option value="">Miniônibus</option>
+                    <select name="selectModelo" id="selectModelo" oninput="mudarImagem()">
+                      <option value="bas">Basico</option>
+                      <option value="micro">Micro-ônibus</option>
+                      <option value="mini">Mini-ônibus</option>
+                      <option value="midi">Midiônibus</option>
+                      <option value="padr">Padron</option>
+                      <option value="artc">Articulado</option>
+                      <option value="Sartc">Superarticulado</option>
+                      <option value="biartc">Biarticulado</option>
                     </select>
                   </label>
                 </div>
                 <img
-                  src="images/Superarticulado.png"
+                  src="images/modelosOnibus/Básico.png"
                   alt=""
                   id="imgOnibusCriacao"
                 />
               </div>
-              <button>+ Adicionar</button>
+              <a href="alterarVeiculo.html"><button>+ Adicionar</button></a>
             </div>
 
             <!-- Conteúdo - Veículos -->
@@ -102,5 +96,32 @@
         <!-- Fim do Conteúdo - Gráficos -->
       </body>
     </html>
-  </body>
-</html>
+    <script>
+      function mudarImagem(){
+        var modelo = selectModelo.value;
+        if(modelo == "micro"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Micro-ônibus.png";
+        }
+        if(modelo == "mini"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Mini-ônibus.png";
+        }
+        if(modelo == "midi"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Midiônibus.png";
+        }
+        if(modelo == "bas"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Básico.png";
+        }
+        if(modelo == "padr"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Padron.png";
+        }
+        if(modelo == "artc"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Articulado.png";
+        }
+        if(modelo == "Sartc"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Superarticulado.png";
+        }
+        if(modelo == "biartc"){
+          imgOnibusCriacao.src = "images/modelosOnibus/Biarticulado.png";
+        }
+      }
+    </script>

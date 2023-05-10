@@ -6,10 +6,12 @@
 }
 
 #imgOnibusCriacao {
-    margin-top: 100px;
-    margin-bottom: 60px;
-    width: 80%;
+    margin: 10px 0;
+    height: 150px;
+    width: 800px;
     align-self: center;
+    object-fit: contain;
+    margin-top: 80px;
 }
 
 .content {
@@ -30,6 +32,13 @@
 p, input, option, select {
     color: #69503C;
     font-family: 'Poppins';
+}
+
+.caixaContent a{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
 }
 
 .caixaContent button {
@@ -94,4 +103,12 @@ button:hover {
 
 .funcionarios a {
     color: #fff;
+}
+
+.linkRota{
+    justify-content: start !important;
+    color: black;
+}
+.linkRota:hover{
+    border: none;
 }

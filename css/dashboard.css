@@ -243,3 +243,28 @@ details{
     height: 600px !important;
 }
 
+.classificRuim, .classificBoa, .classificIdeal{
+    top: 55px;
+    font-size: 25px !important;
+    margin: 0;
+    position: absolute;
+    margin-top: 60px;
+}
+.classificRuim{
+    color: #DB0300;
+    font-size: 15px !important;
+    top: 65px;
+}
+.classificIdeal{
+    color: #00BF63;
+    -webkit-text-stroke: black 0.5px;
+}
+
+.tituloBom{
+    background-color: #00BF63 !important;
+}
+
+.imgSaibaMais{
+    width: 290%;
+    align-self:center;
+}

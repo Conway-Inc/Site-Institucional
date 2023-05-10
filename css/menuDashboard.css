@@ -30,7 +30,7 @@ ul {
 
 li {
     font-family: 'Poppins', sans-serif;
-
+    cursor: pointer;
 }
 
 a {
@@ -126,7 +126,7 @@ main{
     margin-top: 20px;
 }
 
-.visu04{
+.visu04, .visu05{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,15 +142,20 @@ main{
     border-radius: 20px;
     font-family: 'Poppins', sans-serif;
     background-color: #F1F1F1;
+    height: 220px;
 }
 
-.visu04 h2{
+#visu05{
+    display: none;
+}
+
+.visu04 h2, .visu05 h2{
     font-size: 50px;
     margin: 0;
     font-weight: 800;
 }
 
-.visu04 p{
+.visu04 p, .visu05 p{
     margin: 0;
 }
 
@@ -221,7 +226,7 @@ aside ul{
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 0;
+    padding-left: 20px;
 }
 
 aside ul li{
@@ -236,6 +241,7 @@ aside ul li{
 .funcionarios p:nth-of-type(2){
     margin-bottom: 0;
     text-align: center;
+    font-size: 80%;
 }
 
 .funcionarios p:nth-of-type(3){
@@ -243,17 +249,18 @@ aside ul li{
     align-self: center;
 }
 
-aside button{
+aside .btn_adicionar_mais{
+    text-align: center;
     width: 100%;
     background-color: white;
     color: #69503C;
     border: none;
     border-radius: 30px;
-    height: 50px;
     font-size: 15px;
+    padding: 10px 0;
 }
 
-aside button:hover{
+aside .btn_adicionar_mais:hover{
     cursor: pointer;
 }
 

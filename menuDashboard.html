@@ -15,6 +15,7 @@
 
     <link rel="stylesheet" href="css/footer.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
 
 </head>
 
@@ -36,7 +37,7 @@
         <div class="container">
             <ul>
                 <li><a href=""> CONFIGURAÇÕES </a></li>
-                <li><a href=""> SAIR </a></li>
+                <li><a href="index.html"> SAIR </a></li>
             </ul>
         </div>
     </div>
@@ -52,7 +53,7 @@
                     <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">Sua Frota</h2>
                 </div>
                 <div class="content">
-                    <div class="visu01">
+                    <a href="dashboardGeral.html" id="link01"><div class="visu01">
                         <div class="tituloBus">
                             <h2 id="titulo01" class="txtTitulo">775N</h2>
                             <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
@@ -61,13 +62,13 @@
                         <div class="qtdVeic">
                             <h2 id="idQtdVeic">2</h2>
                             <p id="idQtdVeic02">Veículos</p>
-                            <img src="images/Básico.png" alt="" id="imgBasico">
+                            <img src="images/modelosOnibus/Básico.png" alt="" id="imgBasico">
                         </div>
                         <div class="grafico">
                             <canvas id="grafico01"></canvas>
                             <p class="classificRuim" id="classificRuim">Ruim</p>
                         </div>
-                    </div>
+                    </div></a>
                     <div class="visu02">
                         <div class="tituloBus">
                             <h2 id="titulo02" class="txtTitulo">715M</h2>
@@ -77,7 +78,7 @@
                         <div class="qtdVeic">
                             <h2 id="idQtdVeic03">8</h2>
                             <p id="idQtdVeic04">Veículos</p>
-                            <img src="images/Padron.png" alt="" id="imgPadron">
+                            <img src="images/modelosOnibus/Padron.png" alt="" id="imgPadron">
                         </div>
                         <div class="grafico">
                             <canvas id="grafico02"></canvas>
@@ -93,17 +94,25 @@
                         <div class="qtdVeic">
                             <h2 id="idQtdVeic05">4</h2>
                             <p id="idQtdVeic06">Veículos</p>
-                            <img src="images/Superarticulado.png" alt="" id="imgSupArti">
+                            <img src="images/modelosOnibus/Superarticulado.png" alt="" id="imgSupArti">
                         </div>
                         <div class="grafico">
                             <canvas id="grafico03"></canvas>
                             <p class="classificBoa" id="classificBoa">Boa</p>
                         </div>
                     </div>
-                    <div class="visu04">
-                        <h2>+</h2>
-                        <p id="info04">Adicionar nova rota</p>
-                    </div>
+                    <a href="alterarRota.html" id="link04"><div id="visu04">
+                        <div class="visu04">
+                            <h2>+</h2>
+                            <p>Adicionar nova rota</p>
+                        </div>
+                    </div></a>
+                    <a href="adicionarVeiculo.html"><div id="visu05">
+                        <div class="visu05">
+                            <h2>+</h2>
+                            <p>Adicionar novo veículo</p>
+                        </div>
+                    </div></a>
                 </div>
             </div>
 
@@ -128,21 +137,16 @@
                                 <div class="container">
                                     <label class="modal__close" for="modal-3"></label>
                                     <span class="editFuncionario">
-                                        <svg class="sgv_edit" style="height: 100px"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path
-                                                d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
-                                                fill="rgb(255,255,255)" />
-                                        </svg>
+                                        <img src="images/ana.jpg">
                                         <p><b>Ana Teixeira</b></p>
                                         <p>Funcionária da transpass</p>
                                         <p>CPF: 032.704.618-01</p>
-                                        <p>Email: ana@teixeira@gmail.com</p>
+                                        <p>Email: anny.teixeira@gmail.com</p>
                                         <p>Senha:*********</p>
                                        
                                 <div class="btnFunc">
-                                    <button><b>Editar</b></button>
-                                    <button><b>Excluir</b></button>
+                                    <button class="btn_adicionar_mais"><b>Editar</b></button>
+                                    <button class="btn_adicionar_mais"><b>Excluir</b></button>
                                 </div>
 
                                     </span>
@@ -152,17 +156,17 @@
                         <!-- Fim do Modal para editar funcionário -->
                         
                         <li>Ágatha Azul</li>
-                        <li>Tábata Amaral</li>
+                        <li>Tarsila do Amaral</li>
                         <li>Sérgio Silva</li>
                         <li>Fernanda Pacheco</li>
                         <li>Luiz da Costa</li>
-                        <li>Luan D'ávila</li>
+                        <li>Marcelo D'ávila</li>
                     </ul>
 
                     <p><b>Clique em algum deles para gerenciá-los</b></p>
                     <p><b>ou</b></p>
                     <!-- Inicio do Modal para cadastrar funcionário -->
-                    <button class="btn_adicionar_mais"><label id="btnAdicionarMaisFuncionarios" for="modal-2" ><b>Adicionar</b></label></button>
+                    <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios" for="modal-2"><b>Adicionar</b></label>
                     <input class="modal-state" id="modal-2" type="checkbox" />
                     <div class="modal">
                         <label class="modal__bg" for="modal-2"></label>
@@ -222,7 +226,8 @@
         info01.innerHTML = "Básico";
         info02.innerHTML = "Padron";
         info03.innerHTML = "Super articulado";
-        info04.innerHTML = "Adicionar novo Veículo";
+
+        link01.href = "alterarVeiculo.html";
 
         grafico01.style.display = "none";
         grafico02.style.display = "none";
@@ -246,6 +251,9 @@
         imgBasico.style.display = "block";
         imgPadron.style.display = "block";
         imgSupArti.style.display = "block";
+
+        visu04.style.display = "none";
+        visu05.style.display = "block";
     }
 
     function suaRota() {
@@ -262,7 +270,6 @@
         info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
         info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
         info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
-        info04.innerHTML = "Adicionar nova rota";
 
         grafico01.style.display = "block";
         grafico02.style.display = "block";
@@ -286,6 +293,9 @@
         imgBasico.style.display = "none";
         imgPadron.style.display = "none";
         imgSupArti.style.display = "none";
+
+        visu04.style.display = "block";
+        visu05.style.display = "none";
     }
 
 
@@ -334,7 +344,7 @@
             backgroundColor: [corClassific02, "#00BF63"],
             borderColor: [corClassific02],
             borderWidth: "0.5",
-            data: [77, 0],
+            data: [100,0],
             circumference: 180,
             rotation: 270
         }

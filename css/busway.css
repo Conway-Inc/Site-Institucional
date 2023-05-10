@@ -258,3 +258,8 @@ ul li a:hover {
   color: white;
   font-size: 30px;
 }
+
+#containerGráfico{
+  width: 300px;
+  height: 300px;
+}
