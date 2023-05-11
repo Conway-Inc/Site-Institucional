@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="css/modal2.css">
     <link rel="stylesheet" href="css/modal3.css">
+    <link rel="stylesheet" href="css/modal4.css">
 
     <link rel="stylesheet" href="css/footer.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -107,6 +108,12 @@
                             <p>Adicionar nova rota</p>
                         </div>
                     </div></a>
+                    <a id="linkPonto" for="modal-4"><div id="visu04">
+                        <label class="visu04 visuPonto" for="modal-4">
+                            <h2>+</h2>
+                            <p>Adicionar novo ponto</p>
+                        </label>
+                    </div></a>
                     <a href="adicionarVeiculo.html"><div id="visu05">
                         <div class="visu05">
                             <h2>+</h2>
@@ -115,6 +122,43 @@
                     </div></a>
                 </div>
             </div>
+
+            <!-- Início do Modal para cadastrar pontos -->
+            <input class="modal-state" id="modal-4" type="checkbox" />
+            <div class="modal modal4">
+                <label class="modal__bg" for="modal-4"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-4"></label>
+
+                        <span class="addRota">
+
+                            <div class="div_ipt">
+                                <input class="ipt_func" placeholder="Logradouro">
+                                <span id="cepNumero">
+                                    <input class="ipt_func" placeholder="CEP">
+                                    <input class="ipt_func" placeholder="Número">
+                                </span>
+                                <input class="ipt_func" placeholder="Complemento"><br>
+                            </div>
+                            
+                            <div class="div_ipt">
+                                <h3>Coordenadas geográficas</h3>
+                                <p>(Opcional)</p>
+                                <span id="coordenadas">
+                                    <input class="ipt_func" placeholder="X">
+                                    <input class="ipt_func" placeholder="Y">
+                                </span>
+                            </div>
+
+                            <div class="btnRota">
+                                <button>Adicionar</button>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim do Modal para cadastrar pontos -->
 
             <!-- Conteúdo - Funcionários -->
             <aside>

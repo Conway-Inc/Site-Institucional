@@ -49,7 +49,10 @@
   background: #BD916E;
   border-radius: 5%;
   padding: 1em 2em;
-  height: 420px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .modal__close {
@@ -94,27 +97,52 @@
 
 /* -------------------------------------------------------------------------------------- */
 
-/* Cadastro de funcionário */
-.svg_edit{
-margin: 3px;
-}
-
-.editFuncionario{
+/* Cadastro de rotas */
+.addRota{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  /* flex-wrap: wrap; */
   flex-direction: column;
+  align-items: center;
+}
+.addRota h3, .addRota p{
+  font-family: 'Poppins';
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+.addRota h3{
+  font-weight: bold;
 }
 
-.editFuncionario img{
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 100px;
+.div_ipt{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.editFuncionario p{
-  margin: 10px 0;
-  margin: 10px 0;
+#cepNumero, #coordenadas{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#cepNumero :nth-child(1){
+  width: 45%;
+}
+#cepNumero :nth-child(2){
+  width: 30%;
+}
+#coordenadas *{
+  width: 40%;
+}
+
+.btnRota button{
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  width: 100px;
+  background-color: white;
+  color: #69503C;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 12px 0;
 }

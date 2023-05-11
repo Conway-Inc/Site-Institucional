@@ -133,7 +133,6 @@ main{
     align-items: center;
     color: #BD916E;
     width: 350px;
-    min-width: 350px;
     gap: 10px;
     margin-bottom: 20px;
     margin-right: 20px;
@@ -143,6 +142,20 @@ main{
     font-family: 'Poppins', sans-serif;
     background-color: #F1F1F1;
     height: 220px;
+}
+
+#visu04{
+    display: flex;
+    flex-direction: row;
+}
+
+.visu04{
+    width: 150px;
+    text-align: center;
+}
+
+.visuPonto{
+    cursor: pointer;
 }
 
 #visu05{
