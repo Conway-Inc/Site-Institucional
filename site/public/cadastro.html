@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="css/busway.css" />
+  <link rel="stylesheet" href="css/navbar_cadastro.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="icon" href="images/icon.png">
+
+  <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
+</head>
+
+</head>
+
+<body>
+  <!--Começo do header-->
+
+  <div class="navbar">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path
+        d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+        fill="rgb(105,80,60)" />
+    </svg>
+
+    <h1>Cadastro</h1>
+  </div>
+
+  <!-- https://www.rapidtables.com/web/color/RGB_Color.html -->
+
+  <div class="header">
+    <div class="container">
+      <ul>
+        <li><a href="index.html"> INÍCIO </a></li>
+        <li><a href="index.html#contato"> CONTATO </a></li>
+        <li><a href="login.html"> LOGIN </a></li>
+        <li><a href=""> SUPORTE </a></li>
+        <li>
+          <a href=""><img src="images/menu.svg" alt="" /></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--Fim do header-->
+
+  <!-- Inicio do Formulário -->
+  <div class="form">
+    <div class="esquerda">
+
+
+      <span class="campos">Nome fantasia: <input id="ipt_nome_empresa" placeholder="nome empresa"></span>
+      <span class="campos">CNPJ: <input id="ipt_cnpj" placeholder="apenas números"></span>
+      <span class="campos">Nome do representante: <input id="ipt_representante" placeholder="acesso principal"></span>
+      <span class="campos">E-mail: <input type="email" id="ipt_email" placeholder="nome@email.com"></span>
+    </div>
+    <div class="direita">
+
+      <span class="campos">CPF: <input id="ipt_cpf" placeholder="apenas números"></span>
+      <span class="campos">Celular de contato: <input id="ipt_cel" placeholder="(DDD)_____-____"></span>
+      <span class="campos">Senha: <input type="password" id="ipt_senha" placeholder="•••••"></span>
+      <span class="campos">Confirmar senha: <input type="password" id="ipt_confSenha" placeholder="•••••"></span>
+
+      <div class="botao">
+        <p>
+          <button onclick="validando()">Cadastrar</button>
+        </p>
+        <a href="login.html"> Já possuo uma conta cadastrada.</a>
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <div class="paiFooter">
+      <div class="redes">
+        <h2>Redes Sociais</h2>
+        <ul>
+          <li>
+            <i class="fa-brands fa-square-twitter fa-1xl" style="color: #ffffff"></i><a href="">Twitter</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-square-instagram fa-1xl" style="color: #ffffff"></i><a href="">Instagram</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-square-facebook fa-1xl" style="color: #ffffff"></i><a href="">Facebook</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-linkedin fa-1xl" style="color: #ffffff"></i><a href="">Linkedin</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="acesso">
+        <h2>Acesso Rápido</h2>
+        <ul>
+          <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="">Suporte</a></li>
+        </ul>
+      </div>
+
+      <div class="contato">
+        <h2 id="contato">Contato</h2>
+        <ul>
+          <li>
+            <i class="fa-brands fa-square-whatsapp fa-1xl" style="color: #ffffff"></i>(11) 94444-4444
+          </li>
+          <li>
+            <i class="fa-solid fa-square-phone fa-1xl" style="color: #ffffff"></i>(11) 4444-4444
+          </li>
+          <li>
+            <i class="fa-solid fa-square-envelope fa-1xl" style="color: #ffffff"></i><a
+              href="mailto:conwayiot.enterprise@gmail.com">E-mail</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-location-dot fa-1xl" style="color: #ffffff"></i><a
+              href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+              target="_blank">Rua Hadddock Lobo, São Paulo</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
+
+<script>
+  function validando() {
+
+    const ax_nome_fantasia = ipt_nome_empresa.value;
+    const ax_cnpj = ipt_cnpj.value;
+    const ax_representante = ipt_representante.value;
+    const ax_email = ipt_email.value;
+    const ax_cpf = ipt_cpf.value;
+    const ax_celular = ipt_cel.value;
+    const ax_senha = ipt_senha.value;
+    const ax_confirmar_senha = ipt_confSenha.value;
+
+    var correcao_nome_fantasia = ax_nome_fantasia == "";
+    var correcao_cnpj = ax_cnpj == ""
+    var correcao_cnpj02 = ax_cnpj.length > 14 || ax_cnpj < 0;
+    var correcao_representante = ax_representante == "";
+    var correcao_email = ax_email == "" || ax_email.indexOf('@') <= -1;
+    var correcao_cpf = ax_cpf == "" || ax_cpf.length > 11;
+    var correcao_contato = ax_celular == "";
+    var correcao_senha = ax_senha == "";
+
+    var correcao_confirmacao_senha = ax_confirmar_senha != ax_senha;
+    var correcao_confirmacao_senha2 = ax_confirmar_senha == "";
+
+    var senha_correta = ax_senha.indexOf(0) >= 1 || ax_senha.indexOf(1) >= 1 || ax_senha.indexOf(2) >= 1 || ax_senha.indexOf(3) >= 1 || ax_senha.indexOf(4) >= 1 || ax_senha.indexOf(5) >= 1 || ax_senha.indexOf(6) >= 1 || ax_senha.indexOf(7) >= 1 || ax_senha.indexOf(8) >= 1 || ax_senha.indexOf(9) >= 1;
+
+    var senha_correta02 = ax_senha.indexOf("*") == 1 || ax_senha.indexOf("#") == 1 || ax_senha.indexOf("_") >= 1;
+
+    if (correcao_nome_fantasia) {
+
+      alert("Favor inserir nome da empresa.")
+
+    } else
+      if (correcao_cnpj) {
+
+        alert("Favor inserir o cnpj.")
+
+      } else
+        if (correcao_cnpj) {
+
+          alert("Favor corrigir o cnpj.")
+
+        } else
+          if (correcao_representante) {
+
+            alert("Favor inserir o nome de um representante (Pessoa que terá amplo acesso e poderá conceder acesso a outros usuários).")
+
+          } else
+            if (correcao_email) {
+
+              alert("Favor corrigir o e-mail.")
+            } else
+              if (correcao_cpf) {
+                alert("Favor inserir corretamente o número do CPF (não inserir com traço, ponto ou barra).")
+              } else
+                if (correcao_contato) {
+                  alert("Favor inserir um número de contato(prefencialmente, o número de um celular).")
+                } else
+                  if (correcao_senha) {
+                    alert("Insira uma senha, para a segurança de seus dados.")
+                  } else
+                    if (senha_correta == false && senha_correta02 == false) {
+                      alert("Insira pelo menos um número e um caracter espercial (*, # ou _ )")
+                    } else
+                      if (correcao_confirmacao_senha) {
+                        alert("A senha inserida no campo 'Confirmar senha' está diferente da senha inserida anteriormente. Favor corrigir.")
+                      } else
+                        if (correcao_confirmacao_senha2) {
+                          alert("Por favor, confirme a senha.")
+                        }
+
+  }
+</script>
