@@ -34,7 +34,7 @@ CREATE TABLE Veiculo(
   fkModelo INT NOT NULL,
   fkEmpresa INT NOT NULL,
   FOREIGN KEY (fkModelo) REFERENCES Modelo(idModelo),
-  FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
+  FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpr)
 );
 
 CREATE TABLE Viagem(
@@ -51,7 +51,7 @@ CREATE TABLE Fluxo(
   idFluxo INT NOT NULL,
   entradas INT,
   saidas INT,
-  dataHoraFluxo VARCHAR(45) NOT NULL,
+  dataHoraFluxo DATETIME NOT NULL,
   fkViagem INT NOT NULL,
   PRIMARY KEY (idFluxo, fkViagem),
   FOREIGN KEY (fkViagem) REFERENCES Viagem(idViagem)
@@ -88,4 +88,3 @@ CREATE TABLE LinhaPonto(
   FOREIGN KEY (idPonto) REFERENCES Ponto(idPonto)
 );
 
-SELECT * FROM Fluxo;
