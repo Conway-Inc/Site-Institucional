@@ -2,9 +2,9 @@ CREATE DATABASE buswayDb;
 USE buswayDb;
 
 CREATE TABLE Empresa(
-  idEmpr INT PRIMARY KEY AUTO_INCREMENT,
-  cpnjEmpr CHAR(14) NOT NULL UNIQUE,
-  nomeEmpr VARCHAR(45) NOT NULL,
+  idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+  cnpj CHAR(14) NOT NULL UNIQUE,
+  nome VARCHAR(45) NOT NULL,
   foto VARCHAR(500)
 );
 
@@ -14,8 +14,8 @@ CREATE TABLE Linha(
   nomeLinhaVolta VARCHAR(45) NOT NULL,
   codLinha CHAR(4),
   tipoLinha CHAR(2),
-  fkEmpr INT NOT NULL,
-  FOREIGN KEY (fkEmpr) REFERENCES Empresa(idEmpr)
+  fkEmpresa INT NOT NULL,
+  FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
 CREATE TABLE Modelo(
@@ -34,7 +34,7 @@ CREATE TABLE Veiculo(
   fkModelo INT NOT NULL,
   fkEmpresa INT NOT NULL,
   FOREIGN KEY (fkModelo) REFERENCES Modelo(idModelo),
-  FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpr)
+  FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
 CREATE TABLE Viagem(
@@ -47,28 +47,19 @@ CREATE TABLE Viagem(
   FOREIGN KEY (fkVeiculo) REFERENCES Veiculo(idVeiculo)
 );
 
-CREATE TABLE Fluxo(
-  idFluxo INT NOT NULL,
-  entradas INT,
-  saidas INT,
-  dataHoraFluxo DATETIME NOT NULL,
-  fkViagem INT NOT NULL,
-  PRIMARY KEY (idFluxo, fkViagem),
-  FOREIGN KEY (fkViagem) REFERENCES Viagem(idViagem)
-);
-
 CREATE TABLE Funcionario(
-  idFunc INT NOT NULL AUTO_INCREMENT,
-  cpfFunc CHAR(11) NOT NULL UNIQUE,
-  nomeFunc VARCHAR(45) NOT NULL,
-  emailFunc VARCHAR(45) NOT NULL UNIQUE,
-  senhaFunc CHAR(10) NOT NULL,
-  fkEmpr INT NOT NULL,
+  idFuncionario INT NOT NULL AUTO_INCREMENT,
+  cpf CHAR(11) NOT NULL UNIQUE,
+  nome VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL UNIQUE,
+  senha CHAR(10) NOT NULL,
+  celular CHAR(11) NOT NULL,
+  fkEmpresa INT NOT NULL,
   fkRepresentante INT,
   foto VARCHAR(500),
-  PRIMARY KEY (idFunc, fkEmpr),
-  FOREIGN KEY (fkEmpr) REFERENCES Empresa(idEmpr),
-  FOREIGN KEY (fkRepresentante) REFERENCES Funcionario(idFunc)
+  PRIMARY KEY (idFuncionario, fkEmpresa),
+  FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
+  FOREIGN KEY (fkRepresentante) REFERENCES Funcionario(idFuncionario)
 );
 
 CREATE TABLE Ponto(
@@ -80,6 +71,18 @@ CREATE TABLE Ponto(
   grausX CHAR(7)
 );
 
+CREATE TABLE Fluxo(
+  idFluxo INT NOT NULL,
+  entradas INT,
+  saidas INT,
+  dataHoraFluxo DATETIME NOT NULL,
+  fkViagem INT NOT NULL,
+  fkPonto INT NOT NULL,
+  PRIMARY KEY (idFluxo, fkViagem),
+  FOREIGN KEY (fkViagem) REFERENCES Viagem(idViagem),
+  FOREIGN KEY (fkPonto) REFERENCES Ponto(idPonto)
+);
+
 CREATE TABLE LinhaPonto(
   idLinha INT NOT NULL,
   idPonto INT NOT NULL,
@@ -87,4 +90,3 @@ CREATE TABLE LinhaPonto(
   FOREIGN KEY (idLinha) REFERENCES Linha(idLinha),
   FOREIGN KEY (idPonto) REFERENCES Ponto(idPonto)
 );
-
