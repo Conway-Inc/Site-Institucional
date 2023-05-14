@@ -15,6 +15,10 @@ router.get("/listar", function (req, res) {
 router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
+// Criado para o cadastro da Rota - alterarRotas.html
+router.post("/cadastrarRotas", function (req, res) {
+    usuarioController.cadastrarRotas(req, res);
+})
 
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);

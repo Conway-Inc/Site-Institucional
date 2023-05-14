@@ -1,107 +1,152 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="pt-br">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/criacaoVeiculo.css" />
+    <link rel="stylesheet" href="css/menuDashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
   </head>
+
   <body>
-    <!DOCTYPE html>
-    <html lang="pt-br">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dashboard</title>
+    <!--Começo do header-->
 
-        <link rel="stylesheet" href="css/header.css" />
-        <link rel="stylesheet" href="css/criacaoVeiculo.css" />
-        <link rel="stylesheet" href="css/menuDashboard.css" />
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script
-          src="https://kit.fontawesome.com/89d28f01ec.js"
-          crossorigin="anonymous"
-        ></script>
-      </head>
-      <body>
-        <!--Começo do header-->
+    <div class="navbar">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+          fill="rgb(105,80,60)" />
+      </svg>
 
-        <div class="navbar">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path
-              d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
-              fill="rgb(105,80,60)"
-            />
-          </svg>
+      <h1>Adicionar Rota</h1>
+    </div>
 
-          <h1>Adicionar Rota</h1>
-        </div>
+    <div class="header">
+      <div class="container">
+        <ul>
+          <li><a href=""> CONFIGURAÇÕES </a></li>
+          <li><a href="menuDashboard.html"> VOLTAR </a></li>
+        </ul>
+      </div>
+    </div>
+    <!--Fim do header-->
 
-        <div class="header">
-          <div class="container">
-            <ul>
-              <li><a href=""> CONFIGURAÇÕES </a></li>
-              <li><a href="menuDashboard.html"> VOLTAR </a></li>
-            </ul>
-          </div>
-        </div>
-        <!--Fim do header-->
-
-        <!-- Conteúdo - Gráficos -->
-        <main>
-          <div class="conteudos">
-            <div class="caixaContent">
-              <div class="content">
-                <div class="form" style="display: flex;">
-                  <label for="iptPlaca">
-                    <p>Nome da rota:</p>
-                    <input type="text" placeholder="775N" id="iptPlaca" />
-                    <p>Quantidade de Veículos:</p>
-                    <input type="text" id="iptQtdveiculos" />
-                    <p>Ponto Inicial:</p>
-                    <input type="text" id="iptQtdveiculos" />
-                    <p>Ponto Final:</p>
-                    <input type="text" id="iptQtdveiculos" />
-                  </label>
-                  <label for="selectModelo">
-                  </label>
-                </div>
-                <div class="lista-rotas">
-                  <p></p>
-                  
-                  <ul>
-                  </ul>
-                </div>
-              </div>
-              <div class="btn-area">
-                  <a href="menuDashboard.html"><button><b>Adicionar+</b></button></a>
-              </div>
+    <!-- Conteúdo - Gráficos -->
+    <main>
+      <div class="conteudos">
+        <div class="caixaContent">
+          <div class="content">
+            <div class="form" style="display: flex;">
+              <label for="iptPlaca">
+                <p>Nome da rota:</p>
+                <input type="text" placeholder="775N" id="iptPlaca" />
+                <p>Quantidade de Veículos:</p>
+                <input type="text" id="iptQtdveiculos" />
+                <p>Ponto Inicial:</p>
+                <input type="text" id="iptPontoInicial" />
+                <p>Ponto Final:</p>
+                <input type="text" id="iptPontoFinal" />
+              </label>
+              <label for="selectModelo">
+              </label>
             </div>
+            <div class="lista-rotas">
+              <p></p>
 
-            <!-- Conteúdo - Veículos -->
-            <aside>
-              <div class="imgHeader">
-                <img src="images/transpass.png" alt="" />
-              </div>
-
-              <div class="funcionarios">
-                <p>Suas Rotas:</p>
-                <ul>
-                  <li><a href="alterarVeiculo.html"> 775N-10 </a></li>
-                  <li><a href="alterarVeiculo.html"> 8707-10, 8707-31 </a></li>
-                  <li><a href="alterarVeiculo.html"> 715M-10, 748R-10 </a></li>
-                </ul>
-
-                <p><b>Clique na rota para gerenciá-la ou excluí-la</b></p>
-              </div>
-            </aside>
-            <!-- Fim do Conteúdo - Veículos -->
+              <ul>
+              </ul>
+            </div>
           </div>
-        </main>
-        <!-- Fim do Conteúdo - Gráficos -->
-      </body>
-    </html>
+          <div class="btn-area">
+            <a href="menuDashboard.html"><button><b>Adicionar+</b></button></a>
+          </div>
+        </div>
+
+        <!-- Conteúdo - Veículos -->
+        <aside>
+          <div class="imgHeader">
+            <img src="images/transpass.png" alt="" />
+          </div>
+
+          <div class="funcionarios">
+            <p>Suas Rotas:</p>
+            <ul>
+              <li><a href="alterarVeiculo.html"> 775N-10 </a></li>
+              <li><a href="alterarVeiculo.html"> 8707-10, 8707-31 </a></li>
+              <li><a href="alterarVeiculo.html"> 715M-10, 748R-10 </a></li>
+            </ul>
+
+            <p><b>Clique na rota para gerenciá-la ou excluí-la</b></p>
+          </div>
+        </aside>
+        <!-- Fim do Conteúdo - Veículos -->
+      </div>
+    </main>
+    <!-- Fim do Conteúdo - Gráficos -->
   </body>
+
+  </html>
+</body>
+
 </html>
+<script>
+
+  function cadastrarRotas() {
+    var nomeRotaVar = iptPlaca.value;
+    var qtdVeiculoVar = iptQtdveiculos.value;
+    var pontoInicialVar = iptPontoInicial.value;
+    var pontoFinalVar = iptPontoFinal.value;
+
+    // Validações - Para fazer...
+
+    fetch("/usuarios/cadastrarRotas", {
+      method: "POST",
+      headers: {
+        "content - Type": "application/json"
+      },
+      body: JSON.stringify({
+
+        nomeRotaServer: nomeRotaVar,
+        qtdVeiculoServer: qtdVeiculoVar,
+        pontoInicialServer: pontoInicialVar,
+        pontoFinalServer: pontoFinalVar
+      })
+    }).then(function (resposta) {
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+        alert("Cadastro REALIZADO com Sucesso!!!")
+
+        setTimeout(() => {
+          window.location = "menuDashboard.html";
+        }, "2000")
+      } else {
+        throw ("Houve um ERRO ao tentar realizar o cadastro!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      finalizarAguardar();
+    });
+
+    return false;
+  }
+
+</script>
