@@ -1,16 +1,13 @@
 var database = require("../database/config");
 
-function listar(param,valor) {
+function listarPorEmpresa(fkEmpresa) {
     console.log("Selecionando uma lista de usuários no banco");
     var instrucao = `
-        SELECT * FROM funcionario;
+        SELECT * FROM funcionario WHERE fkEmpresa = ${fkEmpresa};
     `;
-    if(param != null && valor != null){
-        instrucao += `
-         WHERE ${param} = ${valor}
-        `;
-    }
     return database.executar(instrucao);
 }
 
-function listarFuncPor
+module.exports = {
+    listarPorEmpresa
+}

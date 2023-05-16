@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "127.0.0.1",
     database: "buswayDb",
     user: "urubu100",
-    password: "urubu100",
+    password: "urubu100"
 };
 
 function executar(instrucao) {

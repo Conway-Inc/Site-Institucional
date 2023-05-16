@@ -193,9 +193,37 @@ function cadastrarRotas(req, res) {
   }
 }
 
+function cadastrarFuncionario(req, res) {
+  var nome = req.body.nomeFuncionarioServer;
+  var cpf = req.body.cpfServer;
+  var fkEmpresa = req.body.fkEmpresaServer;
+  var fkRepresentante = req.body.fkRepresentanteServer;
+  var email = req.body.emailServer;
+  var senha = req.body.senhaServer;
+  var celular = req.body.celularServer;
+  var foto = req.body.fotoFuncionarioServer;
+
+
+    usuarioModel
+      .cadastrarFuncionario(nome,email,senha,cpf,fkEmpresa,fkRepresentante,celular,foto)
+      .then(function (resultado) {
+        res.json(resultado);
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro da ROTA! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+
+
 module.exports = {
   entrar,
   cadastrarRepresentante,
+  cadastrarFuncionario,
   // acrecimo do cadastrar Rotas
   cadastrarRotas,
   capturarIdEmpresa,

@@ -1,6 +1,10 @@
 CREATE DATABASE buswayDb;
 USE buswayDb;
 
+CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
+GRANT SELECT, INSERT, UPDATE, DELETE ON buswayDb.* TO urubu100;
+FLUSH PRIVILEGES;
+
 CREATE TABLE Empresa(
   idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
   cnpj CHAR(14) NOT NULL UNIQUE,
@@ -48,7 +52,7 @@ CREATE TABLE Viagem(
 );
 
 CREATE TABLE Funcionario(
-  idFuncionario INT NOT NULL AUTO_INCREMENT,
+  idFuncionario INT NOT NULL PRIMARY KEY,
   cpf CHAR(11) NOT NULL UNIQUE,
   nome VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL UNIQUE,
@@ -57,7 +61,6 @@ CREATE TABLE Funcionario(
   fkEmpresa INT NOT NULL,
   fkRepresentante INT,
   foto VARCHAR(500),
-  PRIMARY KEY (idFuncionario, fkEmpresa),
   FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
   FOREIGN KEY (fkRepresentante) REFERENCES Funcionario(idFuncionario)
 );
