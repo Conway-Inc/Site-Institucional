@@ -1,144 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
 
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/menu.css">
 
-    <link rel="icon" href="images/icon.png">
+  <link rel="icon" href="images/icon.png">
 
-    <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
-    <div class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path
-                d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
-                fill="rgb(105,80,60)" />
-        </svg>
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path
+        d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+        fill="rgb(105,80,60)" />
+    </svg>
     <h1>Login</h1>
-    </div>
-    
-    <div class="header">
-        <div class="container">
-          <ul>
+  </div>
+
+  <div class="header">
+    <div class="container">
+      <ul>
         <li><a href="index.html"> INÍCIO </a></li>
         <li><a href="index.html#contato"> CONTATO </a></li>
-          <li><a href="cadastro.html"> CADASTRO </a></li>
-          <li><a href=""> SUPORTE </a></li>
-            <li>
-              <a href="">
-                <img src="images/menu.svg" alt="" />
-              </a>
-            </li>
-          </ul>
-        </div>
+        <li><a href="cadastro.html"> CADASTRO </a></li>
+        <li><a href=""> SUPORTE </a></li>
+        <li>
+          <a href="">
+            <img src="images/menu.svg" alt="" />
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <main>
-        <div class="formLogin">
-            <div class="email">
-                E-mail: <input type="email" id="ipt_email" placeholder="nome@email.com">
-            </div>
-            <div class="senha">
-                Senha: <input type="password" id="ipt_senha" placeholder="•••••">
-            </div>
-            <a href="menuDashboard.html"><button onclick="validar_entrada()">Entrar</button></a>
-            <a href=""><p>Recuperar senha</p></a>
-            <a href="cadastro.html"><p>Não possui conta? Cadastre-se</p></a>
-        </div>
-    </main>
-    <footer>
-      <div class="paiFooter">
-        <div class="redes">
-          <h2>Redes Sociais</h2>
-          <ul>
-            <li>
-              <i
-                class="fa-brands fa-square-twitter fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="">Twitter</a>
-            </li>
-            <li>
-              <i
-                class="fa-brands fa-square-instagram fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="">Instagram</a>
-            </li>
-            <li>
-              <i
-                class="fa-brands fa-square-facebook fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="">Facebook</a>
-            </li>
-            <li>
-              <i class="fa-brands fa-linkedin fa-1xl" style="color: #ffffff"></i
-              ><a href="">Linkedin</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="acesso">
-          <h2>Acesso Rápido</h2>
-          <ul>
-            <li><a href="index.html">Página Inicial</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="cadastro.html">Cadastro</a></li>
-            <li><a href="">Suporte</a></li>
-          </ul>
-        </div>
-
-        <div class="contato">
-          <h2 id="contato">Contato</h2>
-          <ul>
-            <li>
-              <i
-                class="fa-brands fa-square-whatsapp fa-1xl"
-                style="color: #ffffff"
-              ></i
-              >(11) 94444-4444
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-square-phone fa-1xl"
-                style="color: #ffffff"
-              ></i
-              >(11) 4444-4444
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-square-envelope fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="mailto:conwayiot.enterprise@gmail.com">E-mail</a>
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-location-dot fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a
-                href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
-                target="_blank">Rua Hadddock Lobo, São Paulo</a
-              >
-            </li>
-          </ul>
-        </div>
+  <main>
+    <div class="formLogin">
+      <div class="email">
+        E-mail: <input type="email" id="ipt_email" placeholder="nome@email.com">
       </div>
-    </footer>
-    
+      <div class="senha">
+        Senha: <input type="password" id="ipt_senha" placeholder="•••••">
+      </div>
+      <button onclick="entrar()">Entrar</button>
+      <a href="">
+        <p>Recuperar senha</p>
+      </a>
+      <a href="cadastro.html">
+        <p>Não possui conta? Cadastre-se</p>
+      </a>
+    </div>
+  </main>
+  <footer>
+    <div class="paiFooter">
+      <div class="redes">
+        <h2>Redes Sociais</h2>
+        <ul>
+          <li>
+            <i class="fa-brands fa-square-twitter fa-1xl" style="color: #ffffff"></i><a href="">Twitter</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-square-instagram fa-1xl" style="color: #ffffff"></i><a href="">Instagram</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-square-facebook fa-1xl" style="color: #ffffff"></i><a href="">Facebook</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-linkedin fa-1xl" style="color: #ffffff"></i><a href="">Linkedin</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="acesso">
+        <h2>Acesso Rápido</h2>
+        <ul>
+          <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="">Suporte</a></li>
+        </ul>
+      </div>
+
+      <div class="contato">
+        <h2 id="contato">Contato</h2>
+        <ul>
+          <li>
+            <i class="fa-brands fa-square-whatsapp fa-1xl" style="color: #ffffff"></i>(11) 94444-4444
+          </li>
+          <li>
+            <i class="fa-solid fa-square-phone fa-1xl" style="color: #ffffff"></i>(11) 4444-4444
+          </li>
+          <li>
+            <i class="fa-solid fa-square-envelope fa-1xl" style="color: #ffffff"></i><a
+              href="mailto:conwayiot.enterprise@gmail.com">E-mail</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-location-dot fa-1xl" style="color: #ffffff"></i><a
+              href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+              target="_blank">Rua Hadddock Lobo, São Paulo</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
 </body>
+
 </html>
 <script>
   function validar_entrada() {
@@ -146,18 +124,76 @@
     const ax_email = ipt_email.value;
     const ax_senha = ipt_senha.value;
 
-    var correcao_email01 = ax_email == ""; 
+    var correcao_email01 = ax_email == "";
     var correcao_email02 = ax_email.indexOf('@') <= -1;
     var correcao_senha = ax_senha == "";
 
     if (correcao_email01) {
       alert("Favor inserir o e-mail correspondente a sua conta.")
     } else
-    if (correcao_email02) {
-      alert("Favor inserir o e-mail corretamente.")
-    }
+      if (correcao_email02) {
+        alert("Favor inserir o e-mail corretamente.")
+      }
     if (correcao_senha) {
       alert("Insira sua senha para ter acesso a sua conta.")
     }
+  }
+
+  function entrar() {
+
+    var emailVar = ipt_email.value;
+    var senhaVar = ipt_senha.value;
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.EMAIL_FUNCIONARIO = json.email;
+          sessionStorage.NOME_FUNCIONARIO = json.nome;
+          sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
+          sessionStorage.FK_REPRESENTANTE = json.fkRepresentante
+          sessionStorage.FK_EMPRESA = json.fkEmpresa;
+
+
+
+          setTimeout(function () {
+            window.location = "./menuDashboard.html";
+          }, 1000); // apenas para exibir o loading
+
+        });
+
+      } else {
+
+        console.log("Houve um erro ao tentar realizar o login!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+          finalizarAguardar(texto);
+        });
+      }
+
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
   }
 </script>
