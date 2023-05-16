@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/criacaoVeiculo.css" />
     <link rel="stylesheet" href="css/menuDashboard.css" />
+    <link rel="stylesheet" href="css/preDashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
   </head>
@@ -68,15 +69,18 @@
               <label for="selectModelo">
               </label>
             </div>
-            <div class="lista-rotas">
-              <p></p>
-
-              <ul>
-              </ul>
+            <div class="div_grafico">
+              <div class="grafico">
+                <canvas id="grafico01"></canvas>
+                <p class="classificRuim" id="classificRuim">Ruim</p>
+              </div>
+              <p class="txt_indice">Índice de Desempenho</p>
+              <a href="dashboardGeral.html"><button class="btn_dashboard">Dashboard</button></a>
             </div>
           </div>
           <div class="btn-area">
-            <a href="menuDashboard.html"><button><b>Adicionar+</b></button></a>
+            <a href="menuDashboard.html"><button>Alterar</button></a>
+            <a href="menuDashboard.html"><button class="btn_excluir">Excluir</button></a>
           </div>
         </div>
 
@@ -109,44 +113,35 @@
 </html>
 <script>
 
-  function cadastrarRotas() {
-    var nomeRotaVar = iptPlaca.value;
-    var qtdVeiculoVar = iptQtdveiculos.value;
-    var pontoInicialVar = iptPontoInicial.value;
-    var pontoFinalVar = iptPontoFinal.value;
-
-    // Validações - Para fazer...
-
-    fetch("/usuarios/cadastrarRotas", {
-      method: "POST",
-      headers: {
-        "content - Type": "application/json"
-      },
-      body: JSON.stringify({
-
-        nomeRotaServer: nomeRotaVar,
-        qtdVeiculoServer: qtdVeiculoVar,
-        pontoInicialServer: pontoInicialVar,
-        pontoFinalServer: pontoFinalVar
-      })
-    }).then(function (resposta) {
-      console.log("resposta: ", resposta);
-
-      if (resposta.ok) {
-        alert("Cadastro REALIZADO com Sucesso!!!")
-
-        setTimeout(() => {
-          window.location = "menuDashboard.html";
-        }, "2000")
-      } else {
-        throw ("Houve um ERRO ao tentar realizar o cadastro!");
-      }
-    }).catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-      finalizarAguardar();
-    });
-
-    return false;
+  const corClassific = '#DB0300';
+  const classificacao = ["Otimização Atual", "Melhora possível"]
+  const dadosClassfic = {
+    labels: classificacao,
+    datasets: [{
+      backgroundColor: [corClassific, "#494F56"],
+      borderColor: [corClassific],
+      borderWidth: "0.5",
+      data: [33, 77],
+      circumference: 180,
+      rotation: 270
+    }
+    ]
   }
+  const configGraficoClassific = {
+    type: "doughnut",
+    data: dadosClassfic,
+    options: {
+      aspectRatio: '1/4',
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  }
+  const graficoClassific = new Chart(
+    document.getElementById("grafico01"),
+    configGraficoClassific
+  );
 
 </script>

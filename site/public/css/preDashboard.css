@@ -1,0 +1,59 @@
+.formRotas{
+    align-self: flex-start;
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+.div_grafico {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+}
+.grafico{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.div_grafico .grafico {
+    margin-left: 0px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+} 
+
+.classificRuim {
+    font-size: 20px;
+    margin-top: 60px;
+}
+
+.txt_indice {
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.div_grafico button {
+    background-color: black;
+    width: 120px;
+    padding: 0;
+    height: 45px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.btn-area button {
+    width: 125px;
+    height: 45px;
+    font-weight: 700;
+}
+
+.caixaContent .btn-area .btn_excluir{
+    color: red;
+}

@@ -54,7 +54,7 @@
                     <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">Sua Frota</h2>
                 </div>
                 <div class="content">
-                    <a href="dashboardGeral.html" id="link01"><div class="visu01">
+                    <a href="preDashboard.html" id="link01"><div class="visu01">
                         <div class="tituloBus">
                             <h2 id="titulo01" class="txtTitulo">775N</h2>
                             <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
@@ -102,13 +102,13 @@
                             <p class="classificBoa" id="classificBoa">Boa</p>
                         </div>
                     </div>
-                    <a href="alterarRota.html" id="link04"><div id="visu04">
+                    <a href="alterarRota.html" id="link04"><div id="visu04a">
                         <div class="visu04">
                             <h2>+</h2>
                             <p>Adicionar nova rota</p>
                         </div>
                     </div></a>
-                    <a id="linkPonto" for="modal-4"><div id="visu04">
+                    <a id="linkPonto" for="modal-4"><div id="visu04b">
                         <label class="visu04 visuPonto" for="modal-4">
                             <h2>+</h2>
                             <p>Adicionar novo ponto</p>
@@ -296,7 +296,8 @@
         imgPadron.style.display = "block";
         imgSupArti.style.display = "block";
 
-        visu04.style.display = "none";
+        visu04a.style.display = "none";
+        visu04b.style.display = "none";
         visu05.style.display = "block";
     }
 
@@ -314,6 +315,8 @@
         info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
         info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
         info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
+
+        link01.href = "dashboardGeral.html";
 
         grafico01.style.display = "block";
         grafico02.style.display = "block";
@@ -338,7 +341,8 @@
         imgPadron.style.display = "none";
         imgSupArti.style.display = "none";
 
-        visu04.style.display = "block";
+        visu04a.style.display = "block";
+        visu04b.style.display = "block";
         visu05.style.display = "none";
     }
 

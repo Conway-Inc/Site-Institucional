@@ -313,3 +313,11 @@ aside .btn_adicionar_mais:hover{
 #imgSupArti{
     width: 300px;
 }
+
+.formRotas {
+    align-self: center;
+}
+
+#iptPlaca, #iptQtdveiculos, #iptPontoInicial, #iptPontoFinal{
+    width: 300px;
+}
