@@ -158,46 +158,9 @@ function capturarIdEmpresa(req, res) {
     });
 }
 
-// Criado para Cadastrar a rota - alterarRotas.html
-function cadastrarRotas(req, res) {
-  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-  var nomeRota = req.body.nomeRotaServer;
-  var qtdVeiculo = req.body.qtdVeiculoServer;
-  var pontoInicial = req.body.pontoInicialServer;
-  var pontoFinal = req.body.pontoFinalServer;
-
-  // Faça as validações dos valores
-  if (nomeRota == undefined) {
-    res.status(400).send("O nome da Rota está undefined!");
-  } else if (qtdVeiculo == undefined) {
-    res.status(400).send("A quantidade de veículo está undefined!");
-  } else if (pontoInicial == undefined) {
-    res.status(400).send("O ponto inicial está undefined!");
-  } else if (pontoFinal == undefined) {
-    res.status(400).send("O ponto final está undefined!");
-  } else {
-    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    usuarioModel
-      .cadastrarRotas(nomeRota, qtdVeiculo, pontoInicial, pontoFinal)
-      .then(function (resultado) {
-        res.json(resultado);
-      })
-      .catch(function (erro) {
-        console.log(erro);
-        console.log(
-          "\nHouve um erro ao realizar o cadastro da ROTA! Erro: ",
-          erro.sqlMessage
-        );
-        res.status(500).json(erro.sqlMessage);
-      });
-  }
-}
-
 module.exports = {
   entrar,
   cadastrarRepresentante,
-  // acrecimo do cadastrar Rotas
-  cadastrarRotas,
   capturarIdEmpresa,
   cadastrarEmpresa,
   listar,

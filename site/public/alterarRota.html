@@ -109,7 +109,7 @@
 </html>
 <script>
 
-  function cadastrarRotas() {
+  function cadastrarLinha() {
     var nomeRotaVar = iptPlaca.value;
     var tipoLinhaVar = iptTipoLinha.value;
     var pontoInicialVar = iptPontoInicial.value;
@@ -117,7 +117,7 @@
 
     // Validações - Para fazer...
 
-    fetch("/usuarios/cadastrarRotas", {
+    fetch("/linha/cadastrarlinha", {
       method: "POST",
       headers: {
         "content - Type": "application/json"
