@@ -174,45 +174,10 @@
                     <img src="images/transpass.png" alt="">
                 </div>
 
-                <div class="funcionarios">
-                    <p>Seus Funcionários:</p>
+                <div class="funcionarios" id="barraLateralFuncionarios">
+                    <p>Outros Funcionários:</p>
                     <ul id="listaDeFuncionarios"></ul>
-                    <p><b>Clique em algum deles para gerenciá-los</b></p>
-                    <p><b>ou</b></p>
-                    <!-- Inicio do Modal para cadastrar funcionário -->
-                    <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios"
-                        for="modal-2"><b>Adicionar</b></label>
-                    <input class="modal-state" id="modal-2" type="checkbox" />
-                    <div class="modal">
-                        <label class="modal__bg" for="modal-2"></label>
-                        <div class="modal__inner">
-                            <div class="container">
-                                <label class="modal__close" for="modal-2"></label>
-
-                                <span class="addFuncionario"><svg style="height: 100px"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                        <path
-                                            d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
-                                            fill="rgb(255,255,255)" />
-                                    </svg>
-
-                                    <div class="div_ipt">
-                                        <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
-                                        <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
-                                        <input class="ipt_func" id="ipt_email" placeholder="Email">
-                                        <input class="ipt_func" id="ipt_cel" placeholder="Celular">
-                                        <input class="ipt_func" id="ipt_senha" placeholder="Senha">
-                                        <input class="ipt_func" id="ipt_confirmarSenha" placeholder=" Confirme a Senha"><br>
-                                    </div>
-
-                                    <div class="btnFunc">
-                                        <button onclick="cadastrarFuncionario()"><b>Registrar</b></button>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Fim do Modal para cadastrar funcionário -->
+                    <p><b>Clique em algum deles para ver suas informações de contato</b></p>
                 </div>
             </aside>
             <!-- Fim do Conteúdo - Funcionários -->
@@ -477,20 +442,22 @@
     --------------------------------------------------------------------------------*/
     //Variáveis temporárias, a serem substituídas pelos dados do usuário logado na sessão
     var session_id = 1;
-    var session_admin = true;
     var session_empresa = 1;
 
+    var funcionarioLogado = [];
+    var outrosFuncionarios = [];
+
     carregarFuncLogado();
-    if(session_admin){
-        carregarFuncsDaEmpresa();
-    }
+    carregarFuncsDaEmpresa();
+    
     function carregarFuncLogado(){
         fetch(`funcionarios/listarPorID/${session_id}`, { cache: 'no-store'}).then(function (response) {
             if(response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    receberFuncLogado(resposta);
+                    funcionarioLogado = resposta;
+                    receberFuncLogado(funcionarioLogado);
                 })
             } else {
                 console.error("Nenhum dado encontrado na API");
@@ -500,18 +467,19 @@
             }
         );
     }
-    function receberFuncLogado(resposta){
+    function receberFuncLogado(funcionarioLogado){
         idNomeUsuario.innerHTML = `
-            Bem-vindo(a), ${resposta[0].nome}
+            Bem-vindo(a), ${funcionarioLogado[0].nome}
         `;
     }
-    function carregarFuncsDaEmpresa(){
+    function carregarFuncsDaEmpresa(admin){
         fetch(`funcionarios/listarPorEmpresa/${session_empresa}`, { cache: 'no-store'}).then(function (response) {
             if(response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    receberOutrosFuncs(resposta);
+                    outrosFuncionarios = resposta;
+                    receberOutrosFuncs(outrosFuncionarios, funcionarioLogado);
                 })
             } else{
             console.error("Nenhum dado encontrado na API");
@@ -521,11 +489,53 @@
             }
         );
     }
-    function receberOutrosFuncs(resposta){
-        for(var i = 0 ; i < resposta.length; i++){
+    function receberOutrosFuncs(outrosFuncionarios, funcionarioLogado){
+        var botaoAdicionar = "";
+        var botoesEditarExcluir = "";
+        if(funcionarioLogado[0].fkRepresentante == null){
+            botaoAdicionar = `
+            <p><b>ou</b></p>
+            <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios"for="modal-2">
+                <b>Adicionar</b>
+            </label>
+            <input class="modal-state" id="modal-2" type="checkbox" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-2"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-2"></label>
+                        <span class="addFuncionario">
+                            <svg style="height: 100px"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path
+                                    d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+                                    fill="rgb(255,255,255)" />
+                            </svg>
+                            <div class="div_ipt">
+                                <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
+                                <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
+                                <input class="ipt_func" id="ipt_email" placeholder="Email">
+                                <input class="ipt_func" id="ipt_cel" placeholder="Celular">
+                                <input class="ipt_func" id="ipt_senha" placeholder="Senha">
+                                <input class="ipt_func" id="ipt_confirmarSenha" placeholder=" Confirme a Senha"><br>
+                            </div>
+                            <div class="btnFunc">
+                                <button onclick="cadastrarFuncionario()"><b>Registrar</b></button>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            `;
+            botoesEditarExcluir = `
+            <div class="btnFunc">
+                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                <button class="btn_adicionar_mais"><b>Excluir</b></button>
+            </div>`;
+        }
+        for(var i = 0 ; i < outrosFuncionarios.length; i++){
             listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
-                <li>${resposta[i].nome}</li>
+                <li>${outrosFuncionarios[i].nome}</li>
             </label>
             <input class="modal-state" id="modal-3${i}" type="checkbox" />
             <div class="modal">
@@ -534,16 +544,13 @@
                     <div class="container">
                         <label class="modal__close" for="modal-3${i}"></label>
                         <span class="editFuncionario">
-                            <img src="images/${resposta[i]}">
-                            <p><b>${resposta[i].nome}</b></p>
+                            <img src="images/${outrosFuncionarios[i]}">
+                            <p><b>${outrosFuncionarios[i].nome}</b></p>
                             <p>Funcionário(a) da transpass</p>
-                            <p>CPF: ${resposta[i].cpf}</p>
-                            <p>Email: ${resposta[i].email}</p>
-                            <p>Senha:${resposta[i].senha}</p>
-                            <div class="btnFunc">
-                                <button class="btn_adicionar_mais"><b>Editar</b></button>
-                                <button class="btn_adicionar_mais"><b>Excluir</b></button>
-                            </div>
+                            <p>CPF: ${outrosFuncionarios[i].cpf}</p>
+                            <p>Email: ${outrosFuncionarios[i].email}</p>
+                            <p>Senha:${outrosFuncionarios[i].senha}</p>
+                            ${botoesEditarExcluir}
                         </span>
                     </div>
                     </div>
@@ -551,5 +558,6 @@
             </div>
             `;
         }
+        barraLateralFuncionarios.innerHTML += botaoAdicionar;
     }
 </script>
