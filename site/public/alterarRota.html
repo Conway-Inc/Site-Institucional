@@ -58,8 +58,8 @@
               <label for="iptPlaca">
                 <p>Nome da rota:</p>
                 <input type="text" placeholder="775N" id="iptPlaca" />
-                <p>Quantidade de Veículos:</p>
-                <input type="text" id="iptQtdveiculos" />
+                <p>Tipo de Linha:</p>
+                <input type="text" id="iptTipoLinha" />
                 <p>Ponto Inicial:</p>
                 <input type="text" id="iptPontoInicial" />
                 <p>Ponto Final:</p>
@@ -111,7 +111,7 @@
 
   function cadastrarRotas() {
     var nomeRotaVar = iptPlaca.value;
-    var qtdVeiculoVar = iptQtdveiculos.value;
+    var tipoLinhaVar = iptTipoLinha.value;
     var pontoInicialVar = iptPontoInicial.value;
     var pontoFinalVar = iptPontoFinal.value;
 
@@ -125,7 +125,7 @@
       body: JSON.stringify({
 
         nomeRotaServer: nomeRotaVar,
-        qtdVeiculoServer: qtdVeiculoVar,
+        tipoLinhaServer:tipoLinhaVar,
         pontoInicialServer: pontoInicialVar,
         pontoFinalServer: pontoFinalVar
       })
