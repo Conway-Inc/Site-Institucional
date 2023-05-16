@@ -19,6 +19,15 @@ router.post("/cadastrar", function (req, res) {
 router.post("/cadastrarRotas", function (req, res) {
     usuarioController.cadastrarRotas(req, res);
 })
+router.post("/cadastrarRepresentante", function (req, res) {
+    usuarioController.cadastrarRepresentante(req, res);
+})
+router.post("/cadastrarEmpresa", function (req, res) {
+    usuarioController.cadastrarEmpresa(req, res);
+})
+router.get("/capturarIdEmpresa/:cnpj", function (req, res) {
+    usuarioController.capturarIdEmpresa(req, res);
+})
 
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
