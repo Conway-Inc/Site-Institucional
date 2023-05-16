@@ -31,7 +31,7 @@
                 fill="rgb(105,80,60)" />
         </svg>
 
-        <h1>Bem-vindo(a), Alexandra</h1>
+        <h1 id="idNomeUsuario"></h1>
     </div>
 
     <div class="header">
@@ -168,45 +168,7 @@
 
                 <div class="funcionarios">
                     <p>Seus Funcionários:</p>
-                    <ul>
-
-                        <!-- Inicio do Modal para editar funcionário -->
-                        <label id="btnAdicionarMaisFuncionarios" for="modal-3">
-                            <li>Ana Teixeira</li>
-                        </label>
-                        <input class="modal-state" id="modal-3" type="checkbox" />
-                        <div class="modal">
-                            <label class="modal__bg" for="modal-3"></label>
-                            <div class="modal__inner">
-                                <div class="container">
-                                    <label class="modal__close" for="modal-3"></label>
-                                    <span class="editFuncionario">
-                                        <img src="images/ana.jpg">
-                                        <p><b>Ana Teixeira</b></p>
-                                        <p>Funcionária da transpass</p>
-                                        <p>CPF: 032.704.618-01</p>
-                                        <p>Email: anny.teixeira@gmail.com</p>
-                                        <p>Senha:*********</p>
-                                       
-                                <div class="btnFunc">
-                                    <button class="btn_adicionar_mais"><b>Editar</b></button>
-                                    <button class="btn_adicionar_mais"><b>Excluir</b></button>
-                                </div>
-
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fim do Modal para editar funcionário -->
-                        
-                        <li>Ágatha Azul</li>
-                        <li>Tarsila do Amaral</li>
-                        <li>Sérgio Silva</li>
-                        <li>Fernanda Pacheco</li>
-                        <li>Luiz da Costa</li>
-                        <li>Marcelo D'ávila</li>
-                    </ul>
-
+                    <ul id="listaDeFuncionarios"></ul>
                     <p><b>Clique em algum deles para gerenciá-los</b></p>
                     <p><b>ou</b></p>
                     <!-- Inicio do Modal para cadastrar funcionário -->
@@ -447,4 +409,87 @@
         configGraficoClassific03
     );
 
+</script>
+<script>
+    /*--------------------------------------------------------------------------------
+    --- Funções que carregam as informações do funcionário logado, suas rotas, -------
+    --- veículos e subordinados ------------------------------------------------------
+    --------------------------------------------------------------------------------*/
+    //Variáveis temporárias, a serem substituídas pelos dados do usuário logado na sessão
+    var session_id = 1;
+    var session_admin = true;
+    var session_empresa = 1;
+
+    carregarFuncLogado();
+    if(session_admin){
+        carregarFuncsDaEmpresa();
+    }
+    function carregarFuncLogado(){
+        fetch(`funcionarios/listarPorID/${session_id}`, { cache: 'no-store'}).then(function (response) {
+            if(response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    receberFuncLogado(resposta);
+                })
+            } else {
+                console.error("Nenhum dado encontrado na API");
+            }
+        }).catch(function (error){
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            }
+        );
+    }
+    function receberFuncLogado(resposta){
+        idNomeUsuario.innerHTML = `
+            Bem-vindo(a), ${resposta[0].nome}
+        `;
+    }
+    function carregarFuncsDaEmpresa(){
+        fetch(`funcionarios/listarPorEmpresa/${session_empresa}`, { cache: 'no-store'}).then(function (response) {
+            if(response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    receberOutrosFuncs(resposta);
+                })
+            } else{
+            console.error("Nenhum dado encontrado na API");
+            }
+        }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            }
+        );
+    }
+    function receberOutrosFuncs(resposta){
+        for(var i = 0 ; i < resposta.length; i++){
+            listaDeFuncionarios.innerHTML += `
+            <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
+                <li>${resposta[i].nome}</li>
+            </label>
+            <input class="modal-state" id="modal-3${i}" type="checkbox" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-3${i}"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-3${i}"></label>
+                        <span class="editFuncionario">
+                            <img src="images/${resposta[i]}">
+                            <p><b>${resposta[i].nome}</b></p>
+                            <p>Funcionário(a) da transpass</p>
+                            <p>CPF: ${resposta[i].cpf}</p>
+                            <p>Email: ${resposta[i].email}</p>
+                            <p>Senha:${resposta[i].senha}</p>
+                            <div class="btnFunc">
+                                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                                <button class="btn_adicionar_mais"><b>Excluir</b></button>
+                            </div>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+    }
 </script>
