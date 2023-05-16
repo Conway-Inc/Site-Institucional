@@ -99,12 +99,5 @@ function cadastrarLinha(req, res) {
 }
 
 module.exports = {
-  entrar,
-  cadastrarRepresentante,
-  // acrecimo do cadastrar Rotas
-  cadastrarRotas,
-  capturarIdEmpresa,
-  cadastrarEmpresa,
-  listar,
-  testar,
+  cadastrarLinha
 };
