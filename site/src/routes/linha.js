@@ -3,13 +3,9 @@ var router = express.Router();
 
 var linhaController = require("../controllers/linhaController");
 
-router.get("/", function (req, res) {
-    linhaController.testar(req, res);
-});
-
-router.get("/listar", function (req, res) {
-    linhaController.listar(req, res);
-});
+// router.get("/listar", function (req, res) {
+//     linhaController.listar(req, res);
+// });
 
 //Recebendo os dados do html e direcionando para a função cadastrar de linhaController.js
 
