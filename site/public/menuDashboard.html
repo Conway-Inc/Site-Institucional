@@ -441,17 +441,22 @@
     --- veículos e subordinados ------------------------------------------------------
     --------------------------------------------------------------------------------*/
     //Variáveis temporárias, a serem substituídas pelos dados do usuário logado na sessão
-    var session_id = 1;
-    var session_empresa = 1;
-
     var funcionarioLogado = [];
     var outrosFuncionarios = [];
 
     carregarFuncLogado();
     carregarFuncsDaEmpresa();
     
+    function verificarSessao(){
+        if(sessionStorage.ID_FUNCIONARIO == null){
+            alert("VONTANDO AO INDEX...");
+            window.location("index.html");
+        }
+    }
+
     function carregarFuncLogado(){
-        fetch(`funcionarios/listarPorID/${session_id}`, { cache: 'no-store'}).then(function (response) {
+        verificarSessao();
+        fetch(`funcionarios/listarPorID/${sessionStorage.ID_FUNCIONARIO}`, { cache: 'no-store'}).then(function (response) {
             if(response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -473,7 +478,7 @@
         `;
     }
     function carregarFuncsDaEmpresa(admin){
-        fetch(`funcionarios/listarPorEmpresa/${session_empresa}`, { cache: 'no-store'}).then(function (response) {
+        fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, { cache: 'no-store'}).then(function (response) {
             if(response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -544,7 +549,7 @@
                     <div class="container">
                         <label class="modal__close" for="modal-3${i}"></label>
                         <span class="editFuncionario">
-                            <img src="images/${outrosFuncionarios[i]}">
+                            <img src="images/${outrosFuncionarios[i].foto}">
                             <p><b>${outrosFuncionarios[i].nome}</b></p>
                             <p>Funcionário(a) da transpass</p>
                             <p>CPF: ${outrosFuncionarios[i].cpf}</p>
