@@ -338,8 +338,8 @@
         var cepVar = ipt_cep.value;
         var numVar = ipt_num.value;
         var complementoVar = ipt_complemento.value;
-        var coordXVar = ipt_coordX;
-        var coordYVar = ipt_coordY;
+        var coordXVar = ipt_coordX.value;
+        var coordYVar = ipt_coordY.value;
 
         fetch("/ponto/cadastrarPonto", {
             method: "POST",
@@ -348,12 +348,13 @@
             },
             body: JSON.stringify({
 
-                logradouroServer: logradouroVar,
                 cepServer: cepVar,
+                logradouroServer: logradouroVar,
                 numServer: numVar,
                 complementoServer: complementoVar,
-                coordXServer: coordXVar,
-                coordYServer: coordYVar
+                coordYServer: coordYVar,
+                coordXServer: coordXVar
+                
             })
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
