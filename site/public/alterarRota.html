@@ -55,9 +55,9 @@
         <div class="caixaContent">
           <div class="content">
             <div class="formRotas" style="display: flex;">
-              <label for="iptPlaca">
+              <label for="iptCodRota">
                 <p>Nome da rota:</p>
-                <input type="text" placeholder="775N" id="iptPlaca" />
+                <input type="text" placeholder="775N" id="iptCodRota" />
                 <p>Tipo de Linha:</p>
                 <input type="text" id="iptTipoLinha" />
                 <p>Ponto Inicial:</p>
@@ -111,24 +111,26 @@
 <script>
 
   function cadastrarLinha() {
-    var nomeRotaVar = iptPlaca.value;
+    var nomeRotaVar = iptCodRota.value;
     var tipoLinhaVar = iptTipoLinha.value;
     var pontoInicialVar = iptPontoInicial.value;
     var pontoFinalVar = iptPontoFinal.value;
+    var fkEmpresa = 1;
 
     // Validações - Para fazer...
 
-    fetch("/linha/cadastrarlinha", {
+    fetch("/linha/cadastrarLinha", {
       method: "POST",
       headers: {
-        "content - Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
 
         nomeRotaServer: nomeRotaVar,
-        tipoLinhaServer:tipoLinhaVar,
+        tipoLinhaServer: tipoLinhaVar,
         pontoInicialServer: pontoInicialVar,
-        pontoFinalServer: pontoFinalVar
+        pontoFinalServer: pontoFinalVar,
+        fkEmpresaServer: fkEmpresa
       })
     }).then(function (resposta) {
       console.log("resposta: ", resposta);
@@ -136,15 +138,14 @@
       if (resposta.ok) {
         alert("Cadastro REALIZADO com Sucesso!!!")
 
-        setTimeout(() => {
-          window.location = "menuDashboard.html";
-        }, "2000")
+        // setTimeout(() => {
+        //   window.location = "menuDashboard.html";
+        // }, "2000")
       } else {
         throw ("Houve um ERRO ao tentar realizar o cadastro!");
       }
     }).catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
-      finalizarAguardar();
     });
 
     return false;

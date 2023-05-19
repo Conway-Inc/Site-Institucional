@@ -31,14 +31,14 @@
                 fill="rgb(105,80,60)" />
         </svg>
 
-        <h1>Bem-vindo(a), Alexandra</h1>
+        <h1 id="idNomeUsuario"></h1>
     </div>
 
     <div class="header">
         <div class="container">
             <ul>
                 <li><a href=""> CONFIGURAÇÕES </a></li>
-                <li><a href="index.html"> SAIR </a></li>
+                <li><a onclick="sair()"> SAIR </a></li>
             </ul>
         </div>
     </div>
@@ -142,25 +142,25 @@
                         <span class="addRota">
 
                             <div class="div_ipt">
-                                <input class="ipt_func" placeholder="Logradouro">
+                                <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro">
                                 <span id="cepNumero">
-                                    <input class="ipt_func" placeholder="CEP">
-                                    <input class="ipt_func" placeholder="Número">
+                                    <input class="ipt_func" placeholder="CEP" id="ipt_cep">
+                                    <input class="ipt_func" placeholder="Número" id="ipt_num">
                                 </span>
-                                <input class="ipt_func" placeholder="Complemento"><br>
+                                <input class="ipt_func" placeholder="Complemento" id="ipt_complemento"><br>
                             </div>
 
                             <div class="div_ipt">
                                 <h3>Coordenadas geográficas</h3>
                                 <p>(Opcional)</p>
                                 <span id="coordenadas">
-                                    <input class="ipt_func" placeholder="X">
-                                    <input class="ipt_func" placeholder="Y">
+                                    <input class="ipt_func" placeholder="X" id="ipt_coordX">
+                                    <input class="ipt_func" placeholder="Y" id="ipt_coordY">
                                 </span>
                             </div>
 
                             <div class="btnRota">
-                                <button>Adicionar</button>
+                                <button onclick="cadastrarPonto()">Adicionar</button>
                             </div>
                         </span>
                     </div>
@@ -174,83 +174,10 @@
                     <img src="images/transpass.png" alt="">
                 </div>
 
-                <div class="funcionarios">
-                    <p>Seus Funcionários:</p>
-                    <ul>
-
-                        <!-- Inicio do Modal para editar funcionário -->
-                        <label id="btnAdicionarMaisFuncionarios" for="modal-3">
-                            <li>Ana Teixeira</li>
-                        </label>
-                        <input class="modal-state" id="modal-3" type="checkbox" />
-                        <div class="modal">
-                            <label class="modal__bg" for="modal-3"></label>
-                            <div class="modal__inner">
-                                <div class="container">
-                                    <label class="modal__close" for="modal-3"></label>
-                                    <span class="editFuncionario">
-                                        <img src="images/ana.jpg">
-                                        <p><b>Ana Teixeira</b></p>
-                                        <p>Funcionária da transpass</p>
-                                        <p>CPF: 032.704.618-01</p>
-                                        <p>Email: anny.teixeira@gmail.com</p>
-                                        <p>Senha:*********</p>
-
-                                        <div class="btnFunc">
-                                            <button class="btn_adicionar_mais"><b>Editar</b></button>
-                                            <button class="btn_adicionar_mais"><b>Excluir</b></button>
-                                        </div>
-
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Fim do Modal para editar funcionário -->
-
-                        <li>Ágatha Azul</li>
-                        <li>Tarsila do Amaral</li>
-                        <li>Sérgio Silva</li>
-                        <li>Fernanda Pacheco</li>
-                        <li>Luiz da Costa</li>
-                        <li>Marcelo D'ávila</li>
-                    </ul>
-
-                    <p><b>Clique em algum deles para gerenciá-los</b></p>
-                    <p><b>ou</b></p>
-                    <!-- Inicio do Modal para cadastrar funcionário -->
-                    <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios"
-                        for="modal-2"><b>Adicionar</b></label>
-                    <input class="modal-state" id="modal-2" type="checkbox" />
-                    <div class="modal">
-                        <label class="modal__bg" for="modal-2"></label>
-                        <div class="modal__inner">
-                            <div class="container">
-                                <label class="modal__close" for="modal-2"></label>
-
-                                <span class="addFuncionario"><svg style="height: 100px"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                        <path
-                                            d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
-                                            fill="rgb(255,255,255)" />
-                                    </svg>
-
-                                    <div class="div_ipt">
-                                        <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
-                                        <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
-                                        <input class="ipt_func" id="ipt_email" placeholder="Email">
-                                        <input class="ipt_func" id="ipt_cel" placeholder="Celular">
-                                        <input class="ipt_func" id="ipt_senha" placeholder="Senha">
-                                        <input class="ipt_func" id="ipt_confirmarSenha" placeholder=" Confirme a Senha"><br>
-                                    </div>
-
-                                    <div class="btnFunc">
-                                        <button onclick="cadastrarFuncionario()"><b>Registrar</b></button>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Fim do Modal para cadastrar funcionário -->
+                <div class="funcionarios" id="barraLateralFuncionarios">
+                    <p>Outros Funcionários:</p>
+                    <ul id="listaDeFuncionarios"></ul>
+                    <p><b>Clique em algum deles para ver suas informações de contato</b></p>
                 </div>
             </aside>
             <!-- Fim do Conteúdo - Funcionários -->
@@ -406,105 +333,283 @@
         return true
     }
 
+    function cadastrarPonto() {
+        var logradouroVar = ipt_logradouro.value;
+        var cepVar = ipt_cep.value;
+        var numVar = ipt_num.value;
+        var complementoVar = ipt_complemento.value;
+        var coordXVar = ipt_coordX.value;
+        var coordYVar = ipt_coordY.value;
+
+        fetch("/ponto/cadastrarPonto", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+
+                cepServer: cepVar,
+                logradouroServer: logradouroVar,
+                numServer: numVar,
+                complementoServer: complementoVar,
+                coordYServer: coordYVar,
+                coordXServer: coordXVar
+                
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                alert("Cadastro REALIZADO com Sucesso!!!")
+
+                // setTimeout(() => {
+                //   window.location = "menuDashboard.html";
+                // }, "2000")
+            } else {
+                throw ("Houve um ERRO ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
 
 
 </script>
 <script>
 
-        //Gráfico 01
-        const corClassific = '#DB0300';
-        const classificacao = ["Otimização Atual", "Melhora possível"]
-        const dadosClassfic = {
-            labels: classificacao,
-            datasets: [{
-                backgroundColor: [corClassific, "#494F56"],
-                borderColor: [corClassific],
-                borderWidth: "0.5",
-                data: [33, 77],
-                circumference: 180,
-                rotation: 270
-            }
-            ]
+    //Gráfico 01
+    const corClassific = '#DB0300';
+    const classificacao = ["Otimização Atual", "Melhora possível"]
+    const dadosClassfic = {
+        labels: classificacao,
+        datasets: [{
+            backgroundColor: [corClassific, "#494F56"],
+            borderColor: [corClassific],
+            borderWidth: "0.5",
+            data: [33, 77],
+            circumference: 180,
+            rotation: 270
         }
-        const configGraficoClassific = {
-            type: "doughnut",
-            data: dadosClassfic,
-            options: {
-                aspectRatio: '1/4',
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+        ]
+    }
+    const configGraficoClassific = {
+        type: "doughnut",
+        data: dadosClassfic,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
-        const graficoClassific = new Chart(
-            document.getElementById("grafico01"),
-            configGraficoClassific
-        );
+    }
+    const graficoClassific = new Chart(
+        document.getElementById("grafico01"),
+        configGraficoClassific
+    );
 
-        //Gráfico 02
-        const corClassific02 = '#00BF63';
-        const classificacao02 = ["Otimização Atual", "Melhora possível"]
-        const dadosClassfic02 = {
-            labels: classificacao,
-            datasets: [{
-                backgroundColor: [corClassific02, "#00BF63"],
-                borderColor: [corClassific02],
-                borderWidth: "0.5",
-                data: [100, 0],
-                circumference: 180,
-                rotation: 270
-            }
-            ]
+    //Gráfico 02
+    const corClassific02 = '#00BF63';
+    const classificacao02 = ["Otimização Atual", "Melhora possível"]
+    const dadosClassfic02 = {
+        labels: classificacao,
+        datasets: [{
+            backgroundColor: [corClassific02, "#00BF63"],
+            borderColor: [corClassific02],
+            borderWidth: "0.5",
+            data: [100, 0],
+            circumference: 180,
+            rotation: 270
         }
-        const configGraficoClassific02 = {
-            type: "doughnut",
-            data: dadosClassfic02,
-            options: {
-                aspectRatio: '1/4',
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+        ]
+    }
+    const configGraficoClassific02 = {
+        type: "doughnut",
+        data: dadosClassfic02,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
-        const graficoClassific02 = new Chart(
-            document.getElementById("grafico02"),
-            configGraficoClassific02
-        );
+    }
+    const graficoClassific02 = new Chart(
+        document.getElementById("grafico02"),
+        configGraficoClassific02
+    );
 
-        //Gráfico 03
-        const corClassific03 = '#FFDE59';
-        const classificacao03 = ["Otimização Atual", "Melhora possível"]
-        const dadosClassfic03 = {
-            labels: classificacao,
-            datasets: [{
-                backgroundColor: [corClassific03, "#494F56"],
-                borderColor: [corClassific03],
-                borderWidth: "0.5",
-                data: [66, 40],
-                circumference: 180,
-                rotation: 270
-            }
-            ]
+    //Gráfico 03
+    const corClassific03 = '#FFDE59';
+    const classificacao03 = ["Otimização Atual", "Melhora possível"]
+    const dadosClassfic03 = {
+        labels: classificacao,
+        datasets: [{
+            backgroundColor: [corClassific03, "#494F56"],
+            borderColor: [corClassific03],
+            borderWidth: "0.5",
+            data: [66, 40],
+            circumference: 180,
+            rotation: 270
         }
-        const configGraficoClassific03 = {
-            type: "doughnut",
-            data: dadosClassfic03,
-            options: {
-                aspectRatio: '1/4',
-                plugins: {
-                    legend: {
-                        display: false
-                    }
+        ]
+    }
+    const configGraficoClassific03 = {
+        type: "doughnut",
+        data: dadosClassfic03,
+        options: {
+            aspectRatio: '1/4',
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
-        const graficoClassific03 = new Chart(
-            document.getElementById("grafico03"),
-            configGraficoClassific03
-        );
+    }
+    const graficoClassific03 = new Chart(
+        document.getElementById("grafico03"),
+        configGraficoClassific03
+    );
 
+</script>
+<script>
+    /*--------------------------------------------------------------------------------
+    --- Funções que carregam as informações do funcionário logado, suas rotas, -------
+    --- veículos e subordinados ------------------------------------------------------
+    --------------------------------------------------------------------------------*/
+    //Variáveis temporárias, a serem substituídas pelos dados do usuário logado na sessão
+    var funcionarioLogado = [];
+    var outrosFuncionarios = [];
+
+    carregarFuncLogado();
+    carregarFuncsDaEmpresa();
+    
+    function verificarSessao(){
+        if(sessionStorage.ID_FUNCIONARIO == "null"){
+            alert("Por favor, logue-se para continuar.");
+            window.location = "index.html";
+        }
+    }
+
+    function sair(){
+        sessionStorage.ID_FUNCIONARIO = null;
+        window.location = "index.html";
+    }
+
+    function carregarFuncLogado(){
+        verificarSessao();
+        fetch(`funcionarios/listarPorID/${sessionStorage.ID_FUNCIONARIO}`, { cache: 'no-store'}).then(function (response) {
+            if(response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    funcionarioLogado = resposta;
+                    receberFuncLogado(funcionarioLogado);
+                })
+            } else {
+                console.error("Nenhum dado encontrado na API");
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        }
+        );
+    }
+    function receberFuncLogado(funcionarioLogado) {
+        idNomeUsuario.innerHTML = `
+            Bem-vindo(a), ${funcionarioLogado[0].nome}
+        `;
+    }
+    function carregarFuncsDaEmpresa(admin){
+        fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, { cache: 'no-store'}).then(function (response) {
+            if(response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    outrosFuncionarios = resposta;
+                    receberOutrosFuncs(outrosFuncionarios, funcionarioLogado);
+                })
+            } else {
+                console.error("Nenhum dado encontrado na API");
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        }
+        );
+    }
+    function receberOutrosFuncs(outrosFuncionarios, funcionarioLogado) {
+        var botaoAdicionar = "";
+        var botoesEditarExcluir = "";
+        if (funcionarioLogado[0].fkRepresentante == undefined) {
+            botaoAdicionar = `
+            <p><b>ou</b></p>
+            <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios"for="modal-2">
+                <b>Adicionar</b>
+            </label>
+            <input class="modal-state" id="modal-2" type="checkbox" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-2"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-2"></label>
+                        <span class="addFuncionario">
+                            <svg style="height: 100px"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path
+                                    d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+                                    fill="rgb(255,255,255)" />
+                            </svg>
+                            <div class="div_ipt">
+                                <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
+                                <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
+                                <input class="ipt_func" id="ipt_email" placeholder="Email">
+                                <input class="ipt_func" id="ipt_cel" placeholder="Celular">
+                                <input class="ipt_func" id="ipt_senha" placeholder="Senha">
+                                <input class="ipt_func" id="ipt_confirmarSenha" placeholder=" Confirme a Senha"><br>
+                            </div>
+                            <div class="btnFunc">
+                                <button onclick="cadastrarFuncionario()"><b>Registrar</b></button>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            `;
+            botoesEditarExcluir = `
+            <div class="btnFunc">
+                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                <button class="btn_adicionar_mais"><b>Excluir</b></button>
+            </div>`;
+        }
+        for (var i = 0; i < outrosFuncionarios.length; i++) {
+            listaDeFuncionarios.innerHTML += `
+            <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
+                <li>${outrosFuncionarios[i].nome}</li>
+            </label>
+            <input class="modal-state" id="modal-3${i}" type="checkbox" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-3${i}"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-3${i}"></label>
+                        <span class="editFuncionario">
+                            <img src="images/${outrosFuncionarios[i].foto}">
+                            <p><b>${outrosFuncionarios[i].nome}</b></p>
+                            <p>Funcionário(a) da transpass</p>
+                            <p>CPF: ${outrosFuncionarios[i].cpf}</p>
+                            <p>Email: ${outrosFuncionarios[i].email}</p>
+                            <p>Senha:${outrosFuncionarios[i].senha}</p>
+                            ${botoesEditarExcluir}
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+        barraLateralFuncionarios.innerHTML += botaoAdicionar;
+    }
 </script>
