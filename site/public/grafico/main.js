@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3000;
 var habilitarOperacaoInserir = false;
-var idFluxo = 110
+// var idFluxo = 1
 
 const serial = async (
     valoresDht11Umidade,
@@ -98,7 +98,7 @@ const servidor = (
     app.get('/sensores/chave', (_, response) => {
         return response.json(valoresChave);
     });
-    app.get('/porta', (request, response) => {
+    app.get('/porta', (_, response) => {
         return response.json(habilitarOperacaoInserir)
     })
     app.post('/porta/:fechar', (request, response) => {
