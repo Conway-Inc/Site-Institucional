@@ -1,551 +1,569 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
 
     <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/menuDashboard.css">
+    <link rel="stylesheet" href="css/menuDashboard.css" />
 
-    <link rel="stylesheet" href="css/modal2.css">
-    <link rel="stylesheet" href="css/modal3.css">
-    <link rel="stylesheet" href="css/modal4.css">
+    <link rel="stylesheet" href="css/modal2.css" />
+    <link rel="stylesheet" href="css/modal3.css" />
+    <link rel="stylesheet" href="css/modal4.css" />
 
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/footer.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <!--Começo do header-->
 
     <div class="navbar">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path
-                d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
-                fill="rgb(105,80,60)" />
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+          fill="rgb(105,80,60)"
+        />
+      </svg>
 
-        <h1 id="idNomeUsuario"></h1>
+      <h1 id="idNomeUsuario"></h1>
     </div>
 
     <div class="header">
-        <div class="container">
-            <ul>
-                <li><a href=""> CONFIGURAÇÕES </a></li>
-                <li><a onclick="sair()"> SAIR </a></li>
-            </ul>
-        </div>
+      <div class="container">
+        <ul>
+          <li><a href=""> CONFIGURAÇÕES </a></li>
+          <li><a onclick="sair()"> SAIR </a></li>
+        </ul>
+      </div>
     </div>
     <!--Fim do header-->
 
     <!-- Conteúdo - Gráficos -->
     <main>
-        <div class="conteudos">
-
-            <div class="caixaContent">
-                <div class="titulos">
-                    <h2 class="suasRotas" id="idSuasRotas" onclick="suaRota()">Suas Rotas</h2>
-                    <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">Sua Frota</h2>
+      <div class="conteudos">
+        <div class="caixaContent">
+          <div class="titulos">
+            <h2 class="suasRotas" id="idSuasRotas" onclick="suaRota()">
+              Suas Rotas
+            </h2>
+            <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">
+              Sua Frota
+            </h2>
+          </div>
+          <div class="content">
+            <a href="preDashboard.html" id="link01">
+              <div class="visu01">
+                <div class="tituloBus">
+                  <h2 id="titulo01" class="txtTitulo">775N</h2>
+                  <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
+                  <p id="rotas">Rotas: 775N-10</p>
                 </div>
-                <div class="content">
-                    <a href="preDashboard.html" id="link01">
-                        <div class="visu01">
-                            <div class="tituloBus">
-                                <h2 id="titulo01" class="txtTitulo">775N</h2>
-                                <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
-                                <p id="rotas">Rotas: 775N-10</p>
-                            </div>
-                            <div class="qtdVeic">
-                                <h2 id="idQtdVeic">2</h2>
-                                <p id="idQtdVeic02">Veículos</p>
-                                <img src="images/modelosOnibus/Básico.png" alt="" id="imgBasico">
-                            </div>
-                            <div class="grafico">
-                                <canvas id="grafico01"></canvas>
-                                <p class="classificRuim" id="classificRuim">Ruim</p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="visu02">
-                        <div class="tituloBus">
-                            <h2 id="titulo02" class="txtTitulo">715M</h2>
-                            <p id="info02">Largo da Pólvora/Jd. Maria Luíza</p>
-                            <p id="rotas02">Rotas: 8707-10, 8707-31</p>
-                        </div>
-                        <div class="qtdVeic">
-                            <h2 id="idQtdVeic03">8</h2>
-                            <p id="idQtdVeic04">Veículos</p>
-                            <img src="images/modelosOnibus/Padron.png" alt="" id="imgPadron">
-                        </div>
-                        <div class="grafico">
-                            <canvas id="grafico02"></canvas>
-                            <p class="classificIdeal" id="classificIdeal">Ideal</p>
-                        </div>
-                    </div>
-                    <div class="visu03">
-                        <div class="tituloBus">
-                            <h2 id="titulo03" class="txtTitulo">8707</h2>
-                            <p id="info03">Term. Princesa Isabel/Rio Pequeno</p>
-                            <p id="rotas03">Rotas: 715M-10, 748R-10</p>
-                        </div>
-                        <div class="qtdVeic">
-                            <h2 id="idQtdVeic05">4</h2>
-                            <p id="idQtdVeic06">Veículos</p>
-                            <img src="images/modelosOnibus/Superarticulado.png" alt="" id="imgSupArti">
-                        </div>
-                        <div class="grafico">
-                            <canvas id="grafico03"></canvas>
-                            <p class="classificBoa" id="classificBoa">Boa</p>
-                        </div>
-                    </div>
-                    <a href="alterarRota.html" id="link04">
-                        <div id="visu04a">
-                            <div class="visu04">
-                                <h2>+</h2>
-                                <p>Adicionar nova rota</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a id="linkPonto" for="modal-4">
-                        <div id="visu04b">
-                            <label class="visu04 visuPonto" for="modal-4">
-                                <h2>+</h2>
-                                <p>Adicionar novo ponto</p>
-                            </label>
-                        </div>
-                    </a>
-                    <a href="adicionarVeiculo.html">
-                        <div id="visu05">
-                            <div class="visu05">
-                                <h2>+</h2>
-                                <p>Adicionar novo veículo</p>
-                            </div>
-                        </div>
-                    </a>
+                <div class="qtdVeic">
+                  <h2 id="idQtdVeic">2</h2>
+                  <p id="idQtdVeic02">Veículos</p>
+                  <img
+                    src="images/modelosOnibus/Básico.png"
+                    alt=""
+                    id="imgBasico"
+                  />
                 </div>
+                <div class="grafico">
+                  <canvas id="grafico01"></canvas>
+                  <p class="classificRuim" id="classificRuim">Ruim</p>
+                </div>
+              </div>
+            </a>
+            <div class="visu02">
+              <div class="tituloBus">
+                <h2 id="titulo02" class="txtTitulo">715M</h2>
+                <p id="info02">Largo da Pólvora/Jd. Maria Luíza</p>
+                <p id="rotas02">Rotas: 8707-10, 8707-31</p>
+              </div>
+              <div class="qtdVeic">
+                <h2 id="idQtdVeic03">8</h2>
+                <p id="idQtdVeic04">Veículos</p>
+                <img
+                  src="images/modelosOnibus/Padron.png"
+                  alt=""
+                  id="imgPadron"
+                />
+              </div>
+              <div class="grafico">
+                <canvas id="grafico02"></canvas>
+                <p class="classificIdeal" id="classificIdeal">Ideal</p>
+              </div>
             </div>
-
-            <!-- Início do Modal para cadastrar pontos -->
-            <input class="modal-state" id="modal-4" type="checkbox" />
-            <div class="modal modal4">
-                <label class="modal__bg" for="modal-4"></label>
-                <div class="modal__inner">
-                    <div class="container">
-                        <label class="modal__close" for="modal-4"></label>
-
-                        <span class="addRota">
-
-                            <div class="div_ipt">
-                                <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro">
-                                <span id="cepNumero">
-                                    <input class="ipt_func" placeholder="CEP" id="ipt_cep">
-                                    <input class="ipt_func" placeholder="Número" id="ipt_num">
-                                </span>
-                                <input class="ipt_func" placeholder="Complemento" id="ipt_complemento"><br>
-                            </div>
-
-                            <div class="div_ipt">
-                                <h3>Coordenadas geográficas</h3>
-                                <p>(Opcional)</p>
-                                <span id="coordenadas">
-                                    <input class="ipt_func" placeholder="X" id="ipt_coordX">
-                                    <input class="ipt_func" placeholder="Y" id="ipt_coordY">
-                                </span>
-                            </div>
-
-                            <div class="btnRota">
-                                <button onclick="cadastrarPonto()">Adicionar</button>
-                            </div>
-                        </span>
-                    </div>
-                </div>
+            <div class="visu03">
+              <div class="tituloBus">
+                <h2 id="titulo03" class="txtTitulo">8707</h2>
+                <p id="info03">Term. Princesa Isabel/Rio Pequeno</p>
+                <p id="rotas03">Rotas: 715M-10, 748R-10</p>
+              </div>
+              <div class="qtdVeic">
+                <h2 id="idQtdVeic05">4</h2>
+                <p id="idQtdVeic06">Veículos</p>
+                <img
+                  src="images/modelosOnibus/Superarticulado.png"
+                  alt=""
+                  id="imgSupArti"
+                />
+              </div>
+              <div class="grafico">
+                <canvas id="grafico03"></canvas>
+                <p class="classificBoa" id="classificBoa">Boa</p>
+              </div>
             </div>
-            <!-- Fim do Modal para cadastrar pontos -->
-
-            <!-- Conteúdo - Funcionários -->
-            <aside>
-                <div class="imgHeader">
-                    <img src="images/transpass.png" alt="">
+            <a href="alterarRota.html" id="link04">
+              <div id="visu04a">
+                <div class="visu04">
+                  <h2>+</h2>
+                  <p>Adicionar nova rota</p>
                 </div>
-
-                <div class="funcionarios" id="barraLateralFuncionarios">
-                    <p>Outros Funcionários:</p>
-                    <ul id="listaDeFuncionarios"></ul>
-                    <p><b>Clique em algum deles para ver suas informações de contato</b></p>
+              </div>
+            </a>
+            <a id="linkPonto" for="modal-4">
+              <div id="visu04b">
+                <label class="visu04 visuPonto" for="modal-4">
+                  <h2>+</h2>
+                  <p>Adicionar novo ponto</p>
+                </label>
+              </div>
+            </a>
+            <a href="adicionarVeiculo.html">
+              <div id="visu05">
+                <div class="visu05">
+                  <h2>+</h2>
+                  <p>Adicionar novo veículo</p>
                 </div>
-            </aside>
-            <!-- Fim do Conteúdo - Funcionários -->
+              </div>
+            </a>
+          </div>
         </div>
+
+        <!-- Início do Modal para cadastrar pontos -->
+        <input class="modal-state" id="modal-4" type="checkbox" />
+        <div class="modal modal4">
+          <label class="modal__bg" for="modal-4"></label>
+          <div class="modal__inner">
+            <div class="container">
+              <label class="modal__close" for="modal-4"></label>
+
+              <span class="addRota">
+                <div class="div_ipt">
+                  <input
+                    class="ipt_func"
+                    placeholder="Logradouro"
+                    id="ipt_logradouro"
+                  />
+                  <span id="cepNumero">
+                    <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
+                    <input class="ipt_func" placeholder="Número" id="ipt_num" />
+                  </span>
+                  <input
+                    class="ipt_func"
+                    placeholder="Complemento"
+                    id="ipt_complemento"
+                  /><br />
+                </div>
+
+                <div class="div_ipt">
+                  <h3>Coordenadas geográficas</h3>
+                  <p>(Opcional)</p>
+                  <span id="coordenadas">
+                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
+                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
+                  </span>
+                </div>
+
+                <div class="btnRota">
+                  <button onclick="cadastrarPonto()">Adicionar</button>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Fim do Modal para cadastrar pontos -->
+
+        <!-- Conteúdo - Funcionários -->
+        <aside>
+          <div class="imgHeader">
+            <img src="images/transpass.png" alt="" />
+          </div>
+
+          <div class="funcionarios" id="barraLateralFuncionarios">
+            <p>Outros Funcionários:</p>
+            <ul id="listaDeFuncionarios"></ul>
+            <p>
+              <b>Clique em algum deles para ver suas informações de contato</b>
+            </p>
+          </div>
+        </aside>
+        <!-- Fim do Conteúdo - Funcionários -->
+      </div>
     </main>
     <!-- Fim do Conteúdo - Gráficos -->
-
-
-
-</body>
-
+  </body>
 </html>
 
 <script>
+  function suaFrota() {
+    idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
+    idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
 
-    function suaFrota() {
-        idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
-        idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
+    idSuasFrotas.style.color = "#BD916E";
+    idSuasFrotas.style.backgroundColor = "#E4D4C7";
 
-        idSuasFrotas.style.color = "#BD916E";
-        idSuasFrotas.style.backgroundColor = "#E4D4C7";
+    titulo01.innerHTML = "NAG-9496";
+    titulo02.innerHTML = "JTC-2740";
+    titulo03.innerHTML = "MOI-7346";
 
-        titulo01.innerHTML = "NAG-9496";
-        titulo02.innerHTML = "JTC-2740";
-        titulo03.innerHTML = "MOI-7346";
+    info01.innerHTML = "Básico";
+    info02.innerHTML = "Padron";
+    info03.innerHTML = "Super articulado";
 
-        info01.innerHTML = "Básico";
-        info02.innerHTML = "Padron";
-        info03.innerHTML = "Super articulado";
+    link01.href = "alterarVeiculo.html";
 
-        link01.href = "alterarVeiculo.html";
+    grafico01.style.display = "none";
+    grafico02.style.display = "none";
+    grafico03.style.display = "none";
 
-        grafico01.style.display = "none";
-        grafico02.style.display = "none";
-        grafico03.style.display = "none";
+    classificRuim.style.display = "none";
+    classificIdeal.style.display = "none";
+    classificBoa.style.display = "none";
 
-        classificRuim.style.display = "none";
-        classificIdeal.style.display = "none";
-        classificBoa.style.display = "none";
+    idQtdVeic.style.display = "none";
+    idQtdVeic02.style.display = "none";
+    idQtdVeic03.style.display = "none";
+    idQtdVeic04.style.display = "none";
+    idQtdVeic05.style.display = "none";
+    idQtdVeic06.style.display = "none";
 
-        idQtdVeic.style.display = "none";
-        idQtdVeic02.style.display = "none";
-        idQtdVeic03.style.display = "none";
-        idQtdVeic04.style.display = "none";
-        idQtdVeic05.style.display = "none";
-        idQtdVeic06.style.display = "none";
+    rotas.style.display = "block";
+    rotas02.style.display = "block";
+    rotas03.style.display = "block";
 
-        rotas.style.display = "block";
-        rotas02.style.display = "block";
-        rotas03.style.display = "block";
+    imgBasico.style.display = "block";
+    imgPadron.style.display = "block";
+    imgSupArti.style.display = "block";
 
-        imgBasico.style.display = "block";
-        imgPadron.style.display = "block";
-        imgSupArti.style.display = "block";
+    visu04a.style.display = "none";
+    visu04b.style.display = "none";
+    visu05.style.display = "block";
+  }
 
-        visu04a.style.display = "none";
-        visu04b.style.display = "none";
-        visu05.style.display = "block";
-    }
+  function suaRota() {
+    idSuasFrotas.style.color = "rgba(189, 145, 110, 0.5)";
+    idSuasFrotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
 
-    function suaRota() {
-        idSuasFrotas.style.color = "rgba(189, 145, 110, 0.5)";
-        idSuasFrotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
+    idSuasRotas.style.color = "#BD916E";
+    idSuasRotas.style.backgroundColor = "#E4D4C7";
 
-        idSuasRotas.style.color = "#BD916E";
-        idSuasRotas.style.backgroundColor = "#E4D4C7";
+    titulo01.innerHTML = "775N";
+    titulo02.innerHTML = "715M";
+    titulo03.innerHTML = "8707";
 
-        titulo01.innerHTML = "775N";
-        titulo02.innerHTML = "715M";
-        titulo03.innerHTML = "8707"
+    info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
+    info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
+    info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
 
-        info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
-        info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
-        info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
+    link01.href = "dashboardGeral.html";
 
-        link01.href = "dashboardGeral.html";
+    grafico01.style.display = "block";
+    grafico02.style.display = "block";
+    grafico03.style.display = "block";
 
-        grafico01.style.display = "block";
-        grafico02.style.display = "block";
-        grafico03.style.display = "block";
+    classificRuim.style.display = "block";
+    classificIdeal.style.display = "block";
+    classificBoa.style.display = "block";
 
-        classificRuim.style.display = "block";
-        classificIdeal.style.display = "block";
-        classificBoa.style.display = "block";
+    idQtdVeic.style.display = "block";
+    idQtdVeic02.style.display = "block";
+    idQtdVeic03.style.display = "block";
+    idQtdVeic04.style.display = "block";
+    idQtdVeic05.style.display = "block";
+    idQtdVeic06.style.display = "block";
 
-        idQtdVeic.style.display = "block";
-        idQtdVeic02.style.display = "block";
-        idQtdVeic03.style.display = "block";
-        idQtdVeic04.style.display = "block";
-        idQtdVeic05.style.display = "block";
-        idQtdVeic06.style.display = "block";
+    rotas.style.display = "none";
+    rotas02.style.display = "none";
+    rotas03.style.display = "none";
 
-        rotas.style.display = "none";
-        rotas02.style.display = "none";
-        rotas03.style.display = "none";
+    imgBasico.style.display = "none";
+    imgPadron.style.display = "none";
+    imgSupArti.style.display = "none";
 
-        imgBasico.style.display = "none";
-        imgPadron.style.display = "none";
-        imgSupArti.style.display = "none";
+    visu04a.style.display = "block";
+    visu04b.style.display = "block";
+    visu05.style.display = "none";
+  }
 
-        visu04a.style.display = "block";
-        visu04b.style.display = "block";
-        visu05.style.display = "none";
-    }
+  function cadastrarFuncionario() {
+    const nome = ipt_funcionario.value;
+    const email = ipt_email.value;
+    const cpf = ipt_cpf.value;
+    const celular = ipt_cel.value;
+    const senha = ipt_senha.value;
+    const foto = "foto.jpg";
+    var idRepresentante = 1;
+    var fkEmpresa = 1;
 
-    function cadastrarFuncionario() {
-        const nome = ipt_funcionario.value;
-        const email = ipt_email.value;
-        const cpf = ipt_cpf.value;
-        const celular = ipt_cel.value;
-        const senha = ipt_senha.value;
-        const foto = 'foto.jpg';
-        var idRepresentante = 1;
-        var fkEmpresa = 1;
+    if (validar()) {
+      fetch("/usuarios/cadastrarFuncionario", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          nomeFuncionarioServer: nome,
+          emailServer: email,
+          cpfServer: cpf,
+          celularServer: celular,
+          senhaServer: senha,
+          fotoFuncionarioServer: "foto.jpg",
+          fkEmpresaServer: fkEmpresa,
+          fkRepresentanteServer: idRepresentante,
+        }),
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-        if (validar()) {
-            fetch("/usuarios/cadastrarFuncionario", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    // crie um atributo que recebe o valor recuperado aqui
-                    // Agora vá para o arquivo routes/usuario.js
-                    nomeFuncionarioServer: nome,
-                    emailServer: email,
-                    cpfServer: cpf,
-                    celularServer: celular,
-                    senhaServer: senha,
-                    fotoFuncionarioServer: "foto.jpg",
-                    fkEmpresaServer: fkEmpresa,
-                    fkRepresentanteServer: idRepresentante
-                }),
-            })
-                .then(function (resposta) {
-                    console.log("resposta: ", resposta);
-
-                    if (resposta.ok) {
-                        // cardErro.style.display = "block";
-
-                        // mensagem_erro.innerHTML =
-                        //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                        // setTimeout(() => {
-                        //   window.location = "login.html";
-                        // }, 2000);
-                    }
-                })
+        if (resposta.ok) {
+          // cardErro.style.display = "block";
+          // mensagem_erro.innerHTML =
+          //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          // setTimeout(() => {
+          //   window.location = "login.html";
+          // }, 2000);
         }
+      });
     }
+  }
 
-    function validar() {
-        return true
-    }
+  function validar() {
+    return true;
+  }
 
-    function cadastrarPonto() {
-        var logradouroVar = ipt_logradouro.value;
-        var cepVar = ipt_cep.value;
-        var numVar = ipt_num.value;
-        var complementoVar = ipt_complemento.value;
-        var coordXVar = ipt_coordX.value;
-        var coordYVar = ipt_coordY.value;
+  function cadastrarPonto() {
+    var logradouroVar = ipt_logradouro.value;
+    var cepVar = ipt_cep.value;
+    var numVar = ipt_num.value;
+    var complementoVar = ipt_complemento.value;
+    var coordXVar = ipt_coordX.value;
+    var coordYVar = ipt_coordY.value;
 
-        fetch("/ponto/cadastrarPonto", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
+    fetch("/ponto/cadastrarPonto", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cepServer: cepVar,
+        logradouroServer: logradouroVar,
+        numServer: numVar,
+        complementoServer: complementoVar,
+        coordYServer: coordYVar,
+        coordXServer: coordXVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-                cepServer: cepVar,
-                logradouroServer: logradouroVar,
-                numServer: numVar,
-                complementoServer: complementoVar,
-                coordYServer: coordYVar,
-                coordXServer: coordXVar
-                
-            })
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          alert("Cadastro REALIZADO com Sucesso!!!");
 
-            if (resposta.ok) {
-                alert("Cadastro REALIZADO com Sucesso!!!")
+          // setTimeout(() => {
+          //   window.location = "menuDashboard.html";
+          // }, "2000")
+        } else {
+          throw "Houve um ERRO ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
 
-                // setTimeout(() => {
-                //   window.location = "menuDashboard.html";
-                // }, "2000")
-            } else {
-                throw ("Houve um ERRO ao tentar realizar o cadastro!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-
-        return false;
-    }
-
-
-
+    return false;
+  }
 </script>
 <script>
+  //Gráfico 01
+  const corClassific = "#DB0300";
+  const classificacao = ["Otimização Atual", "Melhora possível"];
+  const dadosClassfic = {
+    labels: classificacao,
+    datasets: [
+      {
+        backgroundColor: [corClassific, "#494F56"],
+        borderColor: [corClassific],
+        borderWidth: "0.5",
+        data: [33, 77],
+        circumference: 180,
+        rotation: 270,
+      },
+    ],
+  };
+  const configGraficoClassific = {
+    type: "doughnut",
+    data: dadosClassfic,
+    options: {
+      aspectRatio: "1/4",
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+  };
+  const graficoClassific = new Chart(
+    document.getElementById("grafico01"),
+    configGraficoClassific
+  );
 
-    //Gráfico 01
-    const corClassific = '#DB0300';
-    const classificacao = ["Otimização Atual", "Melhora possível"]
-    const dadosClassfic = {
-        labels: classificacao,
-        datasets: [{
-            backgroundColor: [corClassific, "#494F56"],
-            borderColor: [corClassific],
-            borderWidth: "0.5",
-            data: [33, 77],
-            circumference: 180,
-            rotation: 270
-        }
-        ]
-    }
-    const configGraficoClassific = {
-        type: "doughnut",
-        data: dadosClassfic,
-        options: {
-            aspectRatio: '1/4',
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    }
-    const graficoClassific = new Chart(
-        document.getElementById("grafico01"),
-        configGraficoClassific
-    );
+  //Gráfico 02
+  const corClassific02 = "#00BF63";
+  const classificacao02 = ["Otimização Atual", "Melhora possível"];
+  const dadosClassfic02 = {
+    labels: classificacao,
+    datasets: [
+      {
+        backgroundColor: [corClassific02, "#00BF63"],
+        borderColor: [corClassific02],
+        borderWidth: "0.5",
+        data: [100, 0],
+        circumference: 180,
+        rotation: 270,
+      },
+    ],
+  };
+  const configGraficoClassific02 = {
+    type: "doughnut",
+    data: dadosClassfic02,
+    options: {
+      aspectRatio: "1/4",
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+  };
+  const graficoClassific02 = new Chart(
+    document.getElementById("grafico02"),
+    configGraficoClassific02
+  );
 
-    //Gráfico 02
-    const corClassific02 = '#00BF63';
-    const classificacao02 = ["Otimização Atual", "Melhora possível"]
-    const dadosClassfic02 = {
-        labels: classificacao,
-        datasets: [{
-            backgroundColor: [corClassific02, "#00BF63"],
-            borderColor: [corClassific02],
-            borderWidth: "0.5",
-            data: [100, 0],
-            circumference: 180,
-            rotation: 270
-        }
-        ]
-    }
-    const configGraficoClassific02 = {
-        type: "doughnut",
-        data: dadosClassfic02,
-        options: {
-            aspectRatio: '1/4',
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    }
-    const graficoClassific02 = new Chart(
-        document.getElementById("grafico02"),
-        configGraficoClassific02
-    );
-
-    //Gráfico 03
-    const corClassific03 = '#FFDE59';
-    const classificacao03 = ["Otimização Atual", "Melhora possível"]
-    const dadosClassfic03 = {
-        labels: classificacao,
-        datasets: [{
-            backgroundColor: [corClassific03, "#494F56"],
-            borderColor: [corClassific03],
-            borderWidth: "0.5",
-            data: [66, 40],
-            circumference: 180,
-            rotation: 270
-        }
-        ]
-    }
-    const configGraficoClassific03 = {
-        type: "doughnut",
-        data: dadosClassfic03,
-        options: {
-            aspectRatio: '1/4',
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    }
-    const graficoClassific03 = new Chart(
-        document.getElementById("grafico03"),
-        configGraficoClassific03
-    );
-
+  //Gráfico 03
+  const corClassific03 = "#FFDE59";
+  const classificacao03 = ["Otimização Atual", "Melhora possível"];
+  const dadosClassfic03 = {
+    labels: classificacao,
+    datasets: [
+      {
+        backgroundColor: [corClassific03, "#494F56"],
+        borderColor: [corClassific03],
+        borderWidth: "0.5",
+        data: [66, 40],
+        circumference: 180,
+        rotation: 270,
+      },
+    ],
+  };
+  const configGraficoClassific03 = {
+    type: "doughnut",
+    data: dadosClassfic03,
+    options: {
+      aspectRatio: "1/4",
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    },
+  };
+  const graficoClassific03 = new Chart(
+    document.getElementById("grafico03"),
+    configGraficoClassific03
+  );
 </script>
 <script>
-    /*--------------------------------------------------------------------------------
+  /*--------------------------------------------------------------------------------
     --- Funções que carregam as informações do funcionário logado, suas rotas, -------
     --- veículos e subordinados ------------------------------------------------------
     --------------------------------------------------------------------------------*/
-    //Variáveis temporárias, a serem substituídas pelos dados do usuário logado na sessão
-    var funcionarioLogado = [];
-    var outrosFuncionarios = [];
+  //Variáveis temporárias, a serem substituídas pelos dados do usuário logado na sessão
+  var funcionarioLogado = [];
+  var outrosFuncionarios = [];
 
-    carregarFuncLogado();
-    carregarFuncsDaEmpresa();
-    
-    function verificarSessao(){
-        if(sessionStorage.ID_FUNCIONARIO == "null"){
-            alert("Por favor, logue-se para continuar.");
-            window.location = "index.html";
+  carregarFuncLogado();
+  carregarFuncsDaEmpresa();
+
+  function verificarSessao() {
+    if (sessionStorage.ID_FUNCIONARIO == "null") {
+      alert("Por favor, logue-se para continuar.");
+      window.location = "index.html";
+    }
+  }
+
+  function sair() {
+    sessionStorage.ID_FUNCIONARIO = null;
+    window.location = "index.html";
+  }
+
+  function carregarFuncLogado() {
+    verificarSessao();
+    fetch(`funcionarios/listarPorID/${sessionStorage.ID_FUNCIONARIO}`, {
+      cache: "no-store",
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            funcionarioLogado = resposta;
+            receberFuncLogado(funcionarioLogado);
+          });
+        } else {
+          console.error("Nenhum dado encontrado na API");
         }
-    }
-
-    function sair(){
-        sessionStorage.ID_FUNCIONARIO = null;
-        window.location = "index.html";
-    }
-
-    function carregarFuncLogado(){
-        verificarSessao();
-        fetch(`funcionarios/listarPorID/${sessionStorage.ID_FUNCIONARIO}`, { cache: 'no-store'}).then(function (response) {
-            if(response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-                    funcionarioLogado = resposta;
-                    receberFuncLogado(funcionarioLogado);
-                })
-            } else {
-                console.error("Nenhum dado encontrado na API");
-            }
-        }).catch(function (error) {
-            console.error(`Erro na obtenção dos dados: ${error.message}`);
-        }
-        );
-    }
-    function receberFuncLogado(funcionarioLogado) {
-        idNomeUsuario.innerHTML = `
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados: ${error.message}`);
+      });
+  }
+  function receberFuncLogado(funcionarioLogado) {
+    idNomeUsuario.innerHTML = `
             Bem-vindo(a), ${funcionarioLogado[0].nome}
         `;
-    }
-    function carregarFuncsDaEmpresa(admin){
-        fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, { cache: 'no-store'}).then(function (response) {
-            if(response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-                    outrosFuncionarios = resposta;
-                    receberOutrosFuncs(outrosFuncionarios, funcionarioLogado);
-                })
-            } else {
-                console.error("Nenhum dado encontrado na API");
-            }
-        }).catch(function (error) {
-            console.error(`Erro na obtenção dos dados: ${error.message}`);
+  }
+  function carregarFuncsDaEmpresa(admin) {
+    fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, {
+      cache: "no-store",
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            outrosFuncionarios = resposta;
+            receberOutrosFuncs(outrosFuncionarios, funcionarioLogado);
+          });
+        } else {
+          console.error("Nenhum dado encontrado na API");
         }
-        );
-    }
-    function receberOutrosFuncs(outrosFuncionarios, funcionarioLogado) {
-        var botaoAdicionar = "";
-        var botoesEditarExcluir = "";
-        if (funcionarioLogado[0].fkRepresentante == undefined) {
-            botaoAdicionar = `
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados: ${error.message}`);
+      });
+  }
+  function receberOutrosFuncs(outrosFuncionarios, funcionarioLogado) {
+    var botaoAdicionar = "";
+    var botoesEditarExcluir = "";
+    if (funcionarioLogado[0].fkRepresentante == undefined) {
+      botaoAdicionar = `
             <p><b>ou</b></p>
             <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios"for="modal-2">
                 <b>Adicionar</b>
@@ -578,14 +596,14 @@
                 </div>
             </div>
             `;
-            botoesEditarExcluir = `
+      botoesEditarExcluir = `
             <div class="btnFunc">
-                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                <button class="btn_adicionar_mais" onclick="alterarFuncionario()"><b>Editar</b></button>
                 <button class="btn_adicionar_mais"><b>Excluir</b></button>
             </div>`;
-        }
-        for (var i = 0; i < outrosFuncionarios.length; i++) {
-            listaDeFuncionarios.innerHTML += `
+    }
+    for (var i = 0; i < outrosFuncionarios.length; i++) {
+      listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
             </label>
@@ -602,14 +620,21 @@
                             <p>CPF: ${outrosFuncionarios[i].cpf}</p>
                             <p>Email: ${outrosFuncionarios[i].email}</p>
                             <p>Senha:${outrosFuncionarios[i].senha}</p>
-                            ${botoesEditarExcluir}
+                            <div class="btnFunc">
+                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${outrosFuncionarios[i].idFuncionario})"><b>Editar</b></label>
+                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${outrosFuncionarios[i].idFuncionario})"><b>Excluir</b></label>
+                            </div>
                         </span>
                     </div>
                     </div>
                 </div>
             </div>
             `;
-        }
-        barraLateralFuncionarios.innerHTML += botaoAdicionar;
     }
+    barraLateralFuncionarios.innerHTML += botaoAdicionar;
+  }
+
+  function alterarFuncionario(id) {
+    conteudos.innerHTML += ``
+  }
 </script>
