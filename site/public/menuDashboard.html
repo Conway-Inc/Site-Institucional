@@ -581,7 +581,7 @@
             botoesEditarExcluir = `
             <div class="btnFunc">
                 <button class="btn_adicionar_mais"><b>Editar</b></button>
-                <button class="btn_adicionar_mais"><b>Excluir</b></button>
+                <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
             </div>`;
         }
         for (var i = 0; i < outrosFuncionarios.length; i++) {
@@ -611,5 +611,10 @@
             `;
         }
         barraLateralFuncionarios.innerHTML += botaoAdicionar;
+
+
+        function excluirFuncionario() {
+            
+        }
     }
 </script>
