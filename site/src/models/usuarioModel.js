@@ -78,6 +78,8 @@ function cadastrarFuncionario(
   celular,
   foto
 ) {
+  
+
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucao = `
@@ -86,36 +88,6 @@ function cadastrarFuncionario(
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function alterarFuncionario(id, nome, email, senha, celular, foto) {
   var instrucao = `UPDATE Funcionario SET nome = ${nome}
@@ -129,6 +101,13 @@ function alterarFuncionario(id, nome, email, senha, celular, foto) {
   return database.executar(instrucao);
 }
 
+ 
+function excluirFuncionario(idFuncionario) {
+  var instrucao = `DELETE FROM Funcionario where idFuncionario = '${idFuncionario}';`
+  return database.executar(instrucao);
+}
+
+
 module.exports = {
   entrar,
   cadastrarRepresentante,
@@ -136,5 +115,7 @@ module.exports = {
   capturarIdEmpresa,
   cadastrarEmpresa,
   cadastrarFuncionario,
-  alterarFuncionario
+  alterarFuncionario,
+  excluirFuncionario,
+  cadastrarFuncionario
 };

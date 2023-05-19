@@ -267,6 +267,25 @@ function cadastrarFuncionario(req, res) {
   }
 
 
+function excluirFuncionario(req, res) {
+  var idFuncionario = req.body.idFuncionarioServer; 
+
+    usuarioModel
+      .excluir(idFuncionario)
+      .then(function (resultado) {
+        res.json(resultado);
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro da ROTA! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+
+
 module.exports = {
   entrar,
   cadastrarRepresentante,
@@ -275,7 +294,8 @@ module.exports = {
   cadastrarRotas,
   capturarIdEmpresa,
   cadastrarEmpresa,
-  alterarFuncionario,
   listar,
+  excluirFuncionario,
+  alterarFuncionario,
   testar,
 };
