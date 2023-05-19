@@ -103,7 +103,7 @@ function alterarFuncionario(id, nome, email, senha, celular, foto) {
 
  
 function excluirFuncionario(idFuncionario) {
-  var instrucao = `DELETE FROM Funcionario where idFuncionario = '${idFuncionario}';`
+  var instrucao = `DELETE FROM Funcionario where idFuncionario = ${idFuncionario};`
   return database.executar(instrucao);
 }
 
