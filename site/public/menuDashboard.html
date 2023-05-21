@@ -44,7 +44,7 @@
 
     <!-- Conteúdo - Gráficos -->
     <main>
-      <div class="conteudos">
+      <div class="conteudos" id="conteudos">
         <div class="caixaContent">
           <div class="titulos">
             <h2 class="suasRotas" id="idSuasRotas" onclick="suaRota()">
@@ -306,9 +306,9 @@
     const cpf = ipt_cpf.value;
     const celular = ipt_cel.value;
     const senha = ipt_senha.value;
-    const foto = "foto.jpg";
-    var idRepresentante = 1;
-    var fkEmpresa = 1;
+    const foto = ipt_foto.value;
+    var idRepresentante = sessionStorage.ID_FUNCIONARIO;
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
 
     if (validar()) {
       fetch("/usuarios/cadastrarFuncionario", {
@@ -324,7 +324,7 @@
           cpfServer: cpf,
           celularServer: celular,
           senhaServer: senha,
-          fotoFuncionarioServer: "foto.jpg",
+          fotoFuncionarioServer: foto,
           fkEmpresaServer: fkEmpresa,
           fkRepresentanteServer: idRepresentante,
         }),
@@ -587,6 +587,7 @@
                                 <input class="ipt_func" id="ipt_cel" placeholder="Celular">
                                 <input class="ipt_func" id="ipt_senha" placeholder="Senha">
                                 <input class="ipt_func" id="ipt_confirmarSenha" placeholder=" Confirme a Senha"><br>
+                                <input class="ipt_func" id="ipt_foto" placeholder=" Foto (URL)"><br>
                             </div>
                             <div class="btnFunc">
                                 <button onclick="cadastrarFuncionario()"><b>Registrar</b></button>
@@ -596,15 +597,10 @@
                 </div>
             </div>
             `;
-      botoesEditarExcluir = `
-            <div class="btnFunc">
-                <button class="btn_adicionar_mais" onclick="alterarFuncionario()"><b>Editar</b></button>
-                <button class="btn_adicionar_mais"><b>Excluir</b></button>
-            </div>`;
     }
     for (var i = 0; i < outrosFuncionarios.length; i++) {
       listaDeFuncionarios.innerHTML += `
-            <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
+      <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
             </label>
             <input class="modal-state" id="modal-3${i}" type="checkbox" />
@@ -618,11 +614,14 @@
                             <p><b>${outrosFuncionarios[i].nome}</b></p>
                             <p>Funcionário(a) da transpass</p>
                             <p>CPF: ${outrosFuncionarios[i].cpf}</p>
+                            <p>Celular: ${outrosFuncionarios[i].celular}</p>
                             <p>Email: ${outrosFuncionarios[i].email}</p>
                             <p>Senha:${outrosFuncionarios[i].senha}</p>
                             <div class="btnFunc">
-                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${outrosFuncionarios[i].idFuncionario})"><b>Editar</b></label>
-                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${outrosFuncionarios[i].idFuncionario})"><b>Excluir</b></label>
+                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${i})"><b>Editar</b></label>
+                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${Number(
+        outrosFuncionarios[i].idFuncionario
+      )})"><b>Excluir</b></label>
                             </div>
                         </span>
                     </div>
@@ -634,7 +633,74 @@
     barraLateralFuncionarios.innerHTML += botaoAdicionar;
   }
 
-  function alterarFuncionario(id) {
-    conteudos.innerHTML += ``
+  function alterarFuncionario(elementId) {
+    barraLateralFuncionarios.innerHTML += `
+            <input class="modal-state" id="modal-2${elementId}" type="checkbox" checked="true" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-2${elementId}"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-2${elementId}"></label>
+                        <span class="addFuncionario editFuncionario">
+                            <img src="images/${outrosFuncionarios[elementId].foto}">
+                            <input class="ipt_func" value="${outrosFuncionarios[elementId].nome}"" id="alterandoNome" >
+                            <input class="ipt_func"  value="${outrosFuncionarios[elementId].cpf}"" id="alterandoCpf" >
+                            <input class="ipt_func"  value="${outrosFuncionarios[elementId].celular}"" id="alterandoCelular" >
+                            <input class="ipt_func"  value="${outrosFuncionarios[elementId].email}"" id="alterandoEmail" >
+                            <input class="ipt_func" value="${outrosFuncionarios[elementId].senha}"" id="alterandoSenha" >
+                            <input class="ipt_func" value="${outrosFuncionarios[elementId].foto}"" id="alterandoFoto" >
+                            <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios" for="modal-2${elementId}" onclick="atualizarFuncionario(${outrosFuncionarios[elementId].idFuncionario})">
+                              <b>Atualizar</b>
+                            </label>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    `;
+  }
+
+  function atualizarFuncionario(idFuncionario) {
+    const nome = alterandoNome.value;
+    const email = alterandoEmail.value;
+    const cpf = alterandoCpf.value;
+    const celular = alterandoCelular.value;
+    const senha = alterandoSenha.value;
+    const foto = alterandoFoto.value;
+    fetch(`/usuarios/alterarFuncionario/${idFuncionario}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        emailServer: email,
+        cpfServer: cpf,
+        celularServer: celular,
+        senhaServer: senha,
+        fotoServer: foto,
+      }),
+    })
+      .then(function (resposta) {
+        // if (resposta.ok) {
+        //   window.alert(
+        //     "Post atualizado com sucesso pelo usuario de email: " +
+        //       sessionStorage.getItem("EMAIL_USUARIO") +
+        //       "!"
+        //   );
+        //   window.location = "/dashboard/mural.html";
+        // } else if (resposta.status == 404) {
+        //   window.alert("Deu 404!");
+        // } else {
+        //   throw (
+        //     "Houve um erro ao tentar realizar a postagem! Código da resposta: " +
+        //     resposta.status
+        //   );
+        // }
+        console.log(resposta);
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
   }
 </script>

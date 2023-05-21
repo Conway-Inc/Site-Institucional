@@ -108,14 +108,13 @@ function cadastrarRepresentante(req, res) {
 
 }function alterarFuncionario(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-  var id = req.body.idFuncionarioServer
+  var id = req.params.idFuncionario
   var nome = req.body.nomeServer;
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
   var cpf = req.body.cpfServer;
   var celular = req.body.celularServer;
-  var fotoRepresentante = req.body.fotoRepresentanteServer;
-  var fkEmpresa = req.body.fkEmpresaServer;
+  var fotoFuncionario = req.body.fotoServer;
 
   // Faça as validações dos valores
   if (nome == undefined) {
@@ -136,8 +135,7 @@ function cadastrarRepresentante(req, res) {
         senha,
         cpf,
         celular,
-        fotoRepresentante,
-        fkEmpresa
+        fotoFuncionario,
       )
       .then(function (resultado) {
         res.json(resultado);

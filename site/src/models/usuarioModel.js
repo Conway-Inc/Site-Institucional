@@ -90,11 +90,11 @@ function cadastrarFuncionario(
 }
 
 function alterarFuncionario(id, nome, email, senha, celular, foto) {
-  var instrucao = `UPDATE Funcionario SET nome = ${nome}
-                  AND email = ${email} 
-                  AND senha = ${senha}
-                  AND celular = ${celular}
-                  AND ${foto}
+  var instrucao = `UPDATE Funcionario SET nome = '${nome}',
+                  email = '${email} ',
+                  senha = '${senha}',
+                  celular = '${celular}',
+                  foto = '${foto}'
                   WHERE idFuncionario = ${id}`;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
