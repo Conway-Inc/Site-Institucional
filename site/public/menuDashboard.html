@@ -617,6 +617,7 @@
                             <p>Celular: ${outrosFuncionarios[i].celular}</p>
                             <p>Email: ${outrosFuncionarios[i].email}</p>
                             <p>Senha:${outrosFuncionarios[i].senha}</p>
+                            ${outrosFuncionarios[i].idFuncionario}
                             <div class="btnFunc">
                                 <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${i})"><b>Editar</b></label>
                                 <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${Number(
@@ -703,4 +704,20 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
+
+  function excluirFuncionario(idFuncionario) {
+        console.log("Criar função de apagar post escolhido - ID" + idFuncionario);
+        fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            console.log(resposta)
+            location.reload()
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
 </script>

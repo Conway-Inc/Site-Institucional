@@ -266,10 +266,10 @@ function cadastrarFuncionario(req, res) {
 
 
 function excluirFuncionario(req, res) {
-  var idFuncionario = req.body.idFuncionarioServer; 
+  var idFuncionario = req.params.idFuncionario; 
 
     usuarioModel
-      .excluir(idFuncionario)
+      .excluirFuncionario(idFuncionario)
       .then(function (resultado) {
         res.json(resultado);
       })

@@ -37,4 +37,9 @@ router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
+router.delete("/excluirFuncionario/:idFuncionario", function (req, res) {
+    usuarioController.excluirFuncionario(req, res);
+});
+
+
 module.exports = router;
