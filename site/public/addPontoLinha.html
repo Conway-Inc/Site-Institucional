@@ -1,5 +1,4 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="pt-br">
 
   <head>
@@ -25,7 +24,7 @@
           fill="rgb(105,80,60)" />
       </svg>
 
-      <h1>Adicionar Rota</h1>
+      <h1>Adicionar Pontos a Linha</h1>
     </div>
 
     <div class="header">
@@ -42,26 +41,30 @@
     <main>
       <div class="conteudos">
         <div class="caixaContent">
-          <div class="content">
+          <div class="contentLinha">
             <div class="formRotas" style="display: flex;">
               <label for="iptCodRota">
                 <p>Nome da rota:</p>
-                <input type="text" placeholder="775N" id="iptCodRota" />
+                <label for="" id="nomeLinhaSelect">AQUI VIRÁ O NOME DA ROTA</label>
                 <p>Tipo de Linha:</p>
-                <input type="text" id="iptTipoLinha" />
+                <label for="" id="tipoLinhaSelect">AQUI VIRÁ O TIPO DA LINHA</label>
                 <p>Ponto Inicial:</p>
-                <input type="text" id="iptPontoInicial" />
+                <label for="" id="pontoInicialSelect">AQUI VIRÁ O PONTO INICIAL</label>
                 <p>Ponto Final:</p>
-                <input type="text" id="iptPontoFinal" />
-              </label>
-              <label for="selectModelo">
+                <label for="" id="pontoFinalSelect">AQUI VIRÁ O PONTO FINAL</label>
               </label>
             </div>
-            <div class="lista-rotas">
-              <p></p>
-
-              <ul>
-              </ul>
+            <div class="datalistPonto">
+                <input list="browsers" name="browser" id="browser">
+                <datalist id="browsers">
+                  <option value="Ponto01"></option>
+                  <option value="Ponto02"></option>
+                  <option value="Ponto03"></option>
+                  <option value="Ponto04"></option>
+                  <option value="Ponto05"></option>
+                </datalist>
+                <button onclick="addPonto()">Adicionar Ponto a Linha</button>
+                <div id="pontosAdicionados"></div>
             </div>
           </div>
           <div class="btn-area">
@@ -93,8 +96,14 @@
     <!-- Fim do Conteúdo - Gráficos -->
   </body>
 
-</html>
+  </html>
 <script>
+
+nomeLinhaSelect.innerHTML = sessionStorage.NOME_LINHA;
+tipoLinhaSelect.innerHTML = sessionStorage.TIPO_LINHA;
+pontoInicialSelect.innerHTML = sessionStorage.PONTO_INICIAL;
+pontoFinalSelect.innerHTML = sessionStorage.PONTO_FINAL;
+
 
   function cadastrarLinha() {
     var nomeRotaVar = iptCodRota.value;
@@ -124,14 +133,9 @@
       if (resposta.ok) {
         alert("Cadastro REALIZADO com Sucesso!!!")
 
-          selectLinha();
-          window.location.href = "addPontoLinha.html";
-
-          sessionStorage.NOME_LINHA = nomeRotaVar;
-          sessionStorage.TIPO_LINHA = tipoLinhaVar;
-          sessionStorage.PONTO_INICIAL = pontoInicialVar;
-          sessionStorage.PONTO_FINAL = pontoFinalVar;
-        
+        // setTimeout(() => {
+        //   window.location = "menuDashboard.html";
+        // }, "2000")
       } else {
         throw ("Houve um ERRO ao tentar realizar o cadastro!");
       }
@@ -142,40 +146,17 @@
     return false;
   }
 
-  function selectLinha(){
-    var nomeRotaVar = iptCodRota.value;
+  function addPonto(){
+    var vetorPonto = [];
+    var iptPonto = browser.value;
 
-    fetch("/linha/autenticar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nomeRotaServer: nomeRotaVar
-      })
-    }).then(function (resposta){
-      console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
+    browser.value = ``;
 
-      if(resposta.ok){
-        console.log(resposta);
+    vetorPonto.push(iptPonto);
 
-        resposta.json().then(json =>{
-          console.log(json);
-          console.log(JSON.stringify(json));
-
-          sessionStorage.ID_LINHA = json.idLinha;
-        });
-      } else{
-        console.log("Houve um erro ao tentar realizar o SELECT!!!!!!!!!");
-
-        resposta.text().then(texto =>{
-          console.error(texto);
-        });
-      }
-    }).catch(function (erro){
-      console.log(erro);
-    })
-    return false;
+    for(var i = 0; i < vetorPonto.length; i++){
+      pontosAdicionados.innerHTML += `${vetorPonto[i]}<br>`
+    }
   }
 
 </script>

@@ -14,5 +14,9 @@ router.post("/cadastrarLinha", function (req, res) {
     linhaController.cadastrarLinha(req, res);
 })
 
+router.post("/autenticar", function (req, res){
+    linhaController.selectLinha(req, res);
+})
+
 
 module.exports = router;

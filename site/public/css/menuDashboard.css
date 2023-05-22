@@ -66,6 +66,16 @@ main{
     border-radius: 20px;
 }
 
+.contentLinha{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    flex-direction: row;
+    background-color: #E4D4C7;
+    border-radius: 20px;
+}
+
 .titulos{
     width: 100%;
     margin: 0;
@@ -315,9 +325,21 @@ aside .btn_adicionar_mais:hover{
 }
 
 .formRotas {
-    align-self: center;
+    width: 50%;
+} 
+
+.datalistPonto{
+    width: 50%;
 }
 
-#iptPlaca, #iptQtdveiculos, #iptPontoInicial, #iptPontoFinal{
+.datalistPonto button{
+    width: 200px;
+}
+
+#browser{
+    width: 50%;
+}
+
+#iptCodRota, #iptTipoLinha, #iptPontoInicial, #iptPontoFinal{
     width: 300px;
 }
