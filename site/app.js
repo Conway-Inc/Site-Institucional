@@ -15,7 +15,7 @@ var medidasRouter = require("./src/routes/medidas");
 var funcionariosRouter = require("./src/routes/funcionarios");
 var linhaRouter = require("./src/routes/linha");
 var pontoRouter = require("./src/routes/ponto");
-var veiculoRouter = require("./src/routes/veiculo");
+var veiculoRouter = require("./src/routes/veiculos");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,7 +30,7 @@ app.use("/medidas", medidasRouter);
 app.use("/funcionarios", funcionariosRouter);
 app.use("/linha", linhaRouter);
 app.use("/ponto", pontoRouter);
-app.use("/veiculo", veiculoRouter);
+app.use("/veiculos", veiculoRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

@@ -57,11 +57,11 @@
             <div class="datalistPonto">
                 <input list="browsers" name="browser" id="browser">
                 <datalist id="browsers">
-                  <option value="Ponto01"></option>
-                  <option value="Ponto02"></option>
+                  <option value="Ponto01" id="testePontos"></option>
+                  <!-- <option value="Ponto02"></option>
                   <option value="Ponto03"></option>
                   <option value="Ponto04"></option>
-                  <option value="Ponto05"></option>
+                  <option value="Ponto05"></option> -->
                 </datalist>
                 <button onclick="addPonto()">Adicionar Ponto a Linha</button>
                 <div id="pontosAdicionados"></div>
@@ -104,6 +104,8 @@ tipoLinhaSelect.innerHTML = sessionStorage.TIPO_LINHA;
 pontoInicialSelect.innerHTML = sessionStorage.PONTO_INICIAL;
 pontoFinalSelect.innerHTML = sessionStorage.PONTO_FINAL;
 
+selectPonto();
+
 
   function cadastrarLinha() {
     var nomeRotaVar = iptCodRota.value;
@@ -144,6 +146,40 @@ pontoFinalSelect.innerHTML = sessionStorage.PONTO_FINAL;
     });
 
     return false;
+  }
+  function selectPonto(){ //ATUALIZAR DATALIST DOS PONTOS
+
+    fetch("/ponto/listar").then(function (resposta){
+      if(resposta.ok){
+        if(resposta.status == 204){
+          var feed = document.getElementById("browsers");
+          var mensagem = document.createElement("option");
+          mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
+          feed.appendChild(mensagem);
+          throw "Nenhum resultado encontrado!!";
+        }
+
+        resposta.json().then(function (resposta){
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+           var feed = document.getElementById("browsers");
+          feed.innerHTML = "";
+          for(let i = 0; i < resposta.length; i++){
+            var publicacao = resposta[i];
+
+            var opcao = document.createElement("option");
+
+            opcao.innerHTML = publicacao.logradouro;
+
+            feed.appendChild(opcao);
+          }
+        });
+      }else{
+        throw ("Houve um erro na API")
+      }
+    }).catch(function (resposta){
+      console.error(resposta);
+    });
   }
 
   function addPonto(){
