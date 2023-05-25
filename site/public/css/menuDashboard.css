@@ -112,7 +112,7 @@ main{
     cursor: pointer;
 }
 
-.visu01, .visu02, .visu03{
+.visu01, .visu02, .visu03, .cardVeiculo{
     display: flex;
     color: white;
     padding: 10px;
@@ -132,7 +132,7 @@ main{
     font-size: 35px;
 }
 
-.visu01, .visu02{
+.visu01, .visu02, .cardVeiculo{
     margin-top: 20px;
 }
 
@@ -307,7 +307,7 @@ aside .btn_adicionar_mais:hover{
     color: #FFDE59;
 }
 
-#rotas, #rotas02, #rotas03{
+#rotas, #rotas02, #rotas03, .rotas{
     display: none;
     position: absolute;
     margin-top: 80px;
@@ -315,7 +315,6 @@ aside .btn_adicionar_mais:hover{
 }
 
 .qtdVeic img{
-    display: none;
     width: 200px;
     margin-top: 20px;
 }
