@@ -54,7 +54,7 @@
               Sua Frota
             </h2>
           </div>
-          <div class="content">
+          <div class="content" id="content">
             <a href="preDashboard.html" id="link01">
               <div class="visu01">
                 <div class="tituloBus">
@@ -217,15 +217,60 @@
     idSuasFrotas.style.color = "#BD916E";
     idSuasFrotas.style.backgroundColor = "#E4D4C7";
 
-    titulo01.innerHTML = "NAG-9496";
-    titulo02.innerHTML = "JTC-2740";
-    titulo03.innerHTML = "MOI-7346";
+    // titulo01.innerHTML = "NAG-9496";
+    // titulo02.innerHTML = "JTC-2740";
+    // titulo03.innerHTML = "MOI-7346";
 
-    info01.innerHTML = "Básico";
-    info02.innerHTML = "Padron";
-    info03.innerHTML = "Super articulado";
+    // info01.innerHTML = "Básico";
+    // info02.innerHTML = "Padron";
+    // info03.innerHTML = "Super articulado";
 
-    link01.href = "alterarVeiculo.html";
+    fetch(`/veiculos/listar/${sessionStorage.FK_EMPRESA}`)
+      .then(function (resposta) {
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+          var content = document.getElementById("content")
+          content.innerHTML = ""
+          for (let i = 0; i < resposta.length; i++) {
+            var veiculo = resposta[i];
+
+            
+            var titulo = document.createElement("h2");
+            var tipoVeiculo = document.createElement("p");
+            var rotas = document.createElement("p");
+            var tituloArea = document.createElement("div");
+            var imgArea = document.createElement("div");
+            var imgOnibus = document.createElement("img");
+            var card = document.createElement("div");
+            
+            titulo.innerHTML = veiculo.placaVeiculo
+            tipoVeiculo.innerHTML = veiculo.nomeModelo
+            // TODO: rotas
+            
+            card.appendChild(tituloArea);
+            card.appendChild(imgArea);
+            card.className = "cardVeiculo";
+
+            tituloArea.appendChild(titulo);
+            tituloArea.appendChild(rotas);
+            tituloArea.appendChild(tipoVeiculo);
+            tituloArea.className = "tituloBus";
+            rotas.className = "rotas";
+
+            imgArea.className = "qtdVeic";
+            imgArea.appendChild(imgOnibus)
+            imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`
+
+            content.appendChild(card)
+          }
+        });
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
+      });
+
+    // link01.href = "alterarVeiculo.html";
 
     grafico01.style.display = "none";
     grafico02.style.display = "none";
@@ -242,17 +287,17 @@
     idQtdVeic05.style.display = "none";
     idQtdVeic06.style.display = "none";
 
-    rotas.style.display = "block";
-    rotas02.style.display = "block";
-    rotas03.style.display = "block";
+    // rotas.style.display = "block";
+    // rotas02.style.display = "block";
+    // rotas03.style.display = "block";
 
-    imgBasico.style.display = "block";
-    imgPadron.style.display = "block";
-    imgSupArti.style.display = "block";
+    // imgBasico.style.display = "block";
+    // imgPadron.style.display = "block";
+    // imgSupArti.style.display = "block";
 
     visu04a.style.display = "none";
     visu04b.style.display = "none";
-    visu05.style.display = "block";
+    // visu05.style.display = "block";
   }
 
   function suaRota() {
@@ -706,18 +751,19 @@
   }
 
   function excluirFuncionario(idFuncionario) {
-        console.log("Criar função de apagar post escolhido - ID" + idFuncionario);
-        fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
-            console.log(resposta)
-            location.reload()
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
-
+    console.log("Criar função de apagar post escolhido - ID" + idFuncionario);
+    fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resposta) {
+        console.log(resposta);
+        location.reload();
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 </script>
