@@ -7,7 +7,7 @@ router.get("/", function (req, res) {
     veiculoController.testar(req, res);
 });
 
-router.get("/listar", function (req, res) {
+router.get("/listar/:fkEmpresa", function (req, res) {
     veiculoController.listar(req, res);
 });
 
