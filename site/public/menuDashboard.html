@@ -650,10 +650,15 @@
                 </div>
             </div>
             `;
-    }
-    for (var i = 0; i < outrosFuncionarios.length; i++) {
-      listaDeFuncionarios.innerHTML += `
-      <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
+            botoesEditarExcluir = `
+            <div class="btnFunc">
+                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
+            </div>`;
+        }
+        for (var i = 0; i < outrosFuncionarios.length; i++) {
+            listaDeFuncionarios.innerHTML += `
+            <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
             </label>
             <input class="modal-state" id="modal-3${i}" type="checkbox" />

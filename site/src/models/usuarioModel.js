@@ -79,6 +79,7 @@ function cadastrarFuncionario(
   foto
 ) {
   
+  
 
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
@@ -108,6 +109,13 @@ function excluirFuncionario(idFuncionario) {
 }
 
 
+ 
+function excluirFuncionario(idFuncionario) {
+  var instrucao = `DELETE FROM Funcionario where idFuncionario = '${idFuncionario}';`
+  return database.executar(instrucao);
+}
+
+
 module.exports = {
   entrar,
   cadastrarRepresentante,
@@ -116,6 +124,7 @@ module.exports = {
   cadastrarEmpresa,
   cadastrarFuncionario,
   alterarFuncionario,
+  excluirFuncionario,
   excluirFuncionario,
   cadastrarFuncionario
 };

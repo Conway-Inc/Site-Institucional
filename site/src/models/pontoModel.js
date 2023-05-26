@@ -24,13 +24,28 @@ function cadastrarPonto(cep, logradouro, numNaRua, grausY, grausX) {
 function listar() {
   console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Erro: connect ECONNREFUSED', \n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor do seu BD está rodando corretamente. \n\n function listar()");
 
-  var instrucao = `SELECT logradouro From Ponto;`;
+  var instrucao = `SELECT idPonto, logradouro From Ponto;`;
 
   console.log("Executando a instrução SQL: \n"  + instrucao);
   return database.executar(instrucao);
 }
+
+function listarId(logradouro) {
+  console.log(
+    "ACESSEI O PONTO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarId(): ",
+    logradouro
+  );
+  var instrucao = `
+      SELECT idPonto FROM Ponto WHERE logradouro = '${logradouro}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+
 module.exports = {
   listar,
+  listarId,
   cadastrarPonto
   
 };
