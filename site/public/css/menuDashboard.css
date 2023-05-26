@@ -325,6 +325,7 @@ aside .btn_adicionar_mais:hover{
 
 .formRotas {
     width: 50%;
+    align-self: center;
 } 
 
 .datalistPonto{
