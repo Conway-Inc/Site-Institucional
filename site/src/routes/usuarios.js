@@ -26,6 +26,9 @@ router.post("/cadastrarRepresentante", function (req, res) {
 router.post("/cadastrarEmpresa", function (req, res) {
     usuarioController.cadastrarEmpresa(req, res);
 })
+router.put("/alterarFuncionario/:idFuncionario", function (req, res) {
+    usuarioController.alterarFuncionario(req, res);
+})
 router.get("/capturarIdEmpresa/:cnpj", function (req, res) {
     usuarioController.capturarIdEmpresa(req, res);
 })
@@ -33,5 +36,10 @@ router.get("/capturarIdEmpresa/:cnpj", function (req, res) {
 router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
+
+router.delete("/excluirFuncionario/:idFuncionario", function (req, res) {
+    usuarioController.excluirFuncionario(req, res);
+});
+
 
 module.exports = router;

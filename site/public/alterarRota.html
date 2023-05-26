@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-</head>
-
-<body>
   <!DOCTYPE html>
   <html lang="pt-br">
 
@@ -57,22 +46,17 @@
             <div class="formRotas" style="display: flex;">
               <label for="iptCodRota">
                 <p>Nome da rota:</p>
-                <input type="text" placeholder="775N" id="iptCodRota" />
+                <input type="text" placeholder="0B19" id="iptCodRota" />
                 <p>Tipo de Linha:</p>
-                <input type="text" id="iptTipoLinha" />
+                <input type="text" id="iptTipoLinha" placeholder="10"/>
                 <p>Ponto Inicial:</p>
-                <input type="text" id="iptPontoInicial" />
+                <input type="text" id="iptPontoInicial" placeholder="Ex: Bairro Campestre - Rodoviária"/>
                 <p>Ponto Final:</p>
-                <input type="text" id="iptPontoFinal" />
-              </label>
-              <label for="selectModelo">
+                <input type="text" id="iptPontoFinal" placeholder="Ex: Jardim Aclimação"/>
               </label>
             </div>
             <div class="lista-rotas">
-              <p></p>
-
-              <ul>
-              </ul>
+            
             </div>
           </div>
           <div class="btn-area">
@@ -103,9 +87,6 @@
     </main>
     <!-- Fim do Conteúdo - Gráficos -->
   </body>
-
-  </html>
-</body>
 
 </html>
 <script>
@@ -138,9 +119,14 @@
       if (resposta.ok) {
         alert("Cadastro REALIZADO com Sucesso!!!")
 
-        // setTimeout(() => {
-        //   window.location = "menuDashboard.html";
-        // }, "2000")
+          selectLinha();
+          window.location.href = "addPontoLinha.html";
+
+          sessionStorage.NOME_LINHA = nomeRotaVar;
+          sessionStorage.TIPO_LINHA = tipoLinhaVar;
+          sessionStorage.PONTO_INICIAL = pontoInicialVar;
+          sessionStorage.PONTO_FINAL = pontoFinalVar;
+        
       } else {
         throw ("Houve um ERRO ao tentar realizar o cadastro!");
       }
@@ -148,6 +134,42 @@
       console.log(`#ERRO: ${resposta}`);
     });
 
+    return false;
+  }
+
+  function selectLinha(){
+    var nomeRotaVar = iptCodRota.value;
+
+    fetch("/linha/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        nomeRotaServer: nomeRotaVar
+      })
+    }).then(function (resposta){
+      console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
+
+      if(resposta.ok){
+        console.log(resposta);
+
+        resposta.json().then(json =>{
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.ID_LINHA = json.idLinha;
+        });
+      } else{
+        console.log("Houve um erro ao tentar realizar o SELECT!!!!!!!!!");
+
+        resposta.text().then(texto =>{
+          console.error(texto);
+        });
+      }
+    }).catch(function (erro){
+      console.log(erro);
+    })
     return false;
   }
 

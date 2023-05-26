@@ -5,14 +5,16 @@ const mysql = require('mysql2');
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3000;
 var habilitarOperacaoInserir = false;
-// var idFluxo = 1
+var idFluxo = 30
 
 const serial = async (
-    valoresDht11Umidade,
-    valoresDht11Temperatura,
-    valoresLuminosidade,
-    valoresLm35Temperatura,
-    valoresChave
+    // valoresDht11Umidade,
+    // valoresDht11Temperatura,
+    // valoresLuminosidade,
+    // valoresLm35Temperatura,
+    // valoresChave
+    valoresEntrada,
+    valoresSaida
 ) => {
     const poolBancoDados = mysql.createPool(
         {
@@ -39,26 +41,29 @@ const serial = async (
         console.log(`A leitura do arduino foi iniciada na porta ${portaArduino.path} utilizando Baud Rate de ${SERIAL_BAUD_RATE}`);
     });
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
-        const valores = data
-        const dht11Umidade = parseFloat(valores[0]);
-        const dht11Temperatura = parseFloat(valores[1]);
-        const luminosidade = parseFloat(valores[2]);
-        const lm35Temperatura = parseFloat(valores[3]);
-        const chave = parseInt(valores);
+        const valores = data.split(';')
+        // const dht11Umidade = parseFloat(valores[0]);
+        // const dht11Temperatura = parseFloat(valores[1]);
+        // const luminosidade = parseFloat(valores[2]);
+        // const lm35Temperatura = parseFloat(valores[3]);
+        const entradaPassageiros = parseInt(valores[0]);
+        const saidaPassageiros = parseInt(valores[1]);
         // console.log(data)
 
-        valoresDht11Umidade.push(dht11Umidade);
-        valoresDht11Temperatura.push(dht11Temperatura);
-        valoresLuminosidade.push(luminosidade);
-        valoresLm35Temperatura.push(lm35Temperatura);
-        valoresChave.push(chave);
+        // valoresDht11Umidade.push(dht11Umidade);
+        // valoresDht11Temperatura.push(dht11Temperatura);
+        // valoresLuminosidade.push(luminosidade);
+        // valoresLm35Temperatura.push(lm35Temperatura);
+        valoresEntrada.push(entradaPassageiros);
+        valoresSaida.push(saidaPassageiros);
 
         if (habilitarOperacaoInserir) {
             await poolBancoDados.execute(
-                'INSERT INTO Fluxo (idFluxo, passageirosFluxo, dataHoraFluxo, fkViagem) VALUES (?, ?, ?, ?)',
-                [idFluxo, chave, Date.now().toLocaleString(), 1],
+                'INSERT INTO Fluxo (idFluxo, entradas, saidas, dataHoraFluxo, fkViagem, fkPonto) VALUES (?, ?, ?, now(), ?, ?)',
+                [idFluxo, entradaPassageiros, saidaPassageiros, 1,1],
                 idFluxo++
             );
+            habilitarOperacaoInserir = false
         }
 
     });
@@ -68,11 +73,13 @@ const serial = async (
 }
 
 const servidor = (
-    valoresDht11Umidade,
-    valoresDht11Temperatura,
-    valoresLuminosidade,
-    valoresLm35Temperatura,
-    valoresChave
+    // valoresDht11Umidade,
+    // valoresDht11Temperatura,
+    // valoresLuminosidade,
+    // valoresLm35Temperatura,
+    // valoresChave
+    valoresEntrada,
+    valoresSaida
 ) => {
     const app = express();
     app.use((request, response, next) => {
@@ -96,7 +103,7 @@ const servidor = (
     //     return response.json(valoresLm35Temperatura);
     // });
     app.get('/sensores/chave', (_, response) => {
-        return response.json(valoresChave);
+        return response.json([valoresEntrada, valoresSaida]);
     });
     app.get('/porta', (_, response) => {
         return response.json(habilitarOperacaoInserir)
@@ -109,23 +116,29 @@ const servidor = (
 }
 
 (async () => {
-    const valoresDht11Umidade = [];
-    const valoresDht11Temperatura = [];
-    const valoresLuminosidade = [];
-    const valoresLm35Temperatura = [];
-    const valoresChave = [];
+    // const valoresDht11Umidade = [];
+    // const valoresDht11Temperatura = [];
+    // const valoresLuminosidade = [];
+    // const valoresLm35Temperatura = [];
+    // const valoresChave = [];
+    const valoresEntrada = [];
+    const valoresSaida = [];
     await serial(
-        valoresDht11Umidade,
-        valoresDht11Temperatura,
-        valoresLuminosidade,
-        valoresLm35Temperatura,
-        valoresChave
+        // valoresDht11Umidade,
+        // valoresDht11Temperatura,
+        // valoresLuminosidade,
+        // valoresLm35Temperatura,
+        // valoresChave
+        valoresEntrada,
+        valoresSaida
     );
     servidor(
-        valoresDht11Umidade,
-        valoresDht11Temperatura,
-        valoresLuminosidade,
-        valoresLm35Temperatura,
-        valoresChave
+        // valoresDht11Umidade,
+        // valoresDht11Temperatura,
+        // valoresLuminosidade,
+        // valoresLm35Temperatura,
+        // valoresChave
+        valoresEntrada,
+        valoresSaida
     );
 })();

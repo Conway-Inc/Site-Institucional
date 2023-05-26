@@ -19,8 +19,19 @@ function cadastrarLinha(nomeRota, tipoLinha, pontoInicial, pontoFinal, fkEmpresa
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
+
+function selectLinha(nomeLinha){
+  console.log("ACESSEI O USUÁRIO MODEL \n", nomeLinha)
+  var instrucao = 
+  `SELECT * FROM Linha WHERE codLinha = '${nomeLinha}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   
-  cadastrarLinha
+  cadastrarLinha,
+  selectLinha
   
 };
