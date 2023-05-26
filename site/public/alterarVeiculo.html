@@ -189,23 +189,21 @@
     window.location = "alterarVeiculo.html";
   }
 
-  function alterarVeiculo() {
+  function alterarVeiculo(req, res) {
+    var idVeiculo = sessionStorage.ID_VEICULO;
     var placa = iptPlaca.value;
     var anoAquisicao = iptAnoAquisicao.value;
     var idModelo = selectModelo.value;
 
-    fetch(`/usuarios/alterarFuncionario/${idFuncionario}`, {
+    fetch(`/veiculos/alterarVeiculo/${idVeiculo}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        nomeServer: nome,
-        emailServer: email,
-        cpfServer: cpf,
-        celularServer: celular,
-        senhaServer: senha,
-        fotoServer: foto,
+        placaServer: placa,
+        anoAquisicaoServer: anoAquisicao,
+        idModeloServer: idModelo,
       }),
     })
       .then(function (resposta) {
