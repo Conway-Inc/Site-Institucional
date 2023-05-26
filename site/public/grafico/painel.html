@@ -14,9 +14,9 @@
 <script>
 
     function fechar() {
-        fetch('/sensores/porta/true').then(resposta => {
-            console.log(resposta)
-        })
+        var http = new XMLHttpRequest();
+            http.open('POST', 'http://localhost:3000/porta/true', false);
+            http.send(null)
     }
 </script>
 </html>

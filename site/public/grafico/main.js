@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3000;
 var habilitarOperacaoInserir = false;
-var idFluxo = 10
+var idFluxo = 20
 
 const serial = async (
     // valoresDht11Umidade,
@@ -59,8 +59,8 @@ const serial = async (
 
         if (habilitarOperacaoInserir) {
             await poolBancoDados.execute(
-                'INSERT INTO Fluxo (idFluxo, passageirosFluxo, dataHoraFluxo, fkViagem) VALUES (?, ?, ?, ?)',
-                [idFluxo, chave, Date.now().toLocaleString(), 1],
+                'INSERT INTO Fluxo (idFluxo, entradas, saidas, dataHoraFluxo, fkViagem, fkPonto) VALUES (?, ?, ?, ?, ?, ?)',
+                [idFluxo, entradaPassageiros, saidaPassageiros, new Date().toISOString().slice(0, 19).replace('T', ' '), 1,1],
                 idFluxo++
             );
             habilitarOperacaoInserir = false
