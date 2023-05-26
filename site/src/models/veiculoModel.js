@@ -19,7 +19,8 @@ function listar(fkEmpresa) {
             idVeiculo, 
             placaVeiculo, 
             anoAquisicao, 
-            nomeModelo 
+            nomeModelo,
+            idModelo
                 FROM Veiculo 
                     JOIN Modelo ON fkModelo = idModelo 
                     WHERE fkEmpresa = ${fkEmpresa};

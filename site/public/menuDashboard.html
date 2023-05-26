@@ -133,14 +133,6 @@
                 </label>
               </div>
             </a>
-            <a href="adicionarVeiculo.html">
-              <div id="visu05">
-                <div class="visu05">
-                  <h2>+</h2>
-                  <p>Adicionar novo veículo</p>
-                </div>
-              </div>
-            </a>
           </div>
         </div>
 
@@ -230,12 +222,11 @@
         resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-          var content = document.getElementById("content")
-          content.innerHTML = ""
+          var content = document.getElementById("content");
+          content.innerHTML = "";
           for (let i = 0; i < resposta.length; i++) {
             var veiculo = resposta[i];
 
-            
             var titulo = document.createElement("h2");
             var tipoVeiculo = document.createElement("p");
             var rotas = document.createElement("p");
@@ -243,11 +234,11 @@
             var imgArea = document.createElement("div");
             var imgOnibus = document.createElement("img");
             var card = document.createElement("div");
-            
-            titulo.innerHTML = veiculo.placaVeiculo
-            tipoVeiculo.innerHTML = veiculo.nomeModelo
+
+            titulo.innerHTML = veiculo.placaVeiculo;
+            tipoVeiculo.innerHTML = veiculo.nomeModelo;
             // TODO: rotas
-            
+
             card.appendChild(tituloArea);
             card.appendChild(imgArea);
             card.className = "cardVeiculo";
@@ -259,11 +250,28 @@
             rotas.className = "rotas";
 
             imgArea.className = "qtdVeic";
-            imgArea.appendChild(imgOnibus)
-            imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`
+            imgArea.appendChild(imgOnibus);
+            imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
 
-            content.appendChild(card)
+            content.appendChild(card);
           }
+          var botaoAdicionar = document.createElement("a");
+          var botaoAdicionarDiv1 = document.createElement("div");
+          var botaoAdicionarDiv2 = document.createElement("div");
+          var sinalAdicionar = document.createElement("h2");
+          var textoAdicionar = document.createElement("p");
+
+          botaoAdicionar.href = "adicionarVeiculo.html";
+          sinalAdicionar.innerHTML = "+";
+          textoAdicionar.innerHTML = "Adicionar novo veículo";
+          botaoAdicionarDiv1.id = "visu05";
+          botaoAdicionarDiv2.className = "visu05";
+
+          botaoAdicionar.appendChild(botaoAdicionarDiv1);
+          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2)
+          botaoAdicionarDiv2.appendChild(sinalAdicionar);
+          botaoAdicionarDiv2.appendChild(textoAdicionar);
+          content.appendChild(botaoAdicionar);
         });
       })
       .catch(function (resposta) {
@@ -584,7 +592,7 @@
             Bem-vindo(a), ${funcionarioLogado[0].nome}
         `;
   }
-  function carregarFuncsDaEmpresa(admin) {
+  function carregarFuncsDaEmpresa() {
     fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, {
       cache: "no-store",
     })

@@ -7,17 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="abrir()">ABRIR PORTA</button>
     <button onclick="fechar()">FECHAR PORTA</button>
     <br>
     Status da porta: <span id="status"></span>
 </body>
 <script>
-    function abrir() {
-        
-    }
+
     function fechar() {
-        
+        fetch('/sensores/porta/true').then(resposta => {
+            console.log(resposta)
+        })
     }
 </script>
 </html>
