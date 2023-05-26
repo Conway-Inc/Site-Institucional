@@ -44,8 +44,27 @@ function cadastrarVeiculo(req, res) {
         });
     }
 
+    function excluirVeiculo(req, res) {
+      var idVeiculo = req.params.idVeiculo; 
+    
+        veiculoModel
+          .excluirVeiculo(idVeiculo)
+          .then(function (resultado) {
+            res.json(resultado);
+          })
+          .catch(function (erro) {
+            console.log(erro);
+            console.log(
+              "\nHouve um erro ao realizar o cadastro da ROTA! Erro: ",
+              erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+          });
+      }
+
 
 module.exports = {
   cadastrarVeiculo,
+  excluirVeiculo,
   listar
 };

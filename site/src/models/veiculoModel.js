@@ -19,7 +19,8 @@ function listar(fkEmpresa) {
             idVeiculo, 
             placaVeiculo, 
             anoAquisicao, 
-            nomeModelo 
+            nomeModelo,
+            idModelo
                 FROM Veiculo 
                     JOIN Modelo ON fkModelo = idModelo 
                     WHERE fkEmpresa = ${fkEmpresa};
@@ -28,7 +29,13 @@ function listar(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function excluirVeiculo(idVeiculo) {
+  var instrucao = `DELETE FROM Veiculo where idVeiculo = ${idVeiculo};`
+  return database.executar(instrucao);
+}
+
 module.exports = {
   cadastrarVeiculo,
-  listar,
+  excluirVeiculo,
+  listar
 };

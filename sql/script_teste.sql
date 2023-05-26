@@ -10,3 +10,4 @@ INSERT INTO Funcionario VALUES (1, '12345678901', 'Alexandra', 'alexandra@conway
 INSERT INTO Ponto VALUES (1, '01414000', 'Rua Haddock Lobo', 595, null, null);
 INSERT INTO Linha VALUES (1, 'Vila Ida', 'Vila Volta', 'ABCD', '01', 1);
 INSERT INTO LinhaPonto VALUES (1, 1);
+INSERT INTO Viagem VALUES (1, now(), null, 1, 1);
