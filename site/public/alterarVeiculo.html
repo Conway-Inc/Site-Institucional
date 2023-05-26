@@ -50,6 +50,10 @@
                 <p>Placa:</p>
                 <input type="text" id="iptPlaca" value="NAG-9496" />
               </label>
+              <label for="iptAnoAquisicao">
+                <p>Ano de Aquisição:</p>
+                <input type="text" id="iptAnoAquisicao" />
+              </label>
               <label for="selectModelo">
                 <p>Modelo</p>
                 <select
@@ -84,9 +88,10 @@
             />
           </div>
           <div class="btn-area">
-            <a href="menuDashboard.html"
-              ><button id="btnExcluir">Excluir</button></a
-            >
+            <button id="btnExcluir">Excluir</button>
+          </div>
+          <div class="btn-area">
+            <button id="btnAlterar" onclick="alterarVeiculo()">Alterar</button>
           </div>
         </div>
 
@@ -98,11 +103,7 @@
 
           <div class="funcionarios">
             <p>Seus Veículos Registrados:</p>
-            <ul id="listaVeiculos">
-              <li><a href="alterarVeiculo.html"> Veiculo: NAG-9496 </a></li>
-              <li><a href="alterarVeiculo.html"> Veiculo: JTC-2740 </a></li>
-              <li><a href="alterarVeiculo.html"> Veiculo: MOI-7346 </a></li>
-            </ul>
+            <ul id="listaVeiculos"></ul>
 
             <p><b>Clique no veículo para gerenciá-lo ou excluí-lo</b></p>
           </div>
@@ -114,9 +115,13 @@
   </body>
 </html>
 <script>
-  veiculos = []
+  veiculos = [];
+  iptPlaca.value = sessionStorage.PLACA_VEICULO;
+  iptAnoAquisicao.value = sessionStorage.ANO_AQUISICAO;
+  selectModelo.value = sessionStorage.ID_MODELO;
+  document.title = `${sessionStorage.PLACA_VEICULO}`;
 
-  carregarVeiculosDaEmpresa()
+  carregarVeiculosDaEmpresa();
   function mudarImagem() {
     var modelo = selectModelo.value;
     if (modelo == "2") {
@@ -182,5 +187,32 @@
     sessionStorage.ID_MODELO = veiculos[index].idModelo;
 
     window.location = "alterarVeiculo.html";
+  }
+
+  function alterarVeiculo() {
+    var placa = iptPlaca.value;
+    var anoAquisicao = iptAnoAquisicao.value;
+    var idModelo = selectModelo.value;
+
+    fetch(`/usuarios/alterarFuncionario/${idFuncionario}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        emailServer: email,
+        cpfServer: cpf,
+        celularServer: celular,
+        senhaServer: senha,
+        fotoServer: foto,
+      }),
+    })
+      .then(function (resposta) {
+        console.log(resposta);
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
   }
 </script>
