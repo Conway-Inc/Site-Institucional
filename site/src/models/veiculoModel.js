@@ -12,7 +12,7 @@ function cadastrarVeiculo(placaVeiculo, anoAquisicao, fkModelo, fkEmpresa) {
 
 function alterarVeiculo(idVeiculo, placa, anoAquisicao, fkModelo) {
   var instrucao = `
-    UPDATE Veiculo SET placa = ${placa},
+    UPDATE Veiculo SET placaVeiculo = '${placa}',
                        anoAquisicao = ${anoAquisicao},
                        fkModelo = ${fkModelo}
                        WHERE idVeiculo = ${idVeiculo};
@@ -48,5 +48,6 @@ function excluirVeiculo(idVeiculo) {
 module.exports = {
   cadastrarVeiculo,
   excluirVeiculo,
+  alterarVeiculo,
   listar
 };

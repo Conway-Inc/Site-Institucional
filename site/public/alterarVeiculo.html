@@ -88,10 +88,10 @@
             />
           </div>
           <div class="btn-area">
-            <button id="btnExcluir">Excluir</button>
+            <button id="btnExcluir" onclick="excluirVeiculo(sessionStorage.ID_VEICULO)">Excluir</button>
           </div>
           <div class="btn-area">
-            <button id="btnAlterar" onclick="alterarVeiculo()">Alterar</button>
+            <button id="btnAlterar" onclick="alterarVeiculo(sessionStorage.ID_VEICULO)">Alterar</button>
           </div>
         </div>
 
@@ -189,8 +189,7 @@
     window.location = "alterarVeiculo.html";
   }
 
-  function alterarVeiculo(req, res) {
-    var idVeiculo = sessionStorage.ID_VEICULO;
+  function alterarVeiculo(idVeiculo) {
     var placa = iptPlaca.value;
     var anoAquisicao = iptAnoAquisicao.value;
     var idModelo = selectModelo.value;
@@ -216,7 +215,7 @@
 
   function excluirVeiculo(idVeiculo) {
     console.log("Criar função de apagar post escolhido - ID" + idVeiculo);
-    fetch(`/usuarios/excluirFuncionario/${idVeiculo}`, {
+    fetch(`/veiculos/excluirVeiculo/${idVeiculo}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -224,7 +223,7 @@
     })
       .then(function (resposta) {
         console.log(resposta);
-        location.reload();
+        // location.reload();
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
