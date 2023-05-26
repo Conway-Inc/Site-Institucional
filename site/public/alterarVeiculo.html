@@ -215,4 +215,21 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
+
+  function excluirVeiculo(idVeiculo) {
+    console.log("Criar função de apagar post escolhido - ID" + idVeiculo);
+    fetch(`/usuarios/excluirFuncionario/${idVeiculo}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resposta) {
+        console.log(resposta);
+        location.reload();
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 </script>
