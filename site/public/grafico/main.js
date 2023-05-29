@@ -5,7 +5,7 @@ const mysql = require('mysql2');
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3000;
 var habilitarOperacaoInserir = false;
-var idFluxo = 30
+var idFluxo = 50
 
 const serial = async (
     // valoresDht11Umidade,
