@@ -1,3 +1,6 @@
+/*
+DROP DATABASE buswayDb;
+*/
 CREATE DATABASE buswayDb;
 USE buswayDb;
 
@@ -25,7 +28,7 @@ CREATE TABLE Linha(
 CREATE TABLE Modelo(
   idModelo INT PRIMARY KEY AUTO_INCREMENT,
   nomeModelo VARCHAR(45) NOT NULL,
-  kmsPorLitro DECIMAL(5,2) NOT NULL,
+  kilowattPorTonelada DECIMAL(5,2) NOT NULL,
   lotacao INT NOT NULL,
   portasEntrada INT NOT NULL,
   portasSaida INT NOT NULL
@@ -33,7 +36,7 @@ CREATE TABLE Modelo(
 
 CREATE TABLE Veiculo(
   idVeiculo INT PRIMARY KEY AUTO_INCREMENT,
-  placaVeiculo CHAR(6) NOT NULL UNIQUE,
+  placaVeiculo CHAR(7) NOT NULL UNIQUE,
   anoAquisicao INT NOT NULL,
   fkModelo INT NOT NULL,
   fkEmpresa INT NOT NULL,
@@ -66,10 +69,10 @@ CREATE TABLE Funcionario(
 );
 
 CREATE TABLE Ponto(
-  idPonto INT PRIMARY KEY,
+  idPonto INT PRIMARY KEY AUTO_INCREMENT,
   cep CHAR(8) NOT NULL,
   logradouro VARCHAR(45) NOT NULL,
-  numNaRua INT NOT NULL,
+  numNaRua INT,
   grausY CHAR(7),
   grausX CHAR(7)
 );
@@ -78,6 +81,7 @@ CREATE TABLE Fluxo(
   idFluxo INT NOT NULL,
   entradas INT,
   saidas INT,
+  saldoPassageiros INT,
   dataHoraFluxo DATETIME NOT NULL,
   fkViagem INT NOT NULL,
   fkPonto INT NOT NULL,
