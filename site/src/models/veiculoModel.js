@@ -10,6 +10,17 @@ function cadastrarVeiculo(placaVeiculo, anoAquisicao, fkModelo, fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function alterarVeiculo(idVeiculo, placa, anoAquisicao, fkModelo) {
+  var instrucao = `
+    UPDATE Veiculo SET placaVeiculo = '${placa}',
+                       anoAquisicao = ${anoAquisicao},
+                       fkModelo = ${fkModelo}
+                       WHERE idVeiculo = ${idVeiculo};
+  `
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function listar(fkEmpresa) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
@@ -19,7 +30,8 @@ function listar(fkEmpresa) {
             idVeiculo, 
             placaVeiculo, 
             anoAquisicao, 
-            nomeModelo 
+            nomeModelo,
+            idModelo
                 FROM Veiculo 
                     JOIN Modelo ON fkModelo = idModelo 
                     WHERE fkEmpresa = ${fkEmpresa};
@@ -28,7 +40,14 @@ function listar(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function excluirVeiculo(idVeiculo) {
+  var instrucao = `DELETE FROM Veiculo where idVeiculo = ${idVeiculo};`
+  return database.executar(instrucao);
+}
+
 module.exports = {
   cadastrarVeiculo,
-  listar,
+  excluirVeiculo,
+  alterarVeiculo,
+  listar
 };

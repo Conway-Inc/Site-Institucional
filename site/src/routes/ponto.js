@@ -12,7 +12,15 @@ var pontoController = require("../controllers/pontoController");
 // Criado para o cadastro da Rota - alterarRotas.html
 router.post("/cadastrarPonto", function (req, res) {
     pontoController.cadastrarPonto(req, res);
-})
+});
+
+router.get("/listar", function (req, res){
+    pontoController.listar(req, res);
+});
+
+router.post("/listarId", function (req, res){
+    pontoController.listarId(req, res);
+});
 
 
 module.exports = router;

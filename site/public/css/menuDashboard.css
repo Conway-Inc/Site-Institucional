@@ -169,7 +169,7 @@ main{
 }
 
 #visu05{
-    display: none;
+    margin: 20px;
 }
 
 .visu04 h2, .visu05 h2{
@@ -325,6 +325,7 @@ aside .btn_adicionar_mais:hover{
 
 .formRotas {
     width: 50%;
+    align-self: center;
 } 
 
 .datalistPonto{

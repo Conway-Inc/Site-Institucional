@@ -5,7 +5,11 @@ const mysql = require('mysql2');
 const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3000;
 var habilitarOperacaoInserir = false;
-var idFluxo = 10
+var viagemCriada = false;
+
+var codLinha = '477P';
+var placaVeiculo = 'DMB4413';
+var contadorPonto = 0;
 
 const serial = async (
     // valoresDht11Umidade,
@@ -58,11 +62,35 @@ const serial = async (
         valoresSaida.push(saidaPassageiros);
 
         if (habilitarOperacaoInserir) {
+            if(!viagemCriada){
+                await poolBancoDados.execute(
+                    `INSERT INTO Viagem values(null,
+                        now(),
+                        null,
+                        (select idLinha from linha where codLinha = '?'),
+                        (select idVeiculo from veiculo where placaVeiculo = '?')
+                        `,
+                    [codLinha, placaVeiculo],
+                );
+                viagemCriada = true
+            }
             await poolBancoDados.execute(
-                'INSERT INTO Fluxo (idFluxo, passageirosFluxo, dataHoraFluxo, fkViagem) VALUES (?, ?, ?, ?)',
-                [idFluxo, chave, Date.now().toLocaleString(), 1],
-                idFluxo++
+                `INSERT INTO Fluxo (idFluxo, entradas, saidas, dataHoraFluxo, fkViagem, fkPonto)
+                VALUES (
+                null,
+                ?,
+                ?,
+                now(),
+                (select idViagem from viagem order by idViagem desc limit 1),
+                (select P.idPonto from ponto as p
+                                join linhaPonto as lp on p.idPonto = lp.idPonto
+                                join linha as l on l.idLinha = lp.idLinha
+                                where l.codLinha = '?' limit 1) + ?
+                 );`,
+                'INSERT INTO Fluxo (idFluxo, entradas, saidas, dataHoraFluxo, fkViagem, fkPonto) VALUES (?, ?, now(), ?, ?)',
+                [entradaPassageiros, saidaPassageiros, codLinha, contadorPonto],
             );
+            contadorPonto++;
             habilitarOperacaoInserir = false
         }
 
@@ -112,6 +140,11 @@ const servidor = (
         req = request.params.fechar
         habilitarOperacaoInserir = Boolean(req)
         return response.json(habilitarOperacaoInserir)
+    })
+    app.post('/viagem', (request, response) => {
+        codLinha = req.params.linha;
+        placaVeiculo = req.params.placa;
+        return response.json({codLinha, placaVeiculo})
     })
 }
 

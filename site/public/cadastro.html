@@ -73,7 +73,7 @@
         /></span>
         <span class="campos"
           >Celular de contato:
-          <input id="ipt_cel" placeholder="(DDD)_____-____"
+          <input id="ipt_cel" placeholder="11999999999"
         /></span>
         <span class="campos"
           >Senha: <input type="password" id="ipt_senha" placeholder="•••••"
@@ -303,6 +303,12 @@
                     // mensagem_erro.innerHTML =
                     //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
+                    alert("Cadastro realizado com sucesso. Redirecionando para a tela de login");
+                    setTimeout(()=>{
+                      window.location.href = "login.html";
+                    }, 1000);
+
+                    
                     // setTimeout(() => {
                     //   window.location = "login.html";
                     // }, 2000);

@@ -109,8 +109,7 @@ create view vwKPIMovimentacaoHorario as
 select max(m.idPonto) as idPontoMaisMov,
 max(logradouro) as logrMaisMov,
 min(m.idPonto) as idPontoMenosMov,
-min(logradouro) as logrMenosMov,
-sum(pontoRuim) as pontos from
+min(logradouro) as logrMenosMov from
 	(
 	select p.idPonto, logradouro, (sum(f.entradas)-sum(f.saidas)) as movimentacao
 		from fluxo as f

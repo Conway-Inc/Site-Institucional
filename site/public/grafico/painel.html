@@ -7,17 +7,35 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="abrir()">ABRIR PORTA</button>
     <button onclick="fechar()">FECHAR PORTA</button>
     <br>
     Status da porta: <span id="status"></span>
+
+    <p>Insira o código da linha:</p>
+    <input type="text" id="inpLinha">
+    <p>Insira a placa do veículo utilizado</p>
+    <input type="text" id="inpVeic">
+
+    <button onclick="iniciarViagem()">Iniciar viagem</button>
 </body>
 <script>
-    function abrir() {
-        
+    function iniciarViagem(){
+        var http = new XMLHttpRequest();
+            var codLinha = inpLinha.value;
+            var placa = inpVeic.value;
+            
+            var infosViagem = {
+                linha: codLinha,
+                placa: placa
+            } 
+
+            http.open('POST', `http://localhost:3000/viagem`);
+            http.send(infosViagem);
     }
     function fechar() {
-        
+        var http = new XMLHttpRequest();
+            http.open('POST', 'http://localhost:3000/porta/true');
+            http.send(null)
     }
 </script>
 </html>

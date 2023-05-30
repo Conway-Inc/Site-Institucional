@@ -1,136 +1,232 @@
-    <!DOCTYPE html>
-    <html lang="pt-br">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>NAG-9496 - Alterando</title>
-        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NAG-9496 - Alterando</title>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
 
-        <link rel="stylesheet" href="css/header.css" />
-        <link rel="stylesheet" href="css/criacaoVeiculo.css" />
-        <link rel="stylesheet" href="css/menuDashboard.css" />
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script
-          src="https://kit.fontawesome.com/89d28f01ec.js"
-          crossorigin="anonymous"
-        ></script>
-      </head>
-      <body>
-        <!--Começo do header-->
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/criacaoVeiculo.css" />
+    <link rel="stylesheet" href="css/menuDashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://kit.fontawesome.com/89d28f01ec.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!--Começo do header-->
 
-        <div class="navbar">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path
-              d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
-              fill="rgb(105,80,60)"
-            />
-          </svg>
+    <div class="navbar">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+          fill="rgb(105,80,60)"
+        />
+      </svg>
 
-          <h1>Alterar veículo</h1>
-        </div>
+      <h1>Alterar veículo</h1>
+    </div>
 
-        <div class="header">
-          <div class="container">
-            <ul>
-              <li><a href=""> CONFIGURAÇÕES </a></li>
-              <li><a href="menuDashboard.html"> VOLTAR </a></li>
-            </ul>
-          </div>
-        </div>
-        <!--Fim do header-->
+    <div class="header">
+      <div class="container">
+        <ul>
+          <li><a href=""> CONFIGURAÇÕES </a></li>
+          <li><a href="menuDashboard.html"> VOLTAR </a></li>
+        </ul>
+      </div>
+    </div>
+    <!--Fim do header-->
 
-        <!-- Conteúdo - Gráficos -->
-        <main>
-          <div class="conteudos">
-            <div class="caixaContent">
-              <div class="content">
-                <div class="form">
-                  <label for="iptPlaca">
-                    <p>Placa:</p>
-                    <input type="text" id="iptPlaca" value="NAG-9496"/>
-                  </label>
-                  <label for="selectModelo">
-                    <p>Modelo</p>
-                    <select name="selectModelo" id="selectModelo" oninput="mudarImagem()">
-                      <option value="bas">Basico</option>
-                      <option value="micro">Micro-ônibus</option>
-                      <option value="mini">Mini-ônibus</option>
-                      <option value="midi">Midiônibus</option>
-                      <option value="padr">Padron</option>
-                      <option value="artc">Articulado</option>
-                      <option value="Sartc">Superarticulado</option>
-                      <option value="biartc">Biarticulado</option>
-                    </select>
-                  </label>
-                </div>
-                <div class="lista-rotas">
-                  <p> Rota(s): </p>
-                  <ul>
-                    <li><a class="linkRota" href="dashboardGeral.html">775N-10</a></li>
-                    <li>748R-10</li>
-                  </ul>
-                </div>
-                <img
-                  src="images/modelosOnibus/Básico.png"
-                  alt=""
-                  id="imgOnibusCriacao"
-                />
-              </div>
-              <div class="btn-area">
-                  <a href="menuDashboard.html"><button id="btnExcluir">Excluir</button></a>
-              </div>
+    <!-- Conteúdo - Gráficos -->
+    <main>
+      <div class="conteudos">
+        <div class="caixaContent">
+          <div class="content">
+            <div class="form">
+              <label for="iptPlaca">
+                <p>Placa:</p>
+                <input type="text" id="iptPlaca" value="NAG-9496" />
+              </label>
+              <label for="iptAnoAquisicao">
+                <p>Ano de Aquisição:</p>
+                <input type="text" id="iptAnoAquisicao" />
+              </label>
+              <label for="selectModelo">
+                <p>Modelo</p>
+                <select
+                  name="selectModelo"
+                  id="selectModelo"
+                  oninput="mudarImagem()"
+                >
+                  <option value="1">Basico</option>
+                  <option value="2">Micro-ônibus</option>
+                  <option value="3">Mini-ônibus</option>
+                  <option value="4">Midiônibus</option>
+                  <option value="5">Padron</option>
+                  <option value="6">Articulado</option>
+                  <option value="7">Superarticulado</option>
+                  <option value="8">Biarticulado</option>
+                </select>
+              </label>
             </div>
-
-            <!-- Conteúdo - Veículos -->
-            <aside>
-              <div class="imgHeader">
-                <img src="images/transpass.png" alt="" />
-              </div>
-
-              <div class="funcionarios">
-                <p>Seus Veículos Registrados:</p>
-                <ul>
-                  <li><a href="alterarVeiculo.html"> Veiculo: NAG-9496 </a></li>
-                  <li><a href="alterarVeiculo.html"> Veiculo: JTC-2740 </a></li>
-                  <li><a href="alterarVeiculo.html"> Veiculo: MOI-7346 </a></li>
-                </ul>
-
-                <p><b>Clique no veículo para gerenciá-lo ou excluí-lo</b></p>
-              </div>
-            </aside>
-            <!-- Fim do Conteúdo - Veículos -->
+            <div class="lista-rotas">
+              <p>Rota(s):</p>
+              <ul>
+                <li>
+                  <a class="linkRota" href="dashboardGeral.html">775N-10</a>
+                </li>
+                <li>748R-10</li>
+              </ul>
+            </div>
+            <img
+              src="images/modelosOnibus/Basico.png"
+              alt=""
+              id="imgOnibusCriacao"
+            />
           </div>
-        </main>
-        <!-- Fim do Conteúdo - Gráficos -->
-      </body>
-    </html>
+          <div class="btn-area">
+            <button id="btnExcluir" onclick="excluirVeiculo(sessionStorage.ID_VEICULO)">Excluir</button>
+          </div>
+          <div class="btn-area">
+            <button id="btnAlterar" onclick="alterarVeiculo(sessionStorage.ID_VEICULO)">Alterar</button>
+          </div>
+        </div>
+
+        <!-- Conteúdo - Veículos -->
+        <aside>
+          <div class="imgHeader">
+            <img src="images/transpass.png" alt="" />
+          </div>
+
+          <div class="funcionarios">
+            <p>Seus Veículos Registrados:</p>
+            <ul id="listaVeiculos"></ul>
+
+            <p><b>Clique no veículo para gerenciá-lo ou excluí-lo</b></p>
+          </div>
+        </aside>
+        <!-- Fim do Conteúdo - Veículos -->
+      </div>
+    </main>
+    <!-- Fim do Conteúdo - Gráficos -->
+  </body>
+</html>
 <script>
-  function mudarImagem(){
+  veiculos = [];
+  iptPlaca.value = sessionStorage.PLACA_VEICULO;
+  iptAnoAquisicao.value = sessionStorage.ANO_AQUISICAO;
+  selectModelo.value = sessionStorage.ID_MODELO;
+  document.title = `${sessionStorage.PLACA_VEICULO}`;
+
+  carregarVeiculosDaEmpresa();
+  function mudarImagem() {
     var modelo = selectModelo.value;
-    if(modelo == "micro"){
+    if (modelo == "2") {
       imgOnibusCriacao.src = "images/modelosOnibus/Micro-ônibus.png";
     }
-    if(modelo == "mini"){
+    if (modelo == "3") {
       imgOnibusCriacao.src = "images/modelosOnibus/Mini-ônibus.png";
     }
-    if(modelo == "midi"){
+    if (modelo == "4") {
       imgOnibusCriacao.src = "images/modelosOnibus/Midiônibus.png";
     }
-    if(modelo == "bas"){
-      imgOnibusCriacao.src = "images/modelosOnibus/Básico.png";
+    if (modelo == "1") {
+      imgOnibusCriacao.src = "images/modelosOnibus/Basico.png";
     }
-    if(modelo == "padr"){
+    if (modelo == "5") {
       imgOnibusCriacao.src = "images/modelosOnibus/Padron.png";
     }
-    if(modelo == "artc"){
+    if (modelo == "6") {
       imgOnibusCriacao.src = "images/modelosOnibus/Articulado.png";
     }
-    if(modelo == "Sartc"){
+    if (modelo == "7") {
       imgOnibusCriacao.src = "images/modelosOnibus/Superarticulado.png";
     }
-    if(modelo == "biartc"){
+    if (modelo == "8") {
       imgOnibusCriacao.src = "images/modelosOnibus/Biarticulado.png";
     }
+  }
+
+  function carregarVeiculosDaEmpresa() {
+    fetch(`veiculos/listar/${sessionStorage.FK_EMPRESA}`)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+            var listaVeiculos = document.getElementById("listaVeiculos");
+            listaVeiculos.innerHTML = "";
+            for (let i = 0; i < resposta.length; i++) {
+              veiculos.push(resposta[i]);
+              var v = document.createElement("li");
+              v.innerHTML = `Veiculo: ${resposta[i].placaVeiculo}`;
+
+              listaVeiculos.appendChild(v);
+              v.addEventListener("click", (click) =>
+                redirecionarAdicionarVeiculo(i)
+              );
+            }
+          });
+        } else {
+          console.error("Nenhum dado encontrado na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados: ${error.message}`);
+      });
+  }
+
+  function redirecionarAdicionarVeiculo(index) {
+    sessionStorage.ID_VEICULO = veiculos[index].idVeiculo;
+    sessionStorage.PLACA_VEICULO = veiculos[index].placaVeiculo;
+    sessionStorage.ANO_AQUISICAO = veiculos[index].anoAquisicao;
+    sessionStorage.NOME_MODELO = veiculos[index].nomeModelo;
+    sessionStorage.ID_MODELO = veiculos[index].idModelo;
+
+    window.location = "alterarVeiculo.html";
+  }
+
+  function alterarVeiculo(idVeiculo) {
+    var placa = iptPlaca.value;
+    var anoAquisicao = iptAnoAquisicao.value;
+    var idModelo = selectModelo.value;
+
+    fetch(`/veiculos/alterarVeiculo/${idVeiculo}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        placaServer: placa,
+        anoAquisicaoServer: anoAquisicao,
+        idModeloServer: idModelo,
+      }),
+    })
+      .then(function (resposta) {
+        console.log(resposta);
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function excluirVeiculo(idVeiculo) {
+    console.log("Criar função de apagar post escolhido - ID" + idVeiculo);
+    fetch(`/veiculos/excluirVeiculo/${idVeiculo}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resposta) {
+        console.log(resposta);
+        // location.reload();
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
   }
 </script>

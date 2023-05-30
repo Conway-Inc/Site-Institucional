@@ -266,10 +266,10 @@ function cadastrarFuncionario(req, res) {
 
 
 function excluirFuncionario(req, res) {
-  var idFuncionario = req.params.idFuncionario; 
+  var idFuncionario = req.body.idFuncionarioServer; 
 
     usuarioModel
-      .excluirFuncionario(idFuncionario)
+      .excluir(idFuncionario)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -292,6 +292,7 @@ module.exports = {
   cadastrarRotas,
   capturarIdEmpresa,
   cadastrarEmpresa,
+  excluirFuncionario,
   listar,
   excluirFuncionario,
   alterarFuncionario,
