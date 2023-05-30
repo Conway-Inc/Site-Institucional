@@ -144,7 +144,7 @@ const servidor = (
     app.post('/viagem', (request, response) => {
         codLinha = req.params.linha;
         placaVeiculo = req.params.placa;
-        return response.json({codLinha, placaVeiculo})
+        return response.json({codLinha, placaVeiculo});
     })
 }
 

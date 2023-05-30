@@ -132,6 +132,14 @@ select
         where v.horaInicio like '%18______'
         group by v.idViagem;
 
+-- View para o card de viagem do menu dashboard
+create view vwCardMenuDashboard as
+select vwl.*,
+(select count(fkVeiculo) from vwLinha as l
+		 join viagem as v on v.fkLinha = l.idLinha
+         join veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos
+         from vwLinha as vwl;
+
 -- ------------- --
 /*DADOS DINÂMICOS*/
 -- ------------- --
