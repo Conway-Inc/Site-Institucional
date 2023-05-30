@@ -15,7 +15,7 @@ function cadastrarPonto(cep, logradouro, numNaRua, grausY, grausX) {
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucao = `
-        INSERT INTO Ponto (cep, logradouro, numNaRua, grausY, grausX) VALUES ('${cep}', '${logradouro}','${numNaRua}','${grausY}', ${grausX});
+        INSERT INTO Ponto (cep, logradouro, numNaRua, grausY, grausX) VALUES ('${cep}', '${logradouro}','${numNaRua}','${grausY}', '${grausX}');
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

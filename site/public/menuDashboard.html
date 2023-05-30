@@ -155,19 +155,15 @@
                     <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
                     <input class="ipt_func" placeholder="Número" id="ipt_num" />
                   </span>
-                  <input
-                    class="ipt_func"
-                    placeholder="Complemento"
-                    id="ipt_complemento"
-                  /><br />
+                  <br />
                 </div>
 
                 <div class="div_ipt">
                   <h3>Coordenadas geográficas</h3>
                   <p>(Opcional)</p>
                   <span id="coordenadas">
-                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
-                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
+                    <input class="ipt_func" placeholder="X" id="ipt_coordX"/>
+                    <input class="ipt_func" placeholder="Y" id="ipt_coordY"/>
                   </span>
                 </div>
 
@@ -404,9 +400,13 @@
     var logradouroVar = ipt_logradouro.value;
     var cepVar = ipt_cep.value;
     var numVar = ipt_num.value;
-    var complementoVar = ipt_complemento.value;
     var coordXVar = ipt_coordX.value;
     var coordYVar = ipt_coordY.value;
+
+    if(coordXVar == '' || coordYVar == ''){
+      coordXVar = null;
+      coordYVar = null;
+    }
 
     fetch("/ponto/cadastrarPonto", {
       method: "POST",
@@ -417,7 +417,6 @@
         cepServer: cepVar,
         logradouroServer: logradouroVar,
         numServer: numVar,
-        complementoServer: complementoVar,
         coordYServer: coordYVar,
         coordXServer: coordXVar,
       }),
