@@ -198,6 +198,7 @@
 </html>
 
 <script>
+  var veiculos = []
   function suaFrota() {
     idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
     idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
@@ -221,8 +222,8 @@
           var content = document.getElementById("content");
           content.innerHTML = "";
           for (let i = 0; i < resposta.length; i++) {
+            veiculos.push(resposta[i])
             var veiculo = resposta[i];
-
             var titulo = document.createElement("h2");
             var tipoVeiculo = document.createElement("p");
             var rotas = document.createElement("p");
@@ -249,6 +250,9 @@
             imgArea.appendChild(imgOnibus);
             imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
 
+            card.addEventListener("click", (click) =>
+                redirecionarAdicionarVeiculo(i)
+              );
             content.appendChild(card);
           }
           var botaoAdicionar = document.createElement("a");
@@ -777,5 +781,15 @@
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
+  }
+
+  function redirecionarAdicionarVeiculo(index) {
+    sessionStorage.ID_VEICULO = veiculos[index].idVeiculo;
+    sessionStorage.PLACA_VEICULO = veiculos[index].placaVeiculo;
+    sessionStorage.ANO_AQUISICAO = veiculos[index].anoAquisicao;
+    sessionStorage.NOME_MODELO = veiculos[index].nomeModelo;
+    sessionStorage.ID_MODELO = veiculos[index].idModelo;
+
+    window.location = "alterarVeiculo.html";
   }
 </script>
