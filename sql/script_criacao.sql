@@ -66,7 +66,7 @@ CREATE TABLE Funcionario(
 );
 
 CREATE TABLE Ponto(
-  idPonto INT PRIMARY KEY,
+  idPonto INT PRIMARY KEY AUTO_INCREMENT,
   cep CHAR(8) NOT NULL,
   logradouro VARCHAR(45) NOT NULL,
   numNaRua INT NOT NULL,
@@ -87,9 +87,10 @@ CREATE TABLE Fluxo(
 );
 
 CREATE TABLE LinhaPonto(
-  idLinha INT NOT NULL,
-  idPonto INT NOT NULL,
-  PRIMARY KEY (idLinha, idPonto),
-  FOREIGN KEY (idLinha) REFERENCES Linha(idLinha),
-  FOREIGN KEY (idPonto) REFERENCES Ponto(idPonto)
+  fkLinha INT NOT NULL,
+  fkPonto INT NOT NULL,
+  PRIMARY KEY (fkLinha, fkPonto),
+  FOREIGN KEY (fkLinha) REFERENCES Linha(idLinha),
+  FOREIGN KEY (fkPonto) REFERENCES Ponto(idPonto)
 );
+
