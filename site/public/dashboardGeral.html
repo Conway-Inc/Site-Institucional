@@ -16,23 +16,23 @@
     <div id="sidebar">
         <div id="KPIHorariosCheios" class="KPIAlerta">
             <span>Horário mais cheio</span>
-            <p>19:00</p>
+            <p id="pHorarioCheio">19:00</p>
             <span>Média em horários cheios</span>
             <p class="alerta">7 passageiros por ponto</p>
         </div>
         <div id="KPIHorariosVazios">
             <span>Horário mais vazio</span>
-            <p>15:00</p>
+            <p id="pHorarioVazio">15:00</p>
             <span>Média em horários vazios</span>
             <p>4,5 passageiros por ponto</p>
         </div>
         <div id="KPIMovimentaçãoPontos">
             <span>Ponto mais movimentado</span>
-            <p>7</p>
-            <p>Av. Rebouças, 2549</p>
+            <p id="pPontoMaisMov">7</p>
+            <p id="pLogMaisMov">Av. Rebouças, 2549</p>
             <span>Ponto menos movimentado</span>
-            <p>2</p>
-            <p>R. Pe. Alarico, 1412</p>
+            <p id="pPontoMenosMov">2</p>
+            <p id="pLogMenosMov">R. Pe. Alarico, 1412</p>
         </div>
         <div id="KPIVeiculos" class="KPIAlerta">
             <span>Horários mal aproveitados - por modelo</span>
@@ -48,11 +48,11 @@
             <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
             <div id="cabecalhoDashboard">
                 <div id="tituloRota">
-                    <h1>775N</h1>
+                    <h1 id="h1Codigo">775N</h1>
                     <div id="infosRota">
                         <p><i>Rota Normal</i> (10)</p>
-                        <p>Term. Vila Madalena</p>
-                        <p>Rio Pequeno</p>
+                        <p id="pNomeIda">Term. Vila Madalena</p>
+                        <p id="pNomeVolta">Rio Pequeno</p>
                     </div>
                 </div>
                 <div id="selecionarHorario">
@@ -147,52 +147,223 @@
 </body>
 </html>
 <script>
-    //Gráfico geral da rota
-    const pontos = [
-        "Av José Felipe, 580",
-        "R. Pe. Alarico, 31",
-        "Av. Eng. Heitor, 1421",
-        "Av Corifeu, 1975",
-        "Av. Dr. Vital Brasil, 569",
-        "Av. Eusébio Matoso, 133",
-        "Av Rebouças, 2549",
-        "Av. Paulista, 2319",
-        "Av. Brig. Luís Antônio, 1289",
-        "Av. da Liberdade, 333"
-    ]
-    const lotacaoOnibus = 80;
-    const dadosGeral = {
-        labels:pontos,
-        datasets: [{
-                label: "12:00 (CCV-4234)",
-                data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
-            },
-            {
-                label: "15:00 (CCV-4234)",
-                data: [0,5,8,10,12,19,24,19,12,7]
-            },
-            {
-                label: "19:00 (CCV-4234)",
-                data: [15.3,30,37.5,45,53.5,64,61,32.5,25.5,10]
-            }
-        ]
-    }
-    const configGraficoGeral = {
-        type: "line",
-        data: dadosGeral,
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    max: (lotacaoOnibus + 25)
-            }
-            }
+    ///////////////////////////////////////////////
+    ///////////////// Temporário //////////////////
+    sessionStorage.COD_ROTA = "477P";
+    ///////////////////////////////////////////////
+    
+    function verificarSessao() {
+        if (sessionStorage.COD_ROTA == undefined) {
+            window.location = "menuDashboard.html";
         }
     }
-    const graficoGeral = new Chart(
-        document.getElementById("graficoRota"),
-        configGraficoGeral
-    );
+    verificarSessao();
+ 
+    var linha = null;
+    var kpis = null;
+    var fluxo = null;
+    var veiculos = null;
+
+    var pontos
+
+    function carregarLinha() {
+        fetch(`linha/listarPorCodigo/${sessionStorage.COD_ROTA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                linha = resposta;
+                configLinha();
+                gerarGraficoOtimizacao();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarKPIs() {
+        fetch(`linha/kpiMovLinha/${sessionStorage.COD_ROTA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                kpis = resposta;
+                configKPI();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarFluxo() {
+        fetch(`viagem/fluxoViagens/${sessionStorage.COD_ROTA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                fluxo = resposta;
+                configFluxo();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    
+    carregarLinha();
+    carregarKPIs();
+    carregarFluxo();
+
+    var codigo = document.getElementById("h1Codigo");
+    var nomeIda = document.getElementById("pNomeIda");
+    var nomeVolta = document.getElementById("pNomeVolta");
+
+    var kpiHorarioCheio = document.getElementById("pHorarioCheio");
+    var kpiHorarioVazio = document.getElementById("pHorarioVazio");
+
+    var kpiPontoMaisMov = document.getElementById("pPontoMaisMov");
+    var kpiLogMaisMov = document.getElementById("pLogMaisMov");
+    var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
+    var kpiLogMenosMov = document.getElementById("pLogMenosMov");
+
+    var pClassificacao = document.getElementById("classificIdeal");
+
+    function configLinha(){
+        codigo.innerHTML = linha.codLinha;
+        nomeIda.innerHTML = linha.nomeLinhaIda;
+        nomeVolta.innerHTML = linha.nomeLinhaVolta;
+    }
+    function configKPI(){   
+        kpiPontoMaisMov.innerHTML = kpis.idPontoMaisMov;
+        kpiLogMaisMov.innerHTML = kpis.logrMaisMov;
+
+        kpiPontoMenosMov.innerHTML = kpis.idPontoMenosMov;
+        kpiLogMenosMov.innerHTML = kpis.logrMenosMov;
+    }
+    function configFluxo(){
+        var pontos = [];
+        var primeiraViagem = null;
+
+        for(let i = 0; i < fluxo.length; i++){
+            if(primeiraViagem == null){
+                primeiraViagem = fluxo[i].fkViagem
+            }
+            if(fluxo[i].fkViagem != primeiraViagem){
+                break;
+            }
+            pontos.push(fluxo[i].logradouro);
+        }
+        console.log("Pontos: " + pontos);
+
+        var viagens = [];
+        var viagemAtual = null;
+        for(let i = 0; i < fluxo.length; i++){
+            viagens.push();
+        }
+        console.log(viagens);
+        
+        gerarGraficoFluxo(pontos);
+    }
+
+    function gerarGraficoOtimizacao(){
+        var otimizacao = Number(linha.pctOtimizacao);
+        var areaBranca = 100 - otimizacao;
+        
+        var corClassific = "";
+        var nomeClassific = "";
+        if(otimizacao >= 80){
+            corClassific = "#00BF63";
+            nomeClassific = "Ideal";
+        }
+        else if(otimizacao > 30){
+            corClassific = "#fbff1a";
+            nomeClassific = "Boa";
+        }
+        else{
+            corClassific = "#DB0300";
+            nomeClassific = "Ruim";
+        }
+
+        var tituloRota = document.getElementById("tituloRota");
+        tituloRota.style = "background-color: "+corClassific;
+        pClassificacao.innerHTML = nomeClassific;
+        pClassificacao.className = "classific" + nomeClassific;
+
+        const classificacao = ["Otimização Atual","Melhora possível"]
+        const dadosClassfic = {
+            labels: classificacao,
+            datasets: [{
+                    backgroundColor: [corClassific,"white"],
+                    borderColor: ["black"],
+                    borderWidth: "0.5",
+                    data: [otimizacao,areaBranca],
+                    circumference: 180,
+                    rotation: 270
+                }
+            ]
+        }
+        const configGraficoClassific = {
+            type: "doughnut",
+            data: dadosClassfic,
+            options: {
+                aspectRatio: '1/4',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+        const graficoClassific = new Chart(
+            document.getElementById("graficoClassific"),
+            configGraficoClassific
+        );
+    }
+
+    function gerarGraficoFluxo(pontos){
+        const lotacaoOnibus = 80;
+        const dadosGeral = {
+            labels:pontos,
+            datasets: [{
+                    label: "12:00 (CCV-4234)",
+                    data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
+                },
+                {
+                    label: "15:00 (CCV-4234)",
+                    data: [0,5,8,10,12,19,24,19,12,7]
+                },
+                {
+                    label: "19:00 (CCV-4234)",
+                    data: [15.3,30,37.5,45,53.5,64,61,32.5,25.5,10]
+                }
+            ]
+        }
+        const configGraficoGeral = {
+            type: "line",
+            data: dadosGeral,
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        max: (lotacaoOnibus + 25)
+                }
+                }
+            }
+        }
+        const graficoGeral = new Chart(
+            document.getElementById("graficoRota"),
+            configGraficoGeral
+        );
+    }
 
     // Gráfico dos ônibus na rota
     // Todos os modelos:
@@ -230,39 +401,5 @@
     const graficoVeiculos = new Chart(
         document.getElementById("graficoVeiculos"),
         configGraficoVeiculos
-    );
-
-    //Gráfico classificação
-    const corClassific = '#DB0300';
-    //document.getElementById("tituloRota").style = `backgroundColor: ${corClassific}`;
-    //NAO CONSEGUI FAZER - GUS 27/04
-    const classificacao = ["Otimização Atual","Melhora possível"]
-    const dadosClassfic = {
-        labels: classificacao,
-        datasets: [{
-                backgroundColor: [corClassific,"white"],
-                borderColor: [corClassific],
-                borderWidth: "0.5",
-                data: [33,77],
-                circumference: 180,
-                rotation: 270
-            }
-        ]
-    }
-    const configGraficoClassific = {
-        type: "doughnut",
-        data: dadosClassfic,
-        options: {
-            aspectRatio: '1/4',
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    }
-    const graficoClassific = new Chart(
-        document.getElementById("graficoClassific"),
-        configGraficoClassific
     );
 </script>

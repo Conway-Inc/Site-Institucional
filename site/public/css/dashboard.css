@@ -244,19 +244,24 @@ details{
 }
 
 .classificRuim, .classificBoa, .classificIdeal{
-    top: 55px;
+    top: 58px;
     font-size: 25px !important;
     margin: 0;
     position: absolute;
-    margin-top: 60px;
+    justify-self: flex-end;
 }
 .classificRuim{
     color: #DB0300;
-    font-size: 15px !important;
-    top: 65px;
+    font-size: 20px !important;
+}
+.classificBoa{
+    color: #fbff1a;
+    font-size: 24px !important;
+    -webkit-text-stroke: black 0.5px;
 }
 .classificIdeal{
     color: #00BF63;
+    font-size: 22px !important;
     -webkit-text-stroke: black 0.5px;
 }
 
