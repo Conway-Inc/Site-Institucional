@@ -2,7 +2,6 @@ var linhaModel = require("../models/linhaModel");
 
 var sessoes = [];
 
-
 // Criado para Cadastrar a rota - alterarRotas.html
 function cadastrarLinha(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -40,7 +39,7 @@ function cadastrarLinha(req, res) {
 }
 
 function selectLinha(req, res){
-  var nomeLinha = req.body.nomeRotaServer;
+  var nomeLinha = req.params.codRota;
 
   linhaModel.selectLinha(nomeLinha)
   .then(
@@ -66,7 +65,35 @@ function selectLinha(req, res){
   );
 }
 
+function kpiMovLinha(req, res){
+  var nomeLinha = req.params.codRota;
+
+  linhaModel.kpiMovLinha(nomeLinha)
+  .then(
+    function (resultado){
+      console.log(`\nResultados encontrados: ${resultado.length}`);
+      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+
+      if(resultado.length == 1){
+        console.log(resultado);
+        res.json(resultado[0]);
+      } else if(resultado.length == 0){
+        res.status(403).send("Nome da Linha INVÁLIDO");
+      } else{
+        res.status(403).send("Mais de uma LINHA com o mesmo NOME");
+      }
+    }
+  ).catch(
+    function (erro){
+      console.log(erro);
+      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    }
+  );
+}
+
 module.exports = {
   cadastrarLinha,
-  selectLinha
+  selectLinha,
+  kpiMovLinha
 };

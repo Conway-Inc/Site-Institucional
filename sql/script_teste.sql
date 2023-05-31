@@ -37,8 +37,8 @@ select * from vwVeiculosLinha where idLinha = 1; -- Pegar veículos da linha de 
 select * from vwVeiculosLinha where idLinha = 1 and horaInicio like '%12______'; -- Pegar veículos da linha de ID 1 no horário das 12:00
 
 -- Ver fluxo com informações dos pontos, linha, veículos e empresa relacionados
-create view vwFluxo as
-select f.fkViagem, f.idFluxo, f.dataHoraFluxo, p.logradouro, p.numNaRua, p.cep, f.entradas, f.saidas, f.saldoPassageiros,
+create or replace view vwFluxo as
+select f.fkViagem, f.idFluxo, f.dataHoraFluxo, p.idPonto, p.logradouro, p.numNaRua, p.cep, f.entradas, f.saidas, f.saldoPassageiros,
 case when (100 * f.saldoPassageiros)/m.lotacao >= 111 then -- Tirando a porcentagem do saldo de passageiros em cada ponto para dar a métrica
 		'Superlotado'
 	 when (100 * f.saldoPassageiros)/m.lotacao between 101 and 110 then
@@ -61,6 +61,11 @@ v.placaVeiculo, m.lotacao, m.nomeModelo, e.nome
        join modelo as m on v.fkModelo = m.idModelo
        join linha as l on vi.fkLinha = l.idLinha
        join empresa as e on l.fkEmpresa = e.idEmpresa;
+
+-- Ver fluxo por linha
+select logradouro, round(avg(saldoPassageiros),0) as mediaPassageiros from vwFluxo
+	   where codLinha = '477P'
+       group by logradouro;
 
 -- Ver as informações de uma viagem, seus veículos, sua linha, sua empresa e seu nível de otimização
 -- select sum(lotacao)*100/sum(saldoPassageiros) from vwFluxo as f
@@ -105,8 +110,10 @@ from linha as l
 
 -- Ver as informações das KPIs da dashboard por horário
 -- Pontos mais/menos movimentados
-create view vwKPIMovimentacaoHorario as
-select max(m.idPonto) as idPontoMaisMov,
+create or replace view vwKPIMovimentacaoHorario as
+select
+fkLinha, idViagem,
+max(m.idPonto) as idPontoMaisMov,
 max(logradouro) as logrMaisMov,
 min(m.idPonto) as idPontoMenosMov,
 min(logradouro) as logrMenosMov from
@@ -117,7 +124,7 @@ min(logradouro) as logrMenosMov from
         group by p.idPonto) as m
 	join fluxo as f on m.idPonto = f.fkPonto
     join viagem as v on f.fkViagem = v.idViagem
-    where v.horaInicio like '%18______';
+    group by idViagem;
     
 -- Número de pontos ruins por viagem no horário
 create view vwKPIPontosRuinsHorario as
@@ -131,6 +138,25 @@ select
 		join modelo as m on veic.fkModelo = m.idModelo
         where v.horaInicio like '%18______'
         group by v.idViagem;
+
+-- Ver as informações das KPIs da dashboard por linha
+-- Pontos mais/menos movimentados
+create or replace view vwKPIMovimentacaoLinha as
+select
+idLinha, codLinha,
+max(m.idPonto) as idPontoMaisMov,
+max(logradouro) as logrMaisMov,
+min(m.idPonto) as idPontoMenosMov,
+min(logradouro) as logrMenosMov from
+	(
+	select p.idPonto, logradouro, (sum(f.entradas)-sum(f.saidas)) as movimentacao
+		from fluxo as f
+		join ponto as p on f.fkPonto = p.idPonto
+        group by p.idPonto) as m
+	join fluxo as f on m.idPonto = f.fkPonto
+    join viagem as v on f.fkViagem = v.idViagem
+    join linha as l on v.fkLinha = l.idLinha
+    group by idLinha;
 
 -- View para o card de viagem do menu dashboard
 create view vwCardMenuDashboard as

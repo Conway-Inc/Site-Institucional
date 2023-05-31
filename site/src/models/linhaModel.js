@@ -21,17 +21,25 @@ function cadastrarLinha(nomeRota, tipoLinha, pontoInicial, pontoFinal, fkEmpresa
 }
 
 function selectLinha(nomeLinha){
-  console.log("ACESSEI O USUÁRIO MODEL \n", nomeLinha)
+  console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
   var instrucao = 
-  `SELECT * FROM Linha WHERE codLinha = '${nomeLinha}';
+  `SELECT * FROM vwLinha WHERE codLinha = '${nomeLinha}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function kpiMovLinha(nomeLinha){
+  console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
+  var instrucao = 
+  `select * from vwKPIMovimentacaoLinha where codLinha = '${nomeLinha}';
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
 module.exports = {
-  
   cadastrarLinha,
-  selectLinha
-  
+  selectLinha,
+  kpiMovLinha
 };

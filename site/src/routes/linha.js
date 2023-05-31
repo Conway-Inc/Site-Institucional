@@ -14,9 +14,12 @@ router.post("/cadastrarLinha", function (req, res) {
     linhaController.cadastrarLinha(req, res);
 })
 
-router.post("/autenticar", function (req, res){
+router.get("/listarPorCodigo/:codRota", function(req, res) {
     linhaController.selectLinha(req, res);
-})
+});
 
+router.get("/kpiMovLinha/:codRota", function(req, res) {
+    linhaController.kpiMovLinha(req, res);
+});
 
 module.exports = router;
