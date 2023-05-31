@@ -162,8 +162,8 @@
                   <h3>Coordenadas geográficas</h3>
                   <p>(Opcional)</p>
                   <span id="coordenadas">
-                    <input class="ipt_func" placeholder="X" id="ipt_coordX"/>
-                    <input class="ipt_func" placeholder="Y" id="ipt_coordY"/>
+                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
+                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
                   </span>
                 </div>
 
@@ -198,7 +198,7 @@
 </html>
 
 <script>
-  var veiculos = []
+  var veiculos = [];
   function suaFrota() {
     idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
     idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
@@ -216,45 +216,68 @@
 
     fetch(`/veiculos/listar/${sessionStorage.FK_EMPRESA}`)
       .then(function (resposta) {
-        resposta.json().then(function (resposta) {
-          console.log("Dados recebidos: ", JSON.stringify(resposta));
+        if (resposta.status == 200) {
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-          var content = document.getElementById("content");
-          content.innerHTML = "";
-          for (let i = 0; i < resposta.length; i++) {
-            veiculos.push(resposta[i])
-            var veiculo = resposta[i];
-            var titulo = document.createElement("h2");
-            var tipoVeiculo = document.createElement("p");
-            var rotas = document.createElement("p");
-            var tituloArea = document.createElement("div");
-            var imgArea = document.createElement("div");
-            var imgOnibus = document.createElement("img");
-            var card = document.createElement("div");
+            var content = document.getElementById("content");
+            content.innerHTML = "";
+            for (let i = 0; i < resposta.length; i++) {
+              veiculos.push(resposta[i]);
+              var veiculo = resposta[i];
+              var titulo = document.createElement("h2");
+              var tipoVeiculo = document.createElement("p");
+              var rotas = document.createElement("p");
+              var tituloArea = document.createElement("div");
+              var imgArea = document.createElement("div");
+              var imgOnibus = document.createElement("img");
+              var card = document.createElement("div");
 
-            titulo.innerHTML = veiculo.placaVeiculo;
-            tipoVeiculo.innerHTML = veiculo.nomeModelo;
-            // TODO: rotas
+              titulo.innerHTML = veiculo.placaVeiculo;
+              tipoVeiculo.innerHTML = veiculo.nomeModelo;
+              // TODO: rotas
 
-            card.appendChild(tituloArea);
-            card.appendChild(imgArea);
-            card.className = "cardVeiculo";
+              card.appendChild(tituloArea);
+              card.appendChild(imgArea);
+              card.className = "cardVeiculo";
 
-            tituloArea.appendChild(titulo);
-            tituloArea.appendChild(rotas);
-            tituloArea.appendChild(tipoVeiculo);
-            tituloArea.className = "tituloBus";
-            rotas.className = "rotas";
+              tituloArea.appendChild(titulo);
+              tituloArea.appendChild(rotas);
+              tituloArea.appendChild(tipoVeiculo);
+              tituloArea.className = "tituloBus";
+              rotas.className = "rotas";
 
-            imgArea.className = "qtdVeic";
-            imgArea.appendChild(imgOnibus);
-            imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
+              imgArea.className = "qtdVeic";
+              imgArea.appendChild(imgOnibus);
+              imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
 
-            card.addEventListener("click", (click) =>
+              card.addEventListener("click", (click) =>
                 redirecionarAdicionarVeiculo(i)
               );
-            content.appendChild(card);
-          }
+              content.appendChild(card);
+            }
+            var botaoAdicionar = document.createElement("a");
+            var botaoAdicionarDiv1 = document.createElement("div");
+            var botaoAdicionarDiv2 = document.createElement("div");
+            var sinalAdicionar = document.createElement("h2");
+            var textoAdicionar = document.createElement("p");
+
+            botaoAdicionar.href = "adicionarVeiculo.html";
+            sinalAdicionar.innerHTML = "+";
+            textoAdicionar.innerHTML = "Adicionar novo veículo";
+            botaoAdicionarDiv1.id = "visu05";
+            botaoAdicionarDiv2.className = "visu05";
+
+            botaoAdicionar.appendChild(botaoAdicionarDiv1);
+            botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+            botaoAdicionarDiv2.appendChild(sinalAdicionar);
+            botaoAdicionarDiv2.appendChild(textoAdicionar);
+            content.appendChild(botaoAdicionar);
+          });
+        } else {
+          var content = document.getElementById("content");
+          content.innerHTML = "";
+
           var botaoAdicionar = document.createElement("a");
           var botaoAdicionarDiv1 = document.createElement("div");
           var botaoAdicionarDiv2 = document.createElement("div");
@@ -268,11 +291,11 @@
           botaoAdicionarDiv2.className = "visu05";
 
           botaoAdicionar.appendChild(botaoAdicionarDiv1);
-          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2)
+          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
           botaoAdicionarDiv2.appendChild(sinalAdicionar);
           botaoAdicionarDiv2.appendChild(textoAdicionar);
           content.appendChild(botaoAdicionar);
-        });
+        }
       })
       .catch(function (resposta) {
         console.error(resposta);
@@ -407,7 +430,7 @@
     var coordXVar = ipt_coordX.value;
     var coordYVar = ipt_coordY.value;
 
-    if(coordXVar == '' || coordYVar == ''){
+    if (coordXVar == "" || coordYVar == "") {
       coordXVar = null;
       coordYVar = null;
     }
@@ -652,14 +675,14 @@
                 </div>
             </div>
             `;
-            botoesEditarExcluir = `
+      botoesEditarExcluir = `
             <div class="btnFunc">
                 <button class="btn_adicionar_mais"><b>Editar</b></button>
                 <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
             </div>`;
-        }
-        for (var i = 0; i < outrosFuncionarios.length; i++) {
-            listaDeFuncionarios.innerHTML += `
+    }
+    for (var i = 0; i < outrosFuncionarios.length; i++) {
+      listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
             </label>
