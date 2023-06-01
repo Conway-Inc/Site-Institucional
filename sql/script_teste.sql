@@ -114,7 +114,8 @@ from linha as l
 -- Ver as informações das KPIs da dashboard por horário
 -- Horários mais/menos vazios com média de passageiros por ponto
 select substring(horaInicio, 12, 5) as horario,
-	   round(avg(saldoPassageiros),1) from vwviagem as vw
+	   round(avg(saldoPassageiros),1) as mediaPass
+       from vwviagem as vw
 			  join fluxo as f on vw.idViagem = f.fkViagem
               where vw.codLinha = '477P'
               group by horario;
