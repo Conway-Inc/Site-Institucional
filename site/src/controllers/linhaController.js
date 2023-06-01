@@ -38,62 +38,86 @@ function cadastrarLinha(req, res) {
   }
 }
 
-function selectLinha(req, res){
+function selectLinha(req, res) {
   var nomeLinha = req.params.codRota;
 
   linhaModel.selectLinha(nomeLinha)
-  .then(
-    function (resultado){
-      console.log(`\nResultados encontrados: ${resultado.length}`);
-      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+    .then(
+      function (resultado) {
+        // console.log(`\nResultados encontrados: ${resultado.length}`);
+        // console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
 
-      if(resultado.length == 1){
-        console.log(resultado);
-        res.json(resultado[0]);
-      } else if(resultado.length == 0){
-        res.status(403).send("Nome da Linha INVÁLIDO");
-      } else{
-        res.status(403).send("Mais de uma LINHA com o mesmo NOME");
+        if (resultado.length == 1) {
+          console.log(resultado);
+          res.json(resultado[0]);
+        } else if (resultado.length == 0) {
+          res.status(403).send("Nome da Linha INVÁLIDO");
+        } else {
+          res.status(403).send("Mais de uma LINHA com o mesmo NOME");
+        }
       }
-    }
-  ).catch(
-    function (erro){
-      console.log(erro);
-      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
-      res.status(500).json(erro.sqlMessage);
-    }
-  );
+    ).catch(
+      function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+      }
+    );
 }
 
-function kpiMovLinha(req, res){
+function kpiMovLinha(req, res) {
   var nomeLinha = req.params.codRota;
 
   linhaModel.kpiMovLinha(nomeLinha)
-  .then(
-    function (resultado){
-      console.log(`\nResultados encontrados: ${resultado.length}`);
-      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+    .then(
+      function (resultado) {
+        // console.log(`\nResultados encontrados: ${resultado.length}`);
+        // console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
 
-      if(resultado.length == 1){
-        console.log(resultado);
-        res.json(resultado[0]);
-      } else if(resultado.length == 0){
-        res.status(403).send("Nome da Linha INVÁLIDO");
-      } else{
-        res.status(403).send("Mais de uma LINHA com o mesmo NOME");
+        if (resultado.length == 1) {
+          console.log(resultado);
+          res.json(resultado[0]);
+        } else if (resultado.length == 0) {
+          res.status(403).send("Nome da Linha INVÁLIDO");
+        } else {
+          res.status(403).send("Mais de uma LINHA com o mesmo NOME");
+        }
       }
-    }
-  ).catch(
-    function (erro){
-      console.log(erro);
-      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
-      res.status(500).json(erro.sqlMessage);
-    }
-  );
+    ).catch(
+      function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+      }
+    );
 }
+
+function veiculoRota(req, res) {
+  var codLinha = req.params.codLinha;
+
+  linhaModel.veiculoRota(codLinha)
+    .then(
+      function (resultado) {
+        console.log(`\nResultados encontrados: ${resultado.length}`);
+        console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+
+        console.log(resultado);
+        res.json(resultado);
+
+      }
+    ).catch(
+      function (erro) {
+        console.log(erro);
+        console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+      }
+    );
+}
+
 
 module.exports = {
   cadastrarLinha,
   selectLinha,
+  veiculoRota,
   kpiMovLinha
 };

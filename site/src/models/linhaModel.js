@@ -23,7 +23,7 @@ function cadastrarLinha(nomeRota, tipoLinha, pontoInicial, pontoFinal, fkEmpresa
 function selectLinha(nomeLinha){
   console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
   var instrucao = 
-  `SELECT * FROM Linha WHERE codLinha = '${nomeLinha}';
+  `SELECT * FROM vwLinha WHERE codLinha = '${nomeLinha}';
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -38,8 +38,22 @@ function kpiMovLinha(nomeLinha){
   return database.executar(instrucao);
 }
 
+function veiculoRota(codLinha) {
+  var instrucao = `SELECT placaVeiculo, nomeModelo, lotacao
+  FROM Veiculo v
+  JOIN Viagem vi ON v.idVeiculo = vi.fkVeiculo
+  JOIN Linha l ON vi.fkLinha = l.idLinha
+  join Modelo m on v.fkModelo = m.idModelo
+  WHERE l.codLinha = '${codLinha}';`
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+
 module.exports = {
   cadastrarLinha,
   selectLinha,
+  veiculoRota,
   kpiMovLinha
 };
