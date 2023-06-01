@@ -12,8 +12,8 @@ INSERT INTO Modelo VALUES(null, 'Biarticulado', 7, 180, 2, 4);
 /*Views*/
 -- Ver funcionários e suas empresas
 create view vwFuncsEmpresa as
-select f.*, e.idEmpresa, e.cnpj, e.nome as nomeEmpresa from empresa as e
-						  join funcionario as f on e.idEmpresa = f.fkEmpresa;
+select f.*, e.idEmpresa, e.cnpj, e.nome as nomeEmpresa from Empresa as e
+						  join Funcionario as f on e.idEmpresa = f.fkEmpresa;
 -- Exemplo SELECT
 select * from vwFuncsEmpresa where idEmpresa = 1; -- Pegar funcs da empresa de ID 1
 
@@ -21,17 +21,17 @@ select * from vwFuncsEmpresa where idEmpresa = 1; -- Pegar funcs da empresa de I
 create view vwVeiculosEmpresa as 
 select v.idVeiculo, v.placaVeiculo, v.anoAquisicao, m.nomeModelo, m.kilowattPorTonelada, m.lotacao, m.portasEntrada, m.portasSaida, e.idEmpresa,
 e.cnpj, e.nome
-	   from veiculo as v
-       join modelo as m on v.fkModelo = m.idModelo
-       join empresa as e on v.fkEmpresa = e.idEmpresa;
+	   from Veiculo as v
+       join Modelo as m on v.fkModelo = m.idModelo
+       join Empresa as e on v.fkEmpresa = e.idEmpresa;
 -- Exemplo de SELECT:
 select * from vwVeiculosEmpresa where idEmpresa = 1; -- Pegar veículos da empresa de ID 1
 
 -- Ver veículos de uma linha
 create view vwVeiculosLinha as
 select * from vwVeiculosEmpresa as ve
-		 join viagem as v on v.fkVeiculo = ve.idVeiculo
-		 join linha as l on l.idLinha = v.fkLinha;
+		 join Viagem as v on v.fkVeiculo = ve.idVeiculo
+		 join Linha as l on l.idLinha = v.fkLinha;
 -- Exemplo de SELECT:
 select * from vwVeiculosLinha where idLinha = 1; -- Pegar veículos da linha de ID 1
 select * from vwVeiculosLinha where idLinha = 1 and horaInicio like '%12______'; -- Pegar veículos da linha de ID 1 no horário das 12:00
@@ -54,13 +54,13 @@ case when (100 * f.saldoPassageiros)/m.lotacao >= 111 then -- Tirando a porcenta
 	end as metrica,
 l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,
 v.placaVeiculo, m.lotacao, m.nomeModelo, e.nome
-	   from fluxo as f
-       join ponto as p on f.fkPonto = p.idPonto
-       join viagem as vi on vi.idViagem = f.fkViagem
-       join veiculo as v on vi.fkVeiculo = v.idVeiculo
-       join modelo as m on v.fkModelo = m.idModelo
-       join linha as l on vi.fkLinha = l.idLinha
-       join empresa as e on l.fkEmpresa = e.idEmpresa;
+	   from Fluxo as f
+       join Ponto as p on f.fkPonto = p.idPonto
+       join Viagem as vi on vi.idViagem = f.fkViagem
+       join Veiculo as v on vi.fkVeiculo = v.idVeiculo
+       join Modelo as m on v.fkModelo = m.idModelo
+       join Linha as l on vi.fkLinha = l.idLinha
+       join Empresa as e on l.fkEmpresa = e.idEmpresa;
 
 -- Ver fluxo por linha
 select logradouro, round(avg(saldoPassageiros),0) as mediaPassageiros from vwFluxo
@@ -77,18 +77,18 @@ sum(pctLotacao) as lotacaoMax,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao, -- Pegando a soma dos saldos de passageiros de toda a viagem e tirando sua porcentagem do
 l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,				-- máximo possível de passageiros daquela viagem (soma da lotação do ônibus
 e.cnpj, e.nome												-- em todos os pontos), resultando assim no percentual de otimização da viagem.
-from viagem as vi
+from Viagem as vi
 	join
 	(select fkViagem,
     round((100 * f.saldoPassageiros)/m.lotacao,0) as pctLotacao,  
     m.lotacao
-		   from fluxo as f
-		   join viagem as vi on vi.idViagem = f.fkViagem
-		   join veiculo as v on vi.fkVeiculo = v.idVeiculo
-		   join modelo as m on v.fkModelo = m.idModelo)
+		   from Fluxo as f
+		   join Viagem as vi on vi.idViagem = f.fkViagem
+		   join Veiculo as v on vi.fkVeiculo = v.idVeiculo
+		   join Modelo as m on v.fkModelo = m.idModelo)
 	as metrica on vi.idViagem = metrica.fkViagem
-    join linha as l on vi.fkLinha = l.idLinha
-    join empresa as e on l.fkEmpresa = e.idEmpresa
+    join Linha as l on vi.fkLinha = l.idLinha
+    join Empresa as e on l.fkEmpresa = e.idEmpresa
     group by vi.idViagem;
 
 -- Ver as informações das linhas, suas empresas e seus níveis de otimização
@@ -98,17 +98,17 @@ sum(pctLotacao)*100 as x,
 sum(lotacao)*100 as y,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao,
 e.cnpj, e.nome
-from linha as l
-	left join
+from Linha as l
+	join
 	(select fkLinha,
     round((100 * f.saldoPassageiros)/m.lotacao,0) as pctLotacao,
     m.lotacao
-		   from fluxo as f
-		   join viagem as vi on vi.idViagem = f.fkViagem
-		   join veiculo as v on vi.fkVeiculo = v.idVeiculo
-		   join modelo as m on v.fkModelo = m.idModelo)
+		   from Fluxo as f
+		   join Viagem as vi on vi.idViagem = f.fkViagem
+		   join Veiculo as v on vi.fkVeiculo = v.idVeiculo
+		   join Modelo as m on v.fkModelo = m.idModelo)
 	as metrica on l.idLinha = metrica.fkLinha
-    join empresa as e on l.fkEmpresa = e.idEmpresa
+    join Empresa as e on l.fkEmpresa = e.idEmpresa
     group by l.idLinha;
 
 -- Ver as informações das KPIs da dashboard por horário
@@ -130,11 +130,11 @@ min(m.idPonto) as idPontoMenosMov,
 min(logradouro) as logrMenosMov from
 	(
 	select p.idPonto, logradouro, (sum(f.entradas)-sum(f.saidas)) as movimentacao
-		from fluxo as f
-		join ponto as p on f.fkPonto = p.idPonto
+		from Fluxo as f
+		join Ponto as p on f.fkPonto = p.idPonto
         group by p.idPonto) as m
-	join fluxo as f on m.idPonto = f.fkPonto
-    join viagem as v on f.fkViagem = v.idViagem
+	join Fluxo as f on m.idPonto = f.fkPonto
+    join Viagem as v on f.fkViagem = v.idViagem
     group by idViagem;
     
 -- Número de pontos ruins por viagem no horário
@@ -142,11 +142,11 @@ create view vwKPIPontosRuinsHorario as
 select 
 	v.idViagem, 
 	count(case when (100 * f.saldoPassageiros)/m.lotacao >= 120 OR (100 * f.saldoPassageiros)/m.lotacao <= 15 then 1 end) as pontoRuim
-		from fluxo as f
-		join ponto as p on f.fkPonto = p.idPonto
-		join viagem as v on f.fkViagem = v.idViagem
-		join veiculo as veic on v.fkVeiculo = veic.idVeiculo
-		join modelo as m on veic.fkModelo = m.idModelo
+		from Fluxo as f
+		join Ponto as p on f.fkPonto = p.idPonto
+		join Viagem as v on f.fkViagem = v.idViagem
+		join Veiculo as veic on v.fkVeiculo = veic.idVeiculo
+		join Modelo as m on veic.fkModelo = m.idModelo
         where v.horaInicio like '%18______'
         group by v.idViagem;
 
@@ -161,20 +161,20 @@ min(m.idPonto) as idPontoMenosMov,
 min(logradouro) as logrMenosMov from
 	(
 	select p.idPonto, logradouro, (sum(f.entradas)-sum(f.saidas)) as movimentacao
-		from fluxo as f
-		join ponto as p on f.fkPonto = p.idPonto
+		from Fluxo as f
+		join Ponto as p on f.fkPonto = p.idPonto
         group by p.idPonto) as m
-	join fluxo as f on m.idPonto = f.fkPonto
-    join viagem as v on f.fkViagem = v.idViagem
-    join linha as l on v.fkLinha = l.idLinha
+	join Fluxo as f on m.idPonto = f.fkPonto
+    join Viagem as v on f.fkViagem = v.idViagem
+    join Linha as l on v.fkLinha = l.idLinha
     group by idLinha;
 
 -- View para o card de viagem do menu dashboard
 create view vwCardMenuDashboard as
 select vwl.*,
 (select count(fkVeiculo) from vwLinha as l
-		 join viagem as v on v.fkLinha = l.idLinha
-         join veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos
+		 join Viagem as v on v.fkLinha = l.idLinha
+         join Veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos
          from vwLinha as vwl;
 
 -- ------------- --
