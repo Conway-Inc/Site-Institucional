@@ -81,15 +81,14 @@
         <div id="sidebarOutrosDados">
             <div id="classificacao">
                 <canvas id="graficoClassific"></canvas>
-                <p class="classificRuim" id="classificIdeal">Ruim</p>
+                <p class="classificRuim" id="classific">Ruim</p>
                 <p>Classificação da Rota</p>
-                <details>
-                    Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice
-                    de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma
-                    classificação baixa.
-                    <img class="imgSaibaMais" src="images/métrica.png" alt="">
-                </details>
             </div>
+            <details id="detailsFormula">
+                Fórmula utilizada:
+                <img class="imgSaibaMais" src="images/formula busway.png" onclick="mostrarFormula(true)">
+                (Clique para ampliar)
+            </details>
             <div id="veiculosDashboard">
                 <h3>Veículos</h3>
                 <span>utilizados nessa rota</span>
@@ -98,22 +97,6 @@
                         <p>Placa</p>
                         <p>Lotação</p>
                         <p>Modelo</p>
-                    </div>
-                </div>
-                <input class="modal-state" id="modal-1" type="checkbox" />
-                <div class="modal">
-                    <label class="modal__bg" for="modal-1"></label>
-                    <div class="modal__inner">
-                        <div class="container">
-                            <label class="modal__close" for="modal-1"></label>
-                            <h2>Veículos</h2>
-                            <select name="veiculos" id="selectVeiculos">
-                                <option value="EXR-4682 Articulado 93">EXR-4682 Articulado 93</option>
-                                <option value="EEL-6867 Padron 80">EEL-6867 Padron 80</option>
-                                <option value="CCV-4234 Basico 70">CCV-4234 Basico 70</option>
-                            </select>
-                            <button class="btn">Adicionar</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -126,10 +109,25 @@
         <!--Fim da barra lateral dos veículos nessa rota-->
     </div>
     <!--Fim do conteúdo principal da dashboard-->
+    <div id="modalFormula">
+        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512" fill="#69503C" onclick="mostrarFormula(false)">
+            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
+        </svg>
+        <img src="images/formula busway.png">
+    </div>
 </body>
 
 </html>
 <script>
+    function mostrarFormula(mostrar){
+        if(mostrar){
+            modalFormula.style = "visibility: visible";
+        }
+        else{
+            modalFormula.style = "visibility: hidden";
+        }
+    }
+
     ///////////////////////////////////////////////
     ///////////////// Temporário //////////////////
     sessionStorage.COD_ROTA = "477P";
@@ -408,21 +406,21 @@
         }
 
         var tituloRota = document.getElementById("tituloRota");
-        tituloRota.style = "background-color: " + corClassific;
+        tituloRota.style = "background-color: "+corClassific;
         pClassificacao.innerHTML = nomeClassific;
         pClassificacao.className = "classific" + nomeClassific;
 
-        const classificacao = ["Otimização Atual", "Melhora possível"]
+        const classificacao = ["Otimização Atual","Melhora possível"]
         const dadosClassfic = {
             labels: classificacao,
             datasets: [{
-                backgroundColor: [corClassific, "white"],
-                borderColor: ["black"],
-                borderWidth: "0.5",
-                data: [otimizacao, areaBranca],
-                circumference: 180,
-                rotation: 270
-            }
+                    backgroundColor: [corClassific,"white"],
+                    borderColor: ["black"],
+                    borderWidth: "0.5",
+                    data: [otimizacao,areaBranca],
+                    circumference: 180,
+                    rotation: 270
+                }
             ]
         }
         const configGraficoClassific = {
