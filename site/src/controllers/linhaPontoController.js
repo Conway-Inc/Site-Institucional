@@ -4,14 +4,14 @@ var sessoes = [];
 
 
 // Criado para Cadastrar a rota - alterarRotas.html
-function cadastrarLinhaPonto(req, res) {
+function cadastrarPontoLinha(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-  var idLinha = req.body.idLinhaServer;
-  var idPonto = req.body.idPontoServer;
+  var idLinha = req.body.fkLinhaServer;
+  var idPonto = req.body.fkPontoServer;
 
     // Passe os valores como parâmetro e vá para o arquivo linhaPontoModel.js
     linhaPontoModel
-      .cadastrarLinhaPonto(idLinha, idPonto)
+      .cadastrarPontoLinha(idLinha, idPonto)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -82,7 +82,7 @@ function listarLinhaPonto(req, res){
 }
 
 module.exports = {
-  cadastrarLinhaPonto,
+  cadastrarPontoLinha,
   selectLinha,
   listarLinhaPonto
 };
