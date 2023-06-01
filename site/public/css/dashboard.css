@@ -276,6 +276,8 @@ details{
 }
 #modalFormula img{
     width: 80%;
+    border-radius: 25px;
+    border: solid 1px #69503C;
 }
 #modalFormula svg{
     position: absolute;

@@ -27,10 +27,6 @@
             <p>3</p>
             <p>Av. Eng. Heitor, 1421</p>
         </div>
-        <div id="KPIVeiculos" class="KPIAlerta">
-            <span>Percentual de viagens mal aproveitadas</span>
-            <p class="alerta">16% das viagens</p>
-        </div>
     </div>
     <!--Terminada a barra lateral das KPIs-->
     <!--Início do conteúdo principal da dashboard-->
@@ -39,12 +35,12 @@
         <div id="corpoDashboard">
             <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
             <div id="cabecalhoDashboard">
-                <div id="tituloRota" class="tituloBom">
-                    <h1>775N</h1>
+                <div id="tituloRota">
+                    <h1 id="h1Codigo"></h1>
                     <div id="infosRota">
-                        <p><i>Rota Normal</i> (10)</p>
-                        <p>Term. Vila Madalena</p>
-                        <p>Rio Pequeno</p>
+                        <p id="pNomeIda"></p>
+                        <p id="pNomeVolta"></p>
+                        <p id="pTipoRota"></p>
                     </div>
                 </div>
                 <div id="dicaDias">
@@ -55,7 +51,7 @@
             <!--Fim do cabeçalho da dashboard-->
             <!--Início da área do gráfico da dashboard-->
             <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
-                <h2>Média do horário das 12:00</h2><!--cada horário por si só.-->
+                <h2 id="titHorario"></h2><!--cada horário por si só.-->
                 <canvas id="graficoRota"></canvas>
             </div>
             <!--Fim da área do gráfico da dashboard-->
@@ -64,15 +60,15 @@
         <!--Início da barra lateral da classificação e dos veículos nessa rota-->
             <div id="sidebarOutrosDados">
                 <div id="classificacao">
-                    <p class="classificIdeal" id="classificIdeal">Boa</p>
+                    <p class="classificIdeal" id="classific">Boa</p>
                     <canvas id="graficoClassific"></canvas>
                     <p>Classificação da hora</p>
-                    <details>
-                        Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice 
-                        de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma 
-                        classificação baixa.
-                    </details>
                 </div>
+                <details id="detailsFormula">
+                    Fórmula utilizada:
+                    <img class="imgSaibaMais" src="images/formula busway.png" onclick="mostrarFormula(true)">
+                    (Clique para ampliar)
+                </details>
                 <div id="veiculosDashboard">
                     <h3>Veículos</h3>
                     <span>utilizados nesse horário</span>
@@ -102,6 +98,12 @@
             <!--Fim da barra lateral dos veículos nessa rota-->
     </div>
     <!--Fim do conteúdo principal da dashboard-->
+    <div id="modalFormula">
+        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512" fill="#69503C" onclick="mostrarFormula(false)">
+            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
+        </svg>
+        <img src="images/formula busway.png">
+    </div>
 </body>
 </html>
 <script>
@@ -109,28 +111,159 @@
         window.location.href = "menuDashboard.html";
     }
     else{
-        alert(sessionStorage.HORARIO_DA_LINHA);
+        // alert(sessionStorage.HORARIO_DA_LINHA);
     }
+    var horario = sessionStorage.HORARIO_DA_LINHA;
+    var linha = null;
+    var otimizacaoHorario = null;
+    var kpiMov = null;
+    var kpiHor = null;
+    var fluxo = null;
+    var pontos = null;
+    var veiculos = null;
+
+    function mostrarFormula(mostrar){
+        if(mostrar){
+            modalFormula.style = "visibility: visible";
+        }
+        else{
+            modalFormula.style = "visibility: hidden";
+        }
+    }
+
+    function carregarLinha() {
+        fetch(`linha/listarPorCodigo/${sessionStorage.COD_ROTA}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Linha: ${JSON.stringify(resposta)}`);
+            linha = resposta;
+            configLinha();
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarOtimizacao() {
+        fetch(`/viagem/otimizacaoHorario/${sessionStorage.COD_ROTA}/${horario}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Otimização: ${JSON.stringify(resposta)}`);
+            otimizacaoHorario = resposta;
+            gerarGraficoOtimizacao();
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+
+    carregarLinha();
+    carregarOtimizacao();
+
+    var codigo = document.getElementById("h1Codigo");
+    var nomeIda = document.getElementById("pNomeIda");
+    var nomeVolta = document.getElementById("pNomeVolta");
+    var tipoRota = document.getElementById("pTipoRota");
+
+    var tituloHorario = document.getElementById("titHorario");
+
+    var pClassificacao = document.getElementById("classific");
+
+    function configLinha(){
+        document.title = `${linha.codLinha} - Dados gerais`;
+        codigo.innerHTML = linha.codLinha;
+        nomeIda.innerHTML = linha.nomeLinhaIda;
+        nomeVolta.innerHTML = linha.nomeLinhaVolta;
+
+        tituloHorario.innerHTML = `Média do horário das ${horario}`;
+        
+        var codTipoLinha = linha.tipoLinha;
+        var transcTipoLinha = null; //Transcreve o tipo da linha baseado no código desse tipo
+        if(codTipoLinha == 10){
+            transcTipoLinha = "normal";
+        }
+        else if(codTipoLinha == 11){
+            transcTipoLinha = "noturna";
+        }
+        else if(codTipoLinha > 20 && codTipoLinha < 30){
+            transcTipoLinha = "retorno";
+        }
+        else if(codTipoLinha < 40){
+            transcTipoLinha = "derivição";
+        }
+        else if(codTipoLinha < 50){
+            transcTipoLinha = "bifurcação";
+        }
+        else if(codTipoLinha < 60){
+            transcTipoLinha = "prolongamento";
+        }
+
+        if(transcTipoLinha != null){
+            pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
+        }
+    }
+
+    function gerarGraficoOtimizacao() {
+        var otimizacao = Number(otimizacaoHorario[0].otimizacao);
+        var areaBranca = 100 - otimizacao;
+
+        var corClassific = "";
+        var nomeClassific = "";
+        if (otimizacao >= 80) {
+            corClassific = "#00BF63";
+            nomeClassific = "Ideal";
+        }
+        else if (otimizacao > 30) {
+            corClassific = "#fbff1a";
+            nomeClassific = "Boa";
+        }
+        else {
+            corClassific = "#DB0300";
+            nomeClassific = "Ruim";
+        }
+
+        var tituloRota = document.getElementById("tituloRota");
+        tituloRota.style = "background-color: "+corClassific;
+        pClassificacao.innerHTML = nomeClassific;
+        pClassificacao.className = "classific" + nomeClassific;
+
+        const classificacao = ["Otimização Atual","Melhora possível"]
+        const dadosClassfic = {
+            labels: classificacao,
+            datasets: [{
+                    backgroundColor: [corClassific,"white"],
+                    borderColor: ["black"],
+                    borderWidth: "0.5",
+                    data: [otimizacao,areaBranca],
+                    circumference: 180,
+                    rotation: 270
+                }
+            ]
+        }
+        const configGraficoClassific = {
+            type: "doughnut",
+            data: dadosClassfic,
+            options: {
+                aspectRatio: '1/4',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+        const graficoClassific = new Chart(
+            document.getElementById("graficoClassific"),
+            configGraficoClassific
+        );
+    }
+
     //Gráfico geral da rota
-    const pontos = [
-        "Av José Felipe, 580",
-        "R. Pe. Alarico, 31",
-        "Av. Eng. Heitor, 1421",
-        "Av Corifeu, 1975",
-        "Av. Dr. Vital Brasil, 569",
-        "Av. Eusébio Matoso, 133",
-        "Av Rebouças, 2903",
-        "Av Rebouças, 2549",
-        "Av Rebouças, 2012",
-        "Av Rebouças, 1723",
-        "Av Rebouças, 1123",
-        "Av Rebouças, 782",
-        "Av Rebouças, 201",
-        "Av. Paulista, 2319",
-        "Av. Paulista, 1833",
-        "Av. Brig. Luís Antônio, 1289",
-        "Av. da Liberdade, 333"
-    ]
     const lotacaoOnibus = 70;
     const dadosHora = {
         labels:pontos,
@@ -213,39 +346,5 @@
     const graficoVeiculos = new Chart(
         document.getElementById("graficoVeiculos"),
         configGraficoVeiculos
-    );
-
-    //Gráfico classificação
-    const corClassific = '#00BF63';
-    //document.getElementById("tituloRota").style = `backgroundColor: ${corClassific}`;
-    //NAO CONSEGUI FAZER - GUS 27/04
-    const classificacao = ["Otimização Atual","Melhora possível"]
-    const dadosClassfic = {
-        labels: classificacao,
-        datasets: [{
-                backgroundColor: [corClassific,"white"],
-                borderColor: [corClassific],
-                borderWidth: "0.5",
-                data: [77,33],
-                circumference: 180,
-                rotation: 270
-            }
-        ]
-    }
-    const configGraficoClassific = {
-        type: "doughnut",
-        data: dadosClassfic,
-        options: {
-            aspectRatio: '1/4',
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    }
-    const graficoClassific = new Chart(
-        document.getElementById("graficoClassific"),
-        configGraficoClassific
     );
 </script>

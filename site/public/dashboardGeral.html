@@ -133,12 +133,9 @@
     sessionStorage.COD_ROTA = "477P";
     ///////////////////////////////////////////////
 
-    function verificarSessao() {
-        if (sessionStorage.COD_ROTA == undefined) {
-            window.location = "menuDashboard.html";
-        }
+    if (sessionStorage.COD_ROTA == undefined) {
+        window.location = "menuDashboard.html";
     }
-    verificarSessao();
     var linha = null;
     var kpiMov = null;
     var kpiHor = null;

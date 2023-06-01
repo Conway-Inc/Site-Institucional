@@ -1,5 +1,28 @@
 var viagemModel = require("../models/viagemModel");
 
+function otimizacaoHorario(req, res){
+  var codLinha = req.params.codLinha;
+  var horario = req.params.horario;
+
+  viagemModel.otimizacaoHorario(codLinha, horario)
+  .then(
+    function (resultado){
+      console.log(`\nResultados encontrados: ${resultado.length}`);
+      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+      res.json(resultado);
+      if(resultado.length == 0){
+        res.status(403).send("Nome da Linha INVÁLIDO");
+      }
+    }
+  ).catch(
+    function (erro){
+      console.log(erro);
+      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    }
+  );
+}
+
 function horariosPorRota(req, res){
   var codLinha = req.params.codLinha;
 
@@ -67,6 +90,7 @@ function fluxoViagens(req, res){
 }
 
 module.exports = {
+    otimizacaoHorario,
     horariosPorRota,
     mediaPassageirosPorHorario,
     fluxoViagens

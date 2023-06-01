@@ -3,6 +3,10 @@ var router = express.Router();
 
 var viagemController = require("../controllers/viagemController");
 
+router.get("/otimizacaoHorario/:codLinha/:horario", function(req, res) {
+    viagemController.otimizacaoHorario(req, res);
+});
+
 router.get("/horariosPorRota/:codLinha", function(req, res) {
     viagemController.horariosPorRota(req, res);
 });
