@@ -97,9 +97,37 @@ function listarId(req, res){
       });
 }
 
+function selectPontosVetor(req, res){
+  var nomePonto = req.params.nomePontoVetor;
+
+  pontoModel.selectPontosVetor(nomePonto)
+  .then(
+    function (resultado){
+      console.log(`\nResultados encontrados: ${resultado.length}`);
+      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+
+      if(resultado.length == 1){
+        console.log(resultado);
+        res.json(resultado[0]);
+      } else if(resultado.length == 0){
+        res.status(403).send("Nome da Linha INVÁLIDO");
+      } else{
+        res.status(403).send("Mais de uma LINHA com o mesmo NOME");
+      }
+    }
+  ).catch(
+    function (erro){
+      console.log(erro);
+      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    }
+  );
+}
+
 module.exports = {
   listar,
   listarId,
   listarPorCodLinha,
-  cadastrarPonto
+  cadastrarPonto,
+  selectPontosVetor
 };

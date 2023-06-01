@@ -54,11 +54,20 @@ function listarId(logradouro) {
   return database.executar(instrucao);
 }
 
+function selectPontosVetor(nomePonto){
+  console.log("ACESSEI O LINHA MODEL \n", nomePonto)
+  var instrucao = 
+  `SELECT idPonto FROM Ponto WHERE logradouro = '${nomePonto}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
 
 module.exports = {
   listar,
   listarId,
   listarPorCodLinha,
-  cadastrarPonto
+  cadastrarPonto,
+  selectPontosVetor
   
 };
