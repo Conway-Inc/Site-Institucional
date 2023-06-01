@@ -18,6 +18,10 @@ router.get("/listar", function (req, res){
     pontoController.listar(req, res);
 });
 
+router.get("/listarPorCodLinha/:codLinha", function (req, res){
+    pontoController.listarPorCodLinha(req, res);
+});
+
 router.post("/listarId", function (req, res){
     pontoController.listarId(req, res);
 });

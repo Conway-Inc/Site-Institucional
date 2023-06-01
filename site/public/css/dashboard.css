@@ -13,8 +13,8 @@ body, button, select{
     display: flex;
     flex-direction: column;
     background-color: #69503C;
-    width: 35%;
-    padding: 10px 0;
+    width: 15%;
+    height: 620px;
 }
 #sidebar div{
     display: flex;
@@ -22,14 +22,14 @@ body, button, select{
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 15px 20px;
-    margin: 5px 15px;
+    padding: 10px;
+    margin: 10px;
     background-color: #BD916E;
     border-radius: 38px;
 }
 #sidebar div span, #sidebar div p{
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
 }
 #sidebar div span{
@@ -126,7 +126,6 @@ details{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 5px 0 20px;
     height: 445px;
 }
 #graficoDashboard h2{
@@ -148,7 +147,7 @@ details{
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: 30%;
+    width: 25%;
     margin: 0 10px 0 5px;
 }
 #classificacao{
@@ -175,7 +174,6 @@ details{
     background-color: #69503C;
     padding: 20px;
     border-radius: 38px;
-    width: 240px;
 }
 #veiculosDashboard h3, #veiculosDashboard p{
     color: white;
@@ -212,16 +210,6 @@ details{
     /*Aqui é usado o 'border-top' para fechar a tabela por cima, já que só as bordas de baixo de cada linha são pintadas,
     como descrito acima*/
 }
-#btnAdicionarMaisVeiculos{
-    margin-top: 15px;
-    border: none;
-    border-radius: 38px;
-    padding: 5px 10px;
-    font-size: 17px;
-    background-color: #BD916E;
-    color: white;
-    font-weight: bold;
-}
 #containerGraficoVeiculos{
     align-self: center; 
     margin: 10px 0;
@@ -244,24 +232,21 @@ details{
 }
 
 .classificRuim, .classificBoa, .classificIdeal{
-    top: 58px;
-    font-size: 25px !important;
+    top: 50px;
+    font-size: 14px !important;
     margin: 0;
     position: absolute;
     justify-self: flex-end;
 }
 .classificRuim{
     color: #DB0300;
-    font-size: 20px !important;
 }
 .classificBoa{
     color: #fbff1a;
-    font-size: 24px !important;
     -webkit-text-stroke: black 0.5px;
 }
 .classificIdeal{
     color: #00BF63;
-    font-size: 22px !important;
     -webkit-text-stroke: black 0.5px;
 }
 

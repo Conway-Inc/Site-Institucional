@@ -16,28 +16,25 @@
     <div id="sidebar">
         <div id="KPIHorariosCheios" class="KPIAlerta">
             <span>Horário mais cheio</span>
-            <p id="pHorarioCheio">19:00</p>
+            <p id="pHorarioCheio"></p>
             <span>Média em horários cheios</span>
-            <p class="alerta">7 passageiros por ponto</p>
+            <p class="alerta"></p>
         </div>
         <div id="KPIHorariosVazios">
             <span>Horário mais vazio</span>
-            <p id="pHorarioVazio">15:00</p>
+            <p id="pHorarioVazio"></p>
             <span>Média em horários vazios</span>
-            <p>4,5 passageiros por ponto</p>
+            <p></p>
         </div>
-        <div id="KPIMovimentaçãoPontos">
+        <div id="KPIMovMais">
             <span>Ponto mais movimentado</span>
-            <p id="pPontoMaisMov">7</p>
-            <p id="pLogMaisMov">Av. Rebouças, 2549</p>
-            <span>Ponto menos movimentado</span>
-            <p id="pPontoMenosMov">2</p>
-            <p id="pLogMenosMov">R. Pe. Alarico, 1412</p>
+            <p id="pPontoMaisMov"></p>
+            <p id="pLogMaisMov"></p>
         </div>
-        <div id="KPIVeiculos" class="KPIAlerta">
-            <span>Horários mal aproveitados - por modelo</span>
-            <p class="alerta">Básico 50%</p>
-            <p>Padron 0%</p>
+        <div id="KPIMovMenos">
+            <span>Ponto menos movimentado</span>
+            <p id="pPontoMenosMov"></p>
+            <p id="pLogMenosMov"></p>
         </div>
     </div>
     <!--Terminada a barra lateral das KPIs-->
@@ -48,11 +45,11 @@
             <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
             <div id="cabecalhoDashboard">
                 <div id="tituloRota">
-                    <h1 id="h1Codigo">775N</h1>
+                    <h1 id="h1Codigo"></h1>
                     <div id="infosRota">
-                        <p><i>Rota Normal</i> (10)</p>
-                        <p id="pNomeIda">Term. Vila Madalena</p>
-                        <p id="pNomeVolta">Rio Pequeno</p>
+                        <p id="pTipoRota"></p>
+                        <p id="pNomeIda"></p>
+                        <p id="pNomeVolta"></p>
                     </div>
                 </div>
                 <div id="selecionarHorario">
@@ -84,15 +81,15 @@
             <div id="sidebarOutrosDados">
                 <div id="classificacao">
                     <canvas id="graficoClassific"></canvas>
-                    <p class="classificRuim" id="classificIdeal">Ruim</p>
+                    <p class="classificRuim" id="classific"></p>
                     <p>Classificação da Rota</p>
-                    <details>
-                        Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice 
-                        de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma 
-                        classificação baixa.
-                        <img class="imgSaibaMais" src="images/métrica.png" alt="">
-                    </details>
                 </div>
+                <details>
+                    Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice 
+                    de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma 
+                    classificação baixa.
+                    <img class="imgSaibaMais" src="images/métrica.png" alt="">
+                </details>
                 <div id="veiculosDashboard">
                     <h3>Veículos</h3>
                     <span>utilizados nessa rota</span>
@@ -118,23 +115,6 @@
                             <p>Padron</p>
                         </div>
                     </div>
-                    <label class="btn" id="btnAdicionarMaisVeiculos" for="modal-1">Adicionar mais</label>
-                    <input class="modal-state" id="modal-1" type="checkbox" />
-                    <div class="modal">
-                        <label class="modal__bg" for="modal-1"></label>
-                        <div class="modal__inner">
-                            <div class="container">
-                                <label class="modal__close" for="modal-1"></label>
-                                <h2>Veículos</h2>
-                                <select name="veiculos" id="selectVeiculos">
-                                  <option value="EXR-4682 Articulado 93">EXR-4682 Articulado 93</option>
-                                  <option value="EEL-6867 Padron 80">EEL-6867 Padron 80</option>
-                                  <option value="CCV-4234 Basico 70">CCV-4234 Basico 70</option>
-                                </select>
-                                <button class="btn">Adicionar</button>
-                            </div>
-                        </div>
-                      </div>
                 </div>
                 <div id="containerGraficoVeiculos">
                     <canvas id="graficoVeiculos"></canvas>
@@ -162,6 +142,8 @@
     var linha = null;
     var kpis = null;
     var fluxo = null;
+    var horarios = null;
+    var pontos = null;
     var veiculos = null;
 
     var pontos
@@ -173,7 +155,7 @@
         .then(function (response) {
             if (response.ok) {
             response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                console.log(`Linha: ${JSON.stringify(resposta)}`);
                 linha = resposta;
                 configLinha();
                 gerarGraficoOtimizacao();
@@ -201,6 +183,42 @@
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
     }
+    function carregarhorarios() {
+        fetch(`viagem/horariosPorRota/${sessionStorage.COD_ROTA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`horarios: ${JSON.stringify(resposta)}`);
+                horarios = resposta;
+                confighorarios();
+                carregarPontos();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarPontos() {
+        fetch(`ponto/listarPorCodLinha/${sessionStorage.COD_ROTA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Pontos: ${JSON.stringify(resposta)}`);
+                pontos = resposta;
+                configPontos();
+                carregarFluxo();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
     function carregarFluxo() {
         fetch(`viagem/fluxoViagens/${sessionStorage.COD_ROTA}`, {
         cache: "no-store",
@@ -208,7 +226,7 @@
         .then(function (response) {
             if (response.ok) {
             response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                console.log(`Fluxo: ${JSON.stringify(resposta)}`);
                 fluxo = resposta;
                 configFluxo();
             });
@@ -221,11 +239,12 @@
     
     carregarLinha();
     carregarKPIs();
-    carregarFluxo();
+    carregarhorarios();
 
     var codigo = document.getElementById("h1Codigo");
     var nomeIda = document.getElementById("pNomeIda");
     var nomeVolta = document.getElementById("pNomeVolta");
+    var tipoRota = document.getElementById("pTipoRota");
 
     var kpiHorarioCheio = document.getElementById("pHorarioCheio");
     var kpiHorarioVazio = document.getElementById("pHorarioVazio");
@@ -235,12 +254,37 @@
     var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
     var kpiLogMenosMov = document.getElementById("pLogMenosMov");
 
-    var pClassificacao = document.getElementById("classificIdeal");
+    var pClassificacao = document.getElementById("classific");
 
     function configLinha(){
         codigo.innerHTML = linha.codLinha;
         nomeIda.innerHTML = linha.nomeLinhaIda;
         nomeVolta.innerHTML = linha.nomeLinhaVolta;
+        
+        var codTipoLinha = linha.tipoLinha;
+        var transcTipoLinha = null; //Transcreve o tipo da linha baseado no código desse tipo
+        if(codTipoLinha == 10){
+            transcTipoLinha = "normal";
+        }
+        else if(codTipoLinha == 11){
+            transcTipoLinha = "noturna";
+        }
+        else if(codTipoLinha > 20 && codTipoLinha < 30){
+            transcTipoLinha = "retorno";
+        }
+        else if(codTipoLinha < 40){
+            transcTipoLinha = "derivição";
+        }
+        else if(codTipoLinha < 50){
+            transcTipoLinha = "bifurcação";
+        }
+        else if(codTipoLinha < 60){
+            transcTipoLinha = "prolongamento";
+        }
+
+        if(transcTipoLinha != null){
+            pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
+        }
     }
     function configKPI(){   
         kpiPontoMaisMov.innerHTML = kpis.idPontoMaisMov;
@@ -249,29 +293,40 @@
         kpiPontoMenosMov.innerHTML = kpis.idPontoMenosMov;
         kpiLogMenosMov.innerHTML = kpis.logrMenosMov;
     }
+    
+    function confighorarios(){
+
+    }
+
+    var logs = [];
+    function configPontos(){
+        for (let i = 0; i < pontos.length; i++) {
+            if(pontos[i].numNaRua != undefined){
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+            }
+            else{
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}`;
+            }
+        }
+    }
+
+    // [{ -- Formato entendido pelo CHART.JS, para referência
+    //     label: "12:00 (CCV-4234)" ,
+    //     data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
+    // }]
+    var fluxoTratado = [];
     function configFluxo(){
-        var pontos = [];
-        var primeiraViagem = null;
-
-        for(let i = 0; i < fluxo.length; i++){
-            if(primeiraViagem == null){
-                primeiraViagem = fluxo[i].fkViagem
+        for (let i = 0; i < horarios.length; i++) {
+            let data = [];
+            for (let c = 0; c < fluxo.length; c++) {
+                if(fluxo[c].horario == horarios[i].horario){
+                    data.push(fluxo[c].saldoPassageiros);
+                }
             }
-            if(fluxo[i].fkViagem != primeiraViagem){
-                break;
-            }
-            pontos.push(fluxo[i].logradouro);
+            var horarioFluxo = (horarios[i].horario);
+            fluxoTratado.push({label: horarioFluxo, data});
         }
-        console.log("Pontos: " + pontos);
-
-        var viagens = [];
-        var viagemAtual = null;
-        for(let i = 0; i < fluxo.length; i++){
-            viagens.push();
-        }
-        console.log(viagens);
-        
-        gerarGraficoFluxo(pontos);
+        gerarGraficoFluxo(logs, fluxoTratado);
     }
 
     function gerarGraficoOtimizacao(){
@@ -329,33 +384,23 @@
         );
     }
 
-    function gerarGraficoFluxo(pontos){
+    function gerarGraficoFluxo(pLogs, pFluxo){
         const lotacaoOnibus = 80;
         const dadosGeral = {
-            labels:pontos,
-            datasets: [{
-                    label: "12:00 (CCV-4234)",
-                    data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
-                },
-                {
-                    label: "15:00 (CCV-4234)",
-                    data: [0,5,8,10,12,19,24,19,12,7]
-                },
-                {
-                    label: "19:00 (CCV-4234)",
-                    data: [15.3,30,37.5,45,53.5,64,61,32.5,25.5,10]
-                }
-            ]
+            labels: pLogs,
+            datasets: pFluxo
         }
         const configGraficoGeral = {
             type: "line",
             data: dadosGeral,
             options: {
-                maintainAspectRatio: false,
                 scales: {
-                    y: {
-                        max: (lotacaoOnibus + 25)
-                }
+                    x: { //Deixa as labels do eixo X (pontos) na vertical
+                        ticks: {
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }
                 }
             }
         }
