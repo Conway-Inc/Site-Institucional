@@ -148,6 +148,7 @@
 </html>
 <script>
 
+var pontos = [];
 var vetorPonto = [];
 var vetorPontoLimpo = [];
 var vetorIdPontoSelect = [];
@@ -155,6 +156,7 @@ var vetorIdPontoSelect = [];
 selectPonto();
 
 function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
+
 
 fetch("/ponto/listar").then(function (resposta) {
   if (resposta.ok) {
@@ -168,6 +170,7 @@ fetch("/ponto/listar").then(function (resposta) {
 
     resposta.json().then(function (resposta) {
       console.log("Dados recebidos: ", JSON.stringify(resposta));
+      pontos = resposta;
 
       var feed = document.getElementById("browsers");
       feed.innerHTML = "";
@@ -176,7 +179,7 @@ fetch("/ponto/listar").then(function (resposta) {
 
         var opcao = document.createElement("option");
 
-        opcao.innerHTML = publicacao.logradouro;
+        opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
 
         feed.appendChild(opcao);
       }
@@ -327,7 +330,16 @@ function cadastrarPonto() {
     }
 
     if(inserir == true){
-      vetorPonto.push({idPonto: null, logr: browser.value});
+      idPontoIgual = null;
+      for (let i = 0; i < pontos.length; i++) {
+        if(`${pontos[i].logradouro}, ${pontos[i].numNaRua}`
+        == browser.value){
+          idPontoIgual = pontos[i].idPonto;
+          break;
+        }
+      }
+      vetorPonto.push({idPonto: idPontoIgual,
+                       logr: browser.value});
     }
     else{
       alert("Ponto já adicionado")
@@ -365,7 +377,7 @@ function cadastrarPonto() {
 
   function listarPontosCad(){
     for (var i = 0; i < vetorPonto.length; i++) {
-      var varAtual = vetorPonto[i];
+      var varAtual = vetorPonto[i].logr;
       pontosAdicionados.innerHTML += `${i+1}º - ${varAtual} - <span onclick="deletarPonto('${i}')" id="listaHover">Excluir</span><br>`
     }
   }
@@ -374,7 +386,7 @@ function cadastrarPonto() {
     for (var i = 0; i < vetorPonto.length; i++) {
       var varAtual = vetorPonto[i];
 
-      selectPontosVetor(vetorPonto[i]);
+      selectPontosVetor(vetorPonto[i].logr);
       cadPontosLinha();
     }
   }
