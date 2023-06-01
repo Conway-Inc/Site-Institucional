@@ -46,11 +46,18 @@
   color: #69503c;
 }
 
-
 .caixaContent button{
   width: 200px;
 }
 
 #browser{
   width: 200px;
+}
+
+#listaHover{
+  color: red;
+}
+
+#listaHover:hover{
+  cursor: pointer;
 }

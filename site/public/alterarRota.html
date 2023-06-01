@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="btn-area">
-          <button><b>Adicionar+</b></button>
+          <button onclick="addPontoLinha()"><b>Adicionar+</b></button>
 
         </div>
       </div>
@@ -148,12 +148,15 @@
 </html>
 <script>
 
+var pontos = [];
 var vetorPonto = [];
+var vetorPontoLimpo = [];
 var vetorIdPontoSelect = [];
 
 selectPonto();
 
 function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
+
 
 fetch("/ponto/listar").then(function (resposta) {
   if (resposta.ok) {
@@ -167,6 +170,7 @@ fetch("/ponto/listar").then(function (resposta) {
 
     resposta.json().then(function (resposta) {
       console.log("Dados recebidos: ", JSON.stringify(resposta));
+      pontos = resposta;
 
       var feed = document.getElementById("browsers");
       feed.innerHTML = "";
@@ -175,7 +179,7 @@ fetch("/ponto/listar").then(function (resposta) {
 
         var opcao = document.createElement("option");
 
-        opcao.innerHTML = publicacao.logradouro;
+        opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
 
         feed.appendChild(opcao);
       }
@@ -263,14 +267,14 @@ function cadastrarPonto() {
       if (resposta.ok) {
         alert("Cadastro REALIZADO com Sucesso!!!")
 
-        selectLinha();
+         selectLinha();
         // window.location.href = "addPontoLinha.html";
 
-        sessionStorage.ID_LINHA = resposta.idLinha;
-        sessionStorage.NOME_LINHA = nomeRotaVar;
-        sessionStorage.TIPO_LINHA = tipoLinhaVar;
-        sessionStorage.PONTO_INICIAL = pontoInicialVar;
-        sessionStorage.PONTO_FINAL = pontoFinalVar;
+        //sessionStorage.ID_LINHA = resposta.idLinha;
+        // sessionStorage.NOME_LINHA = nomeRotaVar;
+        // sessionStorage.TIPO_LINHA = tipoLinhaVar;
+        // sessionStorage.PONTO_INICIAL = pontoInicialVar;
+        // sessionStorage.PONTO_FINAL = pontoFinalVar;
 
       } else {
         throw ("Houve um ERRO ao tentar realizar o cadastro!");
@@ -285,7 +289,7 @@ function cadastrarPonto() {
   function selectLinha() {
     var nomeRotaVar = iptCodRota.value;
 
-    fetch(`/linha/autenticar/${nomeRotaVar}`, {
+    fetch(`/linha/listarPorCodigo/${nomeRotaVar}`, {
       cache: "no-store",
     }).then(function (resposta){
       console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
@@ -312,16 +316,140 @@ function cadastrarPonto() {
     return false;
   }
 
-  function addPonto(){
-    vetorPonto.push(browser.value);
+  var inserir = true;
 
-    browser.innerHTML = ``;
+  function addPonto(){
+
+    for (var i = 0; i < vetorPonto.length; i++) {
+      if(browser.value == vetorPonto[i]){
+        inserir = false;
+      }
+      else{
+        inserir = true;
+      }
+    }
+
+    if(inserir == true){
+      idPontoIgual = null;
+      for (let i = 0; i < pontos.length; i++) {
+        if(`${pontos[i].logradouro}, ${pontos[i].numNaRua}`
+        == browser.value){
+          idPontoIgual = pontos[i].idPonto;
+          break;
+        }
+      }
+      vetorPonto.push({idPonto: idPontoIgual,
+                       logr: browser.value});
+    }
+    else{
+      alert("Ponto já adicionado")
+    }
+    
+
+    browser.value = ``;
 
     pontosAdicionados.innerHTML = ``;
 
-    for (var i = 0; i < vetorPonto.length; i++) {
-      pontosAdicionados.innerHTML += `${vetorPonto[i]} <br>`
+    listarPontosCad();
+  }
+
+  function deletarPonto(posicao){
+    delete vetorPonto[posicao];
+
+    for(var i = 0; i < vetorPonto.length; i++){
+      if(vetorPonto[i] != undefined){
+        vetorPontoLimpo.push(vetorPonto[i]);
+      }
     }
+
+    vetorPonto = [];
+    
+    for(var i = 0; i < vetorPontoLimpo.length; i++){
+        vetorPonto.push(vetorPontoLimpo[i]);
+    }
+
+    vetorPontoLimpo = [];
+
+    pontosAdicionados.innerHTML = ``;
+
+    listarPontosCad();
+  }
+
+  function listarPontosCad(){
+    for (var i = 0; i < vetorPonto.length; i++) {
+      var varAtual = vetorPonto[i].logr;
+      pontosAdicionados.innerHTML += `${i+1}º - ${varAtual} - <span onclick="deletarPonto('${i}')" id="listaHover">Excluir</span><br>`
+    }
+  }
+
+  function addPontoLinha(){
+    for (var i = 0; i < vetorPonto.length; i++) {
+      var varAtual = vetorPonto[i];
+
+      selectPontosVetor(vetorPonto[i].logr);
+      cadPontosLinha(vetorPonto[i].idPonto);
+    }
+  }
+
+  function selectPontosVetor(nomePontoVetor){
+    var nomePonto = nomePontoVetor;
+
+    fetch(`/ponto/listarPorNome/${nomePontoVetor}`, {
+      cache: "no-store",
+    }).then(function (resposta){
+      console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.ID_PONTO = json.idPonto;
+        });
+      } else {
+        console.log("Houve um erro ao tentar realizar o SELECT!!!!!!!!!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+    return false;
+  }
+
+  function cadPontosLinha(vetorPontoCad){
+    var idPonto = vetorPontoCad;
+    var idLinha = sessionStorage.ID_LINHA;
+
+    fetch("/linhaPonto/cadastrarPontoLinha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+
+        fkLinhaServer: idLinha,
+        fkPontoServer: idPonto
+      })
+    }).then(function (resposta) {
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+        alert("Cadastro REALIZADO com Sucesso!!!")
+
+      } else {
+        throw ("Houve um ERRO ao tentar realizar o cadastro!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+
+    return false;
+    
   }
 
 </script>

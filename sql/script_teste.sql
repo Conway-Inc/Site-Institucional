@@ -73,6 +73,7 @@ select logradouro, round(avg(saldoPassageiros),0) as mediaPassageiros from vwFlu
 select * from vwFluxo;
 create view vwViagem as
 select vi.idViagem, vi.horaInicio, vi.horaFim,
+sum(pctLotacao) as lotacaoMax,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao, -- Pegando a soma dos saldos de passageiros de toda a viagem e tirando sua porcentagem do
 l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,				-- máximo possível de passageiros daquela viagem (soma da lotação do ônibus
 e.cnpj, e.nome												-- em todos os pontos), resultando assim no percentual de otimização da viagem.
@@ -91,8 +92,10 @@ from Viagem as vi
     group by vi.idViagem;
 
 -- Ver as informações das linhas, suas empresas e seus níveis de otimização
-create view vwLinha as
-select l.idLinha, l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,
+create or replace view vwLinha as
+select l.idLinha, l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta, l.tipoLinha,
+sum(pctLotacao)*100 as x,
+sum(lotacao)*100 as y,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao,
 e.cnpj, e.nome
 from Linha as l
@@ -109,6 +112,13 @@ from Linha as l
     group by l.idLinha;
 
 -- Ver as informações das KPIs da dashboard por horário
+-- Horários mais/menos vazios com média de passageiros por ponto
+select substring(horaInicio, 12, 5) as horario,
+	   round(avg(saldoPassageiros),1) from vwviagem as vw
+			  join fluxo as f on vw.idViagem = f.fkViagem
+              where vw.codLinha = '477P'
+              group by horario;
+
 -- Pontos mais/menos movimentados
 create or replace view vwKPIMovimentacaoHorario as
 select
