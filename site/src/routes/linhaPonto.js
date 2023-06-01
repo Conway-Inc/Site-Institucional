@@ -14,6 +14,10 @@ router.post("/cadastrarLinhaPonto", function (req, res) {
     linhaPontoController.cadastrarLinhaPonto(req, res);
 })
 
+router.get("/listarLinhaPonto", function (req, res){
+    linhaPontoController.listarLinhaPonto(req, res);
+});
+
 router.post("/autenticar", function (req, res){
     linhaPontoController.selectLinha(req, res);
 })
