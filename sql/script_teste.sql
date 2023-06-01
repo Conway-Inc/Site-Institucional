@@ -99,7 +99,7 @@ sum(lotacao)*100 as y,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao,
 e.cnpj, e.nome
 from linha as l
-	join
+	left join
 	(select fkLinha,
     round((100 * f.saldoPassageiros)/m.lotacao,0) as pctLotacao,
     m.lotacao
@@ -112,6 +112,13 @@ from linha as l
     group by l.idLinha;
 
 -- Ver as informações das KPIs da dashboard por horário
+-- Horários mais/menos vazios com média de passageiros por ponto
+select substring(horaInicio, 12, 5) as horario,
+	   round(avg(saldoPassageiros),1) from vwviagem as vw
+			  join fluxo as f on vw.idViagem = f.fkViagem
+              where vw.codLinha = '477P'
+              group by horario;
+
 -- Pontos mais/menos movimentados
 create or replace view vwKPIMovimentacaoHorario as
 select
