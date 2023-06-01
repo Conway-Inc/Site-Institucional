@@ -285,15 +285,9 @@ function cadastrarPonto() {
   function selectLinha() {
     var nomeRotaVar = iptCodRota.value;
 
-    fetch("/linha/autenticar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nomeRotaServer: nomeRotaVar
-      })
-    }).then(function (resposta) {
+    fetch(`/linha/autenticar/${nomeRotaVar}`, {
+      cache: "no-store",
+    }).then(function (resposta){
       console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
 
       if (resposta.ok) {
