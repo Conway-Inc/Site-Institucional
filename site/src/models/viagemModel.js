@@ -8,6 +8,18 @@ function horariosPorRota(codLinha){
     return database.executar(instrucao);
 }
 
+function mediaPassageirosPorHorario(codLinha){
+    console.log("ACESSEI O LINHA MODEL \n", codLinha)
+    var instrucao = 
+    `select substring(horaInicio, 12, 5) as horario,
+	   round(avg(saldoPassageiros),1) from vwviagem as vw
+			  join fluxo as f on vw.idViagem = f.fkViagem
+              where vw.codLinha = '${codLinha}'
+              group by horario;`;
+              console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function fluxoViagens(codLinha){
     console.log("ACESSEI O LINHA MODEL \n", codLinha)
     var instrucao = 
@@ -20,6 +32,7 @@ function fluxoViagens(codLinha){
 
 module.exports = {
     horariosPorRota,
+    mediaPassageirosPorHorario,
     fluxoViagens
 };
   
