@@ -387,7 +387,7 @@ function cadastrarPonto() {
       var varAtual = vetorPonto[i];
 
       selectPontosVetor(vetorPonto[i].logr);
-      cadPontosLinha();
+      cadPontosLinha(vetorPonto[i].idPonto);
     }
   }
 
@@ -421,7 +421,10 @@ function cadastrarPonto() {
     return false;
   }
 
-  function cadPontosLinha(){
+  function cadPontosLinha(vetorPontoCad){
+    var idPonto = vetorPontoCad;
+    var idLinha = sessionStorage.ID_LINHA;
+
     fetch("/linhaPonto/cadastrarPontoLinha", {
       method: "POST",
       headers: {
@@ -429,8 +432,8 @@ function cadastrarPonto() {
       },
       body: JSON.stringify({
 
-        fkLinhaServer: sessionStorage.ID_LINHA,
-        fkPontoServer: sessionStorage.ID_PONTO
+        fkLinhaServer: idLinha,
+        fkPontoServer: idPonto
       })
     }).then(function (resposta) {
       console.log("resposta: ", resposta);
@@ -446,6 +449,7 @@ function cadastrarPonto() {
     });
 
     return false;
+    
   }
 
 </script>
