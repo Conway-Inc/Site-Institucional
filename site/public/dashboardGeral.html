@@ -16,15 +16,15 @@
     <div id="sidebar">
         <div id="KPIHorariosCheios" class="KPIAlerta">
             <span>Horário mais cheio</span>
-            <p id="pHorarioCheio"></p>
+            <p id="pHrCheio"></p>
             <span>Média em horários cheios</span>
-            <p class="alerta"></p>
+            <p id="pMediaPassHrCheio" class="alerta"></p>
         </div>
         <div id="KPIHorariosVazios">
             <span>Horário mais vazio</span>
-            <p id="pHorarioVazio"></p>
+            <p id="pHrVazio"></p>
             <span>Média em horários vazios</span>
-            <p></p>
+            <p id="pMediaPassHrVazio"></p>
         </div>
         <div id="KPIMovMais">
             <span>Ponto mais movimentado</span>
@@ -173,9 +173,25 @@
         .then(function (response) {
             if (response.ok) {
             response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
                 kpis = resposta;
-                configKPI();
+                configKPIMovLinha();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+
+        fetch(`viagem/mediaPassageirosPorHorario/${sessionStorage.COD_ROTA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`KPI média de passageiros por horário: ${JSON.stringify(resposta)}`);
+                kpis = resposta;
+                configKPIMediaPass();
             });
             }
         })
@@ -246,13 +262,15 @@
     var nomeVolta = document.getElementById("pNomeVolta");
     var tipoRota = document.getElementById("pTipoRota");
 
-    var kpiHorarioCheio = document.getElementById("pHorarioCheio");
-    var kpiHorarioVazio = document.getElementById("pHorarioVazio");
-
     var kpiPontoMaisMov = document.getElementById("pPontoMaisMov");
     var kpiLogMaisMov = document.getElementById("pLogMaisMov");
     var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
     var kpiLogMenosMov = document.getElementById("pLogMenosMov");
+
+    var kpiHrCheio = document.getElementById("pHrCheio");
+    var kpiMediaPassHrCheio = document.getElementById("pMediaPassHrCheio");
+    var kpiHrCheio = document.getElementById("pHrVazio");
+    var kpiMediaPassHrCheio = document.getElementById("pMediaPassHrVazio");
 
     var pClassificacao = document.getElementById("classific");
 
@@ -286,12 +304,24 @@
             pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
         }
     }
-    function configKPI(){   
+    function configKPIMovLinha(){   
         kpiPontoMaisMov.innerHTML = kpis.idPontoMaisMov;
         kpiLogMaisMov.innerHTML = kpis.logrMaisMov;
 
         kpiPontoMenosMov.innerHTML = kpis.idPontoMenosMov;
         kpiLogMenosMov.innerHTML = kpis.logrMenosMov;
+    }
+    function configKPIMediaPass(){
+        var cheio = {};
+        var vazio = {};
+        
+        kpiHorarioCheio.innerHTML = cheio.horario;
+        // kpiHorarioCheio
+        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------
+        //----------------------------- PARA FAZER -----------------------------
+        //----------------------------------------------------------------------
+        //----------------------------------------------------------------------
     }
     
     function confighorarios(){
