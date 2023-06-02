@@ -92,8 +92,28 @@ function kpiMovLinha(req, res){
   );
 }
 
+function listar(req, res){
+  var idEmpresa = req.params.idEmpresa;
+
+  linhaModel.listar(idEmpresa)
+  .then(
+    function (resultado){
+      console.log(`\nResultados encontrados: ${resultado.length}`);
+      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+      res.json(resultado)
+    }
+  ).catch(
+    function (erro){
+      console.log(erro);
+      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    }
+  );
+}
+
 module.exports = {
   cadastrarLinha,
   selectLinha,
-  kpiMovLinha
+  kpiMovLinha,
+  listar
 };

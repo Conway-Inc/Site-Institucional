@@ -14,6 +14,10 @@ router.post("/cadastrarLinha", function (req, res) {
     linhaController.cadastrarLinha(req, res);
 })
 
+router.get("/listar/:idEmpresa", function (req, res) {
+    linhaController.listar(req, res)
+})
+
 router.get("/listarPorCodigo/:codRota", function(req, res) {
     linhaController.selectLinha(req, res);
 });
