@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <br>
+    <span id="spanStatus">Ônibus desligado</span>
+
+    <div id="divBtn">
+        <button id="btnPorta" onclick="ligar()">Ligar</button>
+    </div>
+</body>
+<script>
+    var statusPorta = true;
+    var i = 0;
+    var pontos = [
+	{
+		"logradouro" : "Av. Inhaiba",
+		"numNaRua" : 58
+	},
+	{
+		"logradouro" : "R. Eugênio Falk",
+		"numNaRua" : 39
+	},
+	{
+		"logradouro" : "Av. Pres. Tancredo Neves",
+		"numNaRua" : 656
+	},
+	{
+		"logradouro" : "Av. Pres. Tancredo Neves",
+		"numNaRua" : 268
+	},
+	{
+		"logradouro" : "R. Silva Bueno",
+		"numNaRua" : 2150
+	},
+	{
+		"logradouro" : "R. Silva Bueno",
+		"numNaRua" : 1046
+	},
+	{
+		"logradouro" : "R. Silva Bueno",
+		"numNaRua" : 327
+	},
+	{
+		"logradouro" : "R. Leais Paulistanos",
+		"numNaRua" : 288
+	},
+	{
+		"logradouro" : "Pça. Do Monumento",
+		"numNaRua" : null
+	},
+	{
+		"logradouro" : "Av. Ricardo Jafet",
+		"numNaRua" : 365
+	},
+	{
+		"logradouro" : "Av. Ricardo Jafet",
+		"numNaRua" : 745
+	},
+	{
+		"logradouro" : "Av. Ricardo Jafet",
+		"numNaRua" : 2431
+	},
+	{
+		"logradouro" : "Av. Ricardo Jafet",
+		"numNaRua" : 2123
+	},
+	{
+		"logradouro" : "Av. Prof. Abraão De Moraise",
+		"numNaRua" : 503
+	},
+	{
+		"logradouro" : "Av. Bosque Da Saúde",
+		"numNaRua" : 546
+	},
+	{
+		"logradouro" : "R. Gen. Serra Martins",
+		"numNaRua" : 68
+	},
+	{
+		"logradouro" : "Av. Jabaquara",
+		"numNaRua" : 1699
+	},
+	{
+		"logradouro" : "Av. Indianópolis",
+		"numNaRua" : 3408
+	},
+	{
+		"logradouro" : "Av. Indianópolis",
+		"numNaRua" : 1350
+	},
+	{
+		"logradouro" : "Al. Dos Nhambiquaras",
+		"numNaRua" : 501
+	},
+	{
+		"logradouro" : "Al. Dos Nhambiquaras",
+		"numNaRua" : 1951
+	},
+	{
+		"logradouro" : "R. Cde. De Porto Alegre",
+		"numNaRua" : 1706
+	},
+	{
+		"logradouro" : "Av. Pe. Antônio José Dos Santos",
+		"numNaRua" : 459
+	},
+	{
+		"logradouro" : "R. Guaraiuva",
+		"numNaRua" : 1199
+	},
+	{
+		"logradouro" : "R. Nova Cidade",
+		"numNaRua" : 290
+	},
+	{
+		"logradouro" : "Av. Brg. Faria Lima",
+		"numNaRua" : 1352
+	},
+	{
+		"logradouro" : "Av. Brg. Faria Lima",
+		"numNaRua" : 1352
+	},
+	{
+		"logradouro" : "Av. Brg. Faria Lima",
+		"numNaRua" : 1352
+	},
+	{
+		"logradouro" : "Av. Brg. Faria Lima",
+		"numNaRua" : 1352
+	},
+	{
+		"logradouro" : "R. Butantã",
+		"numNaRua" : 305
+	},
+	{
+		"logradouro" : "R. MMDC",
+		"numNaRua" : 252
+	},
+	{
+		"logradouro" : "Rod. Raposo Tavares",
+		"numNaRua" : 15
+	},
+	{
+		"logradouro" : "Av. José Felipe Da Silva",
+		"numNaRua" : 337
+	},
+	{
+		"logradouro" : "Av. Engenheiro Eiras Garcia",
+		"numNaRua" : 595
+	}
+]
+
+
+    function ligar() {
+        spanStatus.innerHTML = `${i + 1}º ponto - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+        i++;
+        divBtn.innerHTML = `<button id="btnPorta" onclick="parada()">Parar o ônibus</button>`;
+    }
+    function parada(boolPorta) {
+        if (i != pontos.length) {
+            spanStatus.innerHTML = `${i + 1}º ponto - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+            var http = new XMLHttpRequest();
+            http.open('GET', `http://localhost:3000/parada/true`);
+            http.send(null);
+            i++;
+        }
+        else {
+            spanStatus.innerHTML = "Fim da viagem!!!";
+            divBtn.innerHTML = "";
+        }
+    }
+</script>
+
+</html>

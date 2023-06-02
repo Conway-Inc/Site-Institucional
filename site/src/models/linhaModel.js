@@ -39,7 +39,7 @@ function kpiMovLinha(nomeLinha){
 }
 
 function veiculoRota(codLinha) {
-  var instrucao = `SELECT placaVeiculo, nomeModelo, lotacao
+  var instrucao = `SELECT distinct placaVeiculo, nomeModelo, lotacao
   FROM Veiculo v
   JOIN Viagem vi ON v.idVeiculo = vi.fkVeiculo
   JOIN Linha l ON vi.fkLinha = l.idLinha
