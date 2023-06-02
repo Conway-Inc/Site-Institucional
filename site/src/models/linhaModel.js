@@ -39,6 +39,14 @@ function selectLinha(nomeLinha){
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
+function selectLinha(nomeLinha){
+  console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
+  var instrucao = 
+  `SELECT * FROM Linha WHERE codLinha = '${nomeLinha}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
 
 function kpiMovLinha(nomeLinha){
   console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
