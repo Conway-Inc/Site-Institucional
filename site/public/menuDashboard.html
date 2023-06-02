@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
   </head>
 
-  <body>
+  <body onload="suaRota()">
     <!--Começo do header-->
 
     <div class="navbar">
@@ -53,86 +53,7 @@
               Sua Frota
             </h2>
           </div>
-          <div class="content" id="content">
-            <a href="preDashboard.html" id="link01">
-              <div class="visu01">
-                <div class="tituloBus">
-                  <h2 id="titulo01" class="txtTitulo">775N</h2>
-                  <p id="info01">Metrô Vila Madalena/Rio Pequeno</p>
-                  <p id="rotas">Rotas: 775N-10</p>
-                </div>
-                <div class="qtdVeic">
-                  <h2 id="idQtdVeic">2</h2>
-                  <p id="idQtdVeic02">Veículos</p>
-                  <img
-                    src="images/modelosOnibus/Básico.png"
-                    alt=""
-                    id="imgBasico"
-                  />
-                </div>
-                <div class="grafico">
-                  <canvas id="grafico01"></canvas>
-                  <p class="classificRuim" id="classificRuim">Ruim</p>
-                </div>
-              </div>
-            </a>
-            <div class="visu02">
-              <div class="tituloBus">
-                <h2 id="titulo02" class="txtTitulo">715M</h2>
-                <p id="info02">Largo da Pólvora/Jd. Maria Luíza</p>
-                <p id="rotas02">Rotas: 8707-10, 8707-31</p>
-              </div>
-              <div class="qtdVeic">
-                <h2 id="idQtdVeic03">8</h2>
-                <p id="idQtdVeic04">Veículos</p>
-                <img
-                  src="images/modelosOnibus/Padron.png"
-                  alt=""
-                  id="imgPadron"
-                />
-              </div>
-              <div class="grafico">
-                <canvas id="grafico02"></canvas>
-                <p class="classificIdeal" id="classificIdeal">Ideal</p>
-              </div>
-            </div>
-            <div class="visu03">
-              <div class="tituloBus">
-                <h2 id="titulo03" class="txtTitulo">8707</h2>
-                <p id="info03">Term. Princesa Isabel/Rio Pequeno</p>
-                <p id="rotas03">Rotas: 715M-10, 748R-10</p>
-              </div>
-              <div class="qtdVeic">
-                <h2 id="idQtdVeic05">4</h2>
-                <p id="idQtdVeic06">Veículos</p>
-                <img
-                  src="images/modelosOnibus/Superarticulado.png"
-                  alt=""
-                  id="imgSupArti"
-                />
-              </div>
-              <div class="grafico">
-                <canvas id="grafico03"></canvas>
-                <p class="classificBoa" id="classificBoa">Boa</p>
-              </div>
-            </div>
-            <a href="alterarRota.html" id="link04">
-              <div id="visu04a">
-                <div class="visu04">
-                  <h2>+</h2>
-                  <p>Adicionar nova rota</p>
-                </div>
-              </div>
-            </a>
-            <a id="linkPonto" for="modal-4">
-              <div id="visu04b">
-                <label class="visu04 visuPonto" for="modal-4">
-                  <h2>+</h2>
-                  <p>Adicionar novo ponto</p>
-                </label>
-              </div>
-            </a>
-          </div>
+          <div class="content" id="content"></div>
         </div>
 
         <!-- Início do Modal para cadastrar pontos -->
@@ -161,8 +82,8 @@
                   <h3>Coordenadas geográficas</h3>
                   <p>(Opcional)</p>
                   <span id="coordenadas">
-                    <input class="ipt_func" placeholder="X" id="ipt_coordX"/>
-                    <input class="ipt_func" placeholder="Y" id="ipt_coordY"/>
+                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
+                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
                   </span>
                 </div>
 
@@ -197,7 +118,8 @@
 </html>
 
 <script>
-  var veiculos = []
+  var veiculos = [];
+  var rotas = [];
   function suaFrota() {
     idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
     idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
@@ -205,55 +127,69 @@
     idSuasFrotas.style.color = "#BD916E";
     idSuasFrotas.style.backgroundColor = "#E4D4C7";
 
-    // titulo01.innerHTML = "NAG-9496";
-    // titulo02.innerHTML = "JTC-2740";
-    // titulo03.innerHTML = "MOI-7346";
-
-    // info01.innerHTML = "Básico";
-    // info02.innerHTML = "Padron";
-    // info03.innerHTML = "Super articulado";
-
     fetch(`/veiculos/listar/${sessionStorage.FK_EMPRESA}`)
       .then(function (resposta) {
-        resposta.json().then(function (resposta) {
-          console.log("Dados recebidos: ", JSON.stringify(resposta));
+        if (resposta.status == 200) {
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
 
+            var content = document.getElementById("content");
+            content.innerHTML = "";
+            for (let i = 0; i < resposta.length; i++) {
+              veiculos.push(resposta[i]);
+              var veiculo = resposta[i];
+              var titulo = document.createElement("h2");
+              var tipoVeiculo = document.createElement("p");
+              var rotas = document.createElement("p");
+              var tituloArea = document.createElement("div");
+              var imgArea = document.createElement("div");
+              var imgOnibus = document.createElement("img");
+              var card = document.createElement("div");
+
+              titulo.innerHTML = veiculo.placaVeiculo;
+              tipoVeiculo.innerHTML = veiculo.nomeModelo;
+
+              card.appendChild(tituloArea);
+              card.appendChild(imgArea);
+              card.className = "cardVeiculo";
+
+              tituloArea.appendChild(titulo);
+              tituloArea.appendChild(rotas);
+              tituloArea.appendChild(tipoVeiculo);
+              tituloArea.className = "tituloBus";
+              rotas.className = "rotas";
+
+              imgArea.className = "qtdVeic";
+              imgArea.appendChild(imgOnibus);
+              imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
+
+              card.addEventListener("click", (click) =>
+                redirecionarAdicionarRota(i)
+              );
+              content.appendChild(card);
+            }
+            var botaoAdicionar = document.createElement("a");
+            var botaoAdicionarDiv1 = document.createElement("div");
+            var botaoAdicionarDiv2 = document.createElement("div");
+            var sinalAdicionar = document.createElement("h2");
+            var textoAdicionar = document.createElement("p");
+
+            botaoAdicionar.href = "adicionarVeiculo.html";
+            sinalAdicionar.innerHTML = "+";
+            textoAdicionar.innerHTML = "Adicionar novo veículo";
+            botaoAdicionarDiv1.id = "visu05";
+            botaoAdicionarDiv2.className = "visu05";
+
+            botaoAdicionar.appendChild(botaoAdicionarDiv1);
+            botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+            botaoAdicionarDiv2.appendChild(sinalAdicionar);
+            botaoAdicionarDiv2.appendChild(textoAdicionar);
+            content.appendChild(botaoAdicionar);
+          });
+        } else {
           var content = document.getElementById("content");
           content.innerHTML = "";
-          for (let i = 0; i < resposta.length; i++) {
-            veiculos.push(resposta[i])
-            var veiculo = resposta[i];
-            var titulo = document.createElement("h2");
-            var tipoVeiculo = document.createElement("p");
-            var rotas = document.createElement("p");
-            var tituloArea = document.createElement("div");
-            var imgArea = document.createElement("div");
-            var imgOnibus = document.createElement("img");
-            var card = document.createElement("div");
 
-            titulo.innerHTML = veiculo.placaVeiculo;
-            tipoVeiculo.innerHTML = veiculo.nomeModelo;
-            // TODO: rotas
-
-            card.appendChild(tituloArea);
-            card.appendChild(imgArea);
-            card.className = "cardVeiculo";
-
-            tituloArea.appendChild(titulo);
-            tituloArea.appendChild(rotas);
-            tituloArea.appendChild(tipoVeiculo);
-            tituloArea.className = "tituloBus";
-            rotas.className = "rotas";
-
-            imgArea.className = "qtdVeic";
-            imgArea.appendChild(imgOnibus);
-            imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
-
-            card.addEventListener("click", (click) =>
-                redirecionarAdicionarVeiculo(i)
-              );
-            content.appendChild(card);
-          }
           var botaoAdicionar = document.createElement("a");
           var botaoAdicionarDiv1 = document.createElement("div");
           var botaoAdicionarDiv2 = document.createElement("div");
@@ -267,44 +203,15 @@
           botaoAdicionarDiv2.className = "visu05";
 
           botaoAdicionar.appendChild(botaoAdicionarDiv1);
-          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2)
+          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
           botaoAdicionarDiv2.appendChild(sinalAdicionar);
           botaoAdicionarDiv2.appendChild(textoAdicionar);
           content.appendChild(botaoAdicionar);
-        });
+        }
       })
       .catch(function (resposta) {
         console.error(resposta);
       });
-
-    // link01.href = "alterarVeiculo.html";
-
-    grafico01.style.display = "none";
-    grafico02.style.display = "none";
-    grafico03.style.display = "none";
-
-    classificRuim.style.display = "none";
-    classificIdeal.style.display = "none";
-    classificBoa.style.display = "none";
-
-    idQtdVeic.style.display = "none";
-    idQtdVeic02.style.display = "none";
-    idQtdVeic03.style.display = "none";
-    idQtdVeic04.style.display = "none";
-    idQtdVeic05.style.display = "none";
-    idQtdVeic06.style.display = "none";
-
-    // rotas.style.display = "block";
-    // rotas02.style.display = "block";
-    // rotas03.style.display = "block";
-
-    // imgBasico.style.display = "block";
-    // imgPadron.style.display = "block";
-    // imgSupArti.style.display = "block";
-
-    visu04a.style.display = "none";
-    visu04b.style.display = "none";
-    // visu05.style.display = "block";
   }
 
   function suaRota() {
@@ -314,85 +221,94 @@
     idSuasRotas.style.color = "#BD916E";
     idSuasRotas.style.backgroundColor = "#E4D4C7";
 
-    titulo01.innerHTML = "775N";
-    titulo02.innerHTML = "715M";
-    titulo03.innerHTML = "8707";
+    fetch(`/linha/listar/${sessionStorage.FK_EMPRESA}`)
+      .then(function (resposta) {
+        if (resposta.status == 200) {
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-    info01.innerHTML = "Metrô Vila Madalena/Rio Pequeno";
-    info02.innerHTML = "Largo da Pólvora/Jd. Maria Luíza";
-    info03.innerHTML = "Term. Princesa Isabel/Rio Pequeno";
+            var content = document.getElementById("content");
+            content.innerHTML = "";
+            for (let i = 0; i < resposta.length; i++) {
+              rotas.push(resposta[i]);
+              var rota = resposta[i];
 
-    link01.href = "dashboardGeral.html";
+              var tituloArea = document.createElement("div");
+              var titulo = document.createElement("h2");
+              var nomeLinha = document.createElement("p");
 
-    grafico01.style.display = "block";
-    grafico02.style.display = "block";
-    grafico03.style.display = "block";
+              var qtdVeiculoArea = document.createElement("div");
+              var qtdVeiculo = document.createElement("h2");
+              var qtdVeiculoSub = document.createElement("p");
 
-    classificRuim.style.display = "block";
-    classificIdeal.style.display = "block";
-    classificBoa.style.display = "block";
+              var graficoArea = document.createElement("div");
+              var grafico = document.createElement("canvas");
+              var card = document.createElement("div");
 
-    idQtdVeic.style.display = "block";
-    idQtdVeic02.style.display = "block";
-    idQtdVeic03.style.display = "block";
-    idQtdVeic04.style.display = "block";
-    idQtdVeic05.style.display = "block";
-    idQtdVeic06.style.display = "block";
+              titulo.innerHTML = rota.codLinha;
+              nomeLinha.innerHTML = `${rota.nomeLinhaIda}/${rota.nomeLinhaVolta}`;
 
-    rotas.style.display = "none";
-    rotas02.style.display = "none";
-    rotas03.style.display = "none";
+              card.appendChild(tituloArea);
+              card.appendChild(qtdVeiculoArea);
+              card.className = "visu01";
 
-    imgBasico.style.display = "none";
-    imgPadron.style.display = "none";
-    imgSupArti.style.display = "none";
+              tituloArea.appendChild(titulo);
+              tituloArea.appendChild(nomeLinha);
+              tituloArea.className = "tituloBus";
 
-    visu04a.style.display = "block";
-    visu04b.style.display = "block";
-    visu05.style.display = "none";
-  }
+              qtdVeiculoArea.appendChild(qtdVeiculo);
+              qtdVeiculoArea.appendChild(qtdVeiculoSub);
+              qtdVeiculoArea.className = "qtdVeic";
 
-  function cadastrarFuncionario() {
-    const nome = ipt_funcionario.value;
-    const email = ipt_email.value;
-    const cpf = ipt_cpf.value;
-    const celular = ipt_cel.value;
-    const senha = ipt_senha.value;
-    const foto = ipt_foto.value;
-    var idRepresentante = sessionStorage.ID_FUNCIONARIO;
-    var fkEmpresa = sessionStorage.FK_EMPRESA;
+              card.addEventListener("click", (click) =>
+                redirecionarAdicionarRota(i)
+              );
+              content.appendChild(card);
+            }
+            var botaoAdicionar = document.createElement("a");
+            var botaoAdicionarDiv1 = document.createElement("div");
+            var botaoAdicionarDiv2 = document.createElement("div");
+            var sinalAdicionar = document.createElement("h2");
+            var textoAdicionar = document.createElement("p");
 
-    if (validar()) {
-      fetch("/usuarios/cadastrarFuncionario", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          nomeFuncionarioServer: nome,
-          emailServer: email,
-          cpfServer: cpf,
-          celularServer: celular,
-          senhaServer: senha,
-          fotoFuncionarioServer: foto,
-          fkEmpresaServer: fkEmpresa,
-          fkRepresentanteServer: idRepresentante,
-        }),
-      }).then(function (resposta) {
-        console.log("resposta: ", resposta);
+            botaoAdicionar.href = "alterarRota.html";
+            sinalAdicionar.innerHTML = "+";
+            textoAdicionar.innerHTML = "Adicionar nova rota";
+            botaoAdicionarDiv1.id = "visu05";
+            botaoAdicionarDiv2.className = "visu05";
 
-        if (resposta.ok) {
-          // cardErro.style.display = "block";
-          // mensagem_erro.innerHTML =
-          //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-          // setTimeout(() => {
-          //   window.location = "login.html";
-          // }, 2000);
+            botaoAdicionar.appendChild(botaoAdicionarDiv1);
+            botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+            botaoAdicionarDiv2.appendChild(sinalAdicionar);
+            botaoAdicionarDiv2.appendChild(textoAdicionar);
+            content.appendChild(botaoAdicionar);
+          });
+        } else {
+          var content = document.getElementById("content");
+          content.innerHTML = "";
+
+          var botaoAdicionar = document.createElement("a");
+          var botaoAdicionarDiv1 = document.createElement("div");
+          var botaoAdicionarDiv2 = document.createElement("div");
+          var sinalAdicionar = document.createElement("h2");
+          var textoAdicionar = document.createElement("p");
+
+          botaoAdicionar.href = "adicionarVeiculo.html";
+          sinalAdicionar.innerHTML = "+";
+          textoAdicionar.innerHTML = "Adicionar novo veículo";
+          botaoAdicionarDiv1.id = "visu05";
+          botaoAdicionarDiv2.className = "visu05";
+
+          botaoAdicionar.appendChild(botaoAdicionarDiv1);
+          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+          botaoAdicionarDiv2.appendChild(sinalAdicionar);
+          botaoAdicionarDiv2.appendChild(textoAdicionar);
+          content.appendChild(botaoAdicionar);
         }
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
       });
-    }
   }
 
   function validar() {
@@ -406,7 +322,7 @@
     var coordXVar = ipt_coordX.value;
     var coordYVar = ipt_coordY.value;
 
-    if(coordXVar == '' || coordYVar == ''){
+    if (coordXVar == "" || coordYVar == "") {
       coordXVar = null;
       coordYVar = null;
     }
@@ -651,14 +567,14 @@
                 </div>
             </div>
             `;
-            botoesEditarExcluir = `
+      botoesEditarExcluir = `
             <div class="btnFunc">
                 <button class="btn_adicionar_mais"><b>Editar</b></button>
                 <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
             </div>`;
-        }
-        for (var i = 0; i < outrosFuncionarios.length; i++) {
-            listaDeFuncionarios.innerHTML += `
+    }
+    for (var i = 0; i < outrosFuncionarios.length; i++) {
+      listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
             </label>
@@ -789,5 +705,11 @@
     sessionStorage.ID_MODELO = veiculos[index].idModelo;
 
     window.location = "alterarVeiculo.html";
+  }
+
+  function redirecionarAdicionarRota(index) {
+    sessionStorage.LINHA = rotas[index];
+
+    window.location = "alterarRota.html";
   }
 </script>

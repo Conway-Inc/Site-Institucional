@@ -1,6 +1,17 @@
 var database = require("../database/config");
 
 
+function listar(idEmpresa) {
+  console.log(
+    "ACESSEI O LINHA  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
+  );
+  var instrucao = `
+        SELECT * FROM vwCardMenuDashboard WHERE idEmpresa = ${idEmpresa};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 // ADIÇÃO DA FUNÇÃO CADASTRAR ROTAS
 function cadastrarLinha(nomeRota, tipoLinha, pontoInicial, pontoFinal, fkEmpresa) {
   console.log(
@@ -55,5 +66,6 @@ module.exports = {
   cadastrarLinha,
   selectLinha,
   veiculoRota,
-  kpiMovLinha
+  kpiMovLinha,
+  listar
 };
