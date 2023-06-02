@@ -240,9 +240,15 @@
               var qtdVeiculoArea = document.createElement("div");
               var qtdVeiculo = document.createElement("h2");
               var qtdVeiculoSub = document.createElement("p");
+              qtdVeiculo.innerHTML = rota.numVeiculos;
+              qtdVeiculoSub.innerHTML = "Veículos";
 
               var graficoArea = document.createElement("div");
               var grafico = document.createElement("canvas");
+              grafico.id = `grafico${rota.idLinha}`;
+              graficoArea.className = "grafico";
+              graficoArea.id = `graficoArea${rota.idLinha}`
+
               var card = document.createElement("div");
 
               titulo.innerHTML = rota.codLinha;
@@ -250,6 +256,7 @@
 
               card.appendChild(tituloArea);
               card.appendChild(qtdVeiculoArea);
+              card.appendChild(graficoArea);
               card.className = "visu01";
 
               tituloArea.appendChild(titulo);
@@ -260,10 +267,13 @@
               qtdVeiculoArea.appendChild(qtdVeiculoSub);
               qtdVeiculoArea.className = "qtdVeic";
 
+              graficoArea.appendChild(grafico);
+
               card.addEventListener("click", (click) =>
                 redirecionarAdicionarRota(i)
               );
               content.appendChild(card);
+              gerarGraficoOtimizacao(rotas[i]);
             }
             var botaoAdicionar = document.createElement("a");
             var botaoAdicionarDiv1 = document.createElement("div");
@@ -361,104 +371,88 @@
   }
 </script>
 <script>
-  //Gráfico 01
-  const corClassific = "#DB0300";
-  const classificacao = ["Otimização Atual", "Melhora possível"];
-  const dadosClassfic = {
-    labels: classificacao,
-    datasets: [
-      {
-        backgroundColor: [corClassific, "#494F56"],
-        borderColor: [corClassific],
-        borderWidth: "0.5",
-        data: [33, 77],
-        circumference: 180,
-        rotation: 270,
-      },
-    ],
-  };
-  const configGraficoClassific = {
-    type: "doughnut",
-    data: dadosClassfic,
-    options: {
-      aspectRatio: "1/4",
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-    },
-  };
-  const graficoClassific = new Chart(
-    document.getElementById("grafico01"),
-    configGraficoClassific
-  );
+  function gerarGraficoOtimizacao(linha) {
+    var otimizacao = Number(linha.pctOtimizacao);
+    var areaBranca = 100 - otimizacao;
 
-  //Gráfico 02
-  const corClassific02 = "#00BF63";
-  const classificacao02 = ["Otimização Atual", "Melhora possível"];
-  const dadosClassfic02 = {
-    labels: classificacao,
-    datasets: [
-      {
-        backgroundColor: [corClassific02, "#00BF63"],
-        borderColor: [corClassific02],
-        borderWidth: "0.5",
-        data: [100, 0],
-        circumference: 180,
-        rotation: 270,
-      },
-    ],
-  };
-  const configGraficoClassific02 = {
-    type: "doughnut",
-    data: dadosClassfic02,
-    options: {
-      aspectRatio: "1/4",
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-    },
-  };
-  const graficoClassific02 = new Chart(
-    document.getElementById("grafico02"),
-    configGraficoClassific02
-  );
+    var corClassific = "";
+    var nomeClassific = "";
+    if (otimizacao >= 80) {
+      corClassific = "#00BF63";
+      nomeClassific = "Ideal";
+    } else if (otimizacao > 30) {
+      corClassific = "#fbff1a";
+      nomeClassific = "Boa";
+    } else {
+      corClassific = "#DB0300";
+      nomeClassific = "Ruim";
+    }
 
-  //Gráfico 03
-  const corClassific03 = "#FFDE59";
-  const classificacao03 = ["Otimização Atual", "Melhora possível"];
-  const dadosClassfic03 = {
-    labels: classificacao,
-    datasets: [
-      {
-        backgroundColor: [corClassific03, "#494F56"],
-        borderColor: [corClassific03],
-        borderWidth: "0.5",
-        data: [66, 40],
-        circumference: 180,
-        rotation: 270,
-      },
-    ],
-  };
-  const configGraficoClassific03 = {
-    type: "doughnut",
-    data: dadosClassfic03,
-    options: {
-      aspectRatio: "1/4",
-      plugins: {
-        legend: {
-          display: false,
+    var graficoArea = document.getElementById(`graficoArea${linha.idLinha}`);
+    var pClassificacao = document.createElement("p")
+
+    pClassificacao.innerHTML = nomeClassific;
+    pClassificacao.className = "classific" + nomeClassific;
+    graficoArea.appendChild(pClassificacao)
+
+    const classificacao = ["Otimização Atual", "Melhora possível"];
+    const dadosClassfic = {
+      labels: classificacao,
+      datasets: [
+        {
+          backgroundColor: [corClassific, "white"],
+          borderColor: ["black"],
+          borderWidth: "0.5",
+          data: [otimizacao, areaBranca],
+          circumference: 180,
+          rotation: 270,
+        },
+      ],
+    };
+    const configGraficoClassific = {
+      type: "doughnut",
+      data: dadosClassfic,
+      options: {
+        aspectRatio: "1/4",
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
       },
-    },
-  };
-  const graficoClassific03 = new Chart(
-    document.getElementById("grafico03"),
-    configGraficoClassific03
-  );
+    };
+    new Chart(
+      document.getElementById(`grafico${linha.idLinha}`),
+      configGraficoClassific
+    );
+  }
+
+  function gerarGraficoFluxo(pLogs, pFluxo) {
+    const lotacaoOnibus = 80;
+    const dadosGeral = {
+      labels: pLogs,
+      datasets: pFluxo,
+    };
+    const configGraficoGeral = {
+      type: "line",
+      data: dadosGeral,
+      options: {
+        scales: {
+          x: {
+            //Deixa as labels do eixo X (pontos) na vertical
+            ticks: {
+              maxRotation: 90,
+              minRotation: 90,
+            },
+          },
+        },
+      },
+    };
+    const graficoGeral = new Chart(
+      document.getElementById("graficoRota"),
+      configGraficoGeral
+    );
+  }
 </script>
 <script>
   /*--------------------------------------------------------------------------------
@@ -708,7 +702,7 @@
   }
 
   function redirecionarAdicionarRota(index) {
-    sessionStorage.LINHA = rotas[index];
+    sessionStorage.ID_LINHA = rotas[index].idLinha;
 
     window.location = "alterarRota.html";
   }

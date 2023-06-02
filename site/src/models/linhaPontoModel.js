@@ -12,7 +12,7 @@ function cadastrarPontoLinha(idLinha, idPonto) {
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucao = `
-        INSERT INTO linhaPonto (fkLinha, fkPonto) VALUES ('${idLinha}', '${idPonto}');
+        INSERT INTO LinhaPonto (fkLinha, fkPonto) VALUES ('${idLinha}', '${idPonto}');
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

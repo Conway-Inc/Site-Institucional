@@ -21,6 +21,9 @@ router.get("/listar/:idEmpresa", function (req, res) {
 router.get("/listarPorCodigo/:codRota", function(req, res) {
     linhaController.selectLinha(req, res);
 });
+router.get("/selecionar/:codRota", function(req, res) {
+    linhaController.selectLinhaSimples(req, res);
+});
 
 router.get("/kpiMovLinha/:codRota", function(req, res) {
     linhaController.kpiMovLinha(req, res);
