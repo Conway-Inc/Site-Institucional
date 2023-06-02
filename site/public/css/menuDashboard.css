@@ -112,6 +112,22 @@ main{
     cursor: pointer;
 }
 
+.cardVeiculo{
+    margin: 10px;
+}
+#visu05 .cardVeiculo{
+    background-color: #F1F1F1 !important;
+    opacity: 0.8;
+    color: #BD916E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#visu05 .cardVeiculo h2, #visu05 .cardVeiculo p{
+    margin: 0;
+}
+
 .visu01, .visu02, .visu03, .cardVeiculo{
     display: flex;
     color: white;
@@ -122,18 +138,12 @@ main{
     width: 350px;
     min-width: 350px;
     gap: 10px;
-    margin-bottom: 20px;
-    margin-right: 20px;
     flex-wrap: wrap;
     height: 220px;
 }
 
 .txtTitulo{
     font-size: 35px;
-}
-
-.visu01, .visu02, .cardVeiculo{
-    margin-top: 20px;
 }
 
 .visu04, .visu05{
@@ -144,8 +154,6 @@ main{
     color: #BD916E;
     width: 350px;
     gap: 10px;
-    margin-bottom: 20px;
-    margin-right: 20px;
     flex-wrap: wrap;
     padding: 10px;
     border-radius: 20px;
@@ -166,10 +174,6 @@ main{
 
 .visuPonto{
     cursor: pointer;
-}
-
-#visu05{
-    margin: 20px;
 }
 
 .visu04 h2, .visu05 h2{
