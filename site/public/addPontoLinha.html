@@ -54,18 +54,7 @@
               <label for="" id="pontoFinalSelect">AQUI VIRÁ O PONTO FINAL</label>
             </label>
           </div>
-          <div class="datalistPonto">
-            <input list="browsers" name="browser" id="browser">
-            <datalist id="browsers">
-              <!-- <option value="Ponto01" id="testePontos"></option> -->
-              <!-- <option value="Ponto02"></option>
-                  <option value="Ponto03"></option>
-                  <option value="Ponto04"></option>
-                  <option value="Ponto05"></option> -->
-            </datalist>
-            <button onclick="addPonto()">Adicionar Ponto a Linha</button>
-            <div id="pontosAdicionados"></div>
-          </div>
+          
         </div>
         <div class="btn-area">
           <button onclick="cadastrarPontoLinha()"><b>Adicionar+</b></button>
@@ -104,10 +93,10 @@
   pontoInicialSelect.innerHTML = sessionStorage.PONTO_INICIAL;
   pontoFinalSelect.innerHTML = sessionStorage.PONTO_FINAL;
 
-  selectPonto();
+  
+  selectLinhaPonto();
 
-  var vetorPonto = [];
-  var vetorIdPontoSelect = [];
+  
 
 
   function cadastrarPontoLinha() {
@@ -151,40 +140,7 @@
     }
   }
 
-  function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
-
-    fetch("/ponto/listar").then(function (resposta) {
-      if (resposta.ok) {
-        if (resposta.status == 204) {
-          var feed = document.getElementById("browsers");
-          var mensagem = document.createElement("option");
-          mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
-          feed.appendChild(mensagem);
-          throw "Nenhum resultado encontrado!!";
-        }
-
-        resposta.json().then(function (resposta) {
-          console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-          var feed = document.getElementById("browsers");
-          feed.innerHTML = "";
-          for (let i = 0; i < resposta.length; i++) {
-            var publicacao = resposta[i];
-
-            var opcao = document.createElement("option");
-
-            opcao.innerHTML = publicacao.logradouro;
-
-            feed.appendChild(opcao);
-          }
-        });
-      } else {
-        throw ("Houve um erro na API")
-      }
-    }).catch(function (resposta) {
-      console.error(resposta);
-    });
-  }
+  
 
   function addPonto() {
     var iptPonto = browser.value;
@@ -253,15 +209,51 @@
     })
 
     return false;
-
-
-    vetorPonto.push(sessionStorage.ID_PONTO);
-
-    pontosAdicionados.innerHTML = ``;
-
-    for (var i = 0; i < vetorPonto.length; i++) {
-      pontosAdicionados.innerHTML += `${i} - <span class='ponto' style="margin-right: 20px;">${vetorPonto[i]}</span>`
-    }
+    
   }
+
+  function selectLinhaPonto() { //ATUALIZAR DATALIST DOS PONTOS
+
+fetch("/linhaPonto/listarLinhaPonto", {
+
+method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          fkLinhaServer: sessionStorage.ID_LINHA
+      })
+    }).then(function (resposta) {
+  if (resposta.ok) {
+    if (resposta.status == 204) {
+      var feed = document.getElementById("pontosAdicionados");
+      var mensagem = document.createElement("p");
+      mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
+      feed.appendChild(mensagem);
+      throw "Nenhum resultado encontrado!!";
+    }
+
+    resposta.json().then(function (resposta) {
+      console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+      var feed = document.getElementById("pontosAdicionados");
+      feed.innerHTML = "";
+      for (let i = 0; i < resposta.length; i++) {
+        var publicacao = resposta[i];
+
+        var opcao = document.createElement("p");
+
+        opcao.innerHTML = `${[i + 1]}º ponto - ` +  publicacao.logradouro;
+
+        feed.appendChild(opcao);
+      }
+    });
+  } else {
+    throw ("Houve um erro na API")
+  }
+}).catch(function (resposta) {
+  console.error(resposta);
+});
+}
 
 </script>

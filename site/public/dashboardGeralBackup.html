@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
 </head>
-
 <body>
     <!--Começando a barra lateral das KPIs-->
     <div id="sidebar">
@@ -69,8 +67,7 @@
             </div>
             <!--Fim do cabeçalho da dashboard-->
             <!--Início da área do gráfico da dashboard-->
-            <div id="graficoDashboard">
-                <!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
+            <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
                 <h2>Média geral dos horários da rota</h2><!--cada horário por si só.-->
                 <canvas id="graficoRota"></canvas>
             </div>
@@ -78,64 +75,67 @@
         </div>
         <!--Fim do corpo da dashboard-->
         <!--Início da barra lateral da classificação e dos veículos nessa rota-->
-        <div id="sidebarOutrosDados">
-            <div id="classificacao">
-                <canvas id="graficoClassific"></canvas>
-                <p class="classificRuim" id="classific">Ruim</p>
-                <p>Classificação da Rota</p>
-            </div>
-            <details id="detailsFormula">
-                Fórmula utilizada:
-                <img class="imgSaibaMais" src="images/formula busway.png" onclick="mostrarFormula(true)">
-                (Clique para ampliar)
-            </details>
-            <div id="veiculosDashboard">
-                <h3>Veículos</h3>
-                <span>utilizados nessa rota</span>
-                <div id="tabelaVeiculosDashboard">
-                    <div id="tabelaVeiculosCabecalho" class="tabelaVeiculosLinha">
-                        <p>Placa</p>
-                        <p>Lotação</p>
-                        <p>Modelo</p>
+            <div id="sidebarOutrosDados">
+                <div id="classificacao">
+                    <canvas id="graficoClassific"></canvas>
+                    <p class="classificRuim" id="classific"></p>
+                    <p>Classificação da Rota</p>
+                </div>
+                <details>
+                    Nosso sistema tem três tipos de classificação para uma rota: ruim, boa e ideal; baseados no índice 
+                    de aproveitamento dos recursos dispostos. Rotas vazias ou extremamente superlotadas geram uma 
+                    classificação baixa.
+                    <img class="imgSaibaMais" src="images/métrica.png" alt="">
+                </details>
+                <div id="veiculosDashboard">
+                    <h3>Veículos</h3>
+                    <span>utilizados nessa rota</span>
+                    <div id="tabelaVeiculosDashboard">
+                        <div id="tabelaVeiculosCabecalho" class="tabelaVeiculosLinha">
+                           <p>Placa</p>
+                            <p>Lotação</p>
+                            <p>Modelo</p>
+                        </div>
+                        <div class="tabelaVeiculosLinha">
+                            <p>CCV-4234</p>
+                            <p>70</p>
+                            <p>Básico</p>
+                        </div>
+                        <div class="tabelaVeiculosLinha">
+                            <p>EEL-6867</p>
+                            <p>70</p>
+                            <p>Básico</p>
+                        </div>
+                        <div class="tabelaVeiculosLinha">
+                            <p>EXR-4682</p>
+                            <p>80</p>
+                            <p>Padron</p>
+                        </div>
                     </div>
                 </div>
+                <div id="containerGraficoVeiculos">
+                    <canvas id="graficoVeiculos"></canvas>
+                </div>
+                <a href="menuDashboard.html">< VOLTAR</a>
             </div>
-            <div id="containerGraficoVeiculos">
-                <canvas id="graficoVeiculos"></canvas>
-            </div>
-            <a href="menuDashboard.html">
-                < VOLTAR</a>
-        </div>
-        <!--Fim da barra lateral dos veículos nessa rota-->
+            <!--Fim da barra lateral dos veículos nessa rota-->
     </div>
     <!--Fim do conteúdo principal da dashboard-->
-    <div id="modalFormula">
-        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512" fill="#69503C" onclick="mostrarFormula(false)">
-            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
-        </svg>
-        <img src="images/formula busway.png">
-    </div>
 </body>
-
 </html>
 <script>
-    function mostrarFormula(mostrar){
-        if(mostrar){
-            modalFormula.style = "visibility: visible";
-        }
-        else{
-            modalFormula.style = "visibility: hidden";
-        }
-    }
-
     ///////////////////////////////////////////////
     ///////////////// Temporário //////////////////
     sessionStorage.COD_ROTA = "477P";
     ///////////////////////////////////////////////
-
-    if (sessionStorage.COD_ROTA == undefined) {
-        window.location = "menuDashboard.html";
+    
+    function verificarSessao() {
+        if (sessionStorage.COD_ROTA == undefined) {
+            window.location = "menuDashboard.html";
+        }
     }
+    verificarSessao();
+ 
     var linha = null;
     var kpiMov = null;
     var kpiHor = null;
@@ -143,37 +143,35 @@
     var horarios = null;
     var pontos = null;
     var veiculos = null;
-    
+
     var pontos
-    
-    veiculoRota()
+
     function carregarLinha() {
         fetch(`linha/listarPorCodigo/${sessionStorage.COD_ROTA}`, {
-            cache: "no-store",
+        cache: "no-store",
         })
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        linha = resposta;
-                        configLinha();
-                        gerarGraficoOtimizacao();
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados: ${error.message}`);
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Linha: ${JSON.stringify(resposta)}`);
+                linha = resposta;
+                configLinha();
+                gerarGraficoOtimizacao();
             });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
     }
-
     function carregarKPIs() {
         fetch(`linha/kpiMovLinha/${sessionStorage.COD_ROTA}`, {
-            cache: "no-store",
+        cache: "no-store",
         })
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
                 kpiMov = resposta;
                 configKPIMovLinha();
             });
@@ -190,8 +188,8 @@
             if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`KPI média de passageiros por horário: ${JSON.stringify(resposta)}`);
-                        kpiHor = resposta;
-                        configKPIMediaPass();
+                kpiHor = resposta;
+                configKPIMediaPass();
             });
             }
         })
@@ -228,31 +226,31 @@
                 pontos = resposta;
                 configPontos();
                 carregarFluxo();
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados: ${error.message}`);
             });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
     }
     function carregarFluxo() {
         fetch(`viagem/fluxoViagens/${sessionStorage.COD_ROTA}`, {
-            cache: "no-store",
+        cache: "no-store",
         })
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Fluxo: ${JSON.stringify(resposta)}`);
-                        fluxo = resposta;
-                        configFluxo();
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados: ${error.message}`);
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Fluxo: ${JSON.stringify(resposta)}`);
+                fluxo = resposta;
+                configFluxo();
             });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
     }
-
+    
     carregarLinha();
     carregarKPIs();
     carregarhorarios();
@@ -383,21 +381,21 @@
         gerarGraficoFluxo(logs, fluxoTratado);
     }
 
-    function gerarGraficoOtimizacao() {
+    function gerarGraficoOtimizacao(){
         var otimizacao = Number(linha.pctOtimizacao);
         var areaBranca = 100 - otimizacao;
-
+        
         var corClassific = "";
         var nomeClassific = "";
-        if (otimizacao >= 80) {
+        if(otimizacao >= 80){
             corClassific = "#00BF63";
             nomeClassific = "Ideal";
         }
-        else if (otimizacao > 30) {
+        else if(otimizacao > 30){
             corClassific = "#fbff1a";
             nomeClassific = "Boa";
         }
-        else {
+        else{
             corClassific = "#DB0300";
             nomeClassific = "Ruim";
         }
@@ -474,16 +472,16 @@
     //     "Articulado",
     //     "Biarticulado"
     // ]
-    const modelos = [
-        "Básico",
-        "Padron",
+     const modelos = [
+         "Básico",
+         "Padron",
     ]
     const dadosVeiculos = {
-        labels: modelos,
+        labels:modelos,
         datasets: [{
-            data: [2, 1],
-            backgroundColor: ['#69503C', '#BD916E']
-        }
+                data: [2,1],
+                backgroundColor: ['#69503C','#BD916E']
+            }
         ]
     }
     const configGraficoVeiculos = {
@@ -501,41 +499,4 @@
         document.getElementById("graficoVeiculos"),
         configGraficoVeiculos
     );
-
-    function veiculoRota() {
-        fetch(`linha/veiculoRota/${sessionStorage.COD_ROTA}`)
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(response)}`);
-
-                        var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
-                        for (let i = 0; i < resposta.length; i++) {
-                            var veiculo = document.createElement("div");
-                            var placa = document.createElement("p");
-                            var lotacao = document.createElement("p");
-                            var modelo = document.createElement("p");
-
-                            placa.innerHTML = resposta[i].placaVeiculo;
-                            lotacao.innerHTML = resposta[i].lotacao;
-                            modelo.innerHTML = resposta[i].nomeModelo;
-
-                            veiculo.appendChild(placa);
-                            veiculo.appendChild(lotacao);
-                            veiculo.appendChild(modelo);
-                            veiculo.className = 'tabelaVeiculosLinha';
-
-                            listaVeiculos.appendChild(veiculo);
-
-                        }
-                    });
-                } else {
-                    console.error("Nenhum dado encontrado na API");
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados: ${error.message}`);
-            });
-    }
-
 </script>

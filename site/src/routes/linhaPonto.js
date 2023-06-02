@@ -10,9 +10,13 @@ var linhaPontoController = require("../controllers/linhaPontoController");
 //Recebendo os dados do html e direcionando para a função cadastrar de linhaController.js
 
 // Criado para o cadastro da Rota - alterarRotas.html
-router.post("/cadastrarLinhaPonto", function (req, res) {
-    linhaPontoController.cadastrarLinhaPonto(req, res);
+router.post("/cadastrarPontoLinha", function (req, res) {
+    linhaPontoController.cadastrarPontoLinha(req, res);
 })
+
+router.get("/listarLinhaPonto", function (req, res){
+    linhaPontoController.listarLinhaPonto(req, res);
+});
 
 router.post("/autenticar", function (req, res){
     linhaPontoController.selectLinha(req, res);

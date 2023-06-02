@@ -2,9 +2,9 @@ var database = require("../database/config");
 
 
 // ADIÇÃO DA FUNÇÃO CADASTRAR ROTAS
-function cadastrarLinhaPonto(idLinha, idPonto) {
+function cadastrarPontoLinha(idLinha, idPonto) {
   console.log(
-    "ACESSEI O linha MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarLinhaPonto():",
+    "ACESSEI O linha MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarPontoLinha():",
     idLinha,
     idPonto
   );
@@ -27,9 +27,21 @@ function selectLinha(nomeLinha){
   return database.executar(instrucao);
 }
 
+function listarLinhaPonto(fkLinha) {
+  console.log(
+    "ACESSEI O PONTO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarLinhaPonto(): ",
+    fkLinha
+  );
+  var instrucao = `
+  SELECT DISTINCT logradouro FROM Ponto JOIN LinhaPonto ON idPonto IN (SELECT fkPonto FROM LinhaPonto WHERE fkLinha = '${fkLinha}');
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   
-  cadastrarLinhaPonto,
-  selectLinha
-  
+  cadastrarPontoLinha,
+  selectLinha,
+  listarLinhaPonto
 };
