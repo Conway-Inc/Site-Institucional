@@ -13,6 +13,18 @@
     font-size: 50px;
     font-weight: 500;
 }
+.navbar div{
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+    justify-content: end;
+}
+.navbar #btnSair{
+    cursor: pointer;
+}
+.navbar #btnSair:hover{
+    text-decoration: underline;
+}
 
 .navbar svg {
     width: 85px;
@@ -82,6 +94,9 @@ main{
     display: flex;
     justify-content: center;
 }
+.titulos h2:hover{
+    opacity: 90%;
+}
 
 .suasRotas, .suasFrotas{
     margin: 0;
@@ -114,6 +129,10 @@ main{
 
 .cardVeiculo{
     margin: 10px;
+}
+.cardVeiculo:hover{
+    cursor: pointer;
+    box-shadow: #69503C 2px 2px 2px;
 }
 #visu05 .cardVeiculo{
     background-color: #F1F1F1 !important;

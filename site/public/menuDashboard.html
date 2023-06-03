@@ -29,14 +29,8 @@
       </svg>
 
       <h1 id="idNomeUsuario"></h1>
-    </div>
-
-    <div class="header">
-      <div class="container">
-        <ul>
-          <li><a href=""> CONFIGURAÇÕES </a></li>
-          <li><a onclick="sair()"> SAIR </a></li>
-        </ul>
+      <div>
+        <a onclick="sair()" id="btnSair"> SAIR </a>
       </div>
     </div>
     <!--Fim do header-->
@@ -257,7 +251,7 @@
               card.appendChild(tituloArea);
               card.appendChild(qtdVeiculoArea);
               card.appendChild(graficoArea);
-              card.className = "visu01";
+              card.className = "cardVeiculo";
 
               tituloArea.appendChild(titulo);
               tituloArea.appendChild(nomeLinha);
@@ -285,7 +279,7 @@
             sinalAdicionar.innerHTML = "+";
             textoAdicionar.innerHTML = "Adicionar nova rota";
             botaoAdicionarDiv1.id = "visu05";
-            botaoAdicionarDiv2.className = "visu05";
+            botaoAdicionarDiv2.className = "cardVeiculo";
 
             botaoAdicionar.appendChild(botaoAdicionarDiv1);
             botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);

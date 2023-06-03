@@ -93,7 +93,7 @@ from Viagem as vi
 
 -- Ver as informações das linhas, suas empresas e seus níveis de otimização
 create or replace view vwLinha as
-select l.idLinha, l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta, l.tipoLinha,
+select l.idLinha, l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta, l.tipoLinha, l.fkEmpresa,
 sum(pctLotacao)*100 as x,
 sum(lotacao)*100 as y,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao,
@@ -170,12 +170,13 @@ min(logradouro) as logrMenosMov from
     group by idLinha;
 
 -- View para o card de viagem do menu dashboard
-create view vwCardMenuDashboard as
-select vwl.*,
+select *,
 (select count(fkVeiculo) from vwLinha as l
 		 join Viagem as v on v.fkLinha = l.idLinha
          join Veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos
-         from vwLinha as vwl;
+         from vwLinha as vwl
+         join empresa as e on vwl.fkEmpresa = e.idEmpresa
+         where e.idEmpresa = 1;
 
 -- ------------- --
 /*DADOS DINÂMICOS*/
