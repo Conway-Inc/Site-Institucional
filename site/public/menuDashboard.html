@@ -562,6 +562,12 @@
             </div>`;
     }
     for (var i = 0; i < outrosFuncionarios.length; i++) {
+      let senha = outrosFuncionarios[i].senha;
+      let senhaEscondida = "";
+      for (let c = 0; c < senha.length; c++) {
+        senhaEscondida += "•";
+      }
+
       listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
@@ -575,12 +581,18 @@
                         <span class="editFuncionario">
                             <img src="images/${outrosFuncionarios[i].foto}">
                             <p><b>${outrosFuncionarios[i].nome}</b></p>
-                            <p>Funcionário(a) da transpass</p>
+                            <p>Funcionário(a) na  ${outrosFuncionarios[i].nomeEmpresa}</p>
                             <p>CPF: ${outrosFuncionarios[i].cpf}</p>
                             <p>Celular: ${outrosFuncionarios[i].celular}</p>
-                            <p>Email: ${outrosFuncionarios[i].email}</p>
-                            <p>Senha:${outrosFuncionarios[i].senha}</p>
-                            ${outrosFuncionarios[i].idFuncionario}
+                            <p>
+                              <a href="mailto:${outrosFuncionarios[i].email}">
+                                Email: ${outrosFuncionarios[i].email}
+                              </a>
+                            </p>
+                            <p class="descricao">(clique para mandar email)</p>
+                            <p id="senhaInvisivel">Senha: ${senhaEscondida}</p>
+                            <p id="senhaVisivel">Senha: ${senha}</p>
+                            <p class="descricao">(passe o mouse para revelar)</p>
                             <div class="btnFunc">
                                 <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${i})"><b>Editar</b></label>
                                 <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${Number(
