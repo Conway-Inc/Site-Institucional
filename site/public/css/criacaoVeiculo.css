@@ -32,6 +32,7 @@
 p, input, option, select {
     color: #69503C;
     font-family: 'Poppins';
+    margin: 0;
 }
 
 .caixaContent a{
@@ -59,9 +60,8 @@ button:hover {
 
 .caixaContent input, select {
     background-color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 150%;
+    padding: 10px 5px;
+    margin: 2.5px 0;
     border-style: none;
     border-radius: 5px;
 }
@@ -111,4 +111,19 @@ button:hover {
 }
 .linkRota:hover{
     border: none;
+}
+
+#opcional{
+    margin: 0;
+    font-size: 12px;
+}
+
+#coordenadas{
+    display: flex;
+    flex-direction: row;
+}
+#coordenadas input{
+    width: 90px;
+    margin: 0 2px;
+    text-align: center;
 }

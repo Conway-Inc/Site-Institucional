@@ -46,8 +46,10 @@
         E-mail: <input type="email" id="ipt_email" placeholder="nome@email.com">
       </div>
       <div class="senha">
-        Senha: <input type="password" id="ipt_senha" placeholder="•••••">
+        Senha: <input type="password" id="ipt_senha" placeholder="Sua senha">
       </div>
+      <span id="erroSenha">Email ou senha inválidos</span>
+      <img id="loading" src="images/loading.gif">
       <button onclick="entrar()">Entrar</button>
       <a href="">
         <p>Recuperar senha</p>
@@ -168,10 +170,12 @@
           sessionStorage.FK_EMPRESA = json.fkEmpresa;
 
 
-
+          loading.style = `
+            display: block;
+          `;
           setTimeout(function () {
             window.location = "./menuDashboard.html";
-          }, 1000); // apenas para exibir o loading
+          }, 2000);
 
         });
 
@@ -182,6 +186,13 @@
         resposta.text().then(texto => {
           console.error(texto);
         });
+        erroSenha.style = `
+          display: block;
+          animation-name: sumir;
+        `;
+        setTimeout(() => {
+          erroSenha.style = "";
+        },3000);
       }
 
     }).catch(function (erro) {

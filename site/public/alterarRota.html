@@ -74,7 +74,7 @@
 
                     <div class="div_ipt">
                       <label>Coordenadas geográficas</label>
-                      <p>(Opcional)</p>
+                      <p id="opcional">(Opcional)</p>
                       <span id="coordenadas">
                         <input class="ipt_func" placeholder="X" id="ipt_coordX" />
                         <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
@@ -320,7 +320,6 @@ function cadastrarPonto() {
   var inserir = true;
 
   function addPonto(){
-
     for (var i = 0; i < vetorPonto.length; i++) {
       if(browser.value == vetorPonto[i]){
         inserir = false;
