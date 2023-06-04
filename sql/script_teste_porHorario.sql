@@ -1,3 +1,13 @@
+-- Pegar as viagens de um horário
+select 
+date(horaInicio) as dataV,
+dayname(horaInicio) as diaSemana,
+avg(pctOtimizacao) as pctOtimizacao
+from vwViagem where hour(horaInicio) = '12' and codLinha = '477P'
+group by dataV, diaSemana
+limit 7;
+
+select * from vwViagem;
 -- Viagens
 INSERT INTO Viagem VALUES(null, '2023-05-30 12:00:00', '2023-05-30 14:52:43',1,2);
 INSERT INTO Viagem VALUES(null, '2023-05-31 12:00:00', '2023-05-31 14:53:12',1,2);

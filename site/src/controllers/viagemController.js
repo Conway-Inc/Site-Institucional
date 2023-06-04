@@ -1,14 +1,10 @@
 var viagemModel = require("../models/viagemModel");
 
-function otimizacaoHorario(req, res){
+function horariosPorRota(req, res){
   var codLinha = req.params.codLinha;
-  var horario = req.params.horario;
-
-  viagemModel.otimizacaoHorario(codLinha, horario)
+  viagemModel.horariosPorRota(codLinha)
   .then(
     function (resultado){
-      console.log(`\nResultados encontrados: ${resultado.length}`);
-      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
       res.json(resultado);
       if(resultado.length == 0){
         res.status(403).send("Nome da Linha INVÁLIDO");
@@ -23,17 +19,15 @@ function otimizacaoHorario(req, res){
   );
 }
 
-function horariosPorRota(req, res){
+function diasPorHorario(req, res){
+  var horario = req.params.horario;
   var codLinha = req.params.codLinha;
-
-  viagemModel.horariosPorRota(codLinha)
+  viagemModel.diasPorHorario(horario, codLinha)
   .then(
     function (resultado){
-      console.log(`\nResultados encontrados: ${resultado.length}`);
-      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
       res.json(resultado);
       if(resultado.length == 0){
-        res.status(403).send("Nome da Linha INVÁLIDO");
+        res.status(403).send("Nome da Linha ou horário INVÁLIDO");
       }
     }
   ).catch(
@@ -89,10 +83,34 @@ function fluxoViagens(req, res){
     );
 }
 
+function fluxoDias(req, res){
+  var codLinha = req.params.codLinha;
+  var horario = req.params.horario;
+
+  viagemModel.fluxoDias(codLinha, horario)
+  .then(
+    function (resultado){
+      console.log(`\nResultados encontrados: ${resultado.length}`);
+      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+      res.json(resultado);
+      if(resultado.length == 0){
+        res.status(403).send("Nome da Linha INVÁLIDO");
+      }
+    }
+  ).catch(
+    function (erro){
+      console.log(erro);
+      console.log("\nHouve um erro ao selecionar a linha! ERRO: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    }
+  );
+}
+
 module.exports = {
-    otimizacaoHorario,
     horariosPorRota,
+    diasPorHorario,
     mediaPassageirosPorHorario,
-    fluxoViagens
+    fluxoViagens,
+    fluxoDias
 };
   

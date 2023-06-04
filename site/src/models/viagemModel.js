@@ -1,18 +1,5 @@
 var database = require("../database/config");
 
-function otimizacaoHorario(codLinha, horario){
-    console.log("ACESSEI O VIAGEM MODEL \n", horario + " da linha " + codLinha)
-    var instrucao = `
-    select round(avg(pctOtimizacao),1) as otimizacao
-        from vwViagem
-        where
-            codLinha = '${codLinha}' and
-            horaInicio like '___________${horario.slice(0,2)}______'
-        group by substring(horaInicio, 12, 5);`
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-}
-
 function horariosPorRota(codLinha){
     console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
     var instrucao = 
@@ -22,6 +9,21 @@ function horariosPorRota(codLinha){
         join linha as l on l.idLinha = v.fkLinha
         where codLinha = '${codLinha}'
         group by hour(horaInicio)`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function diasPorHorario(horario, codLinha){
+    console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
+    var instrucao = 
+    `select 
+        date_format(horaInicio, "%d-%m-%Y %h:%m") as dataV,
+        dayname(horaInicio) as diaSemana,
+        avg(pctOtimizacao) as pctOtimizacao
+        from vwViagem
+            where hour(horaInicio) = '${horario}' and codLinha = '${codLinha}'
+            group by dataV, diaSemana
+            limit 7;`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
@@ -55,10 +57,26 @@ function fluxoViagens(codLinha){
     return database.executar(instrucao);
 }
 
+function fluxoDias(codLinha, data){
+    console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
+    var instrucao = 
+    `select 
+    idPonto,
+    date_format(horaInicio, "%d-%m-%Y %h:%m") as dataV,
+    round(avg(saldoPassageiros),1) as saldoPass
+            from vwFluxo as f
+            join viagem as v on f.fkViagem = v.idViagem
+            where CodLinha = '${codLinha}' and hour(horaInicio) = ${data}
+            group by dataV, idPonto;`
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
-    otimizacaoHorario,
     horariosPorRota,
+    diasPorHorario,
     mediaPassageirosPorHorario,
-    fluxoViagens
+    fluxoViagens,
+    fluxoDias
 };
   

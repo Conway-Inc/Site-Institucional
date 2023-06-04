@@ -15,9 +15,9 @@
     <div id="sidebar" class="sidebarHora">
         <div id="KPIDias">
             <span>Dia Mais Cheio:</span>
-            <p>Segunda-Feira</p>
+            <p id="pDiasMaisCh">Segunda-Feira</p>
             <span>Dia Mais Vazio:</span>
-            <p>Sábado</p>
+            <p id="pDiasMenosCh">Sábado</p>
         </div>
         <div id="KPIMovimentaçãoPontos">
             <span>Ponto de Maior Pico</span>
@@ -113,11 +113,12 @@
     else{
         // alert(sessionStorage.HORARIO_DA_LINHA);
     }
-    var horario = sessionStorage.HORARIO_DA_LINHA;
+    const codRota = sessionStorage.COD_ROTA;
+    const horario = sessionStorage.HORARIO_DA_LINHA;
     var linha = null;
+    var dias = [];
     var otimizacaoHorario = null;
-    var kpiMov = null;
-    var kpiHor = null;
+    var kpiPico = null;
     var fluxo = null;
     var pontos = null;
     var veiculos = null;
@@ -132,7 +133,7 @@
     }
 
     function carregarLinha() {
-        fetch(`linha/listarPorCodigo/${sessionStorage.COD_ROTA}`, {
+        fetch(`linha/listarPorCodigo/${codRota}`, {
             cache: "no-store",
         }).then(function (response) {
         if (response.ok) {
@@ -140,21 +141,73 @@
             console.log(`Linha: ${JSON.stringify(resposta)}`);
             linha = resposta;
             configLinha();
+            carregarDias();
         });
         }
         }).catch(function (error) {
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
     }
-    function carregarOtimizacao() {
-        fetch(`/viagem/otimizacaoHorario/${sessionStorage.COD_ROTA}/${horario}`, {
+    function carregarDias() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        //Cortando o horário, para usar de base no WHERE do banco.
+        //Este where só aceita a hora inteira, então cortamos valores como 09:00 para 9 e 12:00 para 12
+        fetch(`viagem/diasPorHorario/${codRota}/${horarioCortado}`, {
             cache: "no-store",
         }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
-            console.log(`Otimização: ${JSON.stringify(resposta)}`);
-            otimizacaoHorario = resposta;
-            gerarGraficoOtimizacao();
+            console.log(`Dias: ${JSON.stringify(resposta)}`);
+            dias = resposta;
+            gerarGraficoOtimizacao(dias);
+            carregarPontos();
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarPontos() {
+        fetch(`ponto/listarPorCodLinha/${codRota}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Pontos: ${JSON.stringify(resposta)}`);
+                pontos = resposta;
+                configPontos();
+                carregarFluxo();
+            });
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+    function carregarFluxo() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        //Mesmo corte do 'carregarDias()'
+        fetch(`viagem/fluxoDias/${codRota}/${horarioCortado}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Fluxo: ${JSON.stringify(resposta)}`);
+            fluxo = resposta;
+            configFluxo(fluxo);
         });
         }
         }).catch(function (error) {
@@ -163,7 +216,6 @@
     }
 
     carregarLinha();
-    carregarOtimizacao();
 
     var codigo = document.getElementById("h1Codigo");
     var nomeIda = document.getElementById("pNomeIda");
@@ -173,6 +225,9 @@
     var tituloHorario = document.getElementById("titHorario");
 
     var pClassificacao = document.getElementById("classific");
+
+    var pDiasMaisCh = document.getElementById("pDiasMaisCh");
+    var pDiasMenosCh = document.getElementById("pDiasMenosCh");
 
     function configLinha(){
         document.title = `${linha.codLinha} - Dados gerais`;
@@ -207,9 +262,65 @@
             pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
         }
     }
+    var logs = [];
+    function configPontos(){
+        for (let i = 0; i < pontos.length; i++) {
+            if(pontos[i].numNaRua != undefined){
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+            }
+            else{
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}`;
+            }
+        }
+    }
 
-    function gerarGraficoOtimizacao() {
-        var otimizacao = Number(otimizacaoHorario[0].otimizacao);
+    var fluxoTratado = [];
+    var kpiDias = [];
+    function configFluxo(){
+        for (let i = 0; i < dias.length; i++) {
+            let data = [];
+            kpiDias.push({ 
+                dia: dias[i].diaSemana,
+                saldoAcumulado: 0 });
+            for (let c = 0; c < fluxo.length; c++) {
+                if(fluxo[c].dataV == dias[i].dataV){
+                    data.push(fluxo[c].saldoPass);
+                    kpiDias[i].saldoAcumulado += Number(fluxo[c].saldoPass);
+                }
+            }
+            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/");
+            fluxoTratado.push({label: diaFluxo, data});
+        }
+        gerarGraficoFluxoHora(logs, fluxoTratado);
+        configKPIdias();
+    }
+
+    function configKPIdias(){
+        var diaMaisCheio = { dia: null, saldo: 0 };
+        var diaMenosCheio = { dia: null, saldo: 10000 };
+
+        for (let i = 0; i < kpiDias.length; i++) {
+            if(kpiDias[i].saldoAcumulado > diaMaisCheio.saldo){
+                diaMaisCheio.saldo = kpiDias[i].saldoAcumulado;
+                diaMaisCheio.dia = kpiDias[i].dia;
+            }
+            if(kpiDias[i].saldoAcumulado < diaMenosCheio.saldo){
+                diaMenosCheio.saldo = kpiDias[i].saldoAcumulado;
+                diaMenosCheio.dia = kpiDias[i].dia;
+            }
+        }
+        pDiasMaisCh.innerHTML = diaMaisCheio.dia;
+        pDiasMenosCh.innerHTML = diaMenosCheio.dia;
+    }
+
+    function gerarGraficoOtimizacao(pDias) {
+        var otimizacao = 0;
+
+        let soma = 0;
+        for (var i = 0; i < pDias.length; i++) {
+            soma += Number(pDias[i].pctOtimizacao);
+        }
+        otimizacao = soma / i;
         var areaBranca = 100 - otimizacao;
 
         var corClassific = "";
@@ -263,52 +374,30 @@
         );
     }
 
-    //Gráfico geral da rota
-    const lotacaoOnibus = 70;
-    const dadosHora = {
-        labels:pontos,
-        datasets: [{
-                label: "06/01, seg.",
-                data: [10,15,22,28,35,42,46,49,54,59,64,58,50,39,30,24,13]
-            },
-            {
-                label: "07/01, ter.",
-                data: [8,13,20,25,32,36,40,43,50,53,60,53,49,40,36,29,18]
-            },
-            {
-                label: "08/01, qua.",
-                data: [10,15,22,28,35,42,46,49,54,59,64,58,50,39,30,24,13]
-            },
-            {
-                label: "09/01, qui.",
-                data: [8,15,20,27,32,39,45,49,54,58,64,57,50,44,39,27,16]
-            },
-            {
-                label: "10/01, sex.",
-                data: [12,19,27,30,39,45,53,60,64,70,73,71,76,69,60,53,47]
-            },
-            {
-                label: "11/01, sab.",
-                data: [2,0,4,8,12,16,17,17,20,21,20,23,23,18,14,8,4]
-            },
-        ]
-    }
-    const configGraficoGeral = {
-        type: "line",
-        data: dadosHora,
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    max: (lotacaoOnibus +25)
-            }
+    function gerarGraficoFluxoHora(pDias, pFluxo){
+        const lotacaoOnibus = 70;
+        const dadosHora = {
+            labels: pDias,
+            datasets: pFluxo
+        }
+        const configGraficoGeral = {
+            type: "line",
+            data: dadosHora,
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        max: (lotacaoOnibus +25)
+                }
+                }
             }
         }
+        const graficoGeral = new Chart(
+            document.getElementById("graficoRota"),
+            configGraficoGeral
+        );
     }
-    const graficoGeral = new Chart(
-        document.getElementById("graficoRota"),
-        configGraficoGeral
-    );
+    
 
     // Gráfico dos ônibus na rota
     // Todos os modelos:
