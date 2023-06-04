@@ -98,7 +98,7 @@
         <!-- Conteúdo - Veículos -->
         <aside>
           <div class="imgHeader">
-            <img src="images/transpass.png" alt="" />
+            <img id="imgEmpresa"/>
           </div>
 
           <div class="funcionarios">
@@ -115,6 +115,9 @@
   </body>
 </html>
 <script>
+  imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+  imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
+
   veiculos = [];
   iptPlaca.value = sessionStorage.PLACA_VEICULO;
   iptAnoAquisicao.value = sessionStorage.ANO_AQUISICAO;

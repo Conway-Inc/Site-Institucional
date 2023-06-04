@@ -93,7 +93,7 @@
         <!-- Conteúdo - Funcionários -->
         <aside>
           <div class="imgHeader">
-            <img src="images/transpass.png" alt="" />
+            <img id="imgEmpresa"/>
           </div>
 
           <div class="funcionarios" id="barraLateralFuncionarios">
@@ -539,7 +539,7 @@
                                     fill="rgb(255,255,255)" />
                             </svg>
                             <div class="div_ipt">
-                                <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
+                                  <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
                                 <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
                                 <input class="ipt_func" id="ipt_email" placeholder="Email">
                                 <input class="ipt_func" id="ipt_cel" placeholder="Celular">
@@ -567,6 +567,9 @@
       for (let c = 0; c < senha.length; c++) {
         senhaEscondida += "•";
       }
+
+      imgEmpresa.src = `images/${outrosFuncionarios[i].nomeEmpresa}.png`;
+      imgEmpresa.alt = `Logo da ${outrosFuncionarios[i].nomeEmpresa}`;
 
       listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">

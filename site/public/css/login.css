@@ -49,6 +49,7 @@ main{
     height: fit-content;
     font-size: 20px;
     padding: 0 10px;
+    margin: 5px 0;
     text-decoration: none;
     border-radius: 15px;
 }

@@ -124,7 +124,7 @@
       <!-- Conteúdo - Veículos -->
       <aside>
         <div class="imgHeader">
-          <img src="images/transpass.png" alt="" />
+          <img id="imgEmpresa" alt="" />
         </div>
 
         <div class="funcionarios">
@@ -148,6 +148,9 @@
 
 </html>
 <script>
+
+imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
 
 var pontos = [];
 var vetorPonto = [];
