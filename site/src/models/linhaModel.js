@@ -33,16 +33,7 @@ function cadastrarLinha(nomeRota, tipoLinha, pontoInicial, pontoFinal, fkEmpresa
 function selectLinha(nomeLinha){
   console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
   var instrucao = 
-  `SELECT * FROM vwLinha WHERE codLinha = '${nomeLinha}';
-  `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
-function selectLinha(nomeLinha){
-  console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
-  var instrucao = 
-  `SELECT * FROM Linha WHERE codLinha = '${nomeLinha}';
-  `;
+  `SELECT * FROM vwLinha WHERE codLinha = '${nomeLinha}'`;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
@@ -50,7 +41,18 @@ function selectLinha(nomeLinha){
 function kpiMovLinha(nomeLinha){
   console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
   var instrucao = 
-  `select * from vwKPIMovimentacaoLinha where codLinha = '${nomeLinha}';
+  `select idPonto, movimentacao, logradouro, numNaRua FROM
+	(
+	select p.idPonto, logradouro, numNaRua, (sum(f.entradas)+sum(f.saidas)) as movimentacao
+		from Fluxo as f
+		join Ponto as p on f.fkPonto = p.idPonto
+        group by p.idPonto) as m
+	  join Fluxo as f on m.idPonto = f.fkPonto
+      join Viagem as v on f.fkViagem = v.idViagem
+      join Linha as l on v.fkLinha = l.idLinha
+      where codLinha = '${nomeLinha}'
+      group by idPonto
+      order by movimentacao desc;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

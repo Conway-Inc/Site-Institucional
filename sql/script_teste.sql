@@ -70,10 +70,9 @@ select logradouro, round(avg(saldoPassageiros),0) as mediaPassageiros from vwFlu
 -- Ver as informações de uma viagem, seus veículos, sua linha, sua empresa e seu nível de otimização
 -- select sum(lotacao)*100/sum(saldoPassageiros) from vwFluxo as f
 											  -- join linha as l on f.;
-select * from vwFluxo;
-create view vwViagem as
+create or replace view vwViagem as
 select vi.idViagem, vi.horaInicio, vi.horaFim,
-sum(pctLotacao) as lotacaoMax,
+lotacao,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao, -- Pegando a soma dos saldos de passageiros de toda a viagem e tirando sua porcentagem do
 l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,				-- máximo possível de passageiros daquela viagem (soma da lotação do ônibus
 e.cnpj, e.nome												-- em todos os pontos), resultando assim no percentual de otimização da viagem.
@@ -152,22 +151,18 @@ select
 
 -- Ver as informações das KPIs da dashboard por linha
 -- Pontos mais/menos movimentados
-create or replace view vwKPIMovimentacaoLinha as
-select
-idLinha, codLinha,
-max(m.idPonto) as idPontoMaisMov,
-max(logradouro) as logrMaisMov,
-min(m.idPonto) as idPontoMenosMov,
-min(logradouro) as logrMenosMov from
+select idPonto, movimentacao, logradouro FROM
 	(
-	select p.idPonto, logradouro, (sum(f.entradas)-sum(f.saidas)) as movimentacao
+	select p.idPonto, logradouro, (sum(f.entradas)+sum(f.saidas)) as movimentacao
 		from Fluxo as f
 		join Ponto as p on f.fkPonto = p.idPonto
         group by p.idPonto) as m
 	join Fluxo as f on m.idPonto = f.fkPonto
     join Viagem as v on f.fkViagem = v.idViagem
     join Linha as l on v.fkLinha = l.idLinha
-    group by idLinha;
+    where codLinha = '477P'
+	group by idPonto
+	order by movimentacao desc;
 
 -- View para o card de viagem do menu dashboard
 select *,

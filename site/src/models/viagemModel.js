@@ -25,11 +25,12 @@ function mediaPassageirosPorHorario(codLinha){
     console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
     var instrucao = 
     `select substring(horaInicio, 12, 5) as horario,
-	   round(avg(saldoPassageiros),1) as mediaPass
-       from vwviagem as vw
-			  join fluxo as f on vw.idViagem = f.fkViagem
-              where vw.codLinha = '${codLinha}'
-              group by horario;`;
+    round(avg(lotacao),0) as lotacao,
+    round(avg(saldoPassageiros),1) as mediaPass
+    from vwviagem as vw
+           join fluxo as f on vw.idViagem = f.fkViagem
+           where vw.codLinha = '477P'
+           group by horario;`;
               console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }

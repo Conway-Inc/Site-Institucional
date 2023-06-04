@@ -44,8 +44,6 @@ function selectLinha(req, res) {
   linhaModel
     .selectLinha(nomeLinha)
     .then(function (resultado) {
-      // console.log(`\nResultados encontrados: ${resultado.length}`);
-      // console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
 
       if (resultado.length == 1) {
         console.log(resultado);
@@ -99,16 +97,12 @@ function kpiMovLinha(req, res) {
   linhaModel
     .kpiMovLinha(nomeLinha)
     .then(function (resultado) {
-      // console.log(`\nResultados encontrados: ${resultado.length}`);
-      // console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
 
-      if (resultado.length == 1) {
+      if (resultado.length >= 1) {
         console.log(resultado);
-        res.json(resultado[0]);
-      } else if (resultado.length == 0) {
+        res.json(resultado);
+      } else{
         res.status(403).send("Nome da Linha INVÁLIDO");
-      } else {
-        res.status(403).send("Mais de uma LINHA com o mesmo NOME");
       }
     })
     .catch(function (erro) {
