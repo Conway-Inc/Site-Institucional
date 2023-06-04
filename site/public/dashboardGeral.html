@@ -330,9 +330,9 @@
         var cheio = { idPonto: 0, logradouro: null, movimentacao: 0 };
         var vazio = { idPonto: 0, logradouro: null, movimentacao: 100000 };
 
-        cheio.idPonto = kpiMov[0].idPonto;
-        cheio.movimentacao = kpiMov[0].movimentacao;
-        cheio.logradouro = `${kpiMov[0].logradouro}, ${kpiMov[0].numNaRua}`;
+        cheio.idPonto = kpiMov[1].idPonto;
+        cheio.movimentacao = kpiMov[1].movimentacao;
+        cheio.logradouro = `${kpiMov[1].logradouro}, ${kpiMov[1].numNaRua}`;
 
         vazio.idPonto = kpiMov[kpiMov.length-1].idPonto;
         vazio.movimentacao = kpiMov[kpiMov.length-1].movimentacao;
@@ -457,6 +457,7 @@
 
         var corClassific = "";
         var nomeClassific = "";
+        var contorno = "";
         if (otimizacao >= 80) {
             corClassific = "#00BF63";
             nomeClassific = "Ideal";
@@ -464,6 +465,7 @@
         else if (otimizacao > 30) {
             corClassific = "#fbff1a";
             nomeClassific = "Boa";
+            contorno = "-webkit-text-stroke: black 0.5px";
         }
         else {
             corClassific = "#DB0300";
@@ -471,7 +473,7 @@
         }
 
         var tituloRota = document.getElementById("tituloRota");
-        tituloRota.style = "background-color: "+corClassific;
+        tituloRota.style = `background-color: ${corClassific}; ${contorno}`;
         pClassificacao.innerHTML = nomeClassific;
         pClassificacao.className = "classific" + nomeClassific;
 
