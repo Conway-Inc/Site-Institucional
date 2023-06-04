@@ -16,7 +16,12 @@ function otimizacaoHorario(codLinha, horario){
 function horariosPorRota(codLinha){
     console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
     var instrucao = 
-    `SELECT distinct substring(horaInicio, 12, 5) as horario, pctOtimizacao FROM vwviagem where codLinha = '${codLinha}';`;
+    `select hour(horaInicio) as horario
+    from fluxo as f
+        join viagem as v on f.fkViagem = v.idViagem
+        join linha as l on l.idLinha = v.fkLinha
+        where codLinha = '${codLinha}'
+        group by hour(horaInicio)`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
@@ -24,12 +29,12 @@ function horariosPorRota(codLinha){
 function mediaPassageirosPorHorario(codLinha){
     console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
     var instrucao = 
-    `select substring(horaInicio, 12, 5) as horario,
-    round(avg(lotacao),0) as lotacao,
-    round(avg(saldoPassageiros),1) as mediaPass
+    `select hour(horaInicio) as horario,
+    round(avg(saldoPassageiros),1) as mediaPass,
+    round(avg(lotacao),0) as lotacao
     from vwviagem as vw
            join fluxo as f on vw.idViagem = f.fkViagem
-           where vw.codLinha = '477P'
+           where vw.codLinha = '${codLinha}'
            group by horario;`;
               console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -38,9 +43,14 @@ function mediaPassageirosPorHorario(codLinha){
 function fluxoViagens(codLinha){
     console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
     var instrucao = 
-    `select f.*, substring(horaInicio, 12, 5) as horario from vwFluxo as f
-    join viagem as v on f.fkViagem = v.idViagem
-    where CodLinha = '${codLinha}'`;
+    `select 
+    idPonto,
+    hour(horaInicio) as horario,
+    round(avg(saldoPassageiros),1) as saldoPass
+            from vwFluxo as f
+            join viagem as v on f.fkViagem = v.idViagem
+            where CodLinha = '${codLinha}'
+            group by hour(horaInicio), idPonto;`
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }

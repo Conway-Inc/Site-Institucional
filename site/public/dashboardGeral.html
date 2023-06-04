@@ -191,6 +191,12 @@
             response.json().then(function (resposta) {
                 console.log(`KPI média de passageiros por horário: ${JSON.stringify(resposta)}`);
                         kpiHor = resposta;
+                        for (let i = 0; i < kpiHor.length; i++) {
+                            kpiHor[i].horario += ":00";
+                        if(kpiHor[i].horario.length == 4){
+                            kpiHor[i].horario = "0" + kpiHor[i].horario
+                        }
+                }
                         configKPIMediaPass();
             });
             }
@@ -208,6 +214,12 @@
             response.json().then(function (resposta) {
                 console.log(`horarios: ${JSON.stringify(resposta)}`);
                 horarios = resposta;
+                for (let i = 0; i < horarios.length; i++) {
+                    horarios[i].horario += ":00";
+                    if(horarios[i].horario.length == 4){
+                        horarios[i].horario = "0" + horarios[i].horario
+                    }
+                }
                 confighorarios();
                 carregarPontos();
             });
@@ -244,6 +256,12 @@
                     response.json().then(function (resposta) {
                         console.log(`Fluxo: ${JSON.stringify(resposta)}`);
                         fluxo = resposta;
+                        for (let i = 0; i < fluxo.length; i++) {
+                            fluxo[i].horario += ":00";
+                            if(fluxo[i].horario.length == 4){
+                                fluxo[i].horario = "0" + fluxo[i].horario
+                            }
+                        }
                         configFluxo();
                     });
                 }
@@ -424,7 +442,7 @@
             let data = [];
             for (let c = 0; c < fluxo.length; c++) {
                 if(fluxo[c].horario == horarios[i].horario){
-                    data.push(fluxo[c].saldoPassageiros);
+                    data.push(fluxo[c].saldoPass);
                 }
             }
             var horarioFluxo = (horarios[i].horario);
