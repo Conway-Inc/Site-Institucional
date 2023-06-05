@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adicionar veículo</title>
+    <title>Adicionar novo veículo</title>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/header.css" />
@@ -62,7 +62,7 @@
                   id="selectModelo"
                   oninput="mudarImagem()"
                 >
-                  <option value="1">Basico</option>
+                  <option value="1">Básico</option>
                   <option value="2">Micro-ônibus</option>
                   <option value="3">Mini-ônibus</option>
                   <option value="4">Midiônibus</option>
@@ -74,7 +74,7 @@
               </label>
             </div>
             <img
-              src="images/modelosOnibus/Basico.png"
+              src="images/modelosOnibus/Básico.png"
               alt=""
               id="imgOnibusCriacao"
             />
@@ -85,7 +85,7 @@
         <!-- Conteúdo - Veículos -->
         <aside>
           <div class="imgHeader">
-            <img src="images/transpass.png" alt="" />
+            <img id="imgEmpresa"/>
           </div>
 
           <div class="funcionarios">
@@ -106,6 +106,9 @@
   </body>
 </html>
 <script>
+  imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+  imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
+
   var veiculos = [];
 
   carregarVeiculosDaEmpresa();
@@ -122,7 +125,7 @@
       imgOnibusCriacao.src = "images/modelosOnibus/Midiônibus.png";
     }
     if (modelo == "1") {
-      imgOnibusCriacao.src = "images/modelosOnibus/Basico.png";
+      imgOnibusCriacao.src = "images/modelosOnibus/Básico.png";
     }
     if (modelo == "5") {
       imgOnibusCriacao.src = "images/modelosOnibus/Padron.png";

@@ -49,12 +49,9 @@ main{
     height: fit-content;
     font-size: 20px;
     padding: 0 10px;
+    margin: 5px 0;
     text-decoration: none;
     border-radius: 15px;
-}
-
-.email, .senha{
-    margin-bottom: 20px;
 }
 
 .informativo{
@@ -101,4 +98,19 @@ a p{
     text-decoration: underline;
     color: rgb(102, 51, 134);
     margin: 10px;
+}
+
+#loading{
+    height: 50px;
+    display: none;
+}
+#erroSenha{
+    color: red;
+    animation-duration: 3s;
+    display: none;
+}
+@keyframes sumir{
+    0% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
 }

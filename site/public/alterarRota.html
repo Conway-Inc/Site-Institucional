@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard</title>
+  <title>Adicionar nova rota</title>
+  <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
 
   <link rel="stylesheet" href="css/header.css" />
   <link rel="stylesheet" href="css/criacaoVeiculo.css" />
@@ -73,7 +74,7 @@
 
                     <div class="div_ipt">
                       <label>Coordenadas geográficas</label>
-                      <p>(Opcional)</p>
+                      <p id="opcional">(Opcional)</p>
                       <span id="coordenadas">
                         <input class="ipt_func" placeholder="X" id="ipt_coordX" />
                         <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
@@ -123,7 +124,7 @@
       <!-- Conteúdo - Veículos -->
       <aside>
         <div class="imgHeader">
-          <img src="images/transpass.png" alt="" />
+          <img id="imgEmpresa" alt="" />
         </div>
 
         <div class="funcionarios">
@@ -147,6 +148,9 @@
 
 </html>
 <script>
+
+imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
 
 var pontos = [];
 var vetorPonto = [];
@@ -319,7 +323,6 @@ function cadastrarPonto() {
   var inserir = true;
 
   function addPonto(){
-
     for (var i = 0; i < vetorPonto.length; i++) {
       if(browser.value == vetorPonto[i]){
         inserir = false;

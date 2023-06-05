@@ -147,7 +147,6 @@ details{
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    width: 25%;
     margin: 0 10px 0 5px;
 }
 #classificacao{
@@ -178,6 +177,10 @@ details{
 #veiculosDashboard h3, #veiculosDashboard p{
     color: white;
     margin: 0;
+    /* text-align: center; */
+    font-size: 12px;
+    margin: 0 5px;
+    width: fit-content;
 }
 #veiculosDashboard h3{
     font-family: 'Agrandir Regular';
@@ -199,10 +202,6 @@ details{
     border-bottom: solid 0.5px #BD916E;
     /*Usando 'border-bottom' tanto para as bordas aparecerem só na horizontal, quanto para as linhas mais centrais não
     juntarem duas bordas (a top de uma e a bottom da outra) em uma borda só mais grossa*/
-}
-.tabelaVeiculosLinha p{
-    font-size: 12px;
-    width: 30%;
 }
 #tabelaVeiculosCabecalho{
     font-weight: bold;
