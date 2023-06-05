@@ -6,7 +6,16 @@ function listar(idEmpresa) {
     "ACESSEI O LINHA  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-  select *, (select count(fkVeiculo) from vwLinha as l join Viagem as v on v.fkLinha = l.idLinha join Veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos from vwLinha as vwl join Empresa as e on vwl.fkEmpresa = e.idEmpresa where e.idEmpresa = ${idEmpresa};`;
+  select 
+  *,
+  (
+   select 
+    count(distinct fkVeiculo)
+    from vwLinha as l 
+		join Viagem as v on v.fkLinha = l.idLinha
+        join Veiculo as veic on v.fkVeiculo = veic.idVeiculo
+		group by (idLinha)) as numVeiculos 
+   from vwLinha as vwl join Empresa as e on vwl.fkEmpresa = e.idEmpresa where e.idEmpresa = ${idEmpresa};`
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
