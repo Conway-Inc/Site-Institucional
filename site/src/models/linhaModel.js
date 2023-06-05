@@ -70,9 +70,33 @@ function veiculoRota(codLinha) {
   return database.executar(instrucao);
 }
 
+function atualizarLinha(idLinha, nomeRota, tipoLinha, pontoInicial, pontoFinal, fkEmpresa) {
+  console.log(
+    "ACESSEI O linha MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarRotas():",
+    nomeRota,
+    tipoLinha,
+    pontoInicial,
+    pontoFinal
+  );
+
+  // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+  //  e na ordem de inserção dos dados.
+  var instrucao = `
+        UPDATE Linha SET nomeLinhaIda = '${pontoInicial}',
+        nomeLinhaVolta = '${pontoFinal}', 
+        codLinha = '${nomeRota}',
+        tipoLinha = '${tipoLinha}',
+        fkEmpresa = ${fkEmpresa}
+        WHERE idLinha = ${idLinha};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 
 module.exports = {
   cadastrarLinha,
+  atualizarLinha,
   selectLinha,
   veiculoRota,
   kpiMovLinha,

@@ -33,5 +33,9 @@ router.get("/veiculoRota/:codLinha", function(req, res) {
     linhaController.veiculoRota(req, res);
 });
 
+router.put("/atualizarLinha/:idLinha", function(req, res) {
+    linhaController.atualizarLinha(req, res);
+});
+
 
 module.exports = router;

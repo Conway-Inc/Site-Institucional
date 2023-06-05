@@ -32,32 +32,50 @@
       <h1>Adicionar Rota</h1>
     </div>
 
-  <div class="header">
-    <div class="container">
-      <ul>
-        <li><a href="menuDashboard.html"> VOLTAR </a></li>
-      </ul>
+    <div class="header">
+      <div class="container">
+        <ul>
+          <li><a href="menuDashboard.html"> VOLTAR </a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <!--Fim do header-->
+    <!--Fim do header-->
 
-  <!-- Conteúdo - Gráficos -->
-  <main>
-    <div class="conteudos">
-      <div class="caixaContent">
-        <div class="content">
-          <div class="formRotas" style="display: flex;">
-            <label for="iptCodRota">
-              <p>Código da linha:</p>
-              <input type="text" placeholder="Ex: 775N, 8707, 177H..." id="iptCodRota" />
-              <p>Tipo de Linha:</p>
-              <input type="text" id="iptTipoLinha" placeholder="Normal(10), Noturna(21~29), etc..." />
-              <p>Nome da linha na ida:</p>
-              <input type="text" id="iptPontoInicial" placeholder="Ex: Bairro Campestre - Rodoviária" />
-              <p>Nome da linha na volta:</p>
-              <input type="text" id="iptPontoFinal" placeholder="Ex: Jardim Aclimação" />
-              <button onclick="cadastrarLinha()">Cadastrar Linha</button>
-            </label>
+    <!-- Conteúdo - Gráficos -->
+    <main>
+      <div class="conteudos">
+        <div class="caixaContent">
+          <div class="content">
+            <div class="formRotas" style="display: flex">
+              <label for="iptCodRota">
+                <p>Código da linha:</p>
+                <input
+                  type="text"
+                  placeholder="Ex: 775N, 8707, 177H..."
+                  id="iptCodRota"
+                />
+                <p>Tipo de Linha:</p>
+                <input
+                  type="text"
+                  id="iptTipoLinha"
+                  placeholder="Normal(10), Noturna(21~29), etc..."
+                />
+                <p>Nome da linha na ida:</p>
+                <input
+                  type="text"
+                  id="iptPontoInicial"
+                  placeholder="Ex: Bairro Campestre - Rodoviária"
+                />
+                <p>Nome da linha na volta:</p>
+                <input
+                  type="text"
+                  id="iptPontoFinal"
+                  placeholder="Ex: Jardim Aclimação"
+                />
+                <button onclick="cadastrarLinha()" id="btnCadastro">
+                  Cadastrar Linha
+                </button>
+              </label>
 
               <!-- Início do Modal para cadastrar pontos -->
               <!-- <div class="modal modal4">
@@ -121,7 +139,7 @@
             <div class="lista-rotas"></div>
           </div>
           <div class="btn-area">
-            <button onclick="addPontoLinha()" id="btnCadastro">
+            <button onclick="addPontoLinha()">
               <b>Adicionar+</b>
             </button>
           </div>
@@ -160,6 +178,7 @@
   var vetorIdPontoSelect = [];
 
   selectPonto();
+  verificarLinha()
 
   function selectPonto() {
     //ATUALIZAR DATALIST DOS PONTOS
@@ -252,7 +271,7 @@
     var tipoLinhaVar = iptTipoLinha.value;
     var pontoInicialVar = iptPontoInicial.value;
     var pontoFinalVar = iptPontoFinal.value;
-    var fkEmpresa = 1;
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
 
     // Validações - Para fazer...
 
@@ -462,24 +481,47 @@
   function verificarLinha() {
     let btn = document.getElementById("btnCadastro");
     if (sessionStorage.ID_LINHA > 0) {
-      btn.removeEventListener();
-      btn.addEventListener(updateLinha);
-      btn.innerHTML = 'Atualizar +'
+      btn.removeEventListener("click", cadastrarLinha);
+      btn.addEventListener("click", atualizarLinha);
+      btn.innerHTML = "Atualizar Linha";
+
+      iptCodRota.value = sessionStorage.COD_LINHA
+      iptTipoLinha.value = sessionStorage.TIPO_LINHA
+      iptPontoInicial.value = sessionStorage.NOME_IDA_LINHA
+      iptPontoFinal.value = sessionStorage.NOME_VOLTA_LINHA
     } else {
-      btn.removeEventListener();
-      btn.addEventListener(addPontoLinha);
-      btn.innerHTML = 'Adicionar +'
+      btn.removeEventListener("click", atualizarLinha);
+      btn.addEventListener("click", cadastrarLinha);
+      btn.innerHTML = "Cadastrar Linha";
     }
   }
 
-  function updateLinha() {
-    fetch(`/linha/atualizarLinha/${sessionStorage.ID_LINHA}`)
+  function atualizarLinha() {
+    var nomeRotaVar = iptCodRota.value;
+    var tipoLinhaVar = iptTipoLinha.value;
+    var pontoInicialVar = iptPontoInicial.value;
+    var pontoFinalVar = iptPontoFinal.value;
+    var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+    fetch(`/linha/atualizarLinha/${sessionStorage.ID_LINHA}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeRotaServer: nomeRotaVar,
+        tipoLinhaServer: tipoLinhaVar,
+        pontoInicialServer: pontoInicialVar,
+        pontoFinalServer: pontoFinalVar,
+        fkEmpresaServer: fkEmpresa,
+      }),
+    })
       .then(function (resposta) {
         console.log("Resposta: ", resposta);
         resposta
           .json()
           .then(function (resposta) {
-            console.log(resposta)
+            console.log(resposta);
           })
           .catch(console.error(resposta));
       })
