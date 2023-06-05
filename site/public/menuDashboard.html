@@ -712,6 +712,11 @@
 
   function redirecionarAdicionarRota(index) {
     sessionStorage.ID_LINHA = rotas[index].idLinha;
+    sessionStorage.COD_LINHA = rotas[index].codLinha;
+    sessionStorage.TIPO_LINHA = rotas[index].tipoLinha;
+    sessionStorage.NOME_IDA_LINHA = rotas[index].nomeLinhaIda
+    sessionStorage.NOME_VOLTA_LINHA = rotas[index].nomeLinhaVolta
+
 
     window.location = "alterarRota.html";
   }
