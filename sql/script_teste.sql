@@ -51,7 +51,7 @@ case when (100 * f.saldoPassageiros)/m.lotacao >= 111 then -- Tirando a porcenta
 		'Insuficiente'
 	 when (100 * f.saldoPassageiros)/m.lotacao between 0 and 30 then 
 		'Vazio'
-	end as metrica,
+	end as metrica, (100 * f.saldoPassageiros)/m.lotacao as pctLotacao,
 l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,
 v.placaVeiculo, m.lotacao, m.nomeModelo, e.nome
 	   from Fluxo as f
@@ -98,7 +98,7 @@ sum(lotacao)*100 as y,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao,
 e.cnpj, e.nome
 from Linha as l
-	join
+	left join
 	(select fkLinha,
     round((100 * f.saldoPassageiros)/m.lotacao,0) as pctLotacao,
     m.lotacao

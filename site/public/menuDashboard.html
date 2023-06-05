@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/footer.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
+    <script src="js/alerta.js"></script>
   </head>
 
   <body onload="suaRota()">
@@ -234,6 +235,9 @@
               var qtdVeiculoArea = document.createElement("div");
               var qtdVeiculo = document.createElement("h2");
               var qtdVeiculoSub = document.createElement("p");
+              if(rota.numVeiculos == null){
+                rota.numVeiculos = 0;
+              }
               qtdVeiculo.innerHTML = rota.numVeiculos;
               qtdVeiculoSub.innerHTML = "Veículos";
 
@@ -286,6 +290,8 @@
             botaoAdicionarDiv2.appendChild(sinalAdicionar);
             botaoAdicionarDiv2.appendChild(textoAdicionar);
             content.appendChild(botaoAdicionar);
+
+            alertar(rotas)
           });
         } else {
           var content = document.getElementById("content");
@@ -349,10 +355,6 @@
 
         if (resposta.ok) {
           alert("Cadastro REALIZADO com Sucesso!!!");
-
-          // setTimeout(() => {
-          //   window.location = "menuDashboard.html";
-          // }, "2000")
         } else {
           throw "Houve um ERRO ao tentar realizar o cadastro!";
         }
@@ -372,15 +374,21 @@
     var corClassific = "";
     var nomeClassific = "";
     if (otimizacao >= 80) {
-      corClassific = "#00BF63";
-      nomeClassific = "Ideal";
-    } else if (otimizacao > 30) {
-      corClassific = "#fbff1a";
-      nomeClassific = "Boa";
-    } else {
-      corClassific = "#DB0300";
-      nomeClassific = "Ruim";
-    }
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
 
     var graficoArea = document.getElementById(`graficoArea${linha.idLinha}`);
     var pClassificacao = document.createElement("p")
@@ -479,7 +487,7 @@
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Funcionários: ${JSON.stringify(resposta)}`);
             resposta.reverse();
             funcionarioLogado = resposta;
             receberFuncLogado(funcionarioLogado);

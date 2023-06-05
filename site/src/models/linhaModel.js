@@ -6,7 +6,19 @@ function listar(idEmpresa) {
     "ACESSEI O LINHA  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-  select *, (select count(fkVeiculo) from vwLinha as l join Viagem as v on v.fkLinha = l.idLinha join Veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos from vwLinha as vwl join Empresa as e on vwl.fkEmpresa = e.idEmpresa where e.idEmpresa = ${idEmpresa};`;
+  select vwl.*, numVeiculos.numVeiculos
+  from vwLinha as vwl
+  left join (
+   select
+	idLinha,
+    count(distinct fkVeiculo) as numVeiculos
+    from vwLinha as l 
+		join Viagem as v on v.fkLinha = l.idLinha
+        join Veiculo as veic on v.fkVeiculo = veic.idVeiculo
+		group by (idLinha)) as numVeiculos
+	on vwl.idLinha = numVeiculos.idLinha
+    join Empresa as e on vwl.fkEmpresa = e.idEmpresa
+    where e.idEmpresa = ${idEmpresa}`
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
@@ -58,6 +70,26 @@ function kpiMovLinha(nomeLinha){
   return database.executar(instrucao);
 }
 
+function kpiMovHorario(nomeLinha, horario){
+  console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
+  var instrucao = 
+  `select idPonto, movimentacao, logradouro, numNaRua FROM
+	(
+	select p.idPonto, logradouro, numNaRua, (sum(f.entradas)+sum(f.saidas)) as movimentacao
+		from Fluxo as f
+		join Ponto as p on f.fkPonto = p.idPonto
+        group by p.idPonto) as m
+	  join Fluxo as f on m.idPonto = f.fkPonto
+      join Viagem as v on f.fkViagem = v.idViagem
+      join Linha as l on v.fkLinha = l.idLinha
+      where codLinha = '${nomeLinha}' and hour(v.horaInicio) = ${horario}
+      group by idPonto
+      order by movimentacao desc;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function veiculoRota(codLinha) {
   var instrucao = `SELECT distinct placaVeiculo, nomeModelo, lotacao
   FROM Veiculo v
@@ -100,5 +132,6 @@ module.exports = {
   selectLinha,
   veiculoRota,
   kpiMovLinha,
+  kpiMovHorario,
   listar
 };

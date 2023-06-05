@@ -209,11 +209,6 @@ details{
     /*Aqui é usado o 'border-top' para fechar a tabela por cima, já que só as bordas de baixo de cada linha são pintadas,
     como descrito acima*/
 }
-#containerGraficoVeiculos{
-    align-self: center; 
-    margin: 10px 0;
-    width: 50%;
-}
 #sidebarOutrosDados a{
     align-self: center;
     font-size: 22px;
@@ -230,23 +225,24 @@ details{
     height: 600px !important;
 }
 
-.classificRuim, .classificBoa, .classificIdeal{
+.classificRuim, .classificRegular, .classificBoa, .classificIdeal{
     top: 50px;
     font-size: 14px !important;
-    margin: 0;
     position: absolute;
-    justify-self: flex-end;
+    -webkit-text-stroke: black 0.5px;
 }
 .classificRuim{
     color: #DB0300;
 }
+.classificRegular{
+    color: #d86f00;
+    font-size: 12px !important;
+}
 .classificBoa{
-    color: #fbff1a;
-    -webkit-text-stroke: black 0.5px;
+    color: #4c52c6;
 }
 .classificIdeal{
     color: #00BF63;
-    -webkit-text-stroke: black 0.5px;
 }
 
 .tituloBom{
@@ -274,7 +270,7 @@ details{
     visibility: hidden;
 }
 #modalFormula img{
-    width: 80%;
+    height: 80%;
     border-radius: 25px;
     border: solid 1px #69503C;
 }

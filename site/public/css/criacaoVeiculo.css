@@ -6,16 +6,16 @@
 }
 
 #imgOnibusCriacao {
-    margin: 10px 0;
     height: 150px;
-    width: 800px;
+    width: 80%;
     align-self: center;
     object-fit: contain;
-    margin-top: 80px;
+    margin: 10px 0;
 }
 
 .content {
     flex-direction: column;
+    padding: 10px 0;
 }
 
 .form {
@@ -26,7 +26,6 @@
 .conteudos .caixaContent {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
 }
 
 p, input, option, select {
@@ -43,13 +42,14 @@ p, input, option, select {
 }
 
 .caixaContent button {
-    width: 15%;
+    min-width: 15%;
     align-self: center;
     border-radius: 38px;
     border-style: none;
     background-color: #BD916E;
     color: #fff;
     padding: 10px 25px 10px 25px;
+    font-family: 'Poppins';
     font-size: medium;
     margin-top: 20px;
 }

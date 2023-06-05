@@ -18,6 +18,7 @@
     flex-direction: row;
     width: 45%;
     justify-content: end;
+    font-size: 22px;
 }
 .navbar #btnSair{
     cursor: pointer;
@@ -308,14 +309,15 @@ aside .btn_adicionar_mais:hover{
 .classificRuim{
     color: #DB0300;
 }
-
+.classificRegular{
+    color: #d86f00;
+}
+.classificBoa{
+    color: #4c52c6;
+}
 .classificIdeal{
     color: #00BF63;
     -webkit-text-stroke: black 0.5px;
-}
-
-.classificBoa{
-    color: #FFDE59;
 }
 
 #rotas, #rotas02, #rotas03, .rotas{

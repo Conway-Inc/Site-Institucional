@@ -29,6 +29,10 @@ router.get("/kpiMovLinha/:codRota", function(req, res) {
     linhaController.kpiMovLinha(req, res);
 });
 
+router.get("/kpiMovHorario/:codRota/:horario", function(req, res) {
+    linhaController.kpiMovLinha(req, res);
+});
+
 router.get("/veiculoRota/:codLinha", function(req, res) {
     linhaController.veiculoRota(req, res);
 });

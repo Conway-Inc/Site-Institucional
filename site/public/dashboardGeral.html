@@ -100,9 +100,6 @@
                     </div>
                 </div>
             </div>
-            <div id="containerGraficoVeiculos">
-                <canvas id="graficoVeiculos"></canvas>
-            </div>
             <a href="menuDashboard.html">
                 < VOLTAR</a>
         </div>
@@ -142,7 +139,6 @@
     var fluxo = null;
     var horarios = null;
     var pontos = null;
-    var veiculos = null;
     
     var pontos
     
@@ -458,22 +454,25 @@
         var corClassific = "";
         var nomeClassific = "";
         var contorno = "";
-        if (otimizacao >= 80) {
-            corClassific = "#00BF63";
-            nomeClassific = "Ideal";
-        }
-        else if (otimizacao > 30) {
-            corClassific = "#fbff1a";
-            nomeClassific = "Boa";
-            contorno = "-webkit-text-stroke: black 0.5px";
-        }
-        else {
-            corClassific = "#DB0300";
-            nomeClassific = "Ruim";
-        }
+            if (otimizacao >= 80) {
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
 
         var tituloRota = document.getElementById("tituloRota");
-        tituloRota.style = `background-color: ${corClassific}; ${contorno}`;
+        tituloRota.style = `background-color: ${corClassific};`;
         pClassificacao.innerHTML = nomeClassific;
         pClassificacao.className = "classific" + nomeClassific;
 
@@ -534,51 +533,12 @@
         );
     }
 
-    // Gráfico dos ônibus na rota
-    // Todos os modelos:
-    // const modelos = [
-    //     "Miniônibus",
-    //     "Midiônibus",
-    //     "Básico",
-    //     "Padron",
-    //     "Articulado",
-    //     "Biarticulado"
-    // ]
-    const modelos = [
-        "Básico",
-        "Padron",
-    ]
-    const dadosVeiculos = {
-        labels: modelos,
-        datasets: [{
-            data: [2, 1],
-            backgroundColor: ['#69503C', '#BD916E']
-        }
-        ]
-    }
-    const configGraficoVeiculos = {
-        type: "pie",
-        data: dadosVeiculos,
-        options: {
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
-    }
-    const graficoVeiculos = new Chart(
-        document.getElementById("graficoVeiculos"),
-        configGraficoVeiculos
-    );
-
     function veiculoRota() {
         fetch(`linha/veiculoRota/${sessionStorage.COD_ROTA}`)
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(response)}`);
-
                         var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
                         for (let i = 0; i < resposta.length; i++) {
                             var veiculo = document.createElement("div");
@@ -590,13 +550,13 @@
                             lotacao.innerHTML = resposta[i].lotacao;
                             modelo.innerHTML = resposta[i].nomeModelo;
 
+
                             veiculo.appendChild(placa);
                             veiculo.appendChild(lotacao);
                             veiculo.appendChild(modelo);
                             veiculo.className = 'tabelaVeiculosLinha';
 
                             listaVeiculos.appendChild(veiculo);
-
                         }
                     });
                 } else {
@@ -607,6 +567,4 @@
                 console.error(`Erro na obtenção dos dados: ${error.message}`);
             });
     }
-
-    
 </script>
