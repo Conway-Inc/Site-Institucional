@@ -485,7 +485,7 @@
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Funcionários: ${JSON.stringify(resposta)}`);
             resposta.reverse();
             funcionarioLogado = resposta;
             receberFuncLogado(funcionarioLogado);
