@@ -80,9 +80,33 @@ function alterarVeiculo(req, res) {
     });
 }
 
+function graficoModelo(req, res) {
+  var codLinha = req.params.codLinha;
+  var horario = req.params.horario;
+
+  veiculoModel
+    .graficoModelo(codLinha,horario)
+    .then(function (resultado) {
+      console.log(`\nResultados encontrados: ${resultado.length}`);
+      console.log(`Resultados: ${JSON.stringify(resultado)}`); //TRANSFORMA JSON EM STRING
+
+      console.log(resultado);
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao selecionar a linha! ERRO: ",
+        erro.sqlMessage
+      );
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   cadastrarVeiculo,
   excluirVeiculo,
   alterarVeiculo,
+  graficoModelo,
   listar,
 };
