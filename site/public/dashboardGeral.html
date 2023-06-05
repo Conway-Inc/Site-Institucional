@@ -462,10 +462,13 @@
             corClassific = "#00BF63";
             nomeClassific = "Ideal";
         }
-        else if (otimizacao > 30) {
-            corClassific = "#fbff1a";
+        else if (otimizacao >= 50) {
+            corClassific = "#4c52c6";
             nomeClassific = "Boa";
-            contorno = "-webkit-text-stroke: black 0.5px";
+        }
+        else if(otimizacao >= 30){
+            corClassific = "#d86f00";
+            nomeClassific = "Regular";
         }
         else {
             corClassific = "#DB0300";
@@ -473,7 +476,7 @@
         }
 
         var tituloRota = document.getElementById("tituloRota");
-        tituloRota.style = `background-color: ${corClassific}; ${contorno}`;
+        tituloRota.style = `background-color: ${corClassific};`;
         pClassificacao.innerHTML = nomeClassific;
         pClassificacao.className = "classific" + nomeClassific;
 

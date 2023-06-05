@@ -329,9 +329,13 @@
             corClassific = "#00BF63";
             nomeClassific = "Ideal";
         }
-        else if (otimizacao > 30) {
-            corClassific = "#fbff1a";
+        else if (otimizacao >= 50) {
+            corClassific = "#4c52c6";
             nomeClassific = "Boa";
+        }
+        else if(otimizacao >= 30){
+            corClassific = "#d86f00";
+            nomeClassific = "Regular";
         }
         else {
             corClassific = "#DB0300";
