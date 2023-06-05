@@ -234,6 +234,9 @@
               var qtdVeiculoArea = document.createElement("div");
               var qtdVeiculo = document.createElement("h2");
               var qtdVeiculoSub = document.createElement("p");
+              if(rota.numVeiculos == null){
+                rota.numVeiculos = 0;
+              }
               qtdVeiculo.innerHTML = rota.numVeiculos;
               qtdVeiculoSub.innerHTML = "Veículos";
 
