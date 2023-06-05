@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/criacaoVeiculo.css" />
     <link rel="stylesheet" href="css/menuDashboard.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script
       src="https://kit.fontawesome.com/89d28f01ec.js"
       crossorigin="anonymous"
@@ -140,11 +141,29 @@
     }
   }
 
+  var erroAdVeic;
+  var veicOk = true;
+
   function adicionarVeiculo() {
     var placa = iptPlaca.value;
     var anoAquisicao = iptAnoAquisicao.value;
     var fkModelo = selectModelo.value;
     var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+    erroAdVeic = ``;
+    veicOk = true;
+
+    if(placa.length != 7){
+      erroAdVeic += `\nA placa deve conter 7 caracteres`;
+      veicOk = false;
+    }
+
+    if(anoAquisicao.length != 4){
+      erroAdVeic += `\nO ano deve conter 4 caracteres`;
+      veicOk = false;
+    }
+
+    if(veicOk == true){
 
     fetch("/veiculos/cadastrarVeiculo", {
       method: "POST",
@@ -169,9 +188,29 @@
         // setTimeout(() => {
         //   window.location = "login.html";
         // }, 2000);
+
+        swal({
+              title: "Veiculo cadastrado com sucesso",
+              text: "\n",
+              icon: "success",
+              timer: 1000,
+              button: false,
+            });
+
+        carregarVeiculosDaEmpresa();
         console.log(resposta);
       }
     });
+  }
+  else{
+    swal({
+              title: "Não foi possível cadastrar o veículo",
+              text: `${erroAdVeic}`,
+              icon: "error",
+              timer: 3000,
+              button: false,
+            });
+  }
   }
 
   function carregarVeiculosDaEmpresa() {
