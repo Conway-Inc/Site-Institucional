@@ -63,7 +63,7 @@ footer h2 {
   border: none;
 }
 
-.paiFooter ul li a:hover {
+.paiFooter ul li a:hover, .paiFooter ul li a:focus-visible {
   color: rgb(223, 223, 223);
 }
 

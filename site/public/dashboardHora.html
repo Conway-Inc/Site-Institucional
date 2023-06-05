@@ -19,13 +19,15 @@
             <span>Dia Mais Vazio:</span>
             <p id="pDiasMenosCh">Sábado</p>
         </div>
-        <div id="KPIMovimentaçãoPontos">
-            <span>Ponto de Maior Pico</span>
-            <p>7</p>
-            <p>Av. Rebouças, 2549</p>
-            <span>Ponto de Menor Pico</span>
-            <p>3</p>
-            <p>Av. Eng. Heitor, 1421</p>
+        <div id="KPIMovMais">
+            <span>Ponto mais movimentado</span>
+            <p id="pPontoMaisMov"></p>
+            <p id="pLogMaisMov"></p>
+        </div>
+        <div id="KPIMovMenos">
+            <span>Ponto menos movimentado</span>
+            <p id="pPontoMenosMov"></p>
+            <p id="pLogMenosMov"></p>
         </div>
     </div>
     <!--Terminada a barra lateral das KPIs-->
@@ -79,9 +81,6 @@
                             <p>Modelo</p>
                         </div>
                     </div>
-                </div>
-                <div id="containerGraficoVeiculos">
-                    <canvas id="graficoVeiculos"></canvas>
                 </div>
                 <a href="dashboardGeral.html">< VOLTAR</a>
             </div>
@@ -155,6 +154,31 @@
             response.json().then(function (resposta) {
             console.log(`Dias: ${JSON.stringify(resposta)}`);
             dias = resposta;
+            for (let i = 0; i < dias.length; i++) {
+                switch(dias[i].diaSemana){
+                    case 'Sunday':
+                        dias[i].diaSemana = 'Domingo';
+                        break;
+                    case 'Monday':
+                        dias[i].diaSemana = 'Segunda-Feira';
+                        break;
+                    case 'Tuesday':
+                        dias[i].diaSemana = 'Terça-Feira';
+                        break;
+                    case 'Wednesday':
+                        dias[i].diaSemana = 'Quarta-Feira';
+                        break;
+                    case 'Thursday':
+                        dias[i].diaSemana = 'Quinta-Feira';
+                        break;
+                    case 'Friday':
+                        dias[i].diaSemana = 'Sexta-Feira';
+                        break;
+                    case 'Saturday':
+                        dias[i].diaSemana = 'Sábado';
+                        break;
+                }
+            }
             gerarGraficoOtimizacao(dias);
             carregarPontos();
         });
@@ -198,13 +222,27 @@
             console.log(`Fluxo: ${JSON.stringify(resposta)}`);
             fluxo = resposta;
             configFluxo(fluxo);
+            carregarKPIs()
         });
         }
         }).catch(function (error) {
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
     }
-
+    function carregarKPIs() {
+        fetch(`linha/kpiMovLinha/${codRota}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
+                kpiMov = resposta;
+                configKPIMovLinha();
+            });
+            }
+        })
+    }
     carregarLinha();
 
     var codigo = document.getElementById("h1Codigo");
@@ -218,6 +256,11 @@
 
     var pDiasMaisCh = document.getElementById("pDiasMaisCh");
     var pDiasMenosCh = document.getElementById("pDiasMenosCh");
+
+    var kpiPontoMaisMov = document.getElementById("pPontoMaisMov");
+    var kpiLogMaisMov = document.getElementById("pLogMaisMov");
+    var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
+    var kpiLogMenosMov = document.getElementById("pLogMenosMov");
 
     function configLinha(){
         document.title = `${linha.codLinha} - Dados gerais`;
@@ -278,11 +321,12 @@
                     kpiDias[i].saldoAcumulado += Number(fluxo[c].saldoPass);
                 }
             }
-            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/");
+            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/") + " " + (dias[i].diaSemana).slice(0,3) + ".";
             fluxoTratado.push({label: diaFluxo, data});
         }
         gerarGraficoFluxoHora(logs, fluxoTratado);
         configKPIdias();
+        graficoModelo()
     }
 
     function configKPIdias(){
@@ -301,6 +345,25 @@
         }
         pDiasMaisCh.innerHTML = diaMaisCheio.dia;
         pDiasMenosCh.innerHTML = diaMenosCheio.dia;
+    }
+
+    function configKPIMovLinha(){
+        var cheio = { idPonto: 0, logradouro: null, movimentacao: 0 };
+        var vazio = { idPonto: 0, logradouro: null, movimentacao: 100000 };
+
+        cheio.idPonto = kpiMov[1].idPonto;
+        cheio.movimentacao = kpiMov[1].movimentacao;
+        cheio.logradouro = `${kpiMov[1].logradouro}, ${kpiMov[1].numNaRua}`;
+
+        vazio.idPonto = kpiMov[kpiMov.length-1].idPonto;
+        vazio.movimentacao = kpiMov[kpiMov.length-1].movimentacao;
+        vazio.logradouro = `${kpiMov[kpiMov.length-1].logradouro}, ${kpiMov[kpiMov.length-1].numNaRua}`
+        
+        kpiPontoMaisMov.innerHTML = cheio.idPonto;
+        kpiLogMaisMov.innerHTML = cheio.logradouro;
+
+        kpiPontoMenosMov.innerHTML = vazio.idPonto;
+        kpiLogMenosMov.innerHTML = vazio.logradouro;
     }
 
     function gerarGraficoOtimizacao(pDias) {
@@ -391,49 +454,16 @@
             configGraficoGeral
         );
     }
-    
 
-    // Gráfico dos ônibus na rota
-    // Todos os modelos:
-    // const modelos = [
-    //     "Miniônibus",
-    //     "Midiônibus",
-    //     "Básico",
-    //     "Padron",
-    //     "Articulado",
-    //     "Biarticulado"
-    // ]
-     const modelos = [
-         "Básico",
-         "Padron",
-    ]
-    const dadosVeiculos = {
-        labels:modelos,
-        datasets: [{
-                data: [2,1],
-                backgroundColor: ['#69503C','#BD916E']
-            }
-        ]
-    }
-    const configGraficoVeiculos = {
-        type: "pie",
-        data: dadosVeiculos,
-        options: {
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
-    }
-    const graficoVeiculos = new Chart(
-        document.getElementById("graficoVeiculos"),
-        configGraficoVeiculos
-    );
-
-    graficoModelo()
     function graficoModelo() {
-        fetch(`veiculos/graficoModelo/${sessionStorage.COD_ROTA}/${horario}`)
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        fetch(`veiculos/graficoModelo/${codRota}/${horarioCortado}`)
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
@@ -456,7 +486,6 @@
                             veiculo.className = 'tabelaVeiculosLinha';
 
                             listaVeiculos.appendChild(veiculo);
-
                         }
                     });
                 } else {

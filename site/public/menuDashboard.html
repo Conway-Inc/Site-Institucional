@@ -349,10 +349,6 @@
 
         if (resposta.ok) {
           alert("Cadastro REALIZADO com Sucesso!!!");
-
-          // setTimeout(() => {
-          //   window.location = "menuDashboard.html";
-          // }, "2000")
         } else {
           throw "Houve um ERRO ao tentar realizar o cadastro!";
         }
@@ -485,7 +481,7 @@
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Funcionários: ${JSON.stringify(resposta)}`);
             resposta.reverse();
             funcionarioLogado = resposta;
             receberFuncLogado(funcionarioLogado);

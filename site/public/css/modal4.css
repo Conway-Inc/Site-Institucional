@@ -1,7 +1,7 @@
 .content{
   width: 100%;
   margin: 0;
-  display: block;
+  display: flex;
   flex-wrap: wrap;
   background-color: #E4D4C7;
   border-radius: 20px;
@@ -11,6 +11,11 @@
 .container{
   margin-left: 50px;
 }
+
+.content .container, .cadPontoLinha{
+  display: none;
+}
+
 
 .addRota, .div_ipt{
   width: 250px;
@@ -60,4 +65,12 @@
 
 #listaHover:hover{
   cursor: pointer;
+}
+
+.btn-area, .btnReload{
+  display: none;
+}
+
+.btnReload{
+  align-self: center;
 }

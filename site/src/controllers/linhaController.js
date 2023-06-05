@@ -115,6 +115,31 @@ function kpiMovLinha(req, res) {
     });
 }
 
+function kpiMovHorario(req, res) {
+  var nomeLinha = req.params.codRota;
+  var horario = req.params.horario;
+
+  linhaModel
+    .kpiMovHorario(nomeLinha, horario)
+    .then(function (resultado) {
+
+      if (resultado.length >= 1) {
+        console.log(resultado);
+        res.json(resultado);
+      } else{
+        res.status(403).send("Nome da Linha INVÁLIDO");
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao selecionar a linha! ERRO: ",
+        erro.sqlMessage
+      );
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function listar(req, res) {
   var idEmpresa = req.params.idEmpresa;
 
@@ -183,6 +208,7 @@ module.exports = {
   selectLinha,
   selectLinhaSimples,
   kpiMovLinha,
+  kpiMovHorario,
   veiculoRota,
   listar,
 };
