@@ -230,12 +230,10 @@ details{
     height: 600px !important;
 }
 
-.classificRuim, .classificBoa, .classificBoa, .classificIdeal{
-    top: 50px;
+.classificRuim, .classificRegular, .classificBoa, .classificIdeal{
+    top: 55px;
     font-size: 14px !important;
-    margin: 0;
     position: absolute;
-    justify-self: flex-end;
     -webkit-text-stroke: black 0.5px;
 }
 .classificRuim{
@@ -243,6 +241,7 @@ details{
 }
 .classificRegular{
     color: #d86f00;
+    font-size: 12px !important;
 }
 .classificBoa{
     color: #4c52c6;
