@@ -1,44 +1,23 @@
-var alertas = [];
+
 
 function alertar(rotas) {
-
+    console.log(rotas)
     // abaixo de 30
-    for (let i = 0; i <= 30; i++) {
-
+    for (let i = 0; i < rotas.length; i++) {
+        if (rotas[i].pctOtimizacao < 300) {
+            exibirCards(rotas[i].codLinha, rotas[i].pctOtimizacao)
+        }
     }
 
 }
 
-function exibirAlerta(temp, idAquario, grauDeAviso, grauDeAvisoCor) {
-    var indice = alertas.findIndex(item => item.idAquario == idAquario);
+function exibirCards(codLinha, pctOtimizacao) {
 
-    if (indice >= 0) {
-        alertas[indice] = { idAquario, temp, grauDeAviso, grauDeAvisoCor }
-    } else {
-        alertas.push({ idAquario, temp, grauDeAviso, grauDeAvisoCor });
-    }
+    conteudos = document.getElementById("conteudos")
+    console.log(conteudos)
 
-    exibirCards();
-}
-
-function removerAlerta(idAquario) {
-    alertas = alertas.filter(item => item.idAquario != idAquario);
-    exibirCards();
-}
-
-function exibirCards() {
-    alerta.innerHTML = '';
-
-    for (var i = 0; i < alertas.length; i++) {
-        var mensagem = alertas[i];
-        alerta.innerHTML += transformarEmDiv(mensagem);
-    }
-}
-
-function transformarEmDiv(codlinha) {
-
-    return `
-    <div class="mensagem-alarme">
+        var alerta = document.createElement("div");
+        alerta.innerHTML = `<div class="mensagem-alarme">
         <div class="informacao">
             <div style"color: '#DB0300'">&#12644;</div> 
             <h3>${codLinha} está ruim!</h3>
@@ -47,4 +26,6 @@ function transformarEmDiv(codlinha) {
         <div class="alarme-sino"></div>
     </div>
     `;
+        console.log(alerta)
+        conteudos.appendChild(alerta)
 }
