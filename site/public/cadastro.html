@@ -1,176 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="css/busway.css" />
-    <link rel="stylesheet" href="css/navbar_cadastro.css" />
-    <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/footer.css" />
-    <link rel="icon" href="images/icon.png" />
 
-    <script
-      src="https://kit.fontawesome.com/89d28f01ec.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="css/busway.css" />
+  <link rel="stylesheet" href="css/navbar_cadastro.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="icon" href="images/icon.png" />
 
-  <body>
-    <!--Começo do header-->
+  <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
+</head>
 
-    <div class="navbar">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path
-          d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
-          fill="rgb(105,80,60)"
-        />
-      </svg>
+<body>
+  <!--Começo do header-->
 
-      <h1>Cadastro</h1>
+  <div class="navbar">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path
+        d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+        fill="rgb(105,80,60)" />
+    </svg>
+
+    <h1>Cadastro</h1>
+  </div>
+
+  <!-- https://www.rapidtables.com/web/color/RGB_Color.html -->
+
+  <div class="header">
+    <div class="container">
+      <ul>
+        <li><a href="index.html"> INÍCIO </a></li>
+        <li><a href="cadastro.html#contato"> CONTATO </a></li>
+        <li><a href="login.html"> LOGIN </a></li>
+        <li><a href="helpdesk.html"> SUPORTE </a></li>
+      </ul>
     </div>
+  </div>
+  <!--Fim do header-->
 
-    <!-- https://www.rapidtables.com/web/color/RGB_Color.html -->
+  <!-- Inicio do Formulário -->
+  <div class="form">
+    <div class="esquerda">
+      <span class="campos">Nome fantasia:
+        <input id="ipt_nome_empresa" placeholder="nome empresa" /></span>
+      <span class="campos">CNPJ: <input id="ipt_cnpj" placeholder="apenas números" /></span>
+      <span class="campos">Nome do representante:
+        <input id="ipt_representante" placeholder="acesso principal" /></span>
+      <span class="campos">E-mail:
+        <input type="email" id="ipt_email" placeholder="nome@email.com" /></span>
+    </div>
+    <div class="direita">
+      <span class="campos">CPF: <input id="ipt_cpf" placeholder="apenas números" /></span>
+      <span class="campos">Celular de contato:
+        <input id="ipt_cel" placeholder="11999999999" /></span>
+      <span class="campos">Senha: <input type="password" id="ipt_senha" placeholder="•••••" /></span>
+      <span class="campos">Confirmar senha:
+        <input type="password" id="ipt_confSenha" placeholder="•••••" /></span>
 
-    <div class="header">
-      <div class="container">
+      <div class="botao">
+        <p>
+          <button onclick="cadastrarRepresentante()">Cadastrar</button>
+        </p>
+        <a href="login.html"> Já possuo uma conta cadastrada.</a>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="paiFooter">
+      <div class="redes">
+        <h2>Redes Sociais</h2>
         <ul>
-          <li><a href="index.html"> INÍCIO </a></li>
-          <li><a href="index.html#contato"> CONTATO </a></li>
-          <li><a href="login.html"> LOGIN </a></li>
-          <li><a href="helpdesk.html"> SUPORTE </a></li>
+          <li>
+            <a href="https://twitter.com" target="_blank">
+              <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com" target="_blank">
+              <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://facebook.com" target="_blank">
+              <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com" target="_blank">
+              <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="acesso">
+        <h2>Acesso Rápido</h2>
+        <ul>
+          <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="">Suporte</a></li>
+        </ul>
+      </div>
+
+      <div class="contato">
+        <h2 id="contato">Contato</h2>
+        <ul>
+          <li>
+            <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
+              <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
+            </a>
+          </li>
+          <li>
+            <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
+          </li>
+          <li>
+            <a href="mailto:conway.enterprise@gmail.com" target="_blank">
+              <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+              target="_blank">
+              <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
+            </a>
+          </li>
         </ul>
       </div>
     </div>
-    <!--Fim do header-->
+  </footer>
+</body>
 
-    <!-- Inicio do Formulário -->
-    <div class="form">
-      <div class="esquerda">
-        <span class="campos"
-          >Nome fantasia:
-          <input id="ipt_nome_empresa" placeholder="nome empresa"
-        /></span>
-        <span class="campos"
-          >CNPJ: <input id="ipt_cnpj" placeholder="apenas números"
-        /></span>
-        <span class="campos"
-          >Nome do representante:
-          <input id="ipt_representante" placeholder="acesso principal"
-        /></span>
-        <span class="campos"
-          >E-mail:
-          <input type="email" id="ipt_email" placeholder="nome@email.com"
-        /></span>
-      </div>
-      <div class="direita">
-        <span class="campos"
-          >CPF: <input id="ipt_cpf" placeholder="apenas números"
-        /></span>
-        <span class="campos"
-          >Celular de contato:
-          <input id="ipt_cel" placeholder="11999999999"
-        /></span>
-        <span class="campos"
-          >Senha: <input type="password" id="ipt_senha" placeholder="•••••"
-        /></span>
-        <span class="campos"
-          >Confirmar senha:
-          <input type="password" id="ipt_confSenha" placeholder="•••••"
-        /></span>
-
-        <div class="botao">
-          <p>
-            <button onclick="cadastrarRepresentante()">Cadastrar</button>
-          </p>
-          <a href="login.html"> Já possuo uma conta cadastrada.</a>
-        </div>
-      </div>
-    </div>
-    <footer>
-      <div class="paiFooter">
-        <div class="redes">
-          <h2>Redes Sociais</h2>
-          <ul>
-            <li>
-              <i
-                class="fa-brands fa-square-twitter fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="">Twitter</a>
-            </li>
-            <li>
-              <i
-                class="fa-brands fa-square-instagram fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="">Instagram</a>
-            </li>
-            <li>
-              <i
-                class="fa-brands fa-square-facebook fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="">Facebook</a>
-            </li>
-            <li>
-              <i class="fa-brands fa-linkedin fa-1xl" style="color: #ffffff"></i
-              ><a href="">Linkedin</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="acesso">
-          <h2>Acesso Rápido</h2>
-          <ul>
-            <li><a href="index.html">Página Inicial</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="cadastro.html">Cadastro</a></li>
-            <li><a href="">Suporte</a></li>
-          </ul>
-        </div>
-
-        <div class="contato">
-          <h2 id="contato">Contato</h2>
-          <ul>
-            <li>
-              <i
-                class="fa-brands fa-square-whatsapp fa-1xl"
-                style="color: #ffffff"
-              ></i
-              >(11) 94444-4444
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-square-phone fa-1xl"
-                style="color: #ffffff"
-              ></i
-              >(11) 4444-4444
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-square-envelope fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a href="mailto:conwayiot.enterprise@gmail.com">E-mail</a>
-            </li>
-            <li>
-              <i
-                class="fa-solid fa-location-dot fa-1xl"
-                style="color: #ffffff"
-              ></i
-              ><a
-                href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
-                target="_blank"
-                >Rua Hadddock Lobo, São Paulo</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </footer>
-  </body>
 </html>
 
 <script>
@@ -301,11 +265,11 @@
                     //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
                     alert("Cadastro realizado com sucesso. Redirecionando para a tela de login");
-                    setTimeout(()=>{
+                    setTimeout(() => {
                       window.location.href = "login.html";
                     }, 1000);
 
-                    
+
                     // setTimeout(() => {
                     //   window.location = "login.html";
                     // }, 2000);

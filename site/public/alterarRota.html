@@ -26,16 +26,11 @@
         d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
         fill="rgb(105,80,60)" />
     </svg>
-
     <h1>Adicionar Rota</h1>
-  </div>
-
-  <div class="header">
-    <div class="container">
-      <ul>
-        <li><a href="menuDashboard.html"> VOLTAR </a></li>
-      </ul>
+    <div>
+      <a href="menuDashboard.html"> VOLTAR </a>
     </div>
+  </div>
   </div>
   <!--Fim do header-->
 
@@ -60,89 +55,90 @@
             <!-- Início do Modal para cadastrar pontos -->
             <!-- <div class="modal modal4">
               <div class="modal__inner"> -->
-                <div class="container" id="container">
-                  <span class="addRota">
-                    <div class="div_ipt">
-                      <label>Cadastrar Pontos</label>
-                      <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro" />
-                      <span id="cepNumero">
-                        <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
-                        <input class="ipt_func" placeholder="Número" id="ipt_num" />
-                      </span>
-                      <br />
-                    </div>
+            <div class="container" id="container">
+              <span class="addRota">
+                <div class="div_ipt">
+                  <label>Cadastrar Pontos</label>
+                  <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro" />
+                  <span id="cepNumero">
+                    <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
+                    <input class="ipt_func" placeholder="Número" id="ipt_num" />
+                  </span>
+                  <br />
+                </div>
 
-                    <div class="div_ipt">
-                      <label>Coordenadas geográficas</label>
-                      <p id="opcional">(Opcional)</p>
-                      <span id="coordenadas">
-                        <input class="ipt_func" placeholder="X" id="ipt_coordX" />
-                        <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
-                      </span>
-                    </div>
-
-                    <div class="btnRota" id="btnRota">
-                      <button onclick="cadastrarPonto()">Adicionar</button>
-                    </div>
+                <div class="div_ipt">
+                  <label>Coordenadas geográficas</label>
+                  <p id="opcional">(Opcional)</p>
+                  <span id="coordenadas">
+                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
+                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
                   </span>
                 </div>
-              <!-- </div>
+
+                <div class="btnRota" id="btnRota">
+                  <button onclick="cadastrarPonto()">Adicionar</button>
+                </div>
+              </span>
+            </div>
+          </div>
+          <!-- </div>
             </div> -->
 
-            <div class="cadPontoLinha" id="cadPontoLinha">
-              <label>Cadastrar Pontos na Linha</label>
-              <div class="datalistPonto">
-                <input list="browsers" name="browser" id="browser">
-                <datalist id="browsers">
-                  <!-- <option value="Ponto01" id="testePontos"></option>  -->
-                  <!-- <option value="Ponto02"></option>
+          <div class="cadPontoLinha" id="cadPontoLinha">
+            <label>Cadastrar Pontos na Linha</label>
+            <div class="datalistPonto">
+              <input list="browsers" name="browser" id="browser">
+              <datalist id="browsers">
+                <!-- <option value="Ponto01" id="testePontos"></option>  -->
+                <!-- <option value="Ponto02"></option>
                       <option value="Ponto03"></option>
                       <option value="Ponto04"></option>
                       <option value="Ponto05"></option> -->
-                </datalist>
-                <button onclick="addPonto()" id="btnAddPontoLinha">Adicionar Ponto a Linha</button>
-                <label>Pontos Cadastrados</label>
-                <div id="pontosAdicionados"></div>
-              </div>
+              </datalist>
+              <button onclick="addPonto()" id="btnAddPontoLinha">Adicionar Ponto a Linha</button>
+              <label>Pontos Cadastrados</label>
+              <div id="pontosAdicionados"></div>
             </div>
-            <!-- Fim do Modal para cadastrar pontos -->
           </div>
-
-
-
-
-          <div class="lista-rotas">
-
-          </div>
-          <div class="btn-area" id="btnarea">
-            <button onclick="addPontoLinha()"><b>Finalizar Cadastro</b></button>
-          </div>
+          <!-- Fim do Modal para cadastrar pontos -->
         </div>
 
-        <div class="btnReload" id="btnReload">
-          <button onclick="recarregar()"><b>Cadastrar Outra Linha</b></button>
+
+
+
+        <div class="lista-rotas">
+
         </div>
-        
+        <div class="btn-area" id="btnarea">
+          <button onclick="addPontoLinha()"><b>Finalizar Cadastro</b></button>
+        </div>
       </div>
 
-      <!-- Conteúdo - Veículos -->
-      <aside>
-        <div class="imgHeader">
-          <img id="imgEmpresa" alt="" />
-        </div>
+      <div class="btnReload" id="btnReload">
+        <button onclick="recarregar()"><b>Cadastrar Outra Linha</b></button>
+      </div>
 
-        <div class="funcionarios">
-          <p>Suas Rotas:</p>
-          <ul>
-            <li><a href="alterarVeiculo.html"> 775N-10 </a></li>
-            <li><a href="alterarVeiculo.html"> 8707-10, 8707-31 </a></li>
-            <li><a href="alterarVeiculo.html"> 715M-10, 748R-10 </a></li>
-          </ul>
+    </div>
 
-          <p><b>Clique na rota para gerenciá-la ou excluí-la</b></p>
-        </div>
-      </aside>
-      <!-- Fim do Conteúdo - Veículos -->
+    <!-- Conteúdo - Veículos -->
+    <aside>
+      <div class="imgHeader">
+        <img id="imgEmpresa" alt="" />
+      </div>
+
+      <div class="funcionarios">
+        <p>Suas Rotas:</p>
+        <ul>
+          <li><a href="alterarVeiculo.html"> 775N-10 </a></li>
+          <li><a href="alterarVeiculo.html"> 8707-10, 8707-31 </a></li>
+          <li><a href="alterarVeiculo.html"> 715M-10, 748R-10 </a></li>
+        </ul>
+
+        <p><b>Clique na rota para gerenciá-la ou excluí-la</b></p>
+      </div>
+    </aside>
+    <!-- Fim do Conteúdo - Veículos -->
     </div>
 
 
@@ -153,61 +149,61 @@
 </html>
 <script>
 
-imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
-imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
+  imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+  imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
 
-var pontos = [];
-var vetorPonto = [];
-var vetorPontoLimpo = [];
-var vetorIdPontoSelect = [];
+  var pontos = [];
+  var vetorPonto = [];
+  var vetorPontoLimpo = [];
+  var vetorIdPontoSelect = [];
 
-selectPonto();
+  selectPonto();
 
-function recarregar(){
-  location.reload();
-}
-
-function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
-
-
-fetch("/ponto/listar").then(function (resposta) {
-  if (resposta.ok) {
-    if (resposta.status == 204) {
-      var feed = document.getElementById("browsers");
-      var mensagem = document.createElement("option");
-      mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
-      feed.appendChild(mensagem);
-      throw "Nenhum resultado encontrado!!";
-    }
-
-    resposta.json().then(function (resposta) {
-      console.log("Dados recebidos: ", JSON.stringify(resposta));
-      pontos = resposta;
-
-      var feed = document.getElementById("browsers");
-      feed.innerHTML = "";
-      for (let i = 0; i < resposta.length; i++) {
-        var publicacao = resposta[i];
-
-        var opcao = document.createElement("option");
-
-        opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
-
-        feed.appendChild(opcao);
-      }
-    });
-  } else {
-    throw ("Houve um erro na API")
+  function recarregar() {
+    location.reload();
   }
-}).catch(function (resposta) {
-  console.error(resposta);
-});
-}
 
-var erroCadPonto;
-var pontosOk = true;
+  function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
 
-function cadastrarPonto() {
+
+    fetch("/ponto/listar").then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          var feed = document.getElementById("browsers");
+          var mensagem = document.createElement("option");
+          mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
+          feed.appendChild(mensagem);
+          throw "Nenhum resultado encontrado!!";
+        }
+
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+          pontos = resposta;
+
+          var feed = document.getElementById("browsers");
+          feed.innerHTML = "";
+          for (let i = 0; i < resposta.length; i++) {
+            var publicacao = resposta[i];
+
+            var opcao = document.createElement("option");
+
+            opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
+
+            feed.appendChild(opcao);
+          }
+        });
+      } else {
+        throw ("Houve um erro na API")
+      }
+    }).catch(function (resposta) {
+      console.error(resposta);
+    });
+  }
+
+  var erroCadPonto;
+  var pontosOk = true;
+
+  function cadastrarPonto() {
     var logradouroVar = ipt_logradouro.value;
     var cepVar = ipt_cep.value;
     var numVar = ipt_num.value;
@@ -217,95 +213,95 @@ function cadastrarPonto() {
     erroCadPonto = '';
     pontosOk = true;
 
-    if(logradouroVar == ''){
+    if (logradouroVar == '') {
       erroCadPonto += `\nPreencha o logradouro`;
       pontosOk = false;
     }
 
-    if(cepVar == ''){
+    if (cepVar == '') {
       erroCadPonto += `\nPreencha o CEP`;
       pontosOk = false;
     }
-    else if(cepVar.length != 8){
+    else if (cepVar.length != 8) {
       erroCadPonto += `\nO CEP deve conter 8 caracteres`;
       pontosOk = false;
     }
 
-    if(numVar == ''){
+    if (numVar == '') {
       erroCadPonto += `\nPreencha o número`;
       pontosOk = false;
     }
 
-    if(logradouroVar > 45){
+    if (logradouroVar > 45) {
       erroCadPonto += `\nO logradouro só pode conter até 45 caracteres`;
       pontosOk = false;
     }
 
-    
 
-    if(coordXVar == '' || coordYVar == ''){
+
+    if (coordXVar == '' || coordYVar == '') {
       coordXVar = null;
       coordYVar = null;
     }
 
-    if(pontosOk == true){
+    if (pontosOk == true) {
 
-    fetch("/ponto/cadastrarPonto", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cepServer: cepVar,
-        logradouroServer: logradouroVar,
-        numServer: numVar,
-        coordYServer: coordYVar,
-        coordXServer: coordXVar,
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          swal({
-                title: "Ponto cadastrado com sucesso",
-                text: "\n",
-                icon: "success",
-                timer: 1000,
-                button: false,
-                });
-
-          // setTimeout(() => {
-          //   window.location = "menuDashboard.html";
-          // }, "2000")
-
-          selectPonto();
-        } else {
-          throw "Houve um ERRO ao tentar realizar o cadastro!";
-        }
+      fetch("/ponto/cadastrarPonto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cepServer: cepVar,
+          logradouroServer: logradouroVar,
+          numServer: numVar,
+          coordYServer: coordYVar,
+          coordXServer: coordXVar,
+        }),
       })
-      .catch(function (resposta) {
-        swal({
-                title: "Não foi possível cadastrar a linha",
-                text: `${resposta}`,
-                icon: "error",
-                timer: 4000,
-                button: false,
-                });
-        console.log(`#ERRO: ${resposta}`);
-      });
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
 
-    return false;
+          if (resposta.ok) {
+            swal({
+              title: "Ponto cadastrado com sucesso",
+              text: "\n",
+              icon: "success",
+              timer: 1000,
+              button: false,
+            });
+
+            // setTimeout(() => {
+            //   window.location = "menuDashboard.html";
+            // }, "2000")
+
+            selectPonto();
+          } else {
+            throw "Houve um ERRO ao tentar realizar o cadastro!";
+          }
+        })
+        .catch(function (resposta) {
+          swal({
+            title: "Não foi possível cadastrar a linha",
+            text: `${resposta}`,
+            icon: "error",
+            timer: 4000,
+            button: false,
+          });
+          console.log(`#ERRO: ${resposta}`);
+        });
+
+      return false;
     }
-    else{
-    swal({
-                title: "Não foi possível cadastrar o ponto",
-                text: `${erroCadPonto}`,
-                icon: "error",
-                timer: 4000,
-                button: false,
-                });
-  }
+    else {
+      swal({
+        title: "Não foi possível cadastrar o ponto",
+        text: `${erroCadPonto}`,
+        icon: "error",
+        timer: 4000,
+        button: false,
+      });
+    }
   }
 
   var erroCadLinha;
@@ -321,112 +317,112 @@ function cadastrarPonto() {
     erroCadLinha = ``;
     prosseguir = true;
 
-    
-    if(nomeRotaVar == ''){
+
+    if (nomeRotaVar == '') {
       erroCadLinha += "\nPreencha o Código da Linha";
       prosseguir = false;
     }
 
-    if(tipoLinhaVar == ''){
+    if (tipoLinhaVar == '') {
       erroCadLinha += `\nPreencha o tipo da Linha`;
       prosseguir = false;
     }
 
-    if(pontoInicialVar == ''){
+    if (pontoInicialVar == '') {
       erroCadLinha += `\nPreencha o nome de Ida`;
       prosseguir = false;
     }
 
-    if(pontoFinalVar == ''){
+    if (pontoFinalVar == '') {
       erroCadLinha += `\nPreencha o nome de Volta`;
       prosseguir = false;
     }
 
-    if(nomeRotaVar.length > 4 || nomeRotaVar.length < 4){
+    if (nomeRotaVar.length > 4 || nomeRotaVar.length < 4) {
       erroCadLinha += "\nO código da linha deve conter 4 dígitos";
       prosseguir = false;
     }
 
-    if(tipoLinhaVar.length > 2){
+    if (tipoLinhaVar.length > 2) {
       erroCadLinha += `\nO tipo de Linha deve conter 2 dígitos numéricos`;
       prosseguir = false;
     }
 
-    if(pontoInicialVar.length > 45){
+    if (pontoInicialVar.length > 45) {
       erroCadLinha += `\nO nome da Ida só pode conter até 45 caracteres`;
       prosseguir = false;
     }
 
-    if(pontoFinalVar.length > 45){
+    if (pontoFinalVar.length > 45) {
       erroCadLinha += `\nO nome da Volta só pode conter até 45 caracteres`;
       prosseguir = false;
     }
-    
 
-    if(prosseguir == true){
 
-    fetch("/linha/cadastrarLinha", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+    if (prosseguir == true) {
 
-        nomeRotaServer: nomeRotaVar,
-        tipoLinhaServer: tipoLinhaVar,
-        pontoInicialServer: pontoInicialVar,
-        pontoFinalServer: pontoFinalVar,
-        fkEmpresaServer: fkEmpresa
-      })
-    }).then(function (resposta) {
-      console.log("resposta: ", resposta);
+      fetch("/linha/cadastrarLinha", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
 
-      if (resposta.ok) {
+          nomeRotaServer: nomeRotaVar,
+          tipoLinhaServer: tipoLinhaVar,
+          pontoInicialServer: pontoInicialVar,
+          pontoFinalServer: pontoFinalVar,
+          fkEmpresaServer: fkEmpresa
+        })
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          swal({
+            title: "Linha Cadastrada com sucesso",
+            text: `Agora adicione os pontos a esta linha, se precisar cadastre novos pontos`,
+            icon: "success",
+            timer: 3000,
+            button: false,
+          });
+
+          setTimeout(() => {
+            selectLinha();
+
+          }, 3000)
+
+          container.style.display = 'flex';
+          cadPontoLinha.style.display = 'block';
+          btnarea.style.display = 'flex';
+          btnCadLinha.style.display = 'none';
+
+        } else {
+          throw ("Houve um ERRO ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+
         swal({
-                title: "Linha Cadastrada com sucesso",
-                text: `Agora adicione os pontos a esta linha, se precisar cadastre novos pontos`,
-                icon: "success",
-                timer: 3000,
-                button: false,
-                });
-        
-                setTimeout(() =>{
-                  selectLinha();
+          title: "Não foi possível cadastrar a linha",
+          text: `${resposta}`,
+          icon: "error",
+          timer: 4000,
+          button: false,
+        });
 
-                },3000)
-        
-         container.style.display = 'flex';
-         cadPontoLinha.style.display = 'block';
-         btnarea.style.display = 'flex';
-         btnCadLinha.style.display = 'none';
+        console.log(`#ERRO: ${resposta}`);
+      });
 
-      } else {
-        throw ("Houve um ERRO ao tentar realizar o cadastro!");
-      }
-    }).catch(function (resposta) {
-
+      return false;
+    }
+    else {
       swal({
-                title: "Não foi possível cadastrar a linha",
-                text: `${resposta}`,
-                icon: "error",
-                timer: 4000,
-                button: false,
-                });
-
-      console.log(`#ERRO: ${resposta}`);
-    });
-
-    return false;
-  }
-  else{
-    swal({
-                title: "Não foi possível cadastrar a linha",
-                text: `${erroCadLinha}`,
-                icon: "error",
-                timer: 4000,
-                button: false,
-                });
-  }
+        title: "Não foi possível cadastrar a linha",
+        text: `${erroCadLinha}`,
+        icon: "error",
+        timer: 4000,
+        button: false,
+      });
+    }
   }
 
   function selectLinha() {
@@ -434,7 +430,7 @@ function cadastrarPonto() {
 
     fetch(`/linha/selecionar/${nomeRotaVar}`, {
       cache: "no-store",
-    }).then(function (resposta){
+    }).then(function (resposta) {
       console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
 
       if (resposta.ok) {
@@ -462,32 +458,30 @@ function cadastrarPonto() {
 
   var inserir = true;
 
-  function addPonto(){
+  function addPonto() {
     for (var i = 0; i < vetorPonto.length; i++) {
-      if(browser.value == vetorPonto[i]){
+      if (browser.value == vetorPonto[i].logr) {
         inserir = false;
+        alert("Ponto já adicionado")
+        break;
       }
-      else{
+      else {
         inserir = true;
       }
     }
 
-    if(inserir == true){
-      idPontoIgual = null;
-      for (let i = 0; i < pontos.length; i++) {
-        if(`${pontos[i].logradouro}, ${pontos[i].numNaRua}`
-        == browser.value){
-          idPontoIgual = pontos[i].idPonto;
-          break;
-        }
+    if (inserir == true) {
+      // for (var i = 0; i < vetorPonto.length; i++) {
+      if (browser.value != "") {
+
+        vetorPonto.push({ idPonto: pontos[i].idPonto, logr: browser.value });
+        // break;
+
       }
-      vetorPonto.push({idPonto: idPontoIgual,
-                       logr: browser.value});
+      // }
+    } else {
+      alert("Ponto inválido")
     }
-    else{
-      alert("Ponto já adicionado")
-    }
-    
 
     browser.value = ``;
 
@@ -496,19 +490,19 @@ function cadastrarPonto() {
     listarPontosCad();
   }
 
-  function deletarPonto(posicao){
+  function deletarPonto(posicao) {
     delete vetorPonto[posicao];
 
-    for(var i = 0; i < vetorPonto.length; i++){
-      if(vetorPonto[i] != undefined){
+    for (var i = 0; i < vetorPonto.length; i++) {
+      if (vetorPonto[i] != undefined) {
         vetorPontoLimpo.push(vetorPonto[i]);
       }
     }
 
     vetorPonto = [];
-    
-    for(var i = 0; i < vetorPontoLimpo.length; i++){
-        vetorPonto.push(vetorPontoLimpo[i]);
+
+    for (var i = 0; i < vetorPontoLimpo.length; i++) {
+      vetorPonto.push(vetorPontoLimpo[i]);
     }
 
     vetorPontoLimpo = [];
@@ -518,14 +512,14 @@ function cadastrarPonto() {
     listarPontosCad();
   }
 
-  function listarPontosCad(){
+  function listarPontosCad() {
     for (var i = 0; i < vetorPonto.length; i++) {
       var varAtual = vetorPonto[i].logr;
-      pontosAdicionados.innerHTML += `${i+1}º - ${varAtual} - <span onclick="deletarPonto('${i}')" id="listaHover">Excluir</span><br>`
+      pontosAdicionados.innerHTML += `${i + 1}º - ${varAtual} - <span onclick="deletarPonto('${i}')" id="listaHover">Excluir</span><br>`
     }
   }
 
-  function addPontoLinha(){
+  function addPontoLinha() {
     for (var i = 0; i < vetorPonto.length; i++) {
       var varAtual = vetorPonto[i];
 
@@ -534,12 +528,12 @@ function cadastrarPonto() {
     }
   }
 
-  function selectPontosVetor(nomePontoVetor){
+  function selectPontosVetor(nomePontoVetor) {
     var nomePonto = nomePontoVetor;
 
     fetch(`/ponto/listarPorNome/${nomePontoVetor}`, {
       cache: "no-store",
-    }).then(function (resposta){
+    }).then(function (resposta) {
       console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
 
       if (resposta.ok) {
@@ -565,7 +559,7 @@ function cadastrarPonto() {
     return false;
   }
 
-  function cadPontosLinha(vetorPontoCad){
+  function cadPontosLinha(vetorPontoCad) {
     var idPonto = vetorPontoCad;
     var idLinha = sessionStorage.ID_LINHA;
 
@@ -584,12 +578,12 @@ function cadastrarPonto() {
 
       if (resposta.ok) {
         swal({
-                title: `Pontos cadastrados na linha ${sessionStorage.COD_LINHA}`,
-                text: `\n`,
-                icon: "success",
-                timer: 1000,
-                button: false,
-                });
+          title: `Pontos cadastrados na linha ${sessionStorage.COD_LINHA}`,
+          text: `\n`,
+          icon: "success",
+          timer: 1000,
+          button: false,
+        });
 
         btnReload.style.display = 'flex';
         btnarea.style.display = 'none';
@@ -605,7 +599,7 @@ function cadastrarPonto() {
     });
 
     return false;
-    
+
   }
 
 </script>

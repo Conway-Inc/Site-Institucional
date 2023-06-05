@@ -372,15 +372,21 @@
     var corClassific = "";
     var nomeClassific = "";
     if (otimizacao >= 80) {
-      corClassific = "#00BF63";
-      nomeClassific = "Ideal";
-    } else if (otimizacao > 30) {
-      corClassific = "#fbff1a";
-      nomeClassific = "Boa";
-    } else {
-      corClassific = "#DB0300";
-      nomeClassific = "Ruim";
-    }
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
 
     var graficoArea = document.getElementById(`graficoArea${linha.idLinha}`);
     var pClassificacao = document.createElement("p")
