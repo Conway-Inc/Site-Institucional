@@ -8,7 +8,7 @@ function listar(idEmpresa) {
   var instrucao = `
   select *
   from vwLinha as vwl
-  join (
+  left join (
    select
 	idLinha,
     count(distinct fkVeiculo) as numVeiculos
