@@ -270,7 +270,7 @@ details{
     visibility: hidden;
 }
 #modalFormula img{
-    width: 80%;
+    height: 80%;
     border-radius: 25px;
     border: solid 1px #69503C;
 }
