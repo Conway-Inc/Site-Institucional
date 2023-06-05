@@ -11,7 +11,6 @@ footer {
   justify-content: center;
   padding: 10px;
   color: white;
-  padding: 0;
 }
 
 footer h2 {
@@ -52,6 +51,10 @@ footer h2 {
   padding-right: 5px;
 }
 
+.paiFooter ul li{
+  cursor: default;
+}
+
 .paiFooter ul li a {
   text-decoration: none;
   text-transform: none;
@@ -61,13 +64,12 @@ footer h2 {
 }
 
 .paiFooter ul li a:hover {
-  color: gray;
+  color: rgb(223, 223, 223);
 }
 
 .redes,
 .acesso,
 .contato {
-  width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: start;

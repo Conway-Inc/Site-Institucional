@@ -230,23 +230,25 @@ details{
     height: 600px !important;
 }
 
-.classificRuim, .classificBoa, .classificIdeal{
+.classificRuim, .classificBoa, .classificBoa, .classificIdeal{
     top: 50px;
     font-size: 14px !important;
     margin: 0;
     position: absolute;
     justify-self: flex-end;
+    -webkit-text-stroke: black 0.5px;
 }
 .classificRuim{
     color: #DB0300;
 }
+.classificRegular{
+    color: #d86f00;
+}
 .classificBoa{
-    color: #fbff1a;
-    -webkit-text-stroke: black 0.5px;
+    color: #4c52c6;
 }
 .classificIdeal{
     color: #00BF63;
-    -webkit-text-stroke: black 0.5px;
 }
 
 .tituloBom{
