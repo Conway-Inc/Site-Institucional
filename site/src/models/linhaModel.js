@@ -58,6 +58,26 @@ function kpiMovLinha(nomeLinha){
   return database.executar(instrucao);
 }
 
+function kpiMovHorario(nomeLinha, horario){
+  console.log("ACESSEI O LINHA MODEL \n", nomeLinha)
+  var instrucao = 
+  `select idPonto, movimentacao, logradouro, numNaRua FROM
+	(
+	select p.idPonto, logradouro, numNaRua, (sum(f.entradas)+sum(f.saidas)) as movimentacao
+		from Fluxo as f
+		join Ponto as p on f.fkPonto = p.idPonto
+        group by p.idPonto) as m
+	  join Fluxo as f on m.idPonto = f.fkPonto
+      join Viagem as v on f.fkViagem = v.idViagem
+      join Linha as l on v.fkLinha = l.idLinha
+      where codLinha = '${nomeLinha}' and hour(v.horaInicio) = ${horario}
+      group by idPonto
+      order by movimentacao desc;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function veiculoRota(codLinha) {
   var instrucao = `SELECT distinct placaVeiculo, nomeModelo, lotacao
   FROM Veiculo v
@@ -76,5 +96,6 @@ module.exports = {
   selectLinha,
   veiculoRota,
   kpiMovLinha,
+  kpiMovHorario,
   listar
 };
