@@ -456,29 +456,29 @@
     return false;
   }
 
-  var inserir = true;
+  var inserir = false;
 
   function addPonto() {
+
+    for (var i = 0; i < pontos.length; i++) {
+      if(browser.value == `${pontos[i].logradouro}, ${pontos[i].numNaRua}`) {
+
+        inserir = true;
+        break;
+
+      }    
+    }
     for (var i = 0; i < vetorPonto.length; i++) {
       if (browser.value == vetorPonto[i].logr) {
+        
         inserir = false;
         alert("Ponto já adicionado")
         break;
       }
-      else {
-        inserir = true;
-      }
     }
 
     if (inserir == true) {
-      // for (var i = 0; i < vetorPonto.length; i++) {
-      if (browser.value != "") {
-
         vetorPonto.push({ idPonto: pontos[i].idPonto, logr: browser.value });
-        // break;
-
-      }
-      // }
     } else {
       alert("Ponto inválido")
     }
