@@ -78,16 +78,6 @@
                             <p>Lotação</p>
                             <p>Modelo</p>
                         </div>
-                        <div class="tabelaVeiculosLinha">
-                            <p>EEL-6867</p>
-                            <p>70</p>
-                            <p>Básico</p>
-                        </div>
-                        <div class="tabelaVeiculosLinha">
-                            <p>EXR-4682</p>
-                            <p>80</p>
-                            <p>Padron</p>
-                        </div>
                     </div>
                 </div>
                 <div id="containerGraficoVeiculos">
@@ -440,4 +430,41 @@
         document.getElementById("graficoVeiculos"),
         configGraficoVeiculos
     );
+
+    graficoModelo()
+    function graficoModelo() {
+        fetch(`veiculos/graficoModelo/${sessionStorage.COD_ROTA}/${horario}`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(response)}`);
+
+                        var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
+                        for (let i = 0; i < resposta.length; i++) {
+                            var veiculo = document.createElement("div");
+                            var placa = document.createElement("p");
+                            var lotacao = document.createElement("p");
+                            var modelo = document.createElement("p");
+
+                            placa.innerHTML = resposta[i].placaVeiculo;
+                            lotacao.innerHTML = resposta[i].lotacao;
+                            modelo.innerHTML = resposta[i].nomeModelo;
+
+                            veiculo.appendChild(placa);
+                            veiculo.appendChild(lotacao);
+                            veiculo.appendChild(modelo);
+                            veiculo.className = 'tabelaVeiculosLinha';
+
+                            listaVeiculos.appendChild(veiculo);
+
+                        }
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado na API");
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
 </script>
