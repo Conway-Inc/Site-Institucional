@@ -461,8 +461,9 @@
   function addPonto() {
 
     for (var i = 0; i < pontos.length; i++) {
-      if(browser.value == `${pontos[i].logradouro}, ${pontos[i].numNaRua}`) {
 
+      if(browser.value == `${pontos[i].logradouro}, ${pontos[i].numNaRua}`) {
+        
         inserir = true;
         break;
 
@@ -470,7 +471,7 @@
     }
     for (var i = 0; i < vetorPonto.length; i++) {
       if (browser.value == vetorPonto[i].logr) {
-        
+
         inserir = false;
         alert("Ponto já adicionado")
         break;
