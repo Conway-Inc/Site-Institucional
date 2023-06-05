@@ -152,6 +152,31 @@
             response.json().then(function (resposta) {
             console.log(`Dias: ${JSON.stringify(resposta)}`);
             dias = resposta;
+            for (let i = 0; i < dias.length; i++) {
+                switch(dias[i].diaSemana){
+                    case 'Sunday':
+                        dias[i].diaSemana = 'Domingo';
+                        break;
+                    case 'Monday':
+                        dias[i].diaSemana = 'Segunda-Feira';
+                        break;
+                    case 'Tuesday':
+                        dias[i].diaSemana = 'Terça-Feira';
+                        break;
+                    case 'Wednesday':
+                        dias[i].diaSemana = 'Quarta-Feira';
+                        break;
+                    case 'Thursday':
+                        dias[i].diaSemana = 'Quinta-Feira';
+                        break;
+                    case 'Friday':
+                        dias[i].diaSemana = 'Sexta-Feira';
+                        break;
+                    case 'Saturday':
+                        dias[i].diaSemana = 'Sábado';
+                        break;
+                }
+            }
             gerarGraficoOtimizacao(dias);
             carregarPontos();
         });
@@ -275,7 +300,7 @@
                     kpiDias[i].saldoAcumulado += Number(fluxo[c].saldoPass);
                 }
             }
-            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/");
+            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/") + " " + (dias[i].diaSemana).slice(0,3) + ".";
             fluxoTratado.push({label: diaFluxo, data});
         }
         gerarGraficoFluxoHora(logs, fluxoTratado);
