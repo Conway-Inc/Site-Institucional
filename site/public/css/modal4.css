@@ -12,6 +12,10 @@
   margin-left: 50px;
 }
 
+.content .container, .cadPontoLinha{
+  display: none;
+}
+
 .addRota, .div_ipt{
   width: 250px;
 }
@@ -60,4 +64,12 @@
 
 #listaHover:hover{
   cursor: pointer;
+}
+
+.btn-area, .btnReload{
+  display: none;
+}
+
+.btnReload{
+  align-self: center;
 }

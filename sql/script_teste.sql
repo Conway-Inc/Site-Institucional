@@ -98,7 +98,7 @@ sum(lotacao)*100 as y,
 round(sum(pctLotacao)*100/sum(lotacao),0) as pctOtimizacao,
 e.cnpj, e.nome
 from Linha as l
-	join
+	left join
 	(select fkLinha,
     round((100 * f.saldoPassageiros)/m.lotacao,0) as pctLotacao,
     m.lotacao
