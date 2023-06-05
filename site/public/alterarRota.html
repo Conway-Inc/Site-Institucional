@@ -54,33 +54,33 @@
             <!-- Início do Modal para cadastrar pontos -->
             <!-- <div class="modal modal4">
               <div class="modal__inner"> -->
-                <div class="container">
-                  <span class="addRota">
-                    <div class="div_ipt">
-                      <label>Cadastrar Pontos</label>
-                      <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro" />
-                      <span id="cepNumero">
-                        <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
-                        <input class="ipt_func" placeholder="Número" id="ipt_num" />
-                      </span>
-                      <br />
-                    </div>
+            <div class="container">
+              <span class="addRota">
+                <div class="div_ipt">
+                  <label>Cadastrar Pontos</label>
+                  <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro" />
+                  <span id="cepNumero">
+                    <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
+                    <input class="ipt_func" placeholder="Número" id="ipt_num" />
+                  </span>
+                  <br />
+                </div>
 
-                    <div class="div_ipt">
-                      <label>Coordenadas geográficas</label>
-                      <p id="opcional">(Opcional)</p>
-                      <span id="coordenadas">
-                        <input class="ipt_func" placeholder="X" id="ipt_coordX" />
-                        <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
-                      </span>
-                    </div>
-
-                    <div class="btnRota">
-                      <button onclick="cadastrarPonto()">Adicionar</button>
-                    </div>
+                <div class="div_ipt">
+                  <label>Coordenadas geográficas</label>
+                  <p id="opcional">(Opcional)</p>
+                  <span id="coordenadas">
+                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
+                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
                   </span>
                 </div>
-              <!-- </div>
+
+                <div class="btnRota">
+                  <button onclick="cadastrarPonto()">Adicionar</button>
+                </div>
+              </span>
+            </div>
+            <!-- </div>
             </div> -->
 
             <div class="cadPontoLinha">
@@ -143,61 +143,61 @@
 </html>
 <script>
 
-imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
-imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
+  imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+  imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
 
-var pontos = [];
-var vetorPonto = [];
-var vetorPontoLimpo = [];
-var vetorIdPontoSelect = [];
+  var pontos = [];
+  var vetorPonto = [];
+  var vetorPontoLimpo = [];
+  var vetorIdPontoSelect = [];
 
-selectPonto();
+  selectPonto();
 
-function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
+  function selectPonto() { //ATUALIZAR DATALIST DOS PONTOS
 
 
-fetch("/ponto/listar").then(function (resposta) {
-  if (resposta.ok) {
-    if (resposta.status == 204) {
-      var feed = document.getElementById("browsers");
-      var mensagem = document.createElement("option");
-      mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
-      feed.appendChild(mensagem);
-      throw "Nenhum resultado encontrado!!";
-    }
+    fetch("/ponto/listar").then(function (resposta) {
+      if (resposta.ok) {
+        if (resposta.status == 204) {
+          var feed = document.getElementById("browsers");
+          var mensagem = document.createElement("option");
+          mensagem.innerHTML = "Nenhum resultado encontrado." //SE NÂO APARECER NADA, MUDAR AQUI
+          feed.appendChild(mensagem);
+          throw "Nenhum resultado encontrado!!";
+        }
 
-    resposta.json().then(function (resposta) {
-      console.log("Dados recebidos: ", JSON.stringify(resposta));
-      pontos = resposta;
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+          pontos = resposta;
 
-      var feed = document.getElementById("browsers");
-      feed.innerHTML = "";
-      for (let i = 0; i < resposta.length; i++) {
-        var publicacao = resposta[i];
+          var feed = document.getElementById("browsers");
+          feed.innerHTML = "";
+          for (let i = 0; i < resposta.length; i++) {
+            var publicacao = resposta[i];
 
-        var opcao = document.createElement("option");
+            var opcao = document.createElement("option");
 
-        opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
+            opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
 
-        feed.appendChild(opcao);
+            feed.appendChild(opcao);
+          }
+        });
+      } else {
+        throw ("Houve um erro na API")
       }
+    }).catch(function (resposta) {
+      console.error(resposta);
     });
-  } else {
-    throw ("Houve um erro na API")
   }
-}).catch(function (resposta) {
-  console.error(resposta);
-});
-}
 
-function cadastrarPonto() {
+  function cadastrarPonto() {
     var logradouroVar = ipt_logradouro.value;
     var cepVar = ipt_cep.value;
     var numVar = ipt_num.value;
     var coordXVar = ipt_coordX.value;
     var coordYVar = ipt_coordY.value;
 
-    if(coordXVar == '' || coordYVar == ''){
+    if (coordXVar == '' || coordYVar == '') {
       coordXVar = null;
       coordYVar = null;
     }
@@ -265,7 +265,7 @@ function cadastrarPonto() {
       if (resposta.ok) {
         alert("Cadastro REALIZADO com Sucesso!!!")
 
-         selectLinha();
+        selectLinha();
         // window.location.href = "addPontoLinha.html";
 
         //sessionStorage.ID_LINHA = resposta.idLinha;
@@ -289,7 +289,7 @@ function cadastrarPonto() {
 
     fetch(`/linha/selecionar/${nomeRotaVar}`, {
       cache: "no-store",
-    }).then(function (resposta){
+    }).then(function (resposta) {
       console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
 
       if (resposta.ok) {
@@ -314,42 +314,34 @@ function cadastrarPonto() {
     return false;
   }
 
-  
-  var inserir = false;
-  function addPonto(){
-    inserir = false;
-    alert(browser.value);
-    if (browser.value == '') {
-      inserir = false;
-      alert("Não há nada para ser inserido na lista")
-    }
+  var inserir = true;
 
+  function addPonto(){
     for (var i = 0; i < vetorPonto.length; i++) {
-      if(browser.value == vetorPonto[i]){
+      if (browser.value == vetorPonto[i].logr) {
         inserir = false;
+        alert("Ponto já adicionado")
+        break;
       }
-      else{
+      else {
         inserir = true;
       }
     }
 
-    if(inserir == true){
-      // alert("valor:" + browser + "!")
-      idPontoIgual = null;
-      for (let i = 0; i < pontos.length; i++) {
-        if(`${pontos[i].logradouro}, ${pontos[i].numNaRua}`
-        == browser.value){
-          idPontoIgual = pontos[i].idPonto;
-          break;
-        }
+    if (inserir == true) {
+      // for (var i = 0; i < vetorPonto.length; i++) {
+      if (browser.value != "") {
+        
+        vetorPonto.push({idPonto: pontos[i].idPonto, logr: browser.value});
+        // break;
+        
       }
-      vetorPonto.push({idPonto: idPontoIgual,
-                       logr: browser.value});
+    // }
+    } else {
+      alert("Ponto inválido")
     }
-    else{
-      alert("Ponto já adicionado")
-    }
-    
+
+
 
     browser.value = ``;
 
@@ -358,19 +350,19 @@ function cadastrarPonto() {
     listarPontosCad();
   }
 
-  function deletarPonto(posicao){
+  function deletarPonto(posicao) {
     delete vetorPonto[posicao];
 
-    for(var i = 0; i < vetorPonto.length; i++){
-      if(vetorPonto[i] != undefined){
+    for (var i = 0; i < vetorPonto.length; i++) {
+      if (vetorPonto[i] != undefined) {
         vetorPontoLimpo.push(vetorPonto[i]);
       }
     }
 
     vetorPonto = [];
-    
-    for(var i = 0; i < vetorPontoLimpo.length; i++){
-        vetorPonto.push(vetorPontoLimpo[i]);
+
+    for (var i = 0; i < vetorPontoLimpo.length; i++) {
+      vetorPonto.push(vetorPontoLimpo[i]);
     }
 
     vetorPontoLimpo = [];
@@ -380,14 +372,14 @@ function cadastrarPonto() {
     listarPontosCad();
   }
 
-  function listarPontosCad(){
+  function listarPontosCad() {
     for (var i = 0; i < vetorPonto.length; i++) {
       var varAtual = vetorPonto[i].logr;
-      pontosAdicionados.innerHTML += `${i+1}º - ${varAtual} - <span onclick="deletarPonto('${i}')" id="listaHover">Excluir</span><br>`
+      pontosAdicionados.innerHTML += `${i + 1}º - ${varAtual} - <span onclick="deletarPonto('${i}')" id="listaHover">Excluir</span><br>`
     }
   }
 
-  function addPontoLinha(){
+  function addPontoLinha() {
     for (var i = 0; i < vetorPonto.length; i++) {
       var varAtual = vetorPonto[i];
 
@@ -396,12 +388,12 @@ function cadastrarPonto() {
     }
   }
 
-  function selectPontosVetor(nomePontoVetor){
+  function selectPontosVetor(nomePontoVetor) {
     var nomePonto = nomePontoVetor;
 
     fetch(`/ponto/listarPorNome/${nomePontoVetor}`, {
       cache: "no-store",
-    }).then(function (resposta){
+    }).then(function (resposta) {
       console.log("ESTOU NO THEN DO SELECTLINHA()!!!!!!!!!!!")
 
       if (resposta.ok) {
@@ -426,7 +418,7 @@ function cadastrarPonto() {
     return false;
   }
 
-  function cadPontosLinha(vetorPontoCad){
+  function cadPontosLinha(vetorPontoCad) {
     var idPonto = vetorPontoCad;
     var idLinha = sessionStorage.ID_LINHA;
 
@@ -454,7 +446,7 @@ function cadastrarPonto() {
     });
 
     return false;
-    
+
   }
 
 </script>
