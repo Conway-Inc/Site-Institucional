@@ -458,22 +458,25 @@
         var corClassific = "";
         var nomeClassific = "";
         var contorno = "";
-        if (otimizacao >= 80) {
-            corClassific = "#00BF63";
-            nomeClassific = "Ideal";
-        }
-        else if (otimizacao > 30) {
-            corClassific = "#fbff1a";
-            nomeClassific = "Boa";
-            contorno = "-webkit-text-stroke: black 0.5px";
-        }
-        else {
-            corClassific = "#DB0300";
-            nomeClassific = "Ruim";
-        }
+            if (otimizacao >= 80) {
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
 
         var tituloRota = document.getElementById("tituloRota");
-        tituloRota.style = `background-color: ${corClassific}; ${contorno}`;
+        tituloRota.style = `background-color: ${corClassific};`;
         pClassificacao.innerHTML = nomeClassific;
         pClassificacao.className = "classific" + nomeClassific;
 
@@ -608,4 +611,5 @@
             });
     }
 
+    
 </script>
