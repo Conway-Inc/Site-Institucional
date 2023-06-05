@@ -45,9 +45,22 @@ function excluirVeiculo(idVeiculo) {
   return database.executar(instrucao);
 }
 
+
+function graficoModelo(codLinha, horario) {
+  var instrucao = `SELECT v.* FROM Veiculo v JOIN Viagem vi ON v.idVeiculo = vi.fkVeiculo
+  JOIN Linha l ON vi.fkLinha = l.idLinha 
+  WHERE (l.idLinha = '${codLinha}')
+  AND vi.horaInicio <= '${horario}'
+  AND (vi.horaFim IS NULL OR vi.horaFim >= '${horario})';`
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   cadastrarVeiculo,
   excluirVeiculo,
   alterarVeiculo,
-  listar
+  listar,
+  graficoModelo
 };

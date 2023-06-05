@@ -4,9 +4,9 @@ function horariosPorRota(codLinha){
     console.log("ACESSEI O VIAGEM MODEL \n", codLinha)
     var instrucao = 
     `select hour(horaInicio) as horario
-    from fluxo as f
-        join viagem as v on f.fkViagem = v.idViagem
-        join linha as l on l.idLinha = v.fkLinha
+    from Fluxo as f
+        join Viagem as v on f.fkViagem = v.idViagem
+        join Linha as l on l.idLinha = v.fkLinha
         where codLinha = '${codLinha}'
         group by hour(horaInicio)`;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -34,8 +34,8 @@ function mediaPassageirosPorHorario(codLinha){
     `select hour(horaInicio) as horario,
     round(avg(saldoPassageiros),1) as mediaPass,
     round(avg(lotacao),0) as lotacao
-    from vwviagem as vw
-           join fluxo as f on vw.idViagem = f.fkViagem
+    from vwViagem as vw
+           join Fluxo as f on vw.idViagem = f.fkViagem
            where vw.codLinha = '${codLinha}'
            group by horario;`;
               console.log("Executando a instrução SQL: \n" + instrucao);
@@ -50,7 +50,7 @@ function fluxoViagens(codLinha){
     hour(horaInicio) as horario,
     round(avg(saldoPassageiros),1) as saldoPass
             from vwFluxo as f
-            join viagem as v on f.fkViagem = v.idViagem
+            join Viagem as v on f.fkViagem = v.idViagem
             where CodLinha = '${codLinha}'
             group by hour(horaInicio), idPonto;`
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -65,7 +65,7 @@ function fluxoDias(codLinha, data){
     date_format(horaInicio, "%d-%m-%Y %h:%m") as dataV,
     round(avg(saldoPassageiros),1) as saldoPass
             from vwFluxo as f
-            join viagem as v on f.fkViagem = v.idViagem
+            join Viagem as v on f.fkViagem = v.idViagem
             where CodLinha = '${codLinha}' and hour(horaInicio) = ${data}
             group by dataV, idPonto;`
     console.log("Executando a instrução SQL: \n" + instrucao);
