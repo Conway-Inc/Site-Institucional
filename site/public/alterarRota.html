@@ -32,7 +32,6 @@
   <div class="header">
     <div class="container">
       <ul>
-        <li><a href=""> CONFIGURAÇÕES </a></li>
         <li><a href="menuDashboard.html"> VOLTAR </a></li>
       </ul>
     </div>
@@ -46,13 +45,13 @@
         <div class="content">
           <div class="formRotas" style="display: flex;">
             <label for="iptCodRota">
-              <p>Nome da rota:</p>
-              <input type="text" placeholder="0B19" id="iptCodRota" />
+              <p>Código da linha:</p>
+              <input type="text" placeholder="Ex: 775N, 8707, 177H..." id="iptCodRota" />
               <p>Tipo de Linha:</p>
-              <input type="text" id="iptTipoLinha" placeholder="10" />
-              <p>Ponto Inicial:</p>
+              <input type="text" id="iptTipoLinha" placeholder="Normal(10), Noturna(21~29), etc..." />
+              <p>Nome da linha na ida:</p>
               <input type="text" id="iptPontoInicial" placeholder="Ex: Bairro Campestre - Rodoviária" />
-              <p>Ponto Final:</p>
+              <p>Nome da linha na volta:</p>
               <input type="text" id="iptPontoFinal" placeholder="Ex: Jardim Aclimação" />
               <button onclick="cadastrarLinha()">Cadastrar Linha</button>
             </label>
