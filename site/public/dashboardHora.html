@@ -80,9 +80,6 @@
                         </div>
                     </div>
                 </div>
-                <div id="containerGraficoVeiculos">
-                    <canvas id="graficoVeiculos"></canvas>
-                </div>
                 <a href="dashboardGeral.html">< VOLTAR</a>
             </div>
             <!--Fim da barra lateral dos veículos nessa rota-->
@@ -283,6 +280,7 @@
         }
         gerarGraficoFluxoHora(logs, fluxoTratado);
         configKPIdias();
+        graficoModelo()
     }
 
     function configKPIdias(){
@@ -391,49 +389,16 @@
             configGraficoGeral
         );
     }
-    
 
-    // Gráfico dos ônibus na rota
-    // Todos os modelos:
-    // const modelos = [
-    //     "Miniônibus",
-    //     "Midiônibus",
-    //     "Básico",
-    //     "Padron",
-    //     "Articulado",
-    //     "Biarticulado"
-    // ]
-     const modelos = [
-         "Básico",
-         "Padron",
-    ]
-    const dadosVeiculos = {
-        labels:modelos,
-        datasets: [{
-                data: [2,1],
-                backgroundColor: ['#69503C','#BD916E']
-            }
-        ]
-    }
-    const configGraficoVeiculos = {
-        type: "pie",
-        data: dadosVeiculos,
-        options: {
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
-    }
-    const graficoVeiculos = new Chart(
-        document.getElementById("graficoVeiculos"),
-        configGraficoVeiculos
-    );
-
-    graficoModelo()
     function graficoModelo() {
-        fetch(`veiculos/graficoModelo/${sessionStorage.COD_ROTA}/${horario}`)
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        fetch(`veiculos/graficoModelo/${codRota}/${horarioCortado}`)
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
@@ -456,7 +421,6 @@
                             veiculo.className = 'tabelaVeiculosLinha';
 
                             listaVeiculos.appendChild(veiculo);
-
                         }
                     });
                 } else {

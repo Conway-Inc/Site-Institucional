@@ -51,7 +51,7 @@ function graficoModelo(codLinha, horario) {
   JOIN Linha l ON vi.fkLinha = l.idLinha 
   join Modelo m on m.idModelo = v.fkModelo
   WHERE (l.codLinha = '${codLinha}')
-  AND hour(vi.horaInicio) <= '${horario}';`
+  AND hour(vi.horaInicio) <= ${horario};`
 
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

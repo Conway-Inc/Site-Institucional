@@ -209,11 +209,6 @@ details{
     /*Aqui é usado o 'border-top' para fechar a tabela por cima, já que só as bordas de baixo de cada linha são pintadas,
     como descrito acima*/
 }
-#containerGraficoVeiculos{
-    align-self: center; 
-    margin: 10px 0;
-    width: 50%;
-}
 #sidebarOutrosDados a{
     align-self: center;
     font-size: 22px;
@@ -231,7 +226,7 @@ details{
 }
 
 .classificRuim, .classificRegular, .classificBoa, .classificIdeal{
-    top: 55px;
+    top: 50px;
     font-size: 14px !important;
     position: absolute;
     -webkit-text-stroke: black 0.5px;

@@ -51,7 +51,7 @@ case when (100 * f.saldoPassageiros)/m.lotacao >= 111 then -- Tirando a porcenta
 		'Insuficiente'
 	 when (100 * f.saldoPassageiros)/m.lotacao between 0 and 30 then 
 		'Vazio'
-	end as metrica,
+	end as metrica, (100 * f.saldoPassageiros)/m.lotacao as pctLotacao,
 l.codLinha, l.nomeLinhaIda, l.nomeLinhaVolta,
 v.placaVeiculo, m.lotacao, m.nomeModelo, e.nome
 	   from Fluxo as f
