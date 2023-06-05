@@ -46,6 +46,17 @@
     width: 35px;
 }
 
+li{
+    display: flex;
+}
+
+details{
+    width: 200px;
+}
+
+summary{
+    margin-left: 10px;
+}
 
 ul li a:hover {
     border-bottom: 3px solid #69503c;
@@ -55,6 +66,7 @@ ul li a:hover {
 .meio {
     display: flex;
     padding-top: 20px;
+    justify-content: space-around;
 }
 
 .perguntasV1 {
@@ -82,7 +94,11 @@ ul li a:hover {
     padding-left: 280px;
 }
 
-
+.texto{
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+}
 
 .texto span {
     font-family: "Agrandir Regular";
@@ -90,7 +106,6 @@ ul li a:hover {
     display: flex;
    justify-content: flex-end;
    padding-top: 80px;
-   padding-left: 650px;
    padding-right: 20px;
    font-size: 20px;
 }
@@ -106,11 +121,11 @@ margin-top: 20px;
 
 .botao {
     display: flex;
-    width: 82%;
-    justify-content: flex-end;
+    justify-content: center;
 }
-.btn-area {
-    width: 85px;
+
+.botao button {
+    width: 120px;
     align-self: center;
     border-radius: 38px;
     border-style: none;
@@ -119,4 +134,8 @@ margin-top: 20px;
     padding: 10px 25px 10px 25px;
     font-size: medium;
     margin-top: 20px;
+}
+
+.botao button:hover{
+    cursor: pointer;
 }
