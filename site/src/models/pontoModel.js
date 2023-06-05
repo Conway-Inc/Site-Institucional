@@ -33,9 +33,9 @@ function listar() {
 function listarPorCodLinha(codLinha) {
   console.log("ACESSEI O PONTO MODEL \n \n\t\t >> Se aqui der erro de 'Erro: connect ECONNREFUSED', \n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor do seu BD está rodando corretamente. \n\n function listar()");
 
-  var instrucao = `SELECT * FROM ponto as p
-    join linhaPonto as lp on p.idPonto = lp.fkPonto
-    join linha as l on lp.fkLinha = l.idLinha
+  var instrucao = `SELECT * FROM Ponto as p
+    join LinhaPonto as lp on p.idPonto = lp.fkPonto
+    join Linha as l on lp.fkLinha = l.idLinha
     where l.codLinha = '${codLinha}'`;
 
   console.log("Executando a instrução SQL: \n"  + instrucao);
