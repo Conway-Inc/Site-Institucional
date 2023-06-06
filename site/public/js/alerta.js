@@ -19,11 +19,10 @@ function exibirCards(codLinha, pctOtimizacao) {
         var alerta = document.createElement("div");
         alerta.innerHTML = `<div class="mensagem-alarme">
         <div class="informacao">
-            <div style"color: '#DB0300'">&#12644;</div> 
             <h3>${codLinha} está ruim!</h3>
             <small>Otimização ${pctOtimizacao}%</small>   
-        </div>
-        <div class="alarme-sino"></div>
+            </div>
+            <div class="alarme-sino"></div>
     </div>
     `;
         console.log(alerta)
