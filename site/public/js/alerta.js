@@ -3,6 +3,9 @@ function alertar(rotas) {
   // abaixo de 30
   for (let i = 0; i < rotas.length; i++) {
     if (rotas[i].pctOtimizacao < 30) {
+      if(rotas[i].pctOtimizacao == null){
+        rotas[i].pctOtimizacao = 0;
+      }
       exibirCards(rotas[i].codLinha, rotas[i].pctOtimizacao, i);
     }
   }
