@@ -8,7 +8,7 @@
 #containerAlertas{
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 10%;
     width: 285px;
     padding: 0 10px;
 }

@@ -54,7 +54,7 @@
             <!--Início da área do gráfico da dashboard-->
             <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
                 <h2 id="titHorario"></h2><!--cada horário por si só.-->
-                <canvas id="graficoRota"></canvas>
+                <canvas id="graficoRota" class="graficoLoading"></canvas>
             </div>
             <!--Fim da área do gráfico da dashboard-->
         </div>
@@ -470,6 +470,7 @@
                 }
             }
         }
+        graficoRota.className = "";
         graficoGeral = new Chart(
             document.getElementById("graficoRota"),
             configGraficoGeral
