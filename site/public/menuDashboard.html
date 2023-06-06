@@ -17,6 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
     <script src="js/alerta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </head>
 
   <body onload="suaRota()" id="body">
@@ -52,46 +54,6 @@
           <div class="content" id="content"></div>
         </div>
 
-        <!-- Início do Modal para cadastrar pontos -->
-        <!-- <input class="modal-state" id="modal-4" type="checkbox" />
-        <div class="modal modal4">
-          <label class="modal__bg" for="modal-4"></label>
-          <div class="modal__inner">
-            <div class="container">
-              <label class="modal__close" for="modal-4"></label>
-
-              <span class="addRota">
-                <div class="div_ipt">
-                  <input
-                    class="ipt_func"
-                    placeholder="Logradouro"
-                    id="ipt_logradouro"
-                  />
-                  <span id="cepNumero">
-                    <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
-                    <input class="ipt_func" placeholder="Número" id="ipt_num" />
-                  </span>
-                  <br />
-                </div>
-
-                <div class="div_ipt">
-                  <h3>Coordenadas geográficas</h3>
-                  <p>(Opcional)</p>
-                  <span id="coordenadas">
-                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
-                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
-                  </span>
-                </div>
-
-                <div class="btnRota">
-                  <button onclick="cadastrarPonto()">Adicionar</button>
-                </div>
-              </span>
-            </div>
-          </div>
-        </div> -->
-        <!-- Fim do Modal para cadastrar pontos -->
-
         <!-- Conteúdo - Funcionários -->
         <aside>
           <div class="imgHeader">
@@ -114,6 +76,16 @@
 </html>
 
 <script>
+  function adicionar(link){
+    sessionStorage.ID_LINHA = null;
+    sessionStorage.COD_LINHA = null;
+    sessionStorage.TIPO_LINHA = null;
+    sessionStorage.NOME_IDA_LINHA = null;
+    sessionStorage.NOME_VOLTA_LINHA = null;
+
+    window.location = "alterarRota.html";
+  }
+
   var veiculos = [];
   var rotas = [];
   function suaFrota() {
@@ -282,10 +254,12 @@
             var sinalAdicionar = document.createElement("h2");
             var textoAdicionar = document.createElement("p");
 
-            botaoAdicionar.href = "alterarRota.html";
             sinalAdicionar.innerHTML = "+";
             textoAdicionar.innerHTML = "Adicionar nova rota";
             botaoAdicionarDiv1.id = "visu05";
+            botaoAdicionarDiv1.addEventListener("click", (click) =>
+                adicionar("aaaaaaaaaaaaaaaaaaaaaaaaa")
+              );
             botaoAdicionarDiv2.className = "cardVeiculo";
 
             botaoAdicionar.appendChild(botaoAdicionarDiv1);
@@ -733,7 +707,22 @@
     sessionStorage.NOME_IDA_LINHA = rotas[index].nomeLinhaIda
     sessionStorage.NOME_VOLTA_LINHA = rotas[index].nomeLinhaVolta
 
+    Swal.fire({
+      title: sessionStorage.COD_LINHA,
+      text: 'O que você deseja fazer com essa rota?',
+      showDenyButton: true,
+      showCancelButton: true,
 
-    window.location = "alterarRota.html";
+      confirmButtonText: "Visualizar na dashboard",
+      denyButtonText: "Editar",
+      cancelButtonText: "Fechar"
+    }).then((result) => {
+      if(result.isConfirmed){
+        window.location = "dashboardGeral.html";
+      }
+      if(result.isDenied){
+        window.location = "alterarRota.html";
+      }
+    });
   }
 </script>

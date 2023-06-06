@@ -47,16 +47,16 @@
     <div class="esquerda">
       <span class="campos">Nome fantasia:
         <input id="ipt_nome_empresa" placeholder="Nome fantasia da empresa" /></span>
-      <span class="campos">CNPJ: <input id="ipt_cnpj" placeholder="CNPJ da empresa (sem pontuação)" /></span>
+      <span class="campos">CNPJ da empresa: <input id="ipt_cnpj" placeholder="CNPJ sem pontuação" /></span>
       <span class="campos">Nome do representante:
         <input id="ipt_representante" placeholder="Nome do responsável pela empresa" /></span>
-      <span class="campos">E-mail:
+      <span class="campos">E-mail do representante:
         <input type="email" id="ipt_email" placeholder="Email do representante" /></span>
       <p>O representante da empresa poderá cadastrar acessos para outros funcionários após acessar o sistema.</p>
     </div>
     <div class="direita">
-      <span class="campos">CPF:
-        <input id="ipt_cpf" placeholder="CPF do representante(sem pontuação)" /></span>
+      <span class="campos">CPF do representante:
+        <input id="ipt_cpf" placeholder="CPF sem pontuação" /></span>
       <span class="campos">Celular de contato:
         <input id="ipt_cel" placeholder="Telefone de contato do representante" /></span>
       <span class="campos">Senha:
@@ -148,17 +148,17 @@
     const ax_senha = ipt_senha.value;
     const ax_confirmar_senha = ipt_confSenha.value;
 
-    var correcao_nome_fantasia = ax_nome_fantasia == "";
-    var correcao_cnpj = ax_cnpj == "";
-    var correcao_cnpj02 = ax_cnpj.length > 14 || ax_cnpj < 0;
-    var correcao_representante = ax_representante == "";
-    var correcao_email = ax_email == "" || ax_email.indexOf("@") <= -1;
-    var correcao_cpf = ax_cpf == "" || ax_cpf.length > 11;
-    var correcao_contato = ax_celular == "";
-    var correcao_senha = ax_senha == "";
-
+    var correcao_nome_fantasia = ax_nome_fantasia >= 45;
+    var correcao_cnpj = ax_cnpj.length != 14;
+    var correcao_email = ax_email.indexOf("@") <= -1;
+    var correcao_cpf = ax_cpf.length != 11;
+    
     var correcao_confirmacao_senha = ax_confirmar_senha != ax_senha;
-    var correcao_confirmacao_senha2 = ax_confirmar_senha == "";
+    
+    var tamanho_representando = ax_representante.length;
+    var tamanho_email = ax_email.length;
+    var tamanho_celular = ax_celular.length;
+    var tamanho_senha = ax_senha.length;
 
     var senha_correta =
       ax_senha.indexOf(0) >= 1 ||
@@ -177,38 +177,54 @@
       ax_senha.indexOf("#") == 1 ||
       ax_senha.indexOf("_") >= 1;
 
-    if (correcao_nome_fantasia) {
-      alert("Favor inserir nome da empresa.");
-    } else if (correcao_cnpj) {
-      alert("Favor inserir o cnpj.");
-    } else if (correcao_cnpj) {
-      alert("Favor corrigir o cnpj.");
-    } else if (correcao_representante) {
-      alert(
-        "Favor inserir o nome de um representante (Pessoa que terá amplo acesso e poderá conceder acesso a outros usuários)."
-      );
-    } else if (correcao_email) {
-      alert("Favor corrigir o e-mail.");
-    } else if (correcao_cpf) {
-      alert(
-        "Favor inserir corretamente o número do CPF (não inserir com traço, ponto ou barra)."
-      );
-    } else if (correcao_contato) {
-      alert(
-        "Favor inserir um número de contato(prefencialmente, o número de um celular)."
-      );
-    } else if (correcao_senha) {
-      alert("Insira uma senha, para a segurança de seus dados.");
-    } else if (senha_correta == false && senha_correta02 == false) {
-      alert("Insira pelo menos um número e um caracter espercial (*, # ou _ )");
-    } else if (correcao_confirmacao_senha) {
-      alert(
-        "A senha inserida no campo 'Confirmar senha' está diferente da senha inserida anteriormente. Favor corrigir."
-      );
-    } else if (correcao_confirmacao_senha2) {
-      alert("Por favor, confirme a senha.");
-    } else {
+    var textoAlerta = "";
+
+    var campos = [ax_nome_fantasia,ax_cnpj,ax_representante,ax_email,ax_cpf,ax_celular,ax_senha,ax_confirmar_senha];
+
+    for (var i = 0; i < campos.length; i++) {
+      if(campos[i] == ""){
+        textoAlerta += "Preencha todos os campos.\n";
+        break;
+      }
+    }
+    
+    if (correcao_cnpj) {
+      textoAlerta += "Favor inserir um CNPJ válido, sem pontuações.\n";
+    }
+    if (correcao_email) {
+      textoAlerta += "Favor inserir um e-mail válido.\n";
+    } 
+    if (correcao_cpf) {
+      textoAlerta += 
+        "Favor inserir um CPF válido, sem pontuações.\n";
+    }
+    if (senha_correta == false && senha_correta02 == false) {
+      textoAlerta += "Insira pelo menos um número e um caracter especial (*, # ou _ ) na senha.\n";
+    }
+    if (correcao_confirmacao_senha) {
+      textoAlerta += 
+        "A senha do campo 'Confirmar senha' está diferente da senha inserida anteriormente.\n"
+    }
+
+    if(tamanho_representando > 75){
+      textoAlerta += "O nome do representante deve ter no máximo 75 caracteres.";
+    }
+    if(tamanho_email > 100){
+      textoAlerta += "O email do representante deve ter no máximo 100 caracteres.";
+    }
+    if(tamanho_celular > 11){
+      textoAlerta += "O celular com o DDD e sem pontuação, deve ter no máximo 11 caracteres.";
+    }
+    if(tamanho_senha > 10){
+      textoAlerta += "A senha deve ter no máximo 10 caracteres.";
+    }
+
+    if(textoAlerta == ""){
       return true;
+    }
+    else{
+      alert(textoAlerta);
+      return false;
     }
   }
 
