@@ -552,7 +552,7 @@
             `;
       botoesEditarExcluir = `
             <div class="btnFunc">
-                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                <button class="btn_adicionar_mais" onclick="atualizarFuncionario()"><b>Editar</b></button>
                 <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
             </div>`;
     }
@@ -672,6 +672,9 @@
         //   );
         // }
         console.log(resposta);
+        setTimeout(() => {
+          location.reload()
+        }, 1000)
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -688,7 +691,9 @@
     })
       .then(function (resposta) {
         console.log(resposta);
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 2000)
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -730,4 +735,50 @@
       }
     });
   }
+
+  function cadastrarFuncionario() {
+        const nome = ipt_funcionario.value;
+        const email = ipt_email.value;
+        const cpf = ipt_cpf.value;
+        const celular = ipt_cel.value;
+        const senha = ipt_senha.value;
+        const foto = ipt_foto.value;
+        var idRepresentante = sessionStorage.ID_FUNCIONARIO;
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+        if (validar()) {
+            fetch("/usuarios/cadastrarFuncionario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeFuncionarioServer: nome,
+                    emailServer: email,
+                    cpfServer: cpf,
+                    celularServer: celular,
+                    senhaServer: senha,
+                    fotoFuncionarioServer: foto,
+                    fkEmpresaServer: fkEmpresa,
+                    fkRepresentanteServer: idRepresentante
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        // cardErro.style.display = "block";
+
+                        // mensagem_erro.innerHTML =
+                        //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+                        alert("Cadastro realizado com sucesso!")
+                        setTimeout(() => {
+                          location.reload()
+                        }, 1000);
+                    }
+                })
+        }
+    }
 </script>
