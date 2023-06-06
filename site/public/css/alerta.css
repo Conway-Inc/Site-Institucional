@@ -1,4 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Agrandir Regular";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+
+
 .mensagem-alarme {
+    font-family: 'Agrandir Regular';
     position: absolute;
     top: 0px;
     right: 0px;
@@ -10,6 +19,10 @@
     width: 300px;
     border-radius: 20%;
     font-size: 4vh;
+}
+
+.mensagem-alarme p {
+    cursor: pointer;
 }
 
 .mensagem-alarme h3 {
