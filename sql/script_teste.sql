@@ -114,8 +114,8 @@ from Linha as l
 -- Horários mais/menos vazios com média de passageiros por ponto
 select substring(horaInicio, 12, 5) as horario,
 	   round(avg(saldoPassageiros),1) as mediaPass
-       from vwviagem as vw
-			  join fluxo as f on vw.idViagem = f.fkViagem
+       from vwViagem as vw
+			  join Fluxo as f on vw.idViagem = f.fkViagem
               where vw.codLinha = '477P'
               group by horario;
 
@@ -170,7 +170,7 @@ select *,
 		 join Viagem as v on v.fkLinha = l.idLinha
          join Veiculo as veic on v.fkVeiculo = veic.idVeiculo) as numVeiculos
          from vwLinha as vwl
-         join empresa as e on vwl.fkEmpresa = e.idEmpresa
+         join Empresa as e on vwl.fkEmpresa = e.idEmpresa
          where e.idEmpresa = 1;
 
 -- ------------- --
