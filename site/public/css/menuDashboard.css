@@ -224,6 +224,7 @@ main{
 .tituloBus p{
     padding-left: 10px;
     margin: 0;
+    overflow-wrap: anywhere;
 }
 
 .qtdVeic{
