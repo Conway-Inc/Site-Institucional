@@ -349,8 +349,9 @@ aside .btn_adicionar_mais:hover{
 }
 
 .formRotas {
-    width: 50%;
-    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .datalistPonto button{

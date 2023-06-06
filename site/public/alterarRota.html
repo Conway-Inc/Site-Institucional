@@ -38,8 +38,8 @@
     <div class="conteudos">
       <div class="caixaContent">
         <div class="content">
-          <div class="formRotas" style="display: flex;">
-            <label for="iptCodRota">
+          <div class="formRotas">
+            <div for="iptCodRota" id="formRotaPT1">
               <p>Código da linha:</p>
               <input type="text" placeholder="Ex: 775N, 8707, 177H..." id="iptCodRota" />
               <p>Tipo de Linha:</p>
@@ -48,8 +48,8 @@
               <input type="text" id="iptPontoInicial" placeholder="Ex: Bairro Campestre - Rodoviária" />
               <p>Nome da linha na volta:</p>
               <input type="text" id="iptPontoFinal" placeholder="Ex: Jardim Aclimação" />
-              <button id="btnCadastro">Cadastrar Linha</button>
-            </label>
+              <button id="btnCadastro">Cadastrar linha</button>
+            </div>
 
               <!-- Início do Modal para cadastrar pontos -->
               <!-- <div class="modal modal4">
@@ -57,8 +57,8 @@
             <div class="container" id="container">
               <span class="addRota">
                 <div class="div_ipt">
-                  <label>Cadastrar Pontos</label>
-                  <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro" />
+                  <label>Cadastrar novos pontos</label>
+                  <input class="ipt_func" placeholder="Logradouro" id="ipt_logradouro"   />
                   <span id="cepNumero">
                     <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
                     <input class="ipt_func" placeholder="Número" id="ipt_num" />
@@ -80,27 +80,17 @@
                 </div>
               </span>
             </div>
-          </div>
-          <!-- </div>
-            </div> -->
-
-          <div class="cadPontoLinha" id="cadPontoLinha">
-            <label>Cadastrar Pontos na Linha</label>
-            <div class="datalistPonto">
-              <input list="browsers" name="browser" id="browser">
-              <datalist id="browsers">
-                <!-- <option value="Ponto01" id="testePontos"></option>  -->
-                <!-- <option value="Ponto02"></option>
-                      <option value="Ponto03"></option>
-                      <option value="Ponto04"></option>
-                      <option value="Ponto05"></option> -->
-              </datalist>
-              <button onclick="addPonto()" id="btnAddPontoLinha">Adicionar Ponto a Linha</button>
+            <div class="cadPontoLinha" id="cadPontoLinha">
+              <label>Cadastrar pontos na linha</label>
+              <div class="datalistPonto">
+                <input list="browsers" name="browser" id="browser">
+                <datalist id="browsers"></datalist>
+              </div>
               <label>Pontos Cadastrados</label>
               <div id="pontosAdicionados"></div>
+              <button onclick="addPonto()" id="btnAddPontoLinha">Adicionar Ponto a Linha</button>
             </div>
           </div>
-          <!-- Fim do Modal para cadastrar pontos -->
         </div>
 
 
@@ -117,27 +107,7 @@
       <div class="btnReload" id="btnReload">
         <button onclick="recarregar()"><b>Cadastrar Outra Linha</b></button>
       </div>
-
     </div>
-
-    <!-- Conteúdo - Veículos -->
-    <aside>
-      <div class="imgHeader">
-        <img id="imgEmpresa" alt="" />
-      </div>
-
-      <div class="funcionarios">
-        <p>Suas Rotas:</p>
-        <ul>
-        </ul>
-
-        <p><b>Clique na rota para gerenciá-la ou excluí-la</b></p>
-      </div>
-    </aside>
-    <!-- Fim do Conteúdo - Veículos -->
-    </div>
-
-
   </main>
   <!-- Fim do Conteúdo - Gráficos -->
 </body>
@@ -146,9 +116,6 @@
 <script>
   let voltar = document.getElementById("btnVoltar")
   voltar.addEventListener("click", (click) => {sessionStorage.ID_LINHA = 0})
-
-  imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
-  imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
 
   var pontos = [];
   var vetorPonto = [];
@@ -185,8 +152,12 @@
             var publicacao = resposta[i];
 
             var opcao = document.createElement("option");
-
-            opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
+            if(publicacao.numNaRua != null){
+              opcao.innerHTML = `${publicacao.logradouro}, ${publicacao.numNaRua}`;
+            }
+            else{
+              opcao.innerHTML = `${publicacao.logradouro}`;
+            }
 
             feed.appendChild(opcao);
           }

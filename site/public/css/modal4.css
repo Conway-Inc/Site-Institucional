@@ -16,11 +16,6 @@
   display: none;
 }
 
-
-.addRota, .div_ipt{
-  width: 250px;
-}
-
 .div_ipt label, .cadPontoLinha label{
   font-family: 'Poppins';
   color: #69503c;     

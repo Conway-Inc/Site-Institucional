@@ -5,6 +5,18 @@
   src: url(../fonts/Agrandir-Regular.otf);
 }
 
+.container{
+    margin: 0 10px !important;
+}
+.addRota, .addRota div, #cepNumero{
+    display: flex;
+    flex-direction: column;
+}
+#formRotaPT1{
+    display: flex;
+    flex-direction: column;
+}
+
 #imgOnibusCriacao {
     height: 150px;
     width: 80%;
@@ -23,9 +35,13 @@
     justify-content: space-evenly;
 }
 
+.conteudos{
+    width: 100%;
+}
 .conteudos .caixaContent {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 p, input, option, select {
@@ -51,7 +67,7 @@ p, input, option, select {
     padding: 10px 25px 10px 25px;
     font-family: 'Poppins';
     font-size: medium;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 button:hover {
