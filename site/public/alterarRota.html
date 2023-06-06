@@ -27,7 +27,7 @@
     </svg>
     <h1 id="tipoSessao"></h1>
     <div>
-      <a href="menuDashboard.html"> VOLTAR </a>
+      <a href="menuDashboard.html" id="btnVoltar"> VOLTAR </a>
     </div>
   </div>
   </div>
@@ -48,7 +48,7 @@
               <input type="text" id="iptPontoInicial" placeholder="Ex: Bairro Campestre - Rodoviária" />
               <p>Nome da linha na volta:</p>
               <input type="text" id="iptPontoFinal" placeholder="Ex: Jardim Aclimação" />
-              <button onclick="cadastrarLinha()" id="btnCadastro">Cadastrar Linha</button>
+              <button id="btnCadastro">Cadastrar Linha</button>
             </label>
 
               <!-- Início do Modal para cadastrar pontos -->
@@ -144,6 +144,8 @@
 
 </html>
 <script>
+  let voltar = document.getElementById("btnVoltar")
+  voltar.addEventListener("click", (click) => {sessionStorage.ID_LINHA = 0})
 
   imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
   imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
@@ -525,6 +527,7 @@
       selectPontosVetor(vetorPonto[i].logr);
       cadPontosLinha(vetorPonto[i].idPonto);
     }
+    sessionStorage.ID_LINHA = 0
   }
 
   function selectPontosVetor(nomePontoVetor) {
@@ -642,15 +645,35 @@
       }),
     })
       .then(function (resposta) {
-        console.log("Resposta: ", resposta);
-        resposta
-          .json()
-          .then(function (resposta) {
-            sessionStorage.ID_LINHA = 0
-            console.log(resposta);
-          })
-          .catch(console.error(resposta));
-      })
-      .catch(console.error(resposta));
-  }
+        if (resposta.ok) {
+          swal({
+            title: "Linha Atualizada com sucesso",
+            text: `Agora adicione os pontos a esta linha, se precisar cadastre novos pontos`,
+            icon: "success",
+            timer: 3000,
+            button: false,
+          });
+
+          setTimeout(()=>{
+            window.location = "./menuDashboard.html"
+          }, 1000)
+
+        } else {
+          throw ("Houve um ERRO ao tentar realizar o cadastro!");
+        }
+        }).catch(function (resposta) {
+
+        swal({
+          title: "Não foi possível atualizar a linha",
+          text: `${resposta}`,
+          icon: "error",
+          timer: 4000,
+          button: false,
+        });
+
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+      return false;
+    }
 </script>
