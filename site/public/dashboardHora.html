@@ -306,12 +306,20 @@
             }
         }
     }
-
+    
     var fluxoTratado = [];
     var kpiDias = [];
+    var graficoCriado = false;
+
+    setInterval(() =>{
+        carregarFluxo();
+    },3000)
+    
     function configFluxo(){
+        fluxoTratado = []
         for (let i = 0; i < dias.length; i++) {
             let data = [];
+            kpiDias = [];
             kpiDias.push({ 
                 dia: dias[i].diaSemana,
                 saldoAcumulado: 0 });
@@ -321,12 +329,23 @@
                     kpiDias[i].saldoAcumulado += Number(fluxo[c].saldoPass);
                 }
             }
+
             var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/") + " " + (dias[i].diaSemana).slice(0,3) + ".";
             fluxoTratado.push({label: diaFluxo, data});
+            
         }
-        gerarGraficoFluxoHora(logs, fluxoTratado);
+
+        if(!graficoCriado){
+            graficoCriado = true;
+            gerarGraficoFluxoHora(logs, fluxoTratado);
+        }
+        else{
+            console.log(fluxoTratado);
+            graficoGeral.destroy();
+            gerarGraficoFluxoHora(logs, fluxoTratado).update();
+        }
         configKPIdias();
-        graficoModelo()
+        
     }
 
     function configKPIdias(){
@@ -366,6 +385,7 @@
         kpiLogMenosMov.innerHTML = vazio.logradouro;
     }
 
+    var graficoGeral = null;
     function gerarGraficoOtimizacao(pDias) {
         var otimizacao = 0;
 
@@ -441,6 +461,7 @@
             type: "line",
             data: dadosHora,
             options: {
+                animation: false,
                 maintainAspectRatio: false,
                 scales: {
                     y: {
@@ -450,10 +471,12 @@
             }
         }
         graficoRota.className = "";
-        const graficoGeral = new Chart(
+        graficoGeral = new Chart(
             document.getElementById("graficoRota"),
             configGraficoGeral
         );
+
+        return graficoGeral;
     }
 
     function graficoModelo() {
