@@ -43,9 +43,17 @@ function exibirCards(codLinha, pctOtimizacao, index) {
   mensagem.appendChild(btnFechar);
 
   body.appendChild(mensagem);
+
+  mensagem.addEventListener("mouseenter", () => {focarNoBotao(true)})
+  mensagem.addEventListener("mouseleave", () => {focarNoBotao(false)})
 }
 
 function excluirAlerta(index) {
   let alerta = document.getElementById(`alerta${index}`);
   alerta.remove();
+}
+
+function focarNoBotao(focar){
+    let alertas = document.getElementsByClassName("mensagem-alarme")
+    alertas.focus();
 }

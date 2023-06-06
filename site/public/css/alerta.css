@@ -19,6 +19,10 @@
     width: 300px;
     border-radius: 20%;
     font-size: 4vh;
+    border: solid 1px white;
+    animation-name: pulsar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 
 .mensagem-alarme p {
@@ -62,3 +66,16 @@ small {
     width: 50%;
     flex-direction: column;
 }
+
+
+@-webkit-keyframes pulsar{
+    0% {
+      box-shadow: 0 0 0 0px white;
+    }
+    70% {
+        box-shadow: 0 0 0 5px #dd0000a4;
+    }
+    100% {
+        box-shadow: 0 0 0 0px white;
+    }
+  }
