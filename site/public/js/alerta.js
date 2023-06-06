@@ -2,7 +2,7 @@ function alertar(rotas) {
   console.log(rotas);
   // abaixo de 30
   for (let i = 0; i < rotas.length; i++) {
-    if (rotas[i].pctOtimizacao < 300) {
+    if (rotas[i].pctOtimizacao < 30) {
       exibirCards(rotas[i].codLinha, rotas[i].pctOtimizacao, i);
     }
   }
