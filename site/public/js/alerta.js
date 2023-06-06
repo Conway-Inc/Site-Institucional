@@ -2,16 +2,21 @@ function alertar(rotas) {
   console.log(rotas);
   // abaixo de 30
   for (let i = 0; i < rotas.length; i++) {
-    if (rotas[i].pctOtimizacao < 300) {
+    if (rotas[i].pctOtimizacao < 30) {
+      if(rotas[i].pctOtimizacao == null){
+        rotas[i].pctOtimizacao = 0;
+      }
       exibirCards(rotas[i].codLinha, rotas[i].pctOtimizacao, i);
     }
   }
 }
 
+var containerAlerts = document.createElement("div");
+containerAlerts.id = "containerAlertas";
+
 function exibirCards(codLinha, pctOtimizacao, index) {
   body = document.getElementById("body");
 
-  
   let mensagem = document.createElement("div");
   mensagem.className = "mensagem-alarme";
   mensagem.id = `alerta${index}`;
@@ -27,7 +32,7 @@ function exibirCards(codLinha, pctOtimizacao, index) {
   let sino = document.createElement("div");
   sino.className = "alarme-sino";
 
-  let btnFechar = document.createElement("p");
+  let btnFechar = document.createElement("span");
   btnFechar.innerHTML = "X";
   btnFechar.addEventListener("click", () => {
     excluirAlerta(index);
@@ -35,6 +40,7 @@ function exibirCards(codLinha, pctOtimizacao, index) {
 
   informacao.className = "informacao";
   
+  containerAlerts.appendChild(mensagem);
   mensagem.appendChild(informacao);
   informacao.appendChild(estadoLinha);
   informacao.appendChild(otimizacao);
@@ -42,7 +48,7 @@ function exibirCards(codLinha, pctOtimizacao, index) {
   mensagem.appendChild(sino);
   mensagem.appendChild(btnFechar);
 
-  body.appendChild(mensagem);
+  body.appendChild(containerAlerts);
 
   mensagem.addEventListener("mouseenter", () => {focarNoBotao(true)})
   mensagem.addEventListener("mouseleave", () => {focarNoBotao(false)})
@@ -55,5 +61,4 @@ function excluirAlerta(index) {
 
 function focarNoBotao(focar){
     let alertas = document.getElementsByClassName("mensagem-alarme")
-    alertas.focus();
 }

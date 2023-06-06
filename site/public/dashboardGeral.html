@@ -72,7 +72,8 @@
             <div id="graficoDashboard">
                 <!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
                 <h2>Média geral dos horários da rota</h2><!--cada horário por si só.-->
-                <canvas id="graficoRota"></canvas>
+                <canvas id="graficoRota" class="graficoLoading">
+                </canvas>
             </div>
             <!--Fim da área do gráfico da dashboard-->
         </div>
@@ -235,8 +236,8 @@
                 console.log(`Pontos: ${JSON.stringify(resposta)}`);
                 pontos = resposta;
                 configPontos();
-                carregarFluxo();
-                    });
+                setInterval(()=>carregarFluxo(),1000);
+                });
                 }
             })
             .catch(function (error) {
@@ -432,8 +433,10 @@
     //     label: "12:00 (CCV-4234)" ,
     //     data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
     // }]
-    var fluxoTratado = [];
+    
+    var graficoCriado = false;
     function configFluxo(){
+        var fluxoTratado = [];
         for (let i = 0; i < horarios.length; i++) {
             let data = [];
             for (let c = 0; c < fluxo.length; c++) {
@@ -444,9 +447,18 @@
             var horarioFluxo = (horarios[i].horario);
             fluxoTratado.push({label: horarioFluxo, data});
         }
-        gerarGraficoFluxo(logs, fluxoTratado);
+        if(!graficoCriado){
+            graficoCriado = true;
+            gerarGraficoFluxo(logs, fluxoTratado);
+        }
+        else{
+            console.log(fluxoTratado);
+            graficoGeral.destroy();
+            gerarGraficoFluxo(logs, fluxoTratado).update();
+        }
     }
 
+    var graficoGeral = null;
     function gerarGraficoOtimizacao() {
         var otimizacao = Number(linha.pctOtimizacao);
         var areaBranca = 100 - otimizacao;
@@ -517,6 +529,7 @@
             type: "line",
             data: dadosGeral,
             options: {
+                animation: false,
                 scales: {
                     x: { //Deixa as labels do eixo X (pontos) na vertical
                         ticks: {
@@ -527,10 +540,13 @@
                 }
             }
         }
-        const graficoGeral = new Chart(
+        graficoRota.className = "";
+        graficoGeral = new Chart(
             document.getElementById("graficoRota"),
             configGraficoGeral
         );
+
+        return graficoGeral;
     }
 
     function veiculoRota() {

@@ -139,6 +139,13 @@ details{
     color: #BD916E;
     text-align: justify;
 }
+.graficoLoading{
+    height: 300px;
+    background-image: url('../images/loading.gif');
+    background-position: center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+}
 #graficoRota{
     background-color: white;
 }
@@ -253,9 +260,12 @@ details{
 #detailsFormula{
     text-align: center;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .imgSaibaMais{
-    width: 100%;
+    width: 150px;
 }
 #modalFormula{
     position: absolute;

@@ -5,28 +5,36 @@
   src: url(../fonts/Agrandir-Regular.otf);
 }
 
-
-.mensagem-alarme {
-    font-family: 'Agrandir Regular';
+#containerAlertas{
     position: absolute;
     top: 0px;
     right: 0px;
+    width: 285px;
+    padding: 0 10px;
+}
+
+.mensagem-alarme {
+    font-family: 'Agrandir Regular';
     display: flex;
     justify-content: center;
     background-color: #69503c;
     color: #fffce3;
-    height: 150px;
-    width: 300px;
-    border-radius: 20%;
+    width: 100%;
+    border-radius: 15px;
     font-size: 4vh;
     border: solid 1px white;
     animation-name: pulsar;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+    margin: 10px 0;
+    align-items: center;
 }
 
-.mensagem-alarme p {
+.mensagem-alarme span{
     cursor: pointer;
+    align-self: flex-start;
+    font-size: 14px;
+    margin: 5px 0;
 }
 
 .mensagem-alarme h3 {
@@ -34,37 +42,28 @@
     justify-content: flex-end;
     font-size: 25px;
     font-weight: bold;
-    margin-bottom: 2px;
+    margin: 2px 0;
 }
 
 .alarme-sino {
-    width: 35%;
-    height: 5px;
+    width: 100px;
+    height: 75px;
     background-image: url('https://media4.giphy.com/media/cL4VwGyAEP76FQV4vs/giphy.gif?cid=6c09b9528c6313ced515d978355db4b287dd96efb71aaded&rid=giphy.gif&ct=s.gif');
     background-size: cover;
-    padding-bottom: 70px;
-    margin-top: 30px;
 }
 
 small {
     display: flex;
     justify-content: flex-end;
-    padding-right: 30px;
+    font-size: 14px;
 }
 
 .informacao {
-    /* display: flex;
-    flex-direction: column;
-    justify-content:center;
-    background-color:#69503c;
-    color: #fffce3;
-    height: 150px;
-    width: 300px;
-    border-radius: 20%;
-    font-size: 4vh; */
     display: flex;
     width: 50%;
     flex-direction: column;
+    align-items: start;
+    justify-content: center;
 }
 
 
