@@ -46,25 +46,25 @@
   <div class="form">
     <div class="esquerda">
       <span class="campos">Nome fantasia:
-        <input id="ipt_nome_empresa" placeholder="nome empresa" /></span>
-      <span class="campos">CNPJ: <input id="ipt_cnpj" placeholder="apenas números" /></span>
+        <input id="ipt_nome_empresa" placeholder="Nome fantasia da empresa" /></span>
+      <span class="campos">CNPJ: <input id="ipt_cnpj" placeholder="CNPJ da empresa (sem pontuação)" /></span>
       <span class="campos">Nome do representante:
-        <input id="ipt_representante" placeholder="acesso principal" /></span>
+        <input id="ipt_representante" placeholder="Nome do responsável pela empresa" /></span>
       <span class="campos">E-mail:
-        <input type="email" id="ipt_email" placeholder="nome@email.com" /></span>
+        <input type="email" id="ipt_email" placeholder="Email do representante" /></span>
+      <p>O representante da empresa poderá cadastrar acessos para outros funcionários após acessar o sistema.</p>
     </div>
     <div class="direita">
-      <span class="campos">CPF: <input id="ipt_cpf" placeholder="apenas números" /></span>
+      <span class="campos">CPF:
+        <input id="ipt_cpf" placeholder="CPF do representante(sem pontuação)" /></span>
       <span class="campos">Celular de contato:
-        <input id="ipt_cel" placeholder="11999999999" /></span>
-      <span class="campos">Senha: <input type="password" id="ipt_senha" placeholder="•••••" /></span>
+        <input id="ipt_cel" placeholder="Telefone de contato do representante" /></span>
+      <span class="campos">Senha:
+        <input type="password" id="ipt_senha" placeholder="Senha de acesso do representante" /></span>
       <span class="campos">Confirmar senha:
-        <input type="password" id="ipt_confSenha" placeholder="•••••" /></span>
-
+        <input type="password" id="ipt_confSenha" placeholder="Confirme a senha" /></span>
       <div class="botao">
-        <p>
-          <button onclick="cadastrarRepresentante()">Cadastrar</button>
-        </p>
+        <button onclick="cadastrarRepresentante()">Cadastrar</button>
         <a href="login.html"> Já possuo uma conta cadastrada.</a>
       </div>
     </div>

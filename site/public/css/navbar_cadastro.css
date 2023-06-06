@@ -79,3 +79,8 @@ input:focus-visible{
     color: rgb(102, 51, 134);
 }
   
+.form p{
+    width: 250px;
+    font-size: 14px;
+    text-align: justify;
+}
