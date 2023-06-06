@@ -189,7 +189,8 @@ hr {
 }
 
 .mensagem-alarme h3 {
-  font-size: 14px;
+  font-size: 30px;
+  font-weight: bold;
   margin: 0;
 }
 
@@ -198,8 +199,23 @@ hr {
 }
 
 .alarme-sino {
-  width: 48px;
-  height: 48px;
+  width: 30%;
+  height: 30px;
   background-image: url('https://media4.giphy.com/media/cL4VwGyAEP76FQV4vs/giphy.gif?cid=6c09b9528c6313ced515d978355db4b287dd96efb71aaded&rid=giphy.gif&ct=s.gif');
   background-size: cover;
+  padding-bottom: 50px;
+  margin-bottom: 30%;
+}
+
+.informacao{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  background-color:#69503c;
+  color: #fffce3;
+  height: 150px;
+  width: 300px;
+  border-radius: 20%;
+  font-size: 4vh;
+  font-weight: bold;
 }

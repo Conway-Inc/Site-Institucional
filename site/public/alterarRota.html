@@ -644,6 +644,7 @@
         resposta
           .json()
           .then(function (resposta) {
+            sessionStorage.ID_LINHA = 0
             console.log(resposta);
           })
           .catch(console.error(resposta));
