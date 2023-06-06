@@ -182,6 +182,8 @@
       });
   }
 
+  let alertasDisparados = false
+
   function suaRota() {
     idSuasFrotas.style.color = "rgba(189, 145, 110, 0.5)";
     idSuasFrotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
@@ -266,7 +268,10 @@
             botaoAdicionarDiv2.appendChild(textoAdicionar);
             content.appendChild(botaoAdicionar);
 
-            alertar(rotas)
+            if(!alertasDisparados) {
+              alertar(rotas)
+              alertasDisparados = true
+            }
           });
         } else {
           var content = document.getElementById("content");
@@ -340,6 +345,8 @@
 
     return false;
   }
+
+  
 </script>
 <script>
   function gerarGraficoOtimizacao(linha) {

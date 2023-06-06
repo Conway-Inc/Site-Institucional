@@ -1,5 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Agrandir Regular";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+
+
 .mensagem-alarme {
+    font-family: 'Agrandir Regular';
     position: absolute;
+    top: 0px;
     right: 0px;
     display: flex;
     justify-content: center;
@@ -9,6 +19,14 @@
     width: 300px;
     border-radius: 20%;
     font-size: 4vh;
+    border: solid 1px white;
+    animation-name: pulsar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.mensagem-alarme p {
+    cursor: pointer;
 }
 
 .mensagem-alarme h3 {
@@ -48,3 +66,16 @@ small {
     width: 50%;
     flex-direction: column;
 }
+
+
+@-webkit-keyframes pulsar{
+    0% {
+      box-shadow: 0 0 0 0px white;
+    }
+    70% {
+        box-shadow: 0 0 0 5px #dd0000a4;
+    }
+    100% {
+        box-shadow: 0 0 0 0px white;
+    }
+  }
