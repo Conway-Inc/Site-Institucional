@@ -162,7 +162,7 @@
     function ligar() {
         spanStatus.innerHTML = `${i + 1}º ponto - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
         i++;
-        divBtn.innerHTML = `<button id="btnPorta" onclick="parada()">Parar o ônibus</button>`;
+        divBtn.innerHTML = `<button id="btnPorta" onclick="parada()">Próximo ponto</button>`;
     }
     function parada(boolPorta) {
         if (i != pontos.length) {

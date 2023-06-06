@@ -1,0 +1,50 @@
+.mensagem-alarme {
+    position: absolute;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    background-color: #69503c;
+    color: #fffce3;
+    height: 150px;
+    width: 300px;
+    border-radius: 20%;
+    font-size: 4vh;
+}
+
+.mensagem-alarme h3 {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.alarme-sino {
+    width: 35%;
+    height: 5px;
+    background-image: url('https://media4.giphy.com/media/cL4VwGyAEP76FQV4vs/giphy.gif?cid=6c09b9528c6313ced515d978355db4b287dd96efb71aaded&rid=giphy.gif&ct=s.gif');
+    background-size: cover;
+    padding-bottom: 70px;
+    margin-top: 30px;
+}
+
+small {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+}
+
+.informacao {
+    /* display: flex;
+    flex-direction: column;
+    justify-content:center;
+    background-color:#69503c;
+    color: #fffce3;
+    height: 150px;
+    width: 300px;
+    border-radius: 20%;
+    font-size: 4vh; */
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
