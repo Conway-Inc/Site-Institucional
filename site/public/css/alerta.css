@@ -1,5 +1,6 @@
 .mensagem-alarme {
     position: absolute;
+    top: 0px;
     right: 0px;
     display: flex;
     justify-content: center;

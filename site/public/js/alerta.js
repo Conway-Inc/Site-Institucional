@@ -2,7 +2,7 @@ function alertar(rotas) {
   console.log(rotas);
   // abaixo de 30
   for (let i = 0; i < rotas.length; i++) {
-    if (rotas[i].pctOtimizacao < 30) {
+    if (rotas[i].pctOtimizacao < 300) {
       exibirCards(rotas[i].codLinha, rotas[i].pctOtimizacao, i);
     }
   }
@@ -11,11 +11,10 @@ function alertar(rotas) {
 function exibirCards(codLinha, pctOtimizacao, index) {
   body = document.getElementById("body");
 
-  let alerta = document.createElement("div");
-  alerta.id = `alerta${index}`;
-
+  
   let mensagem = document.createElement("div");
   mensagem.className = "mensagem-alarme";
+  mensagem.id = `alerta${index}`;
 
   let informacao = document.createElement("div");
 
@@ -35,16 +34,15 @@ function exibirCards(codLinha, pctOtimizacao, index) {
   });
 
   informacao.className = "informacao";
-
-  alerta.appendChild(btnFechar);
-  alerta.appendChild(mensagem);
+  
   mensagem.appendChild(informacao);
   informacao.appendChild(estadoLinha);
   informacao.appendChild(otimizacao);
   informacao.appendChild(sino);
   mensagem.appendChild(sino);
+  mensagem.appendChild(btnFechar);
 
-  body.appendChild(alerta);
+  body.appendChild(mensagem);
 }
 
 function excluirAlerta(index) {
