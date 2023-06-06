@@ -113,12 +113,14 @@
               var imgArea = document.createElement("div");
               var imgOnibus = document.createElement("img");
               var card = document.createElement("div");
+              var cardInfos = document.createElement("div");
 
               titulo.innerHTML = veiculo.placaVeiculo;
               tipoVeiculo.innerHTML = veiculo.nomeModelo;
 
-              card.appendChild(tituloArea);
-              card.appendChild(imgArea);
+              cardInfos.appendChild(tituloArea);
+              cardInfos.appendChild(imgArea);
+              card.appendChild(cardInfos);
               card.className = "cardVeiculo";
 
               tituloArea.appendChild(titulo);
@@ -223,14 +225,17 @@
               graficoArea.id = `graficoArea${rota.idLinha}`
 
               var card = document.createElement("div");
+              var cardInfo = document.createElement("div");
 
               titulo.innerHTML = rota.codLinha;
               nomeLinha.innerHTML = `${rota.nomeLinhaIda}/${rota.nomeLinhaVolta}`;
 
-              card.appendChild(tituloArea);
-              card.appendChild(qtdVeiculoArea);
+              cardInfo.appendChild(tituloArea);
+              cardInfo.appendChild(qtdVeiculoArea);
+              card.appendChild(cardInfo);
               card.appendChild(graficoArea);
               card.className = "cardVeiculo";
+              cardInfo.className = "cardVeiculoInfo";
 
               tituloArea.appendChild(titulo);
               tituloArea.appendChild(nomeLinha);
