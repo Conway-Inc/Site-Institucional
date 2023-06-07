@@ -83,3 +83,25 @@ INSERT INTO Fluxo VALUES(34,0,5,3,'2023-05-30 14:36:00',5,34); -- Saldo de pesso
 	INSERT INTO Fluxo VALUES(32,2,5,9,'2023-05-30 14:29:00',6,32); -- Saldo de pessoas 9
 	INSERT INTO Fluxo VALUES(33,0,3,5,'2023-05-30 14:33:00',6,33); -- Saldo de pessoas 5
 	INSERT INTO Fluxo VALUES(34,0,5,2,'2023-05-30 14:36:00',6,34); -- Saldo de pessoas 2
+    
+    INSERT INTO Linha VALUES (null, 'Lapa', 'Cohab Raposo', '809T', '10', 1);
+INSERT INTO Linha VALUES (null, 'Rio Pequeno', 'Term. Princesa Isabel', '8707', '10', 1);
+
+insert into linhaPonto values(2,1);
+insert into linhaPonto values(2,2);
+insert into linhaPonto values(2,3);
+select * from viagem;
+insert into linhaPonto values(3,1);
+insert into linhaPonto values(3,2);
+insert into linhaPonto values(3,3);
+
+INSERT INTO Viagem VALUES(null, '2023-05-30 12:00:00', '2023-05-30 14:52:43',2,1);
+INSERT INTO Viagem VALUES(null, '2023-05-30 12:00:00', '2023-05-30 14:52:43',3,7);
+
+INSERT INTO Fluxo VALUES(null,50,0,50,'2023-05-30 12:00:00',7,1);
+INSERT INTO Fluxo VALUES(null,30,0,30,'2023-05-30 12:37:00',7,2);
+INSERT INTO Fluxo VALUES(null,0,80,80,'2023-05-30 12:59:00',7,3);
+
+INSERT INTO Fluxo VALUES(null,30,0,30,'2023-05-29 12:00:00',8,1);
+INSERT INTO Fluxo VALUES(null,20,0,20,'2023-05-29 12:37:00',8,2);
+INSERT INTO Fluxo VALUES(null,0,50,50,'2023-05-29 12:59:00',8,3);
