@@ -8,6 +8,10 @@
   padding: 10px;
 }
 
+.conteudos{
+  flex-direction: column;
+}
+
 .container{
   margin-left: 50px;
 }
@@ -68,4 +72,13 @@
 
 .btnReload{
   align-self: center;
+}
+
+.btnReload button{
+  background-color: #BD916E;
+  font-family: 'Poppins';
+  border-radius: 20px;
+  color: #FFF;
+  border-style: none;
+  height: 40px;
 }
