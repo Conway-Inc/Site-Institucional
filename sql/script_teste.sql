@@ -1,8 +1,8 @@
 USE buswayDb;
 /*DADOS BASE*/
 /*Inserindo modelos dos veículos*/
-INSERT INTO Modelo VALUES(null, 'Microônibus', 20, 9, 1, 1); 
-INSERT INTO Modelo VALUES(null, 'Miniônibus', 12, 34, 1, 1); 
+INSERT INTO Modelo VALUES(null, 'Micro-ônibus', 20, 9, 1, 1); 
+INSERT INTO Modelo VALUES(null, 'Mini-ônibus', 12, 34, 1, 1); 
 INSERT INTO Modelo VALUES(null, 'Midiônibus', 9, 50, 1, 2); 
 INSERT INTO Modelo VALUES(null, 'Básico', 10, 70, 1, 2); 
 INSERT INTO Modelo VALUES(null, 'Padron', 11, 80, 2, 2); 
@@ -231,6 +231,9 @@ INSERT INTO Ponto VALUES (null, '01414000', 'R. MMDC', 252, null, null);
 INSERT INTO Ponto VALUES (null, '01414000', 'Rod. Raposo Tavares', 15, null, null);
 INSERT INTO Ponto VALUES (null, '01414000', 'Av. José Felipe Da Silva', 337, null, null);
 INSERT INTO Ponto VALUES (null, '01414000', 'Av. Engenheiro Eiras Garcia', 595, null, null);
+INSERT INTO Ponto VALUES (null, '05328040', 'R. Francisco Ferrari', 12, null, null);
+INSERT INTO Ponto VALUES (null, '05324000', 'Av. Bolonha', 160, null, null);
+INSERT INTO Ponto VALUES (null, '05319000', 'Av. Queiroz Filho', 1597, null, null);
 
 INSERT INTO LinhaPonto VALUES (1, 1);
 INSERT INTO LinhaPonto VALUES (1, 2);
