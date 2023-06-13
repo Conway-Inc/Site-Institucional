@@ -503,6 +503,8 @@
             Bem-vindo(a), ${funcionarioLogado[0].nome}
         `;
   }
+
+  
   function carregarFuncsDaEmpresa() {
     fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, {
       cache: "no-store",
