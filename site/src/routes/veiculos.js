@@ -23,5 +23,8 @@ router.delete("/excluirVeiculo/:idVeiculo", function (req, res) {
     veiculoController.excluirVeiculo(req, res);
 });
 
+router.get("/graficoModelo/:codLinha/:horario", function(req, res) {
+    veiculoController.graficoModelo(req, res);
+});
 
 module.exports = router;

@@ -82,8 +82,8 @@ const serial = async (
                     contadorPonto++;
                     habilitarOperacaoInserir = false;
 
-                    entradasAnteriores = entradasVez;
-                    saidasAnteriores = saidaVez;
+                    entradasAnteriores += entradasVez;
+                    saidasAnteriores += saidaVez;
 
                     entradasVez = 0;
                     saidaVez = 0;

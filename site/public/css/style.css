@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background-image: url("../images/bgTextura.png");
@@ -164,4 +168,54 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 0px 50px;
+}
+
+
+/* Alarme */
+#alerta {
+  position: absolute;
+  right: 0px;
+}
+
+.mensagem-alarme {
+  background-color: white;
+  border-radius: 5px;
+  width: 300px;
+  height: 80px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mensagem-alarme h3 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.mensagem-alarme .informacao {
+  margin: 10px;
+}
+
+.alarme-sino {
+  width: 30%;
+  height: 30px;
+  background-image: url('https://media4.giphy.com/media/cL4VwGyAEP76FQV4vs/giphy.gif?cid=6c09b9528c6313ced515d978355db4b287dd96efb71aaded&rid=giphy.gif&ct=s.gif');
+  background-size: cover;
+  padding-bottom: 50px;
+  margin-bottom: 30%;
+}
+
+.informacao{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  background-color:#69503c;
+  color: #fffce3;
+  height: 150px;
+  width: 300px;
+  border-radius: 20%;
+  font-size: 4vh;
+  font-weight: bold;
 }

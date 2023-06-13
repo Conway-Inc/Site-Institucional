@@ -13,6 +13,19 @@
     font-size: 50px;
     font-weight: 500;
 }
+.navbar div{
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+    justify-content: end;
+    font-size: 22px;
+}
+.navbar #btnSair{
+    cursor: pointer;
+}
+.navbar #btnSair:hover{
+    text-decoration: underline;
+}
 
 .navbar svg {
     width: 85px;
@@ -82,6 +95,9 @@ main{
     display: flex;
     justify-content: center;
 }
+.titulos h2:hover{
+    opacity: 90%;
+}
 
 .suasRotas, .suasFrotas{
     margin: 0;
@@ -102,8 +118,7 @@ main{
 }
 
 .grafico{
-    width: 50%;
-    margin-left: 20px;
+    width: 150px;
     display: flex;
     justify-content: center;
 }
@@ -114,6 +129,19 @@ main{
 
 .cardVeiculo{
     margin: 10px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.cardVeiculoInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+}
+.cardVeiculo:hover{
+    cursor: pointer;
+    box-shadow: #69503C 2px 2px 2px;
 }
 #visu05 .cardVeiculo{
     background-color: #F1F1F1 !important;
@@ -139,7 +167,6 @@ main{
     min-width: 350px;
     gap: 10px;
     flex-wrap: wrap;
-    height: 220px;
 }
 
 .txtTitulo{
@@ -191,25 +218,31 @@ main{
     align-items: center;
 }
 
+.tituloBus h2{
+    margin: 0;
+}
 .tituloBus p{
     padding-left: 10px;
+    margin: 0;
+    overflow-wrap: anywhere;
 }
 
 .qtdVeic{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .qtdVeic h2{
-    font-size: 40px;
+    font-size: 30px;
     margin: 0;
+    line-height: 1;
 }
 
 .qtdVeic p{
     font-size: 20px;
     margin: 0;
-    margin-bottom: 20px;
 }
 
 aside{
@@ -233,7 +266,10 @@ aside{
 }
 
 .imgHeader img{
-    width: 90%;
+    height: 90px;
+    width: 80%;
+    object-fit: contain;
+    border-radius: inherit;
 }
 
 .funcionarios{
@@ -261,21 +297,6 @@ aside ul li{
     list-style: disc;
 }
 
-.funcionarios p:nth-of-type(1){
-    font-size: 20px;
-}
-
-.funcionarios p:nth-of-type(2){
-    margin-bottom: 0;
-    text-align: center;
-    font-size: 80%;
-}
-
-.funcionarios p:nth-of-type(3){
-    margin-top: 0;
-    align-self: center;
-}
-
 aside .btn_adicionar_mais{
     text-align: center;
     width: 100%;
@@ -291,24 +312,25 @@ aside .btn_adicionar_mais:hover{
     cursor: pointer;
 }
 
-.classificRuim, .classificBoa, .classificIdeal{
-    font-size: 30px;
-    margin: 0;
+.classificRuim, .classificRegular, .classificBoa, .classificIdeal{
+    font-size: 20px;
+    margin-top: 50px;
     position: absolute;
-    margin-top: 60px;
 }
 
 .classificRuim{
     color: #DB0300;
 }
-
+.classificRegular{
+    color: #d86f00;
+    font-size: 16px;
+}
+.classificBoa{
+    color: #4c52c6;
+}
 .classificIdeal{
     color: #00BF63;
     -webkit-text-stroke: black 0.5px;
-}
-
-.classificBoa{
-    color: #FFDE59;
 }
 
 #rotas, #rotas02, #rotas03, .rotas{
@@ -328,12 +350,9 @@ aside .btn_adicionar_mais:hover{
 }
 
 .formRotas {
-    width: 50%;
-    align-self: center;
-} 
-
-.datalistPonto{
-    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .datalistPonto button{

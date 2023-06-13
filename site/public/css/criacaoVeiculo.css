@@ -5,17 +5,29 @@
   src: url(../fonts/Agrandir-Regular.otf);
 }
 
+.container{
+    margin: 0 10px !important;
+}
+.addRota, .addRota div, #cepNumero{
+    display: flex;
+    flex-direction: column;
+}
+#formRotaPT1{
+    display: flex;
+    flex-direction: column;
+}
+
 #imgOnibusCriacao {
-    margin: 10px 0;
     height: 150px;
-    width: 800px;
+    width: 80%;
     align-self: center;
     object-fit: contain;
-    margin-top: 80px;
+    margin: 10px 0;
 }
 
 .content {
     flex-direction: column;
+    padding: 10px 0;
 }
 
 .form {
@@ -23,15 +35,19 @@
     justify-content: space-evenly;
 }
 
+.conteudos{
+    width: 100%;
+}
 .conteudos .caixaContent {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    width: 100%;
 }
 
 p, input, option, select {
     color: #69503C;
     font-family: 'Poppins';
+    margin: 0;
 }
 
 .caixaContent a{
@@ -42,15 +58,16 @@ p, input, option, select {
 }
 
 .caixaContent button {
-    width: 15%;
+    min-width: 15%;
     align-self: center;
     border-radius: 38px;
     border-style: none;
     background-color: #BD916E;
     color: #fff;
     padding: 10px 25px 10px 25px;
+    font-family: 'Poppins';
     font-size: medium;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -59,9 +76,8 @@ button:hover {
 
 .caixaContent input, select {
     background-color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 150%;
+    padding: 10px 5px;
+    margin: 2.5px 0;
     border-style: none;
     border-radius: 5px;
 }
@@ -111,4 +127,19 @@ button:hover {
 }
 .linkRota:hover{
     border: none;
+}
+
+#opcional{
+    margin: 0;
+    font-size: 12px;
+}
+
+#coordenadas{
+    display: flex;
+    flex-direction: row;
+}
+#coordenadas input{
+    width: 90px;
+    margin: 0 2px;
+    text-align: center;
 }

@@ -114,6 +114,39 @@
 }
 
 .editFuncionario p {
-  margin: 10px 0;
-  margin: 10px 0;
+  margin: 0;
+  cursor: default;
+}
+.editFuncionario a{
+  color: inherit;
+}
+
+.funcionarios p:nth-of-type(1){
+  font-size: 20px;
+  margin: 5px;
+}
+.funcionarios p:nth-of-type(2){
+  font-size: 80%;
+}
+.funcionarios p:nth-of-type(3){
+  font-size: 80%;
+  margin-top: 5px;
+}
+.funcionarios .descricao{
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+#senhaVisivel{
+  display: none;
+}
+
+#senhaInvisivel{
+  display: flex;
+}
+#senhaInvisivel:hover{
+  display: none;
+}
+#senhaInvisivel:hover ~ #senhaVisivel{
+  display: flex;
 }

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
+    <link rel="stylesheet" href="css/alerta.css">
 
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/menuDashboard.css" />
@@ -15,9 +16,12 @@
     <link rel="stylesheet" href="css/footer.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
+    <script src="js/alerta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   </head>
 
-  <body onload="suaRota()">
+  <body onload="suaRota()" id="body">
     <!--Começo do header-->
 
     <div class="navbar">
@@ -29,14 +33,8 @@
       </svg>
 
       <h1 id="idNomeUsuario"></h1>
-    </div>
-
-    <div class="header">
-      <div class="container">
-        <ul>
-          <li><a href=""> CONFIGURAÇÕES </a></li>
-          <li><a onclick="sair()"> SAIR </a></li>
-        </ul>
+      <div>
+        <a onclick="sair()" id="btnSair"> SAIR </a>
       </div>
     </div>
     <!--Fim do header-->
@@ -56,50 +54,10 @@
           <div class="content" id="content"></div>
         </div>
 
-        <!-- Início do Modal para cadastrar pontos -->
-        <input class="modal-state" id="modal-4" type="checkbox" />
-        <div class="modal modal4">
-          <label class="modal__bg" for="modal-4"></label>
-          <div class="modal__inner">
-            <div class="container">
-              <label class="modal__close" for="modal-4"></label>
-
-              <span class="addRota">
-                <div class="div_ipt">
-                  <input
-                    class="ipt_func"
-                    placeholder="Logradouro"
-                    id="ipt_logradouro"
-                  />
-                  <span id="cepNumero">
-                    <input class="ipt_func" placeholder="CEP" id="ipt_cep" />
-                    <input class="ipt_func" placeholder="Número" id="ipt_num" />
-                  </span>
-                  <br />
-                </div>
-
-                <div class="div_ipt">
-                  <h3>Coordenadas geográficas</h3>
-                  <p>(Opcional)</p>
-                  <span id="coordenadas">
-                    <input class="ipt_func" placeholder="X" id="ipt_coordX" />
-                    <input class="ipt_func" placeholder="Y" id="ipt_coordY" />
-                  </span>
-                </div>
-
-                <div class="btnRota">
-                  <button onclick="cadastrarPonto()">Adicionar</button>
-                </div>
-              </span>
-            </div>
-          </div>
-        </div>
-        <!-- Fim do Modal para cadastrar pontos -->
-
         <!-- Conteúdo - Funcionários -->
         <aside>
           <div class="imgHeader">
-            <img src="images/transpass.png" alt="" />
+            <img id="imgEmpresa"/>
           </div>
 
           <div class="funcionarios" id="barraLateralFuncionarios">
@@ -118,6 +76,16 @@
 </html>
 
 <script>
+  function adicionar(link){
+    sessionStorage.ID_LINHA = null;
+    sessionStorage.COD_LINHA = null;
+    sessionStorage.TIPO_LINHA = null;
+    sessionStorage.NOME_IDA_LINHA = null;
+    sessionStorage.NOME_VOLTA_LINHA = null;
+
+    window.location = "alterarRota.html";
+  }
+
   var veiculos = [];
   var rotas = [];
   function suaFrota() {
@@ -145,12 +113,14 @@
               var imgArea = document.createElement("div");
               var imgOnibus = document.createElement("img");
               var card = document.createElement("div");
+              var cardInfos = document.createElement("div");
 
               titulo.innerHTML = veiculo.placaVeiculo;
               tipoVeiculo.innerHTML = veiculo.nomeModelo;
 
-              card.appendChild(tituloArea);
-              card.appendChild(imgArea);
+              cardInfos.appendChild(tituloArea);
+              cardInfos.appendChild(imgArea);
+              card.appendChild(cardInfos);
               card.className = "cardVeiculo";
 
               tituloArea.appendChild(titulo);
@@ -164,7 +134,7 @@
               imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
 
               card.addEventListener("click", (click) =>
-                redirecionarAdicionarRota(i)
+                redirecionarAdicionarVeiculo(i)
               );
               content.appendChild(card);
             }
@@ -214,6 +184,8 @@
       });
   }
 
+  let alertasDisparados = false
+
   function suaRota() {
     idSuasFrotas.style.color = "rgba(189, 145, 110, 0.5)";
     idSuasFrotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
@@ -240,6 +212,9 @@
               var qtdVeiculoArea = document.createElement("div");
               var qtdVeiculo = document.createElement("h2");
               var qtdVeiculoSub = document.createElement("p");
+              if(rota.numVeiculos == null){
+                rota.numVeiculos = 0;
+              }
               qtdVeiculo.innerHTML = rota.numVeiculos;
               qtdVeiculoSub.innerHTML = "Veículos";
 
@@ -250,14 +225,17 @@
               graficoArea.id = `graficoArea${rota.idLinha}`
 
               var card = document.createElement("div");
+              var cardInfo = document.createElement("div");
 
               titulo.innerHTML = rota.codLinha;
               nomeLinha.innerHTML = `${rota.nomeLinhaIda}/${rota.nomeLinhaVolta}`;
 
-              card.appendChild(tituloArea);
-              card.appendChild(qtdVeiculoArea);
+              cardInfo.appendChild(tituloArea);
+              cardInfo.appendChild(qtdVeiculoArea);
+              card.appendChild(cardInfo);
               card.appendChild(graficoArea);
-              card.className = "visu01";
+              card.className = "cardVeiculo";
+              cardInfo.className = "cardVeiculoInfo";
 
               tituloArea.appendChild(titulo);
               tituloArea.appendChild(nomeLinha);
@@ -281,17 +259,24 @@
             var sinalAdicionar = document.createElement("h2");
             var textoAdicionar = document.createElement("p");
 
-            botaoAdicionar.href = "alterarRota.html";
             sinalAdicionar.innerHTML = "+";
             textoAdicionar.innerHTML = "Adicionar nova rota";
             botaoAdicionarDiv1.id = "visu05";
-            botaoAdicionarDiv2.className = "visu05";
+            botaoAdicionarDiv1.addEventListener("click", (click) =>
+                adicionar()
+              );
+            botaoAdicionarDiv2.className = "cardVeiculo";
 
             botaoAdicionar.appendChild(botaoAdicionarDiv1);
             botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
             botaoAdicionarDiv2.appendChild(sinalAdicionar);
             botaoAdicionarDiv2.appendChild(textoAdicionar);
             content.appendChild(botaoAdicionar);
+
+            if(!alertasDisparados) {
+              alertar(rotas)
+              alertasDisparados = true
+            }
           });
         } else {
           var content = document.getElementById("content");
@@ -355,10 +340,6 @@
 
         if (resposta.ok) {
           alert("Cadastro REALIZADO com Sucesso!!!");
-
-          // setTimeout(() => {
-          //   window.location = "menuDashboard.html";
-          // }, "2000")
         } else {
           throw "Houve um ERRO ao tentar realizar o cadastro!";
         }
@@ -369,6 +350,8 @@
 
     return false;
   }
+
+  
 </script>
 <script>
   function gerarGraficoOtimizacao(linha) {
@@ -378,15 +361,21 @@
     var corClassific = "";
     var nomeClassific = "";
     if (otimizacao >= 80) {
-      corClassific = "#00BF63";
-      nomeClassific = "Ideal";
-    } else if (otimizacao > 30) {
-      corClassific = "#fbff1a";
-      nomeClassific = "Boa";
-    } else {
-      corClassific = "#DB0300";
-      nomeClassific = "Ruim";
-    }
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
 
     var graficoArea = document.getElementById(`graficoArea${linha.idLinha}`);
     var pClassificacao = document.createElement("p")
@@ -485,7 +474,7 @@
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Funcionários: ${JSON.stringify(resposta)}`);
             resposta.reverse();
             funcionarioLogado = resposta;
             receberFuncLogado(funcionarioLogado);
@@ -547,7 +536,7 @@
                                     fill="rgb(255,255,255)" />
                             </svg>
                             <div class="div_ipt">
-                                <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
+                                  <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
                                 <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
                                 <input class="ipt_func" id="ipt_email" placeholder="Email">
                                 <input class="ipt_func" id="ipt_cel" placeholder="Celular">
@@ -565,11 +554,20 @@
             `;
       botoesEditarExcluir = `
             <div class="btnFunc">
-                <button class="btn_adicionar_mais"><b>Editar</b></button>
+                <button class="btn_adicionar_mais" onclick="atualizarFuncionario()"><b>Editar</b></button>
                 <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
             </div>`;
     }
     for (var i = 0; i < outrosFuncionarios.length; i++) {
+      let senha = outrosFuncionarios[i].senha;
+      let senhaEscondida = "";
+      for (let c = 0; c < senha.length; c++) {
+        senhaEscondida += "•";
+      }
+
+      imgEmpresa.src = `images/${outrosFuncionarios[i].nomeEmpresa}.png`;
+      imgEmpresa.alt = `Logo da ${outrosFuncionarios[i].nomeEmpresa}`;
+
       listaDeFuncionarios.innerHTML += `
             <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
                 <li>${outrosFuncionarios[i].nome}</li>
@@ -583,12 +581,18 @@
                         <span class="editFuncionario">
                             <img src="images/${outrosFuncionarios[i].foto}">
                             <p><b>${outrosFuncionarios[i].nome}</b></p>
-                            <p>Funcionário(a) da transpass</p>
+                            <p>Funcionário(a) na  ${outrosFuncionarios[i].nomeEmpresa}</p>
                             <p>CPF: ${outrosFuncionarios[i].cpf}</p>
                             <p>Celular: ${outrosFuncionarios[i].celular}</p>
-                            <p>Email: ${outrosFuncionarios[i].email}</p>
-                            <p>Senha:${outrosFuncionarios[i].senha}</p>
-                            ${outrosFuncionarios[i].idFuncionario}
+                            <p>
+                              <a href="mailto:${outrosFuncionarios[i].email}">
+                                Email: ${outrosFuncionarios[i].email}
+                              </a>
+                            </p>
+                            <p class="descricao">(clique para mandar email)</p>
+                            <p id="senhaInvisivel">Senha: ${senhaEscondida}</p>
+                            <p id="senhaVisivel">Senha: ${senha}</p>
+                            <p class="descricao">(passe o mouse para revelar)</p>
                             <div class="btnFunc">
                                 <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${i})"><b>Editar</b></label>
                                 <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${Number(
@@ -670,6 +674,9 @@
         //   );
         // }
         console.log(resposta);
+        setTimeout(() => {
+          location.reload()
+        }, 1000)
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -686,7 +693,9 @@
     })
       .then(function (resposta) {
         console.log(resposta);
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 2000)
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -705,7 +714,73 @@
 
   function redirecionarAdicionarRota(index) {
     sessionStorage.ID_LINHA = rotas[index].idLinha;
+    sessionStorage.COD_LINHA = rotas[index].codLinha;
+    sessionStorage.TIPO_LINHA = rotas[index].tipoLinha;
+    sessionStorage.NOME_IDA_LINHA = rotas[index].nomeLinhaIda
+    sessionStorage.NOME_VOLTA_LINHA = rotas[index].nomeLinhaVolta
 
-    window.location = "alterarRota.html";
+    Swal.fire({
+      title: sessionStorage.COD_LINHA,
+      text: 'O que você deseja fazer com essa rota?',
+      showDenyButton: true,
+      showCancelButton: true,
+
+      confirmButtonText: "Visualizar na dashboard",
+      denyButtonText: "Editar",
+      cancelButtonText: "Fechar"
+    }).then((result) => {
+      if(result.isConfirmed){
+        window.location = "dashboardGeral.html";
+      }
+      if(result.isDenied){
+        window.location = "alterarRota.html";
+      }
+    });
   }
+
+  function cadastrarFuncionario() {
+        const nome = ipt_funcionario.value;
+        const email = ipt_email.value;
+        const cpf = ipt_cpf.value;
+        const celular = ipt_cel.value;
+        const senha = ipt_senha.value;
+        const foto = ipt_foto.value;
+        var idRepresentante = sessionStorage.ID_FUNCIONARIO;
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+        if (validar()) {
+            fetch("/usuarios/cadastrarFuncionario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeFuncionarioServer: nome,
+                    emailServer: email,
+                    cpfServer: cpf,
+                    celularServer: celular,
+                    senhaServer: senha,
+                    fotoFuncionarioServer: foto,
+                    fkEmpresaServer: fkEmpresa,
+                    fkRepresentanteServer: idRepresentante
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        // cardErro.style.display = "block";
+
+                        // mensagem_erro.innerHTML =
+                        //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+                        alert("Cadastro realizado com sucesso!")
+                        setTimeout(() => {
+                          location.reload()
+                        }, 1000);
+                    }
+                })
+        }
+    }
 </script>

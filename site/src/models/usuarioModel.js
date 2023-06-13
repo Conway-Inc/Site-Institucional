@@ -5,7 +5,7 @@ function listar() {
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucao = `
-        SELECT * FROM usuario;
+        SELECT * FROM vwFuncsEmpresa;
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -18,7 +18,7 @@ function entrar(email, senha) {
     senha
   );
   var instrucao = `
-      SELECT * FROM Funcionario WHERE email = '${email}' AND senha = '${senha}';
+      SELECT * FROM vwFuncsEmpresa WHERE email = '${email}' AND senha = '${senha}';
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -109,13 +109,6 @@ function excluirFuncionario(idFuncionario) {
 }
 
 
- 
-function excluirFuncionario(idFuncionario) {
-  var instrucao = `DELETE FROM Funcionario where idFuncionario = '${idFuncionario}';`
-  return database.executar(instrucao);
-}
-
-
 module.exports = {
   entrar,
   cadastrarRepresentante,
@@ -124,7 +117,6 @@ module.exports = {
   cadastrarEmpresa,
   cadastrarFuncionario,
   alterarFuncionario,
-  excluirFuncionario,
   excluirFuncionario,
   cadastrarFuncionario
 };

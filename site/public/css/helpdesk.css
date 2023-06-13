@@ -46,15 +46,24 @@
     width: 35px;
 }
 
+li{
+    display: flex;
+}
+
+details{
+    max-width: 100%;
+    text-align: justify;
+    cursor: pointer;
+}
 
 ul li a:hover {
     border-bottom: 3px solid #69503c;
 }
 
-
 .meio {
     display: flex;
     padding-top: 20px;
+    justify-content: space-around;
 }
 
 .perguntasV1 {
@@ -82,7 +91,11 @@ ul li a:hover {
     padding-left: 280px;
 }
 
-
+.caixona, .texto{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
 
 .texto span {
     font-family: "Agrandir Regular";
@@ -90,7 +103,6 @@ ul li a:hover {
     display: flex;
    justify-content: flex-end;
    padding-top: 80px;
-   padding-left: 650px;
    padding-right: 20px;
    font-size: 20px;
 }
@@ -106,17 +118,44 @@ margin-top: 20px;
 
 .botao {
     display: flex;
-    width: 82%;
-    justify-content: flex-end;
+    justify-content: center;
 }
-.btn-area {
-    width: 85px;
+
+.botao button {
+    width: 120px;
     align-self: center;
-    border-radius: 38px;
+    border-radius: 25px;
     border-style: none;
     background-color: #BD916E;
     color: #fff;
     padding: 10px 25px 10px 25px;
     font-size: medium;
     margin-top: 20px;
+    transition: 1s;
+}
+
+.botao button:hover{
+    cursor: pointer;
+}
+.botao :focus > button{
+    border: solid 1px white;
+    animation-name: pulsar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsar{
+    0% {
+      box-shadow: 0 0 0 0px white;
+    }
+    70% {
+        box-shadow: 0 0 0 5px #dd0000a4;
+    }
+    100% {
+        box-shadow: 0 0 0 0px white;
+    }
+  }
+
+#botaoAoLado{
+    text-decoration: underline;
 }

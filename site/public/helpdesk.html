@@ -21,8 +21,9 @@
         <div class="headerV1">
             <div class="containerV1">
                 <ul>
+                    <li><a href="index.html"> INÍCIO </a></li>
                     <li><a href="index.html#contato"> CONTATO </a></li>
-                    <li><a href="login.html"> LOGIN </a></li>
+                    <li><a href="cadastro.html"> CADASTRO </a></li>
                     <li><a href="index.html"> VOLTAR </a></li>
 
                 </ul>
@@ -35,10 +36,38 @@
             <span class="perguntasV1">Perguntas Frequentes</span>
             <div class="perguntas">
                 <ul>
-                    <li>Qual a diferença entre a Conway e a Busway?</li>
-                    <li>O que a Busway oferece a quem se cadastra?</li>
-                    <li>Não consigo me cadastrar, o que devo fazer?</li>
-                    <li>Como é feito o monitoramento das viagens?</li>
+                    <li>
+                        <details>
+                            <summary>Qual a diferença entre a ConWay e o Busway?</summary>
+                            ConWay é uma empresa de tecnologia que visa auxiliar continuamente suas parceiros através
+                             da transformação digital.
+                            Busway é um dos diversos produtos desenvolvidos pela ConWay, focado no monitoramento do fluxo
+                             de passageiros em viações de transporte público e privado.
+                        </details>
+                    </li>
+                    
+                    <li>
+                        <details>
+                            <summary>O que o Busway oferece a quem o compra?</summary>
+                            Um sistema completo para análise do fluxo de passageiros dentro de linhas de ônibus, por
+                             meio de diversas estatísticas, gráficos e alertas, permitindo a melhor previsão de incidentes
+                             e alocação de recursos.
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>Como é feito o monitoramento das viagens?</summary>
+                            Por meio de sensor Busway, que detecta a entrada e saída de passageiros. Enviamos sensores
+                             para todos os clientes, de acordo com as especificações informadas. 
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>Não consigo me cadastrar, o que devo fazer?</summary>
+                            Entre em contato com a ConWay através de nossa central de serviços unificada, clicando no
+                             <span id="botaoAoLado" onmouseenter="focarNoBotao(true)" onmouseleave="focarNoBotao(false)">botão ao lado.</span>
+                        </details>
+                    </li>
                 </ul>
             </div>
 
@@ -47,9 +76,9 @@
                 suas
                 necessidades, contate-nos apertando no botão logo a baixo.</span>
                 <div class="botao">
-                    <div class="btn-area">
-                        <button><b><a href="https://conway-inc.on.spiceworks.com/">Suporte Técnico</a></b></button>
-                    </div>
+                    <a href="https://conway-inc.on.spiceworks.com/portal" target="_blank" id="linkBotao">
+                        <button><b>Suporte Técnico</b></button>
+                    </a>
                 </div>
         </div>
     </div>
@@ -57,3 +86,8 @@
 </body>
 
 </html>
+<script>
+    function focarNoBotao(focar){
+        linkBotao.focus();
+    }
+</script>

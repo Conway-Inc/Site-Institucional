@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adicionar veículo</title>
+    <title>Adicionar novo veículo</title>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/criacaoVeiculo.css" />
     <link rel="stylesheet" href="css/menuDashboard.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script
       src="https://kit.fontawesome.com/89d28f01ec.js"
       crossorigin="anonymous"
@@ -34,7 +35,6 @@
     <div class="header">
       <div class="container">
         <ul>
-          <li><a href=""> CONFIGURAÇÕES </a></li>
           <li><a href="menuDashboard.html"> VOLTAR </a></li>
         </ul>
       </div>
@@ -62,7 +62,7 @@
                   id="selectModelo"
                   oninput="mudarImagem()"
                 >
-                  <option value="1">Basico</option>
+                  <option value="1">Básico</option>
                   <option value="2">Micro-ônibus</option>
                   <option value="3">Mini-ônibus</option>
                   <option value="4">Midiônibus</option>
@@ -74,7 +74,7 @@
               </label>
             </div>
             <img
-              src="images/modelosOnibus/Basico.png"
+              src="images/modelosOnibus/Básico.png"
               alt=""
               id="imgOnibusCriacao"
             />
@@ -85,7 +85,7 @@
         <!-- Conteúdo - Veículos -->
         <aside>
           <div class="imgHeader">
-            <img src="images/transpass.png" alt="" />
+            <img id="imgEmpresa"/>
           </div>
 
           <div class="funcionarios">
@@ -106,6 +106,9 @@
   </body>
 </html>
 <script>
+  imgEmpresa.src = `images/${sessionStorage.NOME_EMPRESA}.png`;
+  imgEmpresa.alt = `Logo da ${sessionStorage.NOME_EMPRESA}`;
+
   var veiculos = [];
 
   carregarVeiculosDaEmpresa();
@@ -122,7 +125,7 @@
       imgOnibusCriacao.src = "images/modelosOnibus/Midiônibus.png";
     }
     if (modelo == "1") {
-      imgOnibusCriacao.src = "images/modelosOnibus/Basico.png";
+      imgOnibusCriacao.src = "images/modelosOnibus/Básico.png";
     }
     if (modelo == "5") {
       imgOnibusCriacao.src = "images/modelosOnibus/Padron.png";
@@ -138,11 +141,29 @@
     }
   }
 
+  var erroAdVeic;
+  var veicOk = true;
+
   function adicionarVeiculo() {
     var placa = iptPlaca.value;
     var anoAquisicao = iptAnoAquisicao.value;
     var fkModelo = selectModelo.value;
     var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+    erroAdVeic = ``;
+    veicOk = true;
+
+    if(placa.length != 7){
+      erroAdVeic += `\nA placa deve conter 7 caracteres`;
+      veicOk = false;
+    }
+
+    if(anoAquisicao.length != 4){
+      erroAdVeic += `\nO ano deve conter 4 caracteres`;
+      veicOk = false;
+    }
+
+    if(veicOk == true){
 
     fetch("/veiculos/cadastrarVeiculo", {
       method: "POST",
@@ -167,9 +188,29 @@
         // setTimeout(() => {
         //   window.location = "login.html";
         // }, 2000);
+
+        swal({
+              title: "Veiculo cadastrado com sucesso",
+              text: "\n",
+              icon: "success",
+              timer: 1000,
+              button: false,
+            });
+
+        carregarVeiculosDaEmpresa();
         console.log(resposta);
       }
     });
+  }
+  else{
+    swal({
+              title: "Não foi possível cadastrar o veículo",
+              text: `${erroAdVeic}`,
+              icon: "error",
+              timer: 3000,
+              button: false,
+            });
+  }
   }
 
   function carregarVeiculosDaEmpresa() {

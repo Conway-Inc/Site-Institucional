@@ -15,17 +15,19 @@
     <div id="sidebar" class="sidebarHora">
         <div id="KPIDias">
             <span>Dia Mais Cheio:</span>
-            <p>Segunda-Feira</p>
+            <p id="pDiasMaisCh">Segunda-Feira</p>
             <span>Dia Mais Vazio:</span>
-            <p>Sábado</p>
+            <p id="pDiasMenosCh">Sábado</p>
         </div>
-        <div id="KPIMovimentaçãoPontos">
-            <span>Ponto de Maior Pico</span>
-            <p>7</p>
-            <p>Av. Rebouças, 2549</p>
-            <span>Ponto de Menor Pico</span>
-            <p>3</p>
-            <p>Av. Eng. Heitor, 1421</p>
+        <div id="KPIMovMais">
+            <span>Ponto mais movimentado</span>
+            <p id="pPontoMaisMov"></p>
+            <p id="pLogMaisMov"></p>
+        </div>
+        <div id="KPIMovMenos">
+            <span>Ponto menos movimentado</span>
+            <p id="pPontoMenosMov"></p>
+            <p id="pLogMenosMov"></p>
         </div>
     </div>
     <!--Terminada a barra lateral das KPIs-->
@@ -52,7 +54,7 @@
             <!--Início da área do gráfico da dashboard-->
             <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
                 <h2 id="titHorario"></h2><!--cada horário por si só.-->
-                <canvas id="graficoRota"></canvas>
+                <canvas id="graficoRota" class="graficoLoading"></canvas>
             </div>
             <!--Fim da área do gráfico da dashboard-->
         </div>
@@ -78,20 +80,7 @@
                             <p>Lotação</p>
                             <p>Modelo</p>
                         </div>
-                        <div class="tabelaVeiculosLinha">
-                            <p>EEL-6867</p>
-                            <p>70</p>
-                            <p>Básico</p>
-                        </div>
-                        <div class="tabelaVeiculosLinha">
-                            <p>EXR-4682</p>
-                            <p>80</p>
-                            <p>Padron</p>
-                        </div>
                     </div>
-                </div>
-                <div id="containerGraficoVeiculos">
-                    <canvas id="graficoVeiculos"></canvas>
                 </div>
                 <a href="dashboardGeral.html">< VOLTAR</a>
             </div>
@@ -113,11 +102,12 @@
     else{
         // alert(sessionStorage.HORARIO_DA_LINHA);
     }
-    var horario = sessionStorage.HORARIO_DA_LINHA;
+    const codRota = sessionStorage.COD_LINHA;
+    const horario = sessionStorage.HORARIO_DA_LINHA;
     var linha = null;
+    var dias = [];
     var otimizacaoHorario = null;
-    var kpiMov = null;
-    var kpiHor = null;
+    var kpiPico = null;
     var fluxo = null;
     var pontos = null;
     var veiculos = null;
@@ -132,7 +122,7 @@
     }
 
     function carregarLinha() {
-        fetch(`linha/listarPorCodigo/${sessionStorage.COD_ROTA}`, {
+        fetch(`linha/listarPorCodigo/${codRota}`, {
             cache: "no-store",
         }).then(function (response) {
         if (response.ok) {
@@ -140,30 +130,120 @@
             console.log(`Linha: ${JSON.stringify(resposta)}`);
             linha = resposta;
             configLinha();
+            carregarDias();
         });
         }
         }).catch(function (error) {
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
     }
-    function carregarOtimizacao() {
-        fetch(`/viagem/otimizacaoHorario/${sessionStorage.COD_ROTA}/${horario}`, {
+    function carregarDias() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        //Cortando o horário, para usar de base no WHERE do banco.
+        //Este where só aceita a hora inteira, então cortamos valores como 09:00 para 9 e 12:00 para 12
+        fetch(`viagem/diasPorHorario/${codRota}/${horarioCortado}`, {
             cache: "no-store",
         }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
-            console.log(`Otimização: ${JSON.stringify(resposta)}`);
-            otimizacaoHorario = resposta;
-            gerarGraficoOtimizacao();
+            console.log(`Dias: ${JSON.stringify(resposta)}`);
+            dias = resposta;
+            for (let i = 0; i < dias.length; i++) {
+                switch(dias[i].diaSemana){
+                    case 'Sunday':
+                        dias[i].diaSemana = 'Domingo';
+                        break;
+                    case 'Monday':
+                        dias[i].diaSemana = 'Segunda-Feira';
+                        break;
+                    case 'Tuesday':
+                        dias[i].diaSemana = 'Terça-Feira';
+                        break;
+                    case 'Wednesday':
+                        dias[i].diaSemana = 'Quarta-Feira';
+                        break;
+                    case 'Thursday':
+                        dias[i].diaSemana = 'Quinta-Feira';
+                        break;
+                    case 'Friday':
+                        dias[i].diaSemana = 'Sexta-Feira';
+                        break;
+                    case 'Saturday':
+                        dias[i].diaSemana = 'Sábado';
+                        break;
+                }
+            }
+            gerarGraficoOtimizacao(dias);
+            carregarPontos();
         });
         }
         }).catch(function (error) {
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
     }
-
+    function carregarPontos() {
+        fetch(`ponto/listarPorCodLinha/${codRota}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Pontos: ${JSON.stringify(resposta)}`);
+                pontos = resposta;
+                configPontos();
+                carregarFluxo();
+            });
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+    function carregarFluxo() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        //Mesmo corte do 'carregarDias()'
+        fetch(`viagem/fluxoDias/${codRota}/${horarioCortado}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Fluxo: ${JSON.stringify(resposta)}`);
+            fluxo = resposta;
+            configFluxo(fluxo);
+            carregarKPIs()
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarKPIs() {
+        fetch(`linha/kpiMovLinha/${codRota}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
+                kpiMov = resposta;
+                configKPIMovLinha();
+            });
+            }
+        })
+    }
     carregarLinha();
-    carregarOtimizacao();
 
     var codigo = document.getElementById("h1Codigo");
     var nomeIda = document.getElementById("pNomeIda");
@@ -173,6 +253,14 @@
     var tituloHorario = document.getElementById("titHorario");
 
     var pClassificacao = document.getElementById("classific");
+
+    var pDiasMaisCh = document.getElementById("pDiasMaisCh");
+    var pDiasMenosCh = document.getElementById("pDiasMenosCh");
+
+    var kpiPontoMaisMov = document.getElementById("pPontoMaisMov");
+    var kpiLogMaisMov = document.getElementById("pLogMaisMov");
+    var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
+    var kpiLogMenosMov = document.getElementById("pLogMenosMov");
 
     function configLinha(){
         document.title = `${linha.codLinha} - Dados gerais`;
@@ -207,9 +295,105 @@
             pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
         }
     }
+    var logs = [];
+    function configPontos(){
+        for (let i = 0; i < pontos.length; i++) {
+            if(pontos[i].numNaRua != undefined){
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+            }
+            else{
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}`;
+            }
+        }
+    }
+    
+    var fluxoTratado = [];
+    var kpiDias = [];
+    var graficoCriado = false;
 
-    function gerarGraficoOtimizacao() {
-        var otimizacao = Number(otimizacaoHorario[0].otimizacao);
+    setInterval(() =>{
+        carregarFluxo();
+    },3000)
+    
+    function configFluxo(){
+        fluxoTratado = []
+        for (let i = 0; i < dias.length; i++) {
+            let data = [];
+            kpiDias = [];
+            kpiDias.push({ 
+                dia: dias[i].diaSemana,
+                saldoAcumulado: 0 });
+            for (let c = 0; c < fluxo.length; c++) {
+                if(fluxo[c].dataV == dias[i].dataV){
+                    data.push(fluxo[c].saldoPass);
+                    kpiDias[i].saldoAcumulado += Number(fluxo[c].saldoPass);
+                }
+            }
+
+            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/") + " " + (dias[i].diaSemana).slice(0,3) + ".";
+            fluxoTratado.push({label: diaFluxo, data});
+            
+        }
+
+        if(!graficoCriado){
+            graficoCriado = true;
+            gerarGraficoFluxoHora(logs, fluxoTratado);
+        }
+        else{
+            console.log(fluxoTratado);
+            graficoGeral.destroy();
+            gerarGraficoFluxoHora(logs, fluxoTratado).update();
+        }
+        configKPIdias();
+        
+    }
+
+    function configKPIdias(){
+        var diaMaisCheio = { dia: null, saldo: 0 };
+        var diaMenosCheio = { dia: null, saldo: 10000 };
+
+        for (let i = 0; i < kpiDias.length; i++) {
+            if(kpiDias[i].saldoAcumulado > diaMaisCheio.saldo){
+                diaMaisCheio.saldo = kpiDias[i].saldoAcumulado;
+                diaMaisCheio.dia = kpiDias[i].dia;
+            }
+            if(kpiDias[i].saldoAcumulado < diaMenosCheio.saldo){
+                diaMenosCheio.saldo = kpiDias[i].saldoAcumulado;
+                diaMenosCheio.dia = kpiDias[i].dia;
+            }
+        }
+        pDiasMaisCh.innerHTML = diaMaisCheio.dia;
+        pDiasMenosCh.innerHTML = diaMenosCheio.dia;
+    }
+
+    function configKPIMovLinha(){
+        var cheio = { idPonto: 0, logradouro: null, movimentacao: 0 };
+        var vazio = { idPonto: 0, logradouro: null, movimentacao: 100000 };
+
+        cheio.idPonto = kpiMov[1].idPonto;
+        cheio.movimentacao = kpiMov[1].movimentacao;
+        cheio.logradouro = `${kpiMov[1].logradouro}, ${kpiMov[1].numNaRua}`;
+
+        vazio.idPonto = kpiMov[kpiMov.length-1].idPonto;
+        vazio.movimentacao = kpiMov[kpiMov.length-1].movimentacao;
+        vazio.logradouro = `${kpiMov[kpiMov.length-1].logradouro}, ${kpiMov[kpiMov.length-1].numNaRua}`
+        
+        kpiPontoMaisMov.innerHTML = cheio.idPonto;
+        kpiLogMaisMov.innerHTML = cheio.logradouro;
+
+        kpiPontoMenosMov.innerHTML = vazio.idPonto;
+        kpiLogMenosMov.innerHTML = vazio.logradouro;
+    }
+
+    var graficoGeral = null;
+    function gerarGraficoOtimizacao(pDias) {
+        var otimizacao = 0;
+
+        let soma = 0;
+        for (var i = 0; i < pDias.length; i++) {
+            soma += Number(pDias[i].pctOtimizacao);
+        }
+        otimizacao = soma / i;
         var areaBranca = 100 - otimizacao;
 
         var corClassific = "";
@@ -218,9 +402,13 @@
             corClassific = "#00BF63";
             nomeClassific = "Ideal";
         }
-        else if (otimizacao > 30) {
-            corClassific = "#fbff1a";
+        else if (otimizacao >= 50) {
+            corClassific = "#4c52c6";
             nomeClassific = "Boa";
+        }
+        else if(otimizacao >= 30){
+            corClassific = "#d86f00";
+            nomeClassific = "Regular";
         }
         else {
             corClassific = "#DB0300";
@@ -263,88 +451,73 @@
         );
     }
 
-    //Gráfico geral da rota
-    const lotacaoOnibus = 70;
-    const dadosHora = {
-        labels:pontos,
-        datasets: [{
-                label: "06/01, seg.",
-                data: [10,15,22,28,35,42,46,49,54,59,64,58,50,39,30,24,13]
-            },
-            {
-                label: "07/01, ter.",
-                data: [8,13,20,25,32,36,40,43,50,53,60,53,49,40,36,29,18]
-            },
-            {
-                label: "08/01, qua.",
-                data: [10,15,22,28,35,42,46,49,54,59,64,58,50,39,30,24,13]
-            },
-            {
-                label: "09/01, qui.",
-                data: [8,15,20,27,32,39,45,49,54,58,64,57,50,44,39,27,16]
-            },
-            {
-                label: "10/01, sex.",
-                data: [12,19,27,30,39,45,53,60,64,70,73,71,76,69,60,53,47]
-            },
-            {
-                label: "11/01, sab.",
-                data: [2,0,4,8,12,16,17,17,20,21,20,23,23,18,14,8,4]
-            },
-        ]
-    }
-    const configGraficoGeral = {
-        type: "line",
-        data: dadosHora,
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    max: (lotacaoOnibus +25)
-            }
-            }
+    function gerarGraficoFluxoHora(pDias, pFluxo){
+        const lotacaoOnibus = 70;
+        const dadosHora = {
+            labels: pDias,
+            datasets: pFluxo
         }
-    }
-    const graficoGeral = new Chart(
-        document.getElementById("graficoRota"),
-        configGraficoGeral
-    );
-
-    // Gráfico dos ônibus na rota
-    // Todos os modelos:
-    // const modelos = [
-    //     "Miniônibus",
-    //     "Midiônibus",
-    //     "Básico",
-    //     "Padron",
-    //     "Articulado",
-    //     "Biarticulado"
-    // ]
-     const modelos = [
-         "Básico",
-         "Padron",
-    ]
-    const dadosVeiculos = {
-        labels:modelos,
-        datasets: [{
-                data: [2,1],
-                backgroundColor: ['#69503C','#BD916E']
-            }
-        ]
-    }
-    const configGraficoVeiculos = {
-        type: "pie",
-        data: dadosVeiculos,
-        options: {
-            plugins: {
-                legend: {
-                    position: "bottom"
+        const configGraficoGeral = {
+            type: "line",
+            data: dadosHora,
+            options: {
+                animation: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        max: (lotacaoOnibus +25)
+                }
                 }
             }
         }
+        graficoRota.className = "";
+        graficoGeral = new Chart(
+            document.getElementById("graficoRota"),
+            configGraficoGeral
+        );
+
+        return graficoGeral;
     }
-    const graficoVeiculos = new Chart(
-        document.getElementById("graficoVeiculos"),
-        configGraficoVeiculos
-    );
+
+    function graficoModelo() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        fetch(`veiculos/graficoModelo/${codRota}/${horarioCortado}`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(response)}`);
+
+                        var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
+                        for (let i = 0; i < resposta.length; i++) {
+                            var veiculo = document.createElement("div");
+                            var placa = document.createElement("p");
+                            var lotacao = document.createElement("p");
+                            var modelo = document.createElement("p");
+
+                            placa.innerHTML = resposta[i].placaVeiculo;
+                            lotacao.innerHTML = resposta[i].lotacao;
+                            modelo.innerHTML = resposta[i].nomeModelo;
+
+                            veiculo.appendChild(placa);
+                            veiculo.appendChild(lotacao);
+                            veiculo.appendChild(modelo);
+                            veiculo.className = 'tabelaVeiculosLinha';
+
+                            listaVeiculos.appendChild(veiculo);
+                        }
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado na API");
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
 </script>

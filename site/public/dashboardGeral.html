@@ -15,11 +15,11 @@
 <body>
     <!--Começando a barra lateral das KPIs-->
     <div id="sidebar">
-        <div id="KPIHorariosCheios" class="KPIAlerta">
+        <div id="KPIHorariosCheios">
             <span>Horário mais cheio</span>
             <p id="pHrCheio"></p>
             <span>Média em horários cheios</span>
-            <p id="pMediaPassHrCheio" class="alerta"></p>
+            <p id="pMediaPassHrCheio"></p>
         </div>
         <div id="KPIHorariosVazios">
             <span>Horário mais vazio</span>
@@ -72,7 +72,8 @@
             <div id="graficoDashboard">
                 <!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
                 <h2>Média geral dos horários da rota</h2><!--cada horário por si só.-->
-                <canvas id="graficoRota"></canvas>
+                <canvas id="graficoRota" class="graficoLoading">
+                </canvas>
             </div>
             <!--Fim da área do gráfico da dashboard-->
         </div>
@@ -100,9 +101,6 @@
                     </div>
                 </div>
             </div>
-            <div id="containerGraficoVeiculos">
-                <canvas id="graficoVeiculos"></canvas>
-            </div>
             <a href="menuDashboard.html">
                 < VOLTAR</a>
         </div>
@@ -128,33 +126,27 @@
         }
     }
 
-    ///////////////////////////////////////////////
-    ///////////////// Temporário //////////////////
-    sessionStorage.COD_ROTA = "477P";
-    ///////////////////////////////////////////////
-
-    if (sessionStorage.COD_ROTA == undefined) {
+    if (sessionStorage.COD_LINHA == undefined) {
         window.location = "menuDashboard.html";
     }
     var linha = null;
-    var kpiMov = null;
-    var kpiHor = null;
+    var kpiHor = [];
+    var kpiMov = [];
     var fluxo = null;
     var horarios = null;
     var pontos = null;
-    var veiculos = null;
     
     var pontos
     
     veiculoRota()
     function carregarLinha() {
-        fetch(`linha/listarPorCodigo/${sessionStorage.COD_ROTA}`, {
+        fetch(`linha/listarPorCodigo/${sessionStorage.COD_LINHA}`, {
             cache: "no-store",
         })
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        console.log(`Linha: ${JSON.stringify(resposta)}`);
                         linha = resposta;
                         configLinha();
                         gerarGraficoOtimizacao();
@@ -167,7 +159,7 @@
     }
 
     function carregarKPIs() {
-        fetch(`linha/kpiMovLinha/${sessionStorage.COD_ROTA}`, {
+        fetch(`linha/kpiMovLinha/${sessionStorage.COD_LINHA}`, {
             cache: "no-store",
         })
             .then(function (response) {
@@ -183,7 +175,7 @@
             console.error(`Erro na obtenção dos dados: ${error.message}`);
         });
 
-        fetch(`viagem/mediaPassageirosPorHorario/${sessionStorage.COD_ROTA}`, {
+        fetch(`viagem/mediaPassageirosPorHorario/${sessionStorage.COD_LINHA}`, {
         cache: "no-store",
         })
         .then(function (response) {
@@ -191,6 +183,12 @@
             response.json().then(function (resposta) {
                 console.log(`KPI média de passageiros por horário: ${JSON.stringify(resposta)}`);
                         kpiHor = resposta;
+                        for (let i = 0; i < kpiHor.length; i++) {
+                            kpiHor[i].horario += ":00";
+                        if(kpiHor[i].horario.length == 4){
+                            kpiHor[i].horario = "0" + kpiHor[i].horario
+                        }
+                }
                         configKPIMediaPass();
             });
             }
@@ -200,7 +198,7 @@
         });
     }
     function carregarhorarios() {
-        fetch(`viagem/horariosPorRota/${sessionStorage.COD_ROTA}`, {
+        fetch(`viagem/horariosPorRota/${sessionStorage.COD_LINHA}`, {
         cache: "no-store",
         })
         .then(function (response) {
@@ -208,6 +206,12 @@
             response.json().then(function (resposta) {
                 console.log(`horarios: ${JSON.stringify(resposta)}`);
                 horarios = resposta;
+                for (let i = 0; i < horarios.length; i++) {
+                    horarios[i].horario += ":00";
+                    if(horarios[i].horario.length == 4){
+                        horarios[i].horario = "0" + horarios[i].horario
+                    }
+                }
                 confighorarios();
                 carregarPontos();
             });
@@ -218,7 +222,7 @@
         });
     }
     function carregarPontos() {
-        fetch(`ponto/listarPorCodLinha/${sessionStorage.COD_ROTA}`, {
+        fetch(`ponto/listarPorCodLinha/${sessionStorage.COD_LINHA}`, {
         cache: "no-store",
         })
         .then(function (response) {
@@ -227,8 +231,11 @@
                 console.log(`Pontos: ${JSON.stringify(resposta)}`);
                 pontos = resposta;
                 configPontos();
-                carregarFluxo();
-                    });
+                setInterval(()=>carregarFluxo(),1000);
+                }).catch(function (error){
+                    console.warn(`Essa linha não tem fluxo cadastrado: ${error.message}`);
+                    graficoDashboard.innerHTML += "Essa linha não tem pontos cadastrados";
+                });
                 }
             })
             .catch(function (error) {
@@ -236,7 +243,7 @@
             });
     }
     function carregarFluxo() {
-        fetch(`viagem/fluxoViagens/${sessionStorage.COD_ROTA}`, {
+        fetch(`viagem/fluxoViagens/${sessionStorage.COD_LINHA}`, {
             cache: "no-store",
         })
             .then(function (response) {
@@ -244,6 +251,12 @@
                     response.json().then(function (resposta) {
                         console.log(`Fluxo: ${JSON.stringify(resposta)}`);
                         fluxo = resposta;
+                        for (let i = 0; i < fluxo.length; i++) {
+                            fluxo[i].horario += ":00";
+                            if(fluxo[i].horario.length == 4){
+                                fluxo[i].horario = "0" + fluxo[i].horario
+                            }
+                        }
                         configFluxo();
                     });
                 }
@@ -267,8 +280,11 @@
     var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
     var kpiLogMenosMov = document.getElementById("pLogMenosMov");
 
+    var cardHrCheio = document.getElementById("KPIHorariosCheios");
     var kpiHrCheio = document.getElementById("pHrCheio");
     var kpiMediaPassHrCheio = document.getElementById("pMediaPassHrCheio");
+    
+    var cardHrVazio = document.getElementById("KPIHorariosVazios");
     var kpiHrVazio = document.getElementById("pHrVazio");
     var kpiMediaPassHrVazio = document.getElementById("pMediaPassHrVazio");
 
@@ -305,33 +321,86 @@
             pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
         }
     }
-    function configKPIMovLinha(){   
-        kpiPontoMaisMov.innerHTML = kpiMov.idPontoMaisMov;
-        kpiLogMaisMov.innerHTML = kpiMov.logrMaisMov;
+    function configKPIMovLinha(){
+        if(kpiMov[1] != null){
+            var cheio = { idPonto: 0, logradouro: null, movimentacao: 0 };
+            var vazio = { idPonto: 0, logradouro: null, movimentacao: 100000 };
 
-        kpiPontoMenosMov.innerHTML = kpiMov.idPontoMenosMov;
-        kpiLogMenosMov.innerHTML = kpiMov.logrMenosMov;
+            cheio.idPonto = kpiMov[1].idPonto;
+            cheio.movimentacao = kpiMov[1].movimentacao;
+            cheio.logradouro = `${kpiMov[1].logradouro}, ${kpiMov[1].numNaRua}`;
+
+            vazio.idPonto = kpiMov[kpiMov.length-1].idPonto;
+            vazio.movimentacao = kpiMov[kpiMov.length-1].movimentacao;
+            vazio.logradouro = `${kpiMov[kpiMov.length-1].logradouro}, ${kpiMov[kpiMov.length-1].numNaRua}`
+            
+            kpiPontoMaisMov.innerHTML = cheio.idPonto;
+            kpiLogMaisMov.innerHTML = cheio.logradouro;
+
+            kpiPontoMenosMov.innerHTML = vazio.idPonto;
+            kpiLogMenosMov.innerHTML = vazio.logradouro;
+        }
+        else{
+            KPIMovMais.style = "display: none";
+            KPIMovMenos.style = "display: none";
+        }
     }
     function configKPIMediaPass(){
-        var cheio = { horario: null, media: -100000 };
-        var vazio = { horario: null, media: 100000 };
+        var cheio = { horario: null, media: 0, alerta: false };
+        var vazio = { horario: null, media: 100000, alerta: false };
         
+        // PARA TESTAS OS ALERTAS DAS KPIS, DESCOMENTE ABAIXO:
+        // kpiHor = [
+        //     {
+        //         horario: "09:00",
+        //         lotacao: "80",
+        //         mediaPass: "10",
+        //     },{
+        //         horario: "12:00",
+        //         lotacao: "80",
+        //         mediaPass: "92",
+        //     },
+        // ]
+
         for (let i = 0; i < kpiHor.length; i++) {
             if(kpiHor[i].mediaPass > cheio.media){
                 cheio.media = kpiHor[i].mediaPass;
                 cheio.horario = kpiHor[i].horario;
+                if(kpiHor[i].mediaPass > kpiHor[i].lotacao){
+                    cheio.alerta = true;
+                }
+                else{
+                    cheio.alerta = false;
+                }
             }
             if(kpiHor[i].mediaPass < vazio.media){
                 vazio.media = kpiHor[i].mediaPass;
                 vazio.horario = kpiHor[i].horario;
+                if(kpiHor[i].mediaPass < kpiHor[i].lotacao *0.3){
+                    vazio.alerta = true;
+                }
+                else{
+                    vazio.alerta = false;
+                }
             }
+        }
+        if(kpiHor.length < 1){
+            vazio.media = 0;
         }
 
         kpiHrCheio.innerHTML = cheio.horario;
-        kpiMediaPassHrCheio.innerHTML = cheio.media;
-        kpiHrVazio.innerHTML = vazio.horario;
-        kpiMediaPassHrVazio.innerHTML = vazio.media;
+        kpiMediaPassHrCheio.innerHTML = `${cheio.media} passageiros por ponto`;
+        if(cheio.alerta){
+            cardHrCheio.className = "KPIAlerta";
+            kpiMediaPassHrCheio.className = "alerta";
+        }
 
+        kpiHrVazio.innerHTML = vazio.horario;
+        kpiMediaPassHrVazio.innerHTML = `${vazio.media} passageiros por ponto`;
+        if(vazio.alerta){
+            cardHrVazio.className = "KPIAlerta";
+            kpiMediaPassHrVazio.className = "alerta";
+        }
     }
     
     function confighorarios(){
@@ -368,42 +437,58 @@
     //     label: "12:00 (CCV-4234)" ,
     //     data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
     // }]
-    var fluxoTratado = [];
+    
+    var graficoCriado = false;
     function configFluxo(){
+        var fluxoTratado = [];
         for (let i = 0; i < horarios.length; i++) {
             let data = [];
             for (let c = 0; c < fluxo.length; c++) {
                 if(fluxo[c].horario == horarios[i].horario){
-                    data.push(fluxo[c].saldoPassageiros);
+                    data.push(fluxo[c].saldoPass);
                 }
             }
             var horarioFluxo = (horarios[i].horario);
             fluxoTratado.push({label: horarioFluxo, data});
         }
-        gerarGraficoFluxo(logs, fluxoTratado);
+        if(!graficoCriado){
+            graficoCriado = true;
+            gerarGraficoFluxo(logs, fluxoTratado);
+        }
+        else{
+            console.log(fluxoTratado);
+            graficoGeral.destroy();
+            gerarGraficoFluxo(logs, fluxoTratado).update();
+        }
     }
 
+    var graficoGeral = null;
     function gerarGraficoOtimizacao() {
         var otimizacao = Number(linha.pctOtimizacao);
         var areaBranca = 100 - otimizacao;
 
         var corClassific = "";
         var nomeClassific = "";
-        if (otimizacao >= 80) {
-            corClassific = "#00BF63";
-            nomeClassific = "Ideal";
-        }
-        else if (otimizacao > 30) {
-            corClassific = "#fbff1a";
-            nomeClassific = "Boa";
-        }
-        else {
-            corClassific = "#DB0300";
-            nomeClassific = "Ruim";
-        }
+        var contorno = "";
+            if (otimizacao >= 80) {
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
 
         var tituloRota = document.getElementById("tituloRota");
-        tituloRota.style = "background-color: "+corClassific;
+        tituloRota.style = `background-color: ${corClassific};`;
         pClassificacao.innerHTML = nomeClassific;
         pClassificacao.className = "classific" + nomeClassific;
 
@@ -448,6 +533,7 @@
             type: "line",
             data: dadosGeral,
             options: {
+                animation: false,
                 scales: {
                     x: { //Deixa as labels do eixo X (pontos) na vertical
                         ticks: {
@@ -458,57 +544,21 @@
                 }
             }
         }
-        const graficoGeral = new Chart(
+        graficoRota.className = "";
+        graficoGeral = new Chart(
             document.getElementById("graficoRota"),
             configGraficoGeral
         );
-    }
 
-    // Gráfico dos ônibus na rota
-    // Todos os modelos:
-    // const modelos = [
-    //     "Miniônibus",
-    //     "Midiônibus",
-    //     "Básico",
-    //     "Padron",
-    //     "Articulado",
-    //     "Biarticulado"
-    // ]
-    const modelos = [
-        "Básico",
-        "Padron",
-    ]
-    const dadosVeiculos = {
-        labels: modelos,
-        datasets: [{
-            data: [2, 1],
-            backgroundColor: ['#69503C', '#BD916E']
-        }
-        ]
+        return graficoGeral;
     }
-    const configGraficoVeiculos = {
-        type: "pie",
-        data: dadosVeiculos,
-        options: {
-            plugins: {
-                legend: {
-                    position: "bottom"
-                }
-            }
-        }
-    }
-    const graficoVeiculos = new Chart(
-        document.getElementById("graficoVeiculos"),
-        configGraficoVeiculos
-    );
 
     function veiculoRota() {
-        fetch(`linha/veiculoRota/${sessionStorage.COD_ROTA}`)
+        fetch(`linha/veiculoRota/${sessionStorage.COD_LINHA}`)
             .then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(response)}`);
-
                         var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
                         for (let i = 0; i < resposta.length; i++) {
                             var veiculo = document.createElement("div");
@@ -520,13 +570,13 @@
                             lotacao.innerHTML = resposta[i].lotacao;
                             modelo.innerHTML = resposta[i].nomeModelo;
 
+
                             veiculo.appendChild(placa);
                             veiculo.appendChild(lotacao);
                             veiculo.appendChild(modelo);
                             veiculo.className = 'tabelaVeiculosLinha';
 
                             listaVeiculos.appendChild(veiculo);
-
                         }
                     });
                 } else {
@@ -537,5 +587,4 @@
                 console.error(`Erro na obtenção dos dados: ${error.message}`);
             });
     }
-
 </script>

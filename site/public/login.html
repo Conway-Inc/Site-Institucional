@@ -33,9 +33,9 @@
     <div class="container">
       <ul>
         <li><a href="index.html"> INÍCIO </a></li>
-        <li><a href="index.html#contato"> CONTATO </a></li>
+        <li><a href="login.html#contato"> CONTATO </a></li>
         <li><a href="cadastro.html"> CADASTRO </a></li>
-        <li><a href=""> SUPORTE </a></li>
+        <li><a href="helpdesk.html"> SUPORTE </a></li>
       </ul>
     </div>
   </div>
@@ -43,16 +43,15 @@
   <main>
     <div class="formLogin">
       <div class="email">
-        E-mail: <input type="email" id="ipt_email" placeholder="nome@email.com">
+        E-mail: <input type="email" id="ipt_email" placeholder="Seu email">
       </div>
       <div class="senha">
-        Senha: <input type="password" id="ipt_senha" placeholder="•••••">
+        Senha: <input type="password" id="ipt_senha" placeholder="Sua senha">
       </div>
+      <span id="erroSenha">Email ou senha inválidos</span>
+      <img id="loading" src="images/loading.gif">
       <button onclick="entrar()">Entrar</button>
-      <a href="">
-        <p>Recuperar senha</p>
-      </a>
-      <a href="cadastro.html">
+      <a id="aCadastro" href="cadastro.html">
         <p>Não possui conta? Cadastre-se</p>
       </a>
     </div>
@@ -63,16 +62,24 @@
         <h2>Redes Sociais</h2>
         <ul>
           <li>
-            <i class="fa-brands fa-square-twitter fa-1xl" style="color: #ffffff"></i><a href="">Twitter</a>
+            <a href="https://twitter.com" target="_blank">
+              <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
+            </a>
           </li>
           <li>
-            <i class="fa-brands fa-square-instagram fa-1xl" style="color: #ffffff"></i><a href="">Instagram</a>
+            <a href="https://instagram.com" target="_blank">
+              <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
+            </a>
           </li>
           <li>
-            <i class="fa-brands fa-square-facebook fa-1xl" style="color: #ffffff"></i><a href="">Facebook</a>
+            <a href="https://facebook.com" target="_blank">
+              <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
+            </a>
           </li>
           <li>
-            <i class="fa-brands fa-linkedin fa-1xl" style="color: #ffffff"></i><a href="">Linkedin</a>
+            <a href="https://linkedin.com" target="_blank">
+              <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
+            </a>
           </li>
         </ul>
       </div>
@@ -83,7 +90,7 @@
           <li><a href="index.html">Página Inicial</a></li>
           <li><a href="login.html">Login</a></li>
           <li><a href="cadastro.html">Cadastro</a></li>
-          <li><a href="helpdesk.html">Suporte</a></li>
+          <li><a href="">Suporte</a></li>
         </ul>
       </div>
 
@@ -91,19 +98,23 @@
         <h2 id="contato">Contato</h2>
         <ul>
           <li>
-            <i class="fa-brands fa-square-whatsapp fa-1xl" style="color: #ffffff"></i>(11) 94444-4444
+            <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
+              <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
+            </a>
           </li>
           <li>
-            <i class="fa-solid fa-square-phone fa-1xl" style="color: #ffffff"></i>(11) 4444-4444
+            <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
           </li>
           <li>
-            <i class="fa-solid fa-square-envelope fa-1xl" style="color: #ffffff"></i><a
-              href="mailto:conwayiot.enterprise@gmail.com">E-mail</a>
+            <a href="mailto:conway.enterprise@gmail.com" target="_blank">
+              <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
+            </a>
           </li>
           <li>
-            <i class="fa-solid fa-location-dot fa-1xl" style="color: #ffffff"></i><a
-              href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
-              target="_blank">Rua Hadddock Lobo, São Paulo</a>
+            <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+              target="_blank">
+              <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
+            </a>
           </li>
         </ul>
       </div>
@@ -166,12 +177,15 @@
           sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
           sessionStorage.FK_REPRESENTANTE = json.fkRepresentante
           sessionStorage.FK_EMPRESA = json.fkEmpresa;
+          sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
 
 
-
+          loading.style = `
+            display: block;
+          `;
           setTimeout(function () {
             window.location = "./menuDashboard.html";
-          }, 1000); // apenas para exibir o loading
+          }, 2000);
 
         });
 
@@ -182,6 +196,13 @@
         resposta.text().then(texto => {
           console.error(texto);
         });
+        erroSenha.style = `
+          display: block;
+          animation-name: sumir;
+        `;
+        setTimeout(() => {
+          erroSenha.style = "";
+        }, 3000);
       }
 
     }).catch(function (erro) {

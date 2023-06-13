@@ -1,19 +1,23 @@
 .content{
   width: 100%;
   margin: 0;
-  display: block;
+  display: flex;
   flex-wrap: wrap;
   background-color: #E4D4C7;
   border-radius: 20px;
   padding: 10px;
 }
 
+.conteudos{
+  flex-direction: column;
+}
+
 .container{
   margin-left: 50px;
 }
 
-.addRota, .div_ipt{
-  width: 250px;
+.content .container, .cadPontoLinha{
+  display: none;
 }
 
 .div_ipt label, .cadPontoLinha label{
@@ -60,4 +64,21 @@
 
 #listaHover:hover{
   cursor: pointer;
+}
+
+.btn-area, .btnReload{
+  display: none;
+}
+
+.btnReload{
+  align-self: center;
+}
+
+.btnReload button{
+  background-color: #BD916E;
+  font-family: 'Poppins';
+  border-radius: 20px;
+  color: #FFF;
+  border-style: none;
+  height: 40px;
 }
