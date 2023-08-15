@@ -11,6 +11,11 @@
     height: 90%;
 }
 
+.videoAviao img{
+    width: 100%;
+    margin: 0;
+}
+
 .formCadastro{
     width: 40%;
     height: 90%;
@@ -23,18 +28,41 @@
 
 .formCadastro h1{
     color: white;
-
+    margin: 0;
+    margin-bottom: 40px;
+    text-shadow: 3px 2px 0 #000; 
 }
 
 .formCadastro input{
     width: 50%;
-    border: solid 1px #69503C;
+    border: solid 1px #000;
     border-radius: 20px;
-    border-style: none;
+    margin-bottom: 10px;
+    height: 20px;
+}
+
+.formCadastro label{
+    color: white;
+    width: 50%;
+    font-family: 'Poppins', sans-serif;
 }
 
 .nomeFantasia, .cnpj, .nomeRepre, .cargoRepre, .email{
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+
+.formCadastro button{
+    background-color: #C81F1D;
+    color: white;
+    border-style: none;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    font-size: 20px;
+    border: solid 0.5px rgba(255, 255, 255, 0.3);
+    margin-top: 20px;
 }
