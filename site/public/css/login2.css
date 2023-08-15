@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-image: url("../images/avioes-de-papel.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+}
+
+/* TO tentando mexer na logo mas ela tá ligada no wallpaper tbm TT */
+
+.logincaixa{
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 45%;
+    background-color: #69503C;
+    border-radius: 20px;
+    opacity: 96%;
+    flex-direction: column;
+}
+
+h1{
+    color: white;
+    margin-bottom:10px;
+}
+
+input{
+    width: 50%;
+    height: 25px;
+    padding: 2px 10px;
+    border-radius: 15px;
+    border: solid 2px #69503c;
+}
+
+button{
+    color:white;
+    background-color: #c81f1d;
+    width: 40%;
+    height: 100%;
+    border-radius: 20px;
+    font-size: 18px;
+    border-style: none;
+    margin-top:15px
+}
+
+h3{
+    color: white;
+    margin-left: 30%;
+}
+
+.recSenha{
+    color: white;
+}
+
+.logoAir{
+    display: flex;
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    top:-50px;
+    left:0;
+}
+
+img{
+    display: flex;
+}
