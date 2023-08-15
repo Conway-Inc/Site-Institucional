@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>formulario teste</h1>
+    <div id="dv_mailer">
+        Nome da empresa <input type="text" id="ipt_nome">
+        E-mail <input type="text" id="ipt_email">
+        Senha <input type="text" id="ipt_senha">
+        CNPJ <input type="text" id="ipt_cnpj">    
+        Celular <input type="text" id="ipt_celular">
+        Foto Representante <input type="text" id="ipt_foto">
+        Mensagem <input type="text" id="ipt_mensagem">
+        <button onclick="enviar()">Enviar</button>
+    </div>
+</body>
+</html>
+<script>
+    
+    function enviar(){
+        nome = ipt_nome.value;
+        email = ipt_email.value;
+        senha = ipt_senha.value;
+        cnpj = ipt_cnpj.value;
+        celular = ipt_cnpj.value;
+        foto = ipt_foto.value;
+        mensagem = ipt_mensagem.value;
+
+        fetch("mailer/enviar", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          // crie um atributo que recebe o valor recuperado aqui
+                          // Agora vá para o arquivo routes/usuario.js
+                          nomeServer: nome,
+                          emailServer: email,
+                          senhaServer: senha,
+                          cnpjServer: cnpj,
+                          celularServer: celular,
+                          fotoRepresentanteServer: foto,
+                          mensagemServer: mensagem,
+                        }),
+                      }).then((res) => {
+                         if(res.status != 500 && res.status != 400){
+                            alert("Deu certo")
+                         }
+                         else{
+                            alert("desgraça")
+                         }
+                      }
+    )
+    }
+
+
+</script>
