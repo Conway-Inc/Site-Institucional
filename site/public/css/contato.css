@@ -1,0 +1,40 @@
+.contentCad{
+    display: flex;
+    height: 75vh;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
+.videoAviao{
+    width: 60%;
+    height: 90%;
+}
+
+.formCadastro{
+    width: 40%;
+    height: 90%;
+    background-color: #69503c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formCadastro h1{
+    color: white;
+
+}
+
+.formCadastro input{
+    width: 50%;
+    border: solid 1px #69503C;
+    border-radius: 20px;
+    border-style: none;
+}
+
+.nomeFantasia, .cnpj, .nomeRepre, .cargoRepre, .email{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
