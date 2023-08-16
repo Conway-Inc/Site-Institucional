@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/carrossel.css">
+    <script src="js/carrossel.js"></script>
     <link rel="icon" href="images/icon.png" />
     <title>Página Inicial</title>
     <script
@@ -74,22 +76,85 @@
       </div>
     </div>
 
-    <div class="banner">
-      <hr size="5" color="#69503c" id="busway" />
-      <div class="container" id="busway-container">
-        <div class="busway">
-          <h1>BusWay</h1>
-          <p>
-            Um sistema desenvolvido para fornecer todos os dados que sua empresa
-            de ônibus necessita
-          </p>
-          <a href="busway.html">
-            <button>Saiba Mais</button>
-          </a>
-        </div>
-        <img src="images/busway_banner.png" />
+    <hr size="5" color="#69503c" />
+    <div id="carousel-container">
+      <div>
+          <ul id="carousel" class="animate">
+              <li class="banner slide animate">
+                  <span class="slideImage">
+                      <div class="container" id="busway-container">
+                          <div class="busway">
+                              <h1>AirWay</h1>
+                              <p>
+                                  Um sistema desenvolvido para fornecer todos os dados que sua empresa
+                                  de ônibus necessita
+                              </p>
+                              <a href="">
+                                  <button>Saiba Mais</button>
+                              </a>
+                          </div>
+                          <img src="images/busway_banner.png" />
+                      </div>
+                  </span>
+              </li>
+              <li class="banner slide animate">
+                  <span class="slideImage">
+                      <div class="container" id="busway-container">
+                          <div class="busway">
+                              <h1>BusWay</h1>
+                              <p>
+                                  Um sistema desenvolvido para fornecer todos os dados que sua empresa
+                                  de ônibus necessita
+                              </p>
+                              <a href="busway.html">
+                                  <button>Saiba Mais</button>
+                              </a>
+                          </div>
+                          <img src="images/busway_banner.png" />
+                      </div>
+                  </span>
+              </li>
+              <li class="banner slide animate">
+                  <span class="slideImage">
+                      <div class="container" id="busway-container">
+                          <div class="busway">
+                              <h1>AirWay</h1>
+                              <p>
+                                  Um sistema desenvolvido para fornecer todos os dados que sua empresa
+                                  de ônibus necessita
+                              </p>
+                              <a href="busway.html">
+                                  <button>Saiba Mais</button>
+                              </a>
+                          </div>
+                          <img src="images/busway_banner.png" />
+                      </div>
+                  </span>
+              </li>
+              <li class="banner slide animate">
+                  <span class="slideImage">
+                      <div class="container" id="busway-container">
+                          <div class="busway">
+                              <h1>BusWay</h1>
+                              <p>
+                                  Um sistema desenvolvido para fornecer todos os dados que sua empresa
+                                  de ônibus necessita
+                              </p>
+                              <a href="busway.html">
+                                  <button>Saiba Mais</button>
+                              </a>
+                          </div>
+                          <img src="images/busway_banner.png" />
+                      </div>
+                  </span>
+              </li>
+          </ul>
       </div>
-    </div>
+      <div id="controls">
+          <span id="prev"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/prev.png"></span>
+          <span id="next"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/next.png"></span>
+      </div>
+  </div>
 
     <footer>
       <div class="paiFooter">
