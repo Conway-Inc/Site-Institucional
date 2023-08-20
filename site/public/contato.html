@@ -31,41 +31,62 @@
 
     <div class="contentCad">
         <div class="videoAviao">
-            <video width="100%  " height="100%" controls="controls" autoplay="true" loop="true" style="pointer-events: none;">
+            <!-- <video width="100%  " height="100%" controls="controls" autoplay="true" loop="true" style="pointer-events: none;">
                 <source src="video/AirWay.mp4" type="video/mp4">
                 
-            </video>
-            <!-- <img src="video/AirWay.gif" alt=""> -->
+            </video> -->
+            <img src="video/AirWay.gif" alt="">
         </div>
         <div class="formCadastro">
             <h1>Contato</h1>
 
-            <div class="nomeFantasia">
+            <div class="nomeFantasia" id="classNomeFantasia">
                 <label for="">Nome fantasia</label>
-                <input type="text" name="" id="">
+                <input type="text" name="" id="nomeFantasia">
             </div>
 
-            <div class="cnpj">
+            <div class="cnpj" id="classCnpj">
                 <label for="">CNPJ</label>
-                <input type="text" name="" id="">
+                <input type="text" name="" id="cnpj">
             </div>
 
-            <div class="nomeRepre">
+            <div class="nomeRepre" id="classNomeRepre">
                 <label for="">Nome do representante</label>
-                <input type="text" name="" id="">
+                <input type="text" name="" id="nomeRepresentante">
             </div>
 
-            <div class="cargoRepre">
+            <div class="cargoRepre" id="classCargoRepre">
                 <label for="">Cargo do representante</label>
-                <input type="text" name="" id="">
+                <input type="text" name="" id="cargoRepresentante">
             </div>
 
-            <div class="email">
+            <div class="email" id="classEmail">
                 <label for="">E-mail</label>
-                <input type="text" name="" id="">
+                <input type="text" name="" id="email">
             </div>
 
-            <button>Próximo ></button>
+            <div class="cpf" id="classCpf">
+                <label for="">CPF</label>
+                <input type="text" name="" id="cpf">
+            </div>
+
+            <div class="celCont" id="classCelCont">
+                <label for="">Celular de Contato</label>
+                <input type="text" name="" id="celContato">
+            </div>
+
+            <div class="senha" id="classSenha">
+                <label for="">Senha</label>
+                <input type="text" name="" id="senha">
+            </div>
+
+            <div class="confSenha" id="classConfSenha">
+                <label for="">Confirmar Senha</label>
+                <input type="text" name="" id="confSenha">
+            </div>
+
+            <button onclick="proximo()" id="btnProx">Próximo ></button>
+            <button id="btnCad">Enviar</button>
         </div>
     </div>
 
@@ -150,3 +171,22 @@
       </footer>
     </body>
 </html>
+
+<script>
+
+    function proximo (){
+        classNomeFantasia.style.display = "none";
+        classCnpj.style.display = "none";
+        classNomeRepre.style.display = "none";
+        classCargoRepre.style.display = "none";
+        classEmail.style.display = "none";
+        btnProx.style.display = "none";
+
+        classCpf.style.display = "flex";
+        classCelCont.style.display = "flex";
+        classSenha.style.display = "flex";
+        classConfSenha.style.display = "flex";
+        btnCad.style.display = "block";
+    }
+
+</script>

@@ -9,6 +9,8 @@
 .videoAviao{
     width: 60%;
     height: 90%;
+    display: flex;
+    align-items: center;
 }
 
 .videoAviao img{
@@ -24,6 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
 }
 
 .formCadastro h1{
@@ -47,11 +50,15 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.nomeFantasia, .cnpj, .nomeRepre, .cargoRepre, .email{
+.nomeFantasia, .cnpj, .nomeRepre, .cargoRepre, .email, .cpf, .celCont, .senha, .confSenha{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.cpf, .celCont, .senha, .confSenha{
+    display: none;
 }
 
 
@@ -65,4 +72,22 @@
     font-size: 20px;
     border: solid 0.5px rgba(255, 255, 255, 0.3);
     margin-top: 20px;
+}
+
+.formCadastro button:nth-of-type(2){
+    display: none;
+}
+
+@media (max-width: 700px){
+    .videoAviao{
+        display: none;
+    }
+
+    .formCadastro{
+        width: 60%;
+    }
+
+    .contentCad{
+        height: 100vh;
+    }
 }
