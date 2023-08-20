@@ -90,4 +90,19 @@
     .contentCad{
         height: 100vh;
     }
+
+    .paiFooter{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .redes,
+    .acesso,
+    .contato{
+        width: 60%;
+    }
+
+    .formCadastro h1{
+        width: auto;
+    }
 }
