@@ -70,10 +70,10 @@ function next() {
         currTransl[outerIndex] = currTransl[outerIndex] + moveOffset * (amount);
     }
 }
-
 setInterval(
     () =>{
-        next()
+    next()
+    amount = document.getElementsByClassName("slide").length;
+
     }
-    ,3000
-)
+    ,3500)
