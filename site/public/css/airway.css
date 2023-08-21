@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sem serifa;
+}
+
+.container {
+    max-width: 1200px;
+    display: flex;
+    width: 70%;
+    height: 100%;
+    margin: auto;
+
+}
+
+.container2 {
+display: flex;
+width: 65%;
+margin: auto;
+}
+
+.titulo {
+    font-weight: 900;
+    font-size:80px;
+}
+
+.logo {
+    display: flex;
+}
+
+.texto {
+    width: 70%;
+    font-size: large;
+}
+
+
+.texto2 {
+    width: 60%;
+    padding-left: 50px;
+}
+
+.texto3 {
+    color: #69503C;
+    font-size: medium;
+}
+
+.texto_produto {
+    color: #69503C;
+}
+
+.imagem {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+
+.continuacao {
+    display: flex;
+    justify-content: center;
+}
+
+.texto4 {
+    display: flex;
+    justify-content: center;
+    font-size: medium;
+    font-weight: 300;
+    color: #69503C;
+}
+
+.botao {
+    border: none;
+    background: none;
+}
+
+.botao:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+
+ /*Fim da pagina da airway (acima de 700px)*/
+/*Começo da página como funciona (acima de 700px )*/
+.titulo2 {
+        font-weight: 900;
+        font-size:80px;
+        line-height: 70px;
+        color: #69503C;
+}
+
+.container3 {
+    width: 65%;
+    height: 100%;
+    margin: auto;
+}
+
+.subtitulo {
+    width: 38%;
+    font-weight:600 ;
+    font-size: larger;
+    color: #69503C;
+    padding-top: 45px;
+}
+
+.textos {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+}
+
+.texto5 {
+width: 100%;
+padding-top: 20px;
+color: #69503C;
+font-size: large;
+}
+
+.imagem_aviao {
+    width: 100%;
+}
+
+.juncao {
+    display: flex;
+    justify-content: space-evenly;
+}
+@media (max-width: 776px) {
+    .body {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo {
+        display: block;
+    }
+
+    .texto {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .texto2 {
+        width: 100%;
+        padding-left: 0;
+        padding-top: 10px;
+        font-size: large;
+        font-weight: 800;
+    }
+    .imagem {
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        width: 65%;
+        flex-direction: column;
+    }
+    .container2 {
+        flex-direction: column;
+    }
+    /*Fim da pagina da airway (de 700px pra baixo)*/
+    /*Começo da página como funciona (de 700px pra baixo)*/
+
+    .titulo2 {
+        font-size: 50px;
+        line-height: 50px;
+    }
+
+    .subtitulo {
+        width: 100%;
+    }
+
+    .texto5 {
+        flex-direction: column;
+        width: 100%;
+    }
+    .imagem_aviao {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        padding-left: 20px;
+    }
+
+    .juncao {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .imagem_interior_aviao {
+        width: 250px;
+    }
+}
