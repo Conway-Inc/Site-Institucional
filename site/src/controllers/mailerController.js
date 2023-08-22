@@ -9,8 +9,9 @@ function enviarEmail(req, res) {
     var senha = req.body.senhaServer;
     var cnpj = req.body.cnpjServer;
     var celular = req.body.celularServer;
-    var fotoRepresentante = req.body.fotoRepresentanteServer;
-    var mensagem = req.body.mensagemServer;
+    var nomeRep = req.body.nomeRepresentanteServer;
+    var cargoRep = req.body.cargoRepresentanteServer;
+    var cpf = req.body.cpfServer;
 
     console.log("Cheguei na controller")
     // Faça as validações dos valores
@@ -22,8 +23,6 @@ function enviarEmail(req, res) {
       res.status(400).send("Sua senha está undefined!");
     } else if (cnpj == undefined) {
       res.status(400).send("Seu cnpj está undefined!");
-    } else if (mensagem == undefined){
-      res.status(400).send("Sua mensagem está undefined");
     } else {
       // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
       mailerModel
@@ -33,8 +32,9 @@ function enviarEmail(req, res) {
           senha,
           cnpj,
           celular,
-          fotoRepresentante,
-          mensagem
+          nomeRep,
+          cargoRep,
+          cpf
         )
         .then(function (resultado) {
           console.log("Entrei no then controller")

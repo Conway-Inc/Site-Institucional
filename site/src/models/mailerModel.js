@@ -13,22 +13,23 @@ function enviarEmail(nome,
     senha,
     cnpj,
     celular,
-    fotoRepresentante,
-    mensagem) {
+    nomeRep,
+    cargoRep,
+    cpf) {
     console.log("Coletando os dados do e-mail");
     
     var mailOptions = {
         from: 'conway.sptech@gmail.com',
         to: 'conway.sptech@gmail.com',
         subject: 'Requisição de Cadastro',
-        text: `Olá, sou da empresa ${nome} e gostaria de criar uma conta no seu sistema
+        text: `Olá, sou da empresa ${nome}, meu nome é ${nomeRep}, sou ${cargoRep} e gostaria de criar uma conta no seu sistema
         CNPJ: ${cnpj}   
         CELULAR: ${celular}   
         EMAIL: ${email}   
         SENHA: ${senha}    
-        Mensagem: ${mensagem}
-        Minha foto consta abaixo:
-        ${fotoRepresentante}`
+
+        Obrigado!!
+        `
       };
       
       return new Promise((resolve, reject) => {
