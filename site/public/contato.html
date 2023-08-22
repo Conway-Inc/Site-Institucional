@@ -19,12 +19,54 @@
   <div class="header">
     <div class="container">
       <ul>
+        <li><a href="index.html"> INÍCIO </a></li>
         <li><a href="index.html#busway"> PRODUTOS </a></li>
         <li><a href="helpdesk.html"> SUPORTE </a></li>
         <li><a href="index.html#about"> SOBRE NÓS </a></li>
         <li><a href="login.html"> LOGIN </a></li>
       </ul>
     </div>
+  </div>
+
+  <header id="header">
+    <nav class="nav">
+      <button class="toggle-menu">
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div id="menu" class="">
+    <nav class="main-nav">
+      <ul>
+        <li>
+          <a href="login.html">
+            Login
+          </a>
+        </li>
+        <li>
+          <a href="index.html">
+            Início
+          </a>
+        </li>
+        <li>
+          <a href="index.html#busway">
+            Produtos
+          </a>
+        </li>
+        <li>
+          <a href="helpdesk.html">
+            Suporte
+          </a>
+        </li>
+
+        <li>
+          <a href="index.html#about">
+            Sobre nós
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
   <div class="contentCad" id="contentCad">
@@ -155,8 +197,12 @@
 </body>
 
 </html>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
+  $('.toggle-menu').click(function () {
+    $(this).toggleClass('active');
+    $('#menu').toggleClass('open');
+  });
 
   function proximo() {
     classNomeFantasia.style.display = "none";
