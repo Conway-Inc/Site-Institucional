@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #4c3415;
+  background: #b60909;
   transition: all 0.2s ease;
 }
 body.show-chatbot .chatbot-toggler {
