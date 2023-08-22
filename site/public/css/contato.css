@@ -1,0 +1,159 @@
+.contentCad{
+    display: flex;
+    height: 75vh;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    
+}
+.videoAviao{
+    width: 60%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.videoAviao img{
+    width: 100%;
+    margin: 0;
+}
+
+.formCadastro{
+    width: 40%;
+    height: 90%;
+    background-color: #69503c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.formCadastro h1{
+    color: white;
+    margin: 0;
+    margin-bottom: 40px;
+    text-shadow: 3px 2px 0 #000; 
+}
+
+.formCadastro input{
+    width: 50%;
+    border: solid 1px #000;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    height: 20px;
+}
+
+.formCadastro label{
+    color: white;
+    width: 50%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nomeFantasia, .cnpj, .nomeRepre, .cargoRepre, .email, .cpf, .celCont, .senha, .confSenha{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cpf, .celCont, .senha, .confSenha{
+    display: none;
+}
+
+
+.formCadastro button{
+    background-color: #C81F1D;
+    color: white;
+    border-style: none;
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    font-size: 20px;
+    border: solid 0.5px rgba(255, 255, 255, 0.3);
+    margin-top: 20px;
+}
+
+.formCadastro button:nth-of-type(2){
+    display: none;
+}
+
+@media (min-width: 300px){
+    .formCadastro{
+        width: 100%;
+    }
+    .formCadastro input, .formCadastro label{
+        width: 70%;
+    }
+}
+
+@media (max-width: 700px){
+    .videoAviao{
+        display: none;
+    }
+
+    .formCadastro{
+        width: 70%;
+    }
+
+    .contentCad{
+        height: 100vh;
+    }
+
+    .paiFooter{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .redes,
+    .acesso,
+    .contato{
+        width: 60%;
+    }
+
+    .formCadastro h1{
+        width: auto;
+    }
+}
+
+@media (min-width: 701px){
+    .videoAviao{
+        width: 50%;
+    }
+    .formCadastro{
+        width: 50%;
+        padding: 10px;
+    }
+    .contentCad{
+        height: 90vh;
+    }
+    .formCadastro h1{
+        width: auto;
+    }
+}
+
+@media (min-width: 1000px){
+
+    .videoAviao{
+        width: 60%;
+    }
+    .formCadastro{
+        width: 40%;
+    }
+
+    .contentCad{
+        height: 90vh;
+    }
+
+    .formCadastro{
+        padding: 10px;
+    }
+
+    .formCadastro h1{
+        width: auto;
+    }
+
+    
+}
+
