@@ -191,5 +191,40 @@
         contentCad.style.flexDirection = "row-reverse";
         
     }
+    function enviar(){
+        nome = ipt_nome.value;
+        email = ipt_email.value;
+        senha = ipt_senha.value;
+        cnpj = ipt_cnpj.value;
+        celular = ipt_cnpj.value;
+        foto = ipt_foto.value;
+        mensagem = ipt_mensagem.value;
+
+        fetch("mailer/enviar", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          // crie um atributo que recebe o valor recuperado aqui
+                          // Agora vá para o arquivo routes/usuario.js
+                          nomeServer: nome,
+                          emailServer: email,
+                          senhaServer: senha,
+                          cnpjServer: cnpj,
+                          celularServer: celular,
+                          fotoRepresentanteServer: foto,
+                          mensagemServer: mensagem,
+                        }),
+                      }).then((res) => {
+                         if(res.status != 500 && res.status != 400){
+                            alert("Deu certo")
+                         }
+                         else{
+                            alert("desgraça")
+                         }
+                      }
+    )
+    }
 
 </script>
