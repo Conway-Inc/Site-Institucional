@@ -63,6 +63,7 @@ ul li a:hover {
 }
 
 .meio {
+    min-height: 60vh;
     flex-direction: column;
     display: flex;
     padding-top: 20px;

@@ -43,13 +43,13 @@ ul li a:hover {
   border-bottom: 3px solid #69503c;
 }
 
-.container ul li:nth-of-type(4) {
+.container ul li:nth-of-type(5) {
   border: solid 1px #69503c;
   padding: 10px;
   position: relative;
 }
 
-.container ul li:nth-of-type(4)::before {
+.container ul li:nth-of-type(5)::before {
   position: absolute;
   content: "";
   top: 10px;
@@ -59,7 +59,7 @@ ul li a:hover {
   background-color: white;
 }
 
-.container ul li:nth-of-type(4):hover::before {
+.container ul li:nth-of-type(5):hover::before {
   position: absolute;
   content: "";
   top: 10px;
@@ -69,7 +69,7 @@ ul li a:hover {
   background-color: white;
 }
 
-.container ul li:nth-of-type(4)::after {
+.container ul li:nth-of-type(5)::after {
   position: absolute;
   content: "";
   top: 10px;
@@ -79,7 +79,7 @@ ul li a:hover {
   background-color: white;
 }
 
-.container ul li:nth-of-type(4):hover::after {
+.container ul li:nth-of-type(5):hover::after {
   position: absolute;
   content: "";
   top: 10px;
@@ -127,6 +127,7 @@ ul li a:hover {
   }
 
   #header {
+    width: 100%;
     height: 5rem;
     background-color: #69503c;
     padding: 1rem;
