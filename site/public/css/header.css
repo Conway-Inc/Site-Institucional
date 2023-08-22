@@ -1,7 +1,7 @@
 .header {
   width: 50%;
   position: fixed;
-  top: 0px;
+  top: 10px;
   right: 0px;
   font-size: x-large;
   background-color: rgba(255, 255, 255, 0.349);
@@ -86,4 +86,10 @@ ul li a:hover {
         width: 1px;
         height: 35px;
         background-color: white;
+}
+
+@media (max-width: 700px) {
+  .header{
+    display: none;
+  }
 }
