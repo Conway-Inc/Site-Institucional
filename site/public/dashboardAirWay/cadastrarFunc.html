@@ -51,8 +51,8 @@
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-search fa-fw"></i>
                 </a>
                 <!-- Dropdown - Messages -->
@@ -60,9 +60,8 @@
                     aria-labelledby="searchDropdown">
                     <form class="form-inline mr-auto w-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small"
-                                placeholder="Search for..." aria-label="Search"
-                                aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -75,8 +74,8 @@
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
                     <span class="badge badge-danger badge-counter">3+</span>
@@ -128,15 +127,13 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-white-600 small">Logado</span>
-                    <img class="img-profile rounded-circle"
-                        src="img/undraw_profile.png">
+                    <img class="img-profile rounded-circle" src="img/undraw_profile.png">
                 </a>
                 <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="setting.html">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Perfil
@@ -186,27 +183,27 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="form-label">Nome</label>
-                                    <input type="text" class="form-control mb-1" value="">
+                                    <input id="iptNome" type="text" class="form-control mb-1" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="">
+                                    <input id="iptEmail" type="email" class="form-control mb-1" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Cpf</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input id="iptCpf" type="text" class="form-control" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Cargo</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input id="iptCargo" type="text" class="form-control" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Senha</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input id="iptSenha" type="text" class="form-control" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Confrimação de Senha</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input id="iptConfSenha" type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -215,73 +212,73 @@
             </div>
         </div>
         <div class="text-right mt-3">
-            <button type="button" class="btn btn-primary">Cadastrar</button>&nbsp;
+            <button type="button" onclick="verificar()" class="btn btn-primary">Cadastrar</button>&nbsp;
         </div>
     </div>
     <footer>
         <div class="paiFooter">
-          <div class="redes">
-            <h2>Redes Sociais</h2>
-            <ul>
-              <li>
-                <a href="https://twitter.com" target="_blank">
-                  <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
-                </a>
-              </li>
-              <li>
-                <a href="https://instagram.com" target="_blank">
-                  <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
-                </a>
-              </li>
-              <li>
-                <a href="https://facebook.com" target="_blank">
-                  <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com" target="_blank">
-                  <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
-                </a>
-              </li>
-            </ul>
-          </div>
-    
-          <div class="acesso">
-            <h2>Acesso Rápido</h2>
-            <ul>
-              <li><a href="index.html">Página Inicial</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="cadastro.html">Cadastro</a></li>
-              <li><a href="">Suporte</a></li>
-            </ul>
-          </div>
-    
-          <div class="contato">
-            <h2 id="contato">Contato</h2>
-            <ul>
-              <li>
-                <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
-                  <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
-                </a>
-              </li>
-              <li>
-                <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
-              </li>
-              <li>
-                <a href="mailto:conway.enterprise@gmail.com" target="_blank">
-                  <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
-                </a>
-              </li>
-              <li>
-                <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
-                  target="_blank">
-                  <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
-                </a>
-              </li>
-            </ul>
-          </div>
+            <div class="redes">
+                <h2>Redes Sociais</h2>
+                <ul>
+                    <li>
+                        <a href="https://twitter.com" target="_blank">
+                            <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" target="_blank">
+                            <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com" target="_blank">
+                            <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com" target="_blank">
+                            <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="acesso">
+                <h2>Acesso Rápido</h2>
+                <ul>
+                    <li><a href="index.html">Página Inicial</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="cadastro.html">Cadastro</a></li>
+                    <li><a href="">Suporte</a></li>
+                </ul>
+            </div>
+
+            <div class="contato">
+                <h2 id="contato">Contato</h2>
+                <ul>
+                    <li>
+                        <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
+                    </li>
+                    <li>
+                        <a href="mailto:conway.enterprise@gmail.com" target="_blank">
+                            <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+                            target="_blank">
+                            <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </footer>
+    </footer>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -289,5 +286,104 @@
 
     </script>
 </body>
+<script>
+    function validar_entrada() {
+
+        const ax_email = iptEmail.value;
+        const ax_senha = iptSenha.value;
+        const ax_conf_senha = iptConfSenha.value;
+        const ax_nome = iptNome.value;
+        const ax_cpf = iptCpf.value;
+        const ax_cargo = iptCargo.value;
+
+        erro = 0;
+
+        if (ax_email.indexOf('@') <= -1) {
+            erro++;
+        } else if (ax_email == "" ||ax_senha == "" ||ax_conf_senha == "" ||ax_nome == "" ||ax_cpf == "" ||ax_cargo == "") {
+            erro++
+        }
+
+        if(erro != 0){
+            alert("Preencha os campos corretamente!")
+        }else{
+            cadastrarFunc()
+        }
+    }
+
+    function cadastrarFunc() {
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+        var confSenhaVar = iptConfSenha.value;
+        var nomeVar = iptNome.value;
+        var cpfVar = iptCpf.value;
+        var cargoVar = iptCargo.value;
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+        console.log("FORM CONF SENHA: ", confSenhaVar);
+        console.log("FORM NOME: ", nomeVar);
+        console.log("FORM CPF: ", cpfVar);
+        console.log("FORM CARGO: ", cargoVar);
+
+        fetch("/usuarios/cadastrarFuncionarioAirway", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO CADASTRAR()!");
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    // sessionStorage.EMAIL_FUNCIONARIO = json.email;
+                    // sessionStorage.NOME_FUNCIONARIO = json.nome;
+                    // sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
+                    // sessionStorage.FK_REPRESENTANTE = json.fkRepresentante;
+                    // sessionStorage.FK_EMPRESA = json.fkEmpresa;
+                    // sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
+                    // sessionStorage.RAMO_EMPRESA = json.ramoEmpresa;
+
+                    loading.style = `
+        display: block;
+      `;
+                    setTimeout(function () {
+                        // if (json.ramoEmpresa === "empresaOni") {
+                            // window.location.href = "./dashboardGeral.html";
+                        // } else if (json.ramoEmpresa === "empresaAv") {
+                            window.location.href = "dashboardFunc.html";
+                        // }
+                    }, 2000);
+                });
+            } else {
+                console.log("Houve um erro ao tentar realizar o cadastro!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+                erroSenha.style = `
+      display: block;
+      animation-name: sumir;
+    `;
+                setTimeout(() => {
+                    erroSenha.style = "";
+                }, 3000);
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+
+        return false;
+    }
+</script>
 
 </html>

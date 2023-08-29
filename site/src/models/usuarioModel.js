@@ -18,7 +18,7 @@ function entrar(email, senha) {
     senha
   );
   var instrucao = `
-      SELECT * FROM vwFuncsEmpresa WHERE email = '${email}' AND senha = '${senha}';
+      SELECT * FROM funcionario,empresa WHERE emailFunc = '${email}' AND senhaFunc = '${senha}' AND idEmpresa = Empresa_idEmpresa;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -78,8 +78,8 @@ function cadastrarFuncionario(
   celular,
   foto
 ) {
-  
-  
+
+
 
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
@@ -102,7 +102,7 @@ function alterarFuncionario(id, nome, email, senha, celular, foto) {
   return database.executar(instrucao);
 }
 
- 
+
 function excluirFuncionario(idFuncionario) {
   var instrucao = `DELETE FROM Funcionario where idFuncionario = ${idFuncionario};`
   return database.executar(instrucao);
