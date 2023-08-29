@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/login.css" />
   <link rel="stylesheet" href="css/menu.css">
-  <link rel="stylesheet" media="(min-width: 700px)" href="example.css" />
+  <link rel="stylesheet" media="(min-width: 700px)" />
 
 
   <link rel="icon" href="images/icon.png">
@@ -187,69 +187,69 @@
   }
 
   function entrar() {
+  var emailVar = ipt_email.value;
+  var senhaVar = ipt_senha.value;
 
-    var emailVar = ipt_email.value;
-    var senhaVar = ipt_senha.value;
+  console.log("FORM LOGIN: ", emailVar);
+  console.log("FORM SENHA: ", senhaVar);
 
-    console.log("FORM LOGIN: ", emailVar);
-    console.log("FORM SENHA: ", senhaVar);
-
-    fetch("/usuarios/autenticar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        emailServer: emailVar,
-        senhaServer: senhaVar
-      })
-    }).then(function (resposta) {
-      console.log("ESTOU NO THEN DO entrar()!")
-
-      if (resposta.ok) {
-        console.log(resposta);
-
-        resposta.json().then(json => {
-          console.log(json);
-          console.log(JSON.stringify(json));
-
-          sessionStorage.EMAIL_FUNCIONARIO = json.email;
-          sessionStorage.NOME_FUNCIONARIO = json.nome;
-          sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
-          sessionStorage.FK_REPRESENTANTE = json.fkRepresentante
-          sessionStorage.FK_EMPRESA = json.fkEmpresa;
-          sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
-
-
-          loading.style = `
-              display: block;
-            `;
-          setTimeout(function () {
-            window.location = "./menuDashboard.html";
-          }, 2000);
-
-        });
-
-      } else {
-
-        console.log("Houve um erro ao tentar realizar o login!");
-
-        resposta.text().then(texto => {
-          console.error(texto);
-        });
-        erroSenha.style = `
-            display: block;
-            animation-name: sumir;
-          `;
-        setTimeout(() => {
-          erroSenha.style = "";
-        }, 3000);
-      }
-
-    }).catch(function (erro) {
-      console.log(erro);
+  fetch("/usuarios/autenticar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      emailServer: emailVar,
+      senhaServer: senhaVar
     })
+  }).then(function (resposta) {
+    console.log("ESTOU NO THEN DO entrar()!");
 
-    return false;
-  }
+    if (resposta.ok) {
+      console.log(resposta);
+
+      resposta.json().then(json => {
+        console.log(json);
+        console.log(JSON.stringify(json));
+
+        sessionStorage.EMAIL_FUNCIONARIO = json.email;
+        sessionStorage.NOME_FUNCIONARIO = json.nome;
+        sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
+        sessionStorage.FK_REPRESENTANTE = json.fkRepresentante;
+        sessionStorage.FK_EMPRESA = json.fkEmpresa;
+        sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
+        sessionStorage.RAMO_EMPRESA = json.ramoEmpresa;
+
+        loading.style = `
+            display: block;
+          `;
+        setTimeout(function () {
+          if (json.ramoEmpresa === "empresaOni") {
+            window.location.href = "./dashboardGeral.html";
+          } else if (json.ramoEmpresa === "empresaAv") {
+            window.location.href = "./index.html";
+          }
+        }, 2000);
+      });
+    } else {
+      console.log("Houve um erro ao tentar realizar o login!");
+
+      resposta.text().then(texto => {
+        console.error(texto);
+      });
+      erroSenha.style = `
+          display: block;
+          animation-name: sumir;
+        `;
+      setTimeout(() => {
+        erroSenha.style = "";
+      }, 3000);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+  });
+
+  return false;
+}
+
 </script>

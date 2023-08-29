@@ -74,10 +74,18 @@
     </div>
     <div class="formCadastro">
       <h1>Contato</h1>
-
+      
       <div class="nomeFantasia" id="classNomeFantasia">
         <label for="">Nome fantasia</label>
         <input type="text" name="" id="nomeFantasia">
+      </div>
+      
+      <div class="cnpj" id="classRamo">
+        <label for="">Selecione o ramo da sua empresa: </label>
+        <select name="ramoSelEmpr" id="ramoSelEmpr">
+          <option value="empresaOni">Empresa de Ônibus</option>
+          <option value="empresaAv">Empresa de Avião</option>
+        </select>
       </div>
 
       <div class="cnpj" id="classCnpj">
@@ -119,6 +127,7 @@
         <label for="">Confirmar Senha</label>
         <input type="text" name="" id="confSenha">
       </div>
+
 
       <button onclick="proximo()" id="btnProx">Próximo ></button>
       <button id="btnCad" onclick="enviar()">Enviar</button>
@@ -206,6 +215,7 @@
     classCargoRepre.style.display = "none";
     classEmail.style.display = "none";
     btnProx.style.display = "none";
+    classRamo.style.display = "none";
 
     classCpf.style.display = "flex";
     classCelCont.style.display = "flex";
