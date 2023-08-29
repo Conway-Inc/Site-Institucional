@@ -1,18 +1,18 @@
 var express = require("express");
 var router = express.Router();
 
-var usuarioController = require("../controllers/internoController");
+var internoController = require("../controllers/internoController");
 
 router.post("/autenticar", function (req, res) {
-    usuarioController.entrar(req, res);
+    internoController.entrar(req, res);
 });
 
 router.delete("/excluirFuncionario/:idFuncionario", function (req, res) {
-    usuarioController.excluirUsuario(req, res);
+    internoController.excluirUsuario(req, res);
 });
 
 router.post("/cadastrar", (req,res) => {
-    usuarioController.cadastrarUsuario(req, res);
+    internoController.cadastrarEmpresa(req, res);
 })
 
 

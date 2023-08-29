@@ -35,7 +35,38 @@ function entrar(req, res) {
     }
   }
 
+
+  function cadastrarEmpresa(req, res) {
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+    var cnpj =  req.body.cnpjServer;
+    var representante = req.body.nomeRepresentanteServer;
+    var ramo =  req.body.ramoServer; 
+    var nome = req.body.nomeServer;
+    
+    if (email == undefined) {
+      res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+      res.status(400).send("Sua senha está indefinida!");
+    } else {
+      internoModel
+        .cadastrarEmpresa(email, senha, cnpj, representante, ramo, nome)
+        .then(async function (resultado) {
+            res.json(await resultado)
+        })
+        .catch(function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar o cadastro! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        });
+    }
+  }
   
-module.exports = [
-    entrar
-];
+
+module.exports = {
+    entrar,
+    cadastrarEmpresa
+};
