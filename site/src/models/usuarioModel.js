@@ -102,6 +102,12 @@ function alterarFuncionario(id, nome, email, senha, celular, foto) {
   return database.executar(instrucao);
 }
 
+function cadastrarFuncionarioAirway(nome, email, senha, cpf, cargo, empresa) {
+  var instrucao = `INSERT INTO Funcionario VALUES (null, '${cpf}', '${nome}', '${email}', '${senha}',${empresa}) `;
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
 
 function excluirFuncionario(idFuncionario) {
   var instrucao = `DELETE FROM Funcionario where idFuncionario = ${idFuncionario};`
@@ -118,5 +124,6 @@ module.exports = {
   cadastrarFuncionario,
   alterarFuncionario,
   excluirFuncionario,
-  cadastrarFuncionario
+  cadastrarFuncionario,
+  cadastrarFuncionarioAirway
 };

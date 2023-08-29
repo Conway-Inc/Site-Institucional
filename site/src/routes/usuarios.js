@@ -38,7 +38,7 @@ router.post("/autenticar", function (req, res) {
 });
 
 router.post("/cadastrarFuncionarioAirway", function (req, res) {
-    usuarioController.entrar(req, res);
+    usuarioController.cadastrarFuncionarioAirway(req, res);
 });
 
 router.delete("/excluirFuncionario/:idFuncionario", function (req, res) {

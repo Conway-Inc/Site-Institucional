@@ -287,7 +287,7 @@
     </script>
 </body>
 <script>
-    function validar_entrada() {
+    function verificar() {
 
         const ax_email = iptEmail.value;
         const ax_senha = iptSenha.value;
@@ -312,8 +312,8 @@
     }
 
     function cadastrarFunc() {
-        var emailVar = ipt_email.value;
-        var senhaVar = ipt_senha.value;
+        var emailVar = iptEmail.value;
+        var senhaVar = iptSenha.value;
         var confSenhaVar = iptConfSenha.value;
         var nomeVar = iptNome.value;
         var cpfVar = iptCpf.value;
@@ -332,8 +332,12 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                nomeServer: nomeVar,
                 emailServer: emailVar,
-                senhaServer: senhaVar
+                senhaServer: senhaVar,
+                cpfServer: cpfVar,
+                cargoServer: cargoVar,
+                fkEmpresa: sessionStorage.FK_EMPRESA
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO CADASTRAR()!");
@@ -353,9 +357,6 @@
                     // sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
                     // sessionStorage.RAMO_EMPRESA = json.ramoEmpresa;
 
-                    loading.style = `
-        display: block;
-      `;
                     setTimeout(function () {
                         // if (json.ramoEmpresa === "empresaOni") {
                             // window.location.href = "./dashboardGeral.html";
@@ -370,13 +371,6 @@
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
-                erroSenha.style = `
-      display: block;
-      animation-name: sumir;
-    `;
-                setTimeout(() => {
-                    erroSenha.style = "";
-                }, 3000);
             }
         }).catch(function (erro) {
             console.log(erro);

@@ -19,6 +19,7 @@ CREATE TABLE Funcionario (
     nomeFunc Varchar(45),
     emailFunc varchar(45),
     senhaFunc varchar(45),
+    gerente CHAR(3)
     fkEmpresa INT,
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
