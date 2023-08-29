@@ -16,7 +16,7 @@ Através desse portal, apresentamos nosso primeiro lançamento: <strong>Busway</
 <img src="https://github.com/Conway-Inc/Site-Institucional/blob/main/site/public/images/print%20demonstrativo.png">
 <br><br>
 Tambem apresentamos nosso novo grande lançamento: <strong>Airway</strong>. Através dela, é possível visualizar as condições de seus totens em momentos de check-in, conseguindo analisar da sua máquina, o CPU, Memoria Ram, Rede Wi-Fi e Armazenamento.
-<img src="https://github.com/Conway-Inc/Site-Institucional/blob/main/site/public/images/print%20demonstrativo.png">
+<img src="https://github.com/Conway-Inc/Site-Institucional/blob/main/site/public/images/print_dois.png">
 <br><br>
 Copyright ©️ 2023 - Adriano Allexander, Alexandra Yara, Arthur Rafael, Bárbara Barbato, Danielle Munakata, Eduardo Corrêa, Felipe Guerrino, Gustavo Pereira, Mateus Capellari e Vitor Boos.
 
