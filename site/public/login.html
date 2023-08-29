@@ -177,12 +177,12 @@
 
     if (correcao_email01) {
       alert("Favor inserir o e-mail correspondente a sua conta.")
-    } else
-      if (correcao_email02) {
+    } else if (correcao_email02) {
         alert("Favor inserir o e-mail corretamente.")
-      }
-    if (correcao_senha) {
+    }else if (correcao_senha) {
       alert("Insira sua senha para ter acesso a sua conta.")
+    }else{
+      entrar()
     }
   }
 
@@ -212,38 +212,33 @@
         console.log(json);
         console.log(JSON.stringify(json));
 
-        sessionStorage.EMAIL_FUNCIONARIO = json.email;
-        sessionStorage.NOME_FUNCIONARIO = json.nome;
+        sessionStorage.EMAIL_FUNCIONARIO = json.emailFunc;
+        sessionStorage.NOME_FUNCIONARIO = json.nomeFunc;
         sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
         sessionStorage.FK_REPRESENTANTE = json.fkRepresentante;
-        sessionStorage.FK_EMPRESA = json.fkEmpresa;
-        sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
-        sessionStorage.RAMO_EMPRESA = json.ramoEmpresa;
+        sessionStorage.SENHA_FUNCIONARIO = json.senhaFunc;
+        sessionStorage.FK_EMPRESA = json.Empresa_idEmpresa;
+        sessionStorage.NOME_EMPRESA = json.nomeEmpr;
+        sessionStorage.RAMO_EMPRESA = json.ramoEmpr;
 
-        loading.style = `
-            display: block;
-          `;
-        setTimeout(function () {
-          if (json.ramoEmpresa === "empresaOni") {
-            window.location.href = "./dashboardGeral.html";
-          } else if (json.ramoEmpresa === "empresaAv") {
-            window.location.href = "./index.html";
-          }
-        }, 2000);
+        alert("Realizando Login")
+        alert(json.ramoEmpr)
+
+        if (json.ramoEmpr == "BusWay") {
+          window.location.href = "./dashboardGeral.html";
+        } else if (json.ramoEmpr == "AirWay") {
+          window.location.href = "./dashboardAirWay/dashboardFunc.html";
+        }
+
       });
     } else {
+      alert("Email ou senha incorretos")
       console.log("Houve um erro ao tentar realizar o login!");
 
       resposta.text().then(texto => {
         console.error(texto);
       });
-      erroSenha.style = `
-          display: block;
-          animation-name: sumir;
-        `;
-      setTimeout(() => {
-        erroSenha.style = "";
-      }, 3000);
+
     }
   }).catch(function (erro) {
     console.log(erro);
