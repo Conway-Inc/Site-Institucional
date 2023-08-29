@@ -1,24 +1,26 @@
+DROP DATABASE Airway;
 CREATE DATABASE Airway;
 USE Airway; 
 
 CREATE TABLE Empresa (
-idEmpresa int primary key, 
+idEmpresa int primary key auto_increment, 
 cnpjEmpr char(14),
 nomeEmpr varchar(45),
-ramoEmpr varchar(45)
+ramoEmpr varchar(45),
+adm boolean
 );
 
 select * from Empresa;
 
 
 CREATE TABLE Funcionario (
-    idFuncionario int primary key,
+    idFuncionario int primary key auto_increment,
     cpfFunc CHAR(11),
     nomeFunc Varchar(45),
     emailFunc varchar(45),
     senhaFunc varchar(45),
-    Empresa_idEmpresa INT,
-    FOREIGN KEY (Empresa_idEmpresa) REFERENCES Empresa(idEmpresa)
+    fkEmpresa INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
                           
@@ -30,19 +32,19 @@ SELECT
     e.cnpjEmpr,
     e.nomeEmpr AS nomeEmpresa
 FROM Empresa AS e
-JOIN Funcionario AS f ON e.idEmpresa = f.Empresa_idEmpresa;
+JOIN Funcionario AS f ON e.idEmpresa = f.fkEmpresa;
 
 CREATE TABLE Modelo (
-idModelo INT primary key,
+idModelo INT primary key auto_increment,
 nomeModelo varchar(45),
 kmsPorLitro DECIMAL (5,2),
 lotacao INT,
-portasEntrada INT, 
+portasEntrada INT,  
 portasSaida INT
 );
 
 CREATE TABLE Veiculo (
-    idVeiculo int,
+    idVeiculo int auto_increment,
     placaVeiculo char(7),
     anoAquisicao YEAR,
     Modelo_idModelo INT,
@@ -54,7 +56,7 @@ CREATE TABLE Veiculo (
 
 
 CREATE TABLE Linha (
-idLinha int primary key,
+idLinha int primary key auto_increment,
 codLinha char(4),
 tipoLinha char(2),
 nomeLinhaIda varchar(45),
@@ -64,7 +66,7 @@ FOREIGN KEY (Empresa_idEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
 CREATE TABLE Viagem (
-idViagem int,
+idViagem int auto_increment,
 horarioInicio datetime,
 horaFim datetime,
 fk_veiculo INT,
@@ -76,7 +78,7 @@ PRIMARY KEY (idViagem, Linha_idLinha)
 
 
 CREATE TABLE Ponto (
-idPonto int primary key,
+idPonto int primary key auto_increment,
 cep char(8),
 logradouro varchar(45),
 numNaRua INT,
@@ -93,7 +95,7 @@ CREATE TABLE LinhaPonto (
 );
 
 CREATE TABLE Fluxo (
-idFluxo int,
+idFluxo int auto_increment,
 dataHoraFluxo datetime,
 entradas INT,
 saidas INT,
@@ -108,7 +110,7 @@ FOREIGN KEY (Ponto_idPonto) REFERENCES Ponto(idPonto)
 
 
 CREATE TABLE Componentes (
-idComponente int primary key,
+idComponente int primary key auto_increment,
 nomeComponente varchar(45),
 metricaComponente varchar(45),
 limiteComponente DECIMAL(6,2),
@@ -118,7 +120,7 @@ minTempComponente DECIMAL(6,2)
 );
 
 CREATE TABLE Aeroporto (
-    idAeroporto int primary key,
+    idAeroporto int primary key auto_increment,
     nomeAeroporto varchar(45),
     cep char(8),
     logradouro varchar(45),
@@ -131,7 +133,7 @@ CREATE TABLE Aeroporto (
 
 
 CREATE TABLE Totem (
-idTotem int primary key,
+idTotem int primary key auto_increment,
 marcaTotem varchar(45),
 nomeTotem varchar(45),
 numeroSerieTotem varchar(45),
@@ -141,7 +143,7 @@ FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto)
 
 
 CREATE TABLE Dados (
-    idDados int,
+    idDados int auto_increment,
     dataHoraDados datetime,
     valor decimal(7,2),
     fkComponente int,
