@@ -74,6 +74,9 @@
         <label for="ipt_cnpj">CNPJ: </label>
         <input type="text" id="ipt_cnpj"><br>
 
+        <label for="ipt_cnpj">CPF: </label>
+        <input type="text" id="ipt_cpf"><br>
+       
         <label for="ipt_representante">Representante: </label>
         <input type="text" id="ipt_representante"><br>
 
@@ -85,8 +88,8 @@
 
         <label for="ipt_ramo">Ramo: </label>
         <select name="nameRamo" id="ipt_ramo">
-            <option value="Aeroporto">Aeroporto</option>
-            <option value="Onibus">Ônibus</option>
+            <option value="Airway">Aeroporto</option>
+            <option value="Busway">Ônibus</option>
         </select><br>
 
         <button onclick="cadastrar()">Cadastrar</button>
@@ -166,8 +169,9 @@
         var email = ipt_email.value;
         var senha = ipt_senha.value;
         var ramo = ipt_ramo.value;
+        var cpf = ipt_cpf.value;
 
-        if (nome == null || cnpj == null || representante == null || email == null || senha == null || ramo == null) {
+        if (nome == null || cpf == null || cnpj == null || representante == null || email == null || senha == null || ramo == null) {
             alert("Erro: campo não inserido")
         } else {
             fetch("/interno/cadastrar", {
@@ -183,7 +187,8 @@
                     senhaServer: senha,
                     cnpjServer: cnpj,
                     nomeRepresentanteServer: representante,
-                    ramoServer: ramo
+                    ramoServer: ramo, 
+                    cpfServer: cpf
                 }),
             }).then((res) => {
                 if (res.status != 500 && res.status != 400) {

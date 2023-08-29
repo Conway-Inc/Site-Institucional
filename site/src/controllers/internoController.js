@@ -43,6 +43,7 @@ function entrar(req, res) {
     var representante = req.body.nomeRepresentanteServer;
     var ramo =  req.body.ramoServer; 
     var nome = req.body.nomeServer;
+    var cpf = req.body.cpfServer;
     
     if (email == undefined) {
       res.status(400).send("Seu email está undefined!");
@@ -50,7 +51,7 @@ function entrar(req, res) {
       res.status(400).send("Sua senha está indefinida!");
     } else {
       internoModel
-        .cadastrarEmpresa(email, senha, cnpj, representante, ramo, nome)
+        .cadastrarEmpresa(email, senha, cnpj, representante, ramo, nome, cpf)
         .then(async function (resultado) {
             res.json(await resultado)
         })
