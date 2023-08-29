@@ -285,15 +285,14 @@ function alterarFuncionario(req, res) {
     }
     
     //Codigo novo para cadastrar um usuário
-    function cadastrarRepresentante(req, res) {
+    function cadastrarFuncionarioAirway(req, res) {
       // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
       var nome = req.body.nomeServer;
       var email = req.body.emailServer;
       var senha = req.body.senhaServer;
       var cpf = req.body.cpfServer;
-      var celular = req.body.celularServer;
-      var fotoRepresentante = req.body.fotoRepresentanteServer;
-      var fkEmpresa = req.body.fkEmpresaServer;
+      var cargo = req.body.cargoServer;
+      var empresa = req.body.fkEmpresa;
     
       // Faça as validações dos valores
       if (nome == undefined) {
@@ -307,14 +306,13 @@ function alterarFuncionario(req, res) {
       } else {
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel
-          .cadastrarRepresentante(
+          .cadastrarFuncionarioAirway(
             nome,
             email,
             senha,
             cpf,
-            celular,
-            fotoRepresentante,
-            fkEmpresa
+            cargo,
+            empresa
           )
           .then(function (resultado) {
             res.json(resultado);
@@ -322,7 +320,7 @@ function alterarFuncionario(req, res) {
           .catch(function (erro) {
             console.log(erro);
             console.log(
-              "\nHouve um erro ao realizar o cadastro! Erro: ",
+              "\nHouve um erro ao realizar o cadastro do funcionario! Erro: ",
               erro.sqlMessage
             );
             res.status(500).json(erro.sqlMessage);
@@ -343,5 +341,6 @@ function alterarFuncionario(req, res) {
       listar,
       alterarFuncionario,
       testar,
+      cadastrarFuncionarioAirway,
     };
     
