@@ -23,9 +23,6 @@ var mySqlConfig = {
     database: "AirWay",
     user: "root",
     password: "babibanco"
-    database: "Airway",
-    user: "urubu100",
-    password: "urubu100"
 };
 
 function executar(instrucao) {
