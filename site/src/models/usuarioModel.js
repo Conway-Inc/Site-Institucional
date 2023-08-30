@@ -109,6 +109,13 @@ function cadastrarFuncionarioAirway(nome, email, senha, cpf, cargo, empresa) {
   return database.executar(instrucao);
 }
 
+function cadastrarTotem (marca, nome, numeroSerie, fkAeroporto) {
+  var instrucao = `INSERT INTO Totem VALUES (null, '${marca}', '${nome}', '${numeroSerie}', ${fkAeroporto}) `;
+
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function excluirFuncionario(idFuncionario) {
   var instrucao = `DELETE FROM Funcionario where idFuncionario = ${idFuncionario};`
   return database.executar(instrucao);
@@ -125,5 +132,6 @@ module.exports = {
   alterarFuncionario,
   excluirFuncionario,
   cadastrarFuncionario,
-  cadastrarFuncionarioAirway
+  cadastrarFuncionarioAirway,
+  cadastrarTotem
 };

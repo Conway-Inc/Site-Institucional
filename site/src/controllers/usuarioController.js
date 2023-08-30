@@ -329,6 +329,44 @@ function alterarFuncionario(req, res) {
     
     }
     
+    function cadastrarTotem(req, res) {
+      // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+      var marca = req.body.marcaServer;
+      var nome = req.body.nomeMaquinaServer;
+      var numSerie = req.body.numeroSerieServer;
+      var empresa = req.body.fkEmpresa;
+    
+      // Faça as validações dos valores
+      if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+      } else if (marca == undefined) {
+        res.status(400).send("Sua marca está undefined!");
+      } else if (numSerie == undefined) {
+        res.status(400).send("Seu numero de serie está undefined!");
+      } else {
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel
+          .cadastrarTotem(
+            marca,
+            nome,
+            numSerie,
+            empresa
+          )
+          .then(function (resultado) {
+            res.json(resultado);
+          })
+          .catch(function (erro) {
+            console.log(erro);
+            console.log(
+              "\nHouve um erro ao realizar o cadastro da maquina! Erro: ",
+              erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+          });
+      }
+    
+    }
+
     module.exports = {
       entrar,
       cadastrarRepresentante,
@@ -342,5 +380,6 @@ function alterarFuncionario(req, res) {
       alterarFuncionario,
       testar,
       cadastrarFuncionarioAirway,
+      cadastrarTotem
     };
     

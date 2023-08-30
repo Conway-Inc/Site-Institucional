@@ -1,3 +1,4 @@
+-- Drop database Airway;
 CREATE DATABASE Airway;
 USE Airway; 
 
@@ -8,6 +9,7 @@ nomeEmpr varchar(45),
 ramoEmpr varchar(45)
 );
 
+insert into empresa values (1,'12341234','aereo','AirWay');
 select * from Empresa;
 
 
@@ -136,8 +138,9 @@ marcaTotem varchar(45),
 nomeTotem varchar(45),
 numeroSerieTotem varchar(45),
 fkAeroporto INT,
-FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto)
+FOREIGN KEY (fkAeroporto) REFERENCES Empresa(idEmpresa)
 );
+
 
 
 CREATE TABLE Dados (
@@ -150,4 +153,9 @@ CREATE TABLE Dados (
     FOREIGN KEY (fkComponente) REFERENCES Componentes(idComponente),
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
+
+select * from totem;
+select * from funcionario,empresa where empresa_idEmpresa = idEmpresa;
+insert into funcionario values (1,11111,'babi','babi@gmail.com','111',1);
+alter table funcionario modify idFuncionario int auto_increment;
 
