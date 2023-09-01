@@ -1,4 +1,4 @@
-DROP DATABASE Airway;
+DROP DATABASE IF EXISTS Airway ;
 CREATE DATABASE Airway;
 USE Airway; 
 
@@ -19,7 +19,7 @@ CREATE TABLE Funcionario (
     nomeFunc Varchar(45),
     emailFunc varchar(45),
     senhaFunc varchar(45),
-    gerente CHAR(3)
+    gerente CHAR(3),
     fkEmpresa INT,
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
@@ -154,4 +154,45 @@ CREATE TABLE Dados (
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
 
+INSERT INTO Empresa (cnpjEmpr, nomeEmpr, ramoEmpr, adm)
+VALUES ('12345678901234', 'Airway', 'Transporte Aéreo', TRUE);
 
+INSERT INTO Funcionario (cpfFunc, nomeFunc, emailFunc, senhaFunc, gerente, fkEmpresa)
+VALUES ('12345678900', 'João Silva', 'joao.silva@airway.com.br', '123456', 'S', 1);
+
+INSERT INTO Modelo (nomeModelo, kmsPorLitro, lotacao, portasEntrada, portasSaida)
+VALUES ('Boeing 737-800', 18.5, 189, 14, 8);
+
+INSERT INTO Veiculo (placaVeiculo, anoAquisicao, Modelo_idModelo, Empresa_idEmpresa)
+VALUES ('AAA1234', 2022, 1, 1);
+
+INSERT INTO Linha (codLinha, tipoLinha, nomeLinhaIda, nomeLinhaVolta, Empresa_idEmpresa)
+VALUES ('A1', 'A', 'São Paulo - Rio de Janeiro', 'Rio de Janeiro - São Paulo', 1);
+
+INSERT INTO Viagem (horarioInicio, horaFim, fk_veiculo, Linha_idLinha)
+VALUES ('2023-07-20 10:00:00', '2023-07-20 12:00:00', 1, 1);
+
+INSERT INTO Ponto (cep, logradouro, numNaRua, grausY, grausX)
+VALUES ('01001000', 'Rua da Consolação', 1000, '-23.52', '-46.69');
+
+INSERT INTO LinhaPonto (fkLinha, fkPonto)
+VALUES (1, 1);
+
+INSERT INTO Fluxo (dataHoraFluxo, entradas, saidas, Viagem_idViagem, Viagem_Linha_idLinha, Ponto_idPonto)
+VALUES ('2023-07-20 10:00:00', 100, 20, 1, 1, 1);
+
+INSERT INTO Componentes (nomeComponente, metricaComponente, limiteComponente, minimoComponente, maxTempComponente, minTempComponente)
+VALUES ('Nível de Combustível', 'Porcentagem', 80, 50, 90, 30);
+
+INSERT INTO Aeroporto (nomeAeroporto, cep, logradouro, numero, cidade, estado, fkEmpresa)
+VALUES ('Aeroporto de São Paulo', '01001000', 'Avenida Santos Dumont', 3000, 'São Paulo', 'SP', 1);
+
+INSERT INTO Totem (marcaTotem, nomeTotem, numeroSerieTotem, fkAeroporto)
+VALUES ('TotemAir', 'Totem 1', '1234567890', 1);
+
+INSERT INTO Dados (dataHoraDados, valor, fkComponente, fkTotem)
+VALUES ('2023-07-20 10:00:00', 85, 1, 1);
+
+SELECT * FROM Funcionario JOIN Empresa ON fkEmpresa = idEmpresa
+JOIN Totem ON fkEmpresa = idEmpresa
+WHERE emailFunc = 'joao.silva@airway.com.br' AND senhaFunc = '123456';
