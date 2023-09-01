@@ -3,18 +3,16 @@
 
 <head>
     <meta charset="utf-8">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../../css/footer.css">
     <!-- Custom styles for this template-->
-    <link href="../css/dashboardAirwayFuncionario.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <link rel="stylesheet" href="css/settings.css">
-    <title>Cadastrar Funcionários</title>
+    <link href="../../css/dashboardAirwayFuncionario.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/settings.css">
+    <title>Cadastrar Nova Maquina</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -23,7 +21,7 @@
     <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
 
         <li class="liMenu">
-            <a class="liMenu" href="dashboardFunc.html">
+            <a class="liMenu" href="dashboardAdm.html">
                 Dashboard
             </a>
         </li>
@@ -132,7 +130,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-white-600 small">Logado</span>
-                    <img class="img-profile rounded-circle" src="img/undraw_profile.png">
+                    <img class="img-profile rounded-circle" src="../img/undraw_profile.png">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -149,6 +147,52 @@
             </li>
         </ul>
     </nav>
+
+
+    <div class="container light-style flex-grow-1 container-p-y">
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div class="list-group list-group-flush account-settings-links">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                            href="#account-general">Cadastrar Nova Máquina</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="account-general">
+                            <hr class="border-light m-0">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="form-label">Nome da Máquina</label>
+                                    <input type="text" id="iptNomeMaquina" class="form-control" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Número de série Máquina</label>
+                                    <input type="text" id="iptNumSerie" class="form-control mb-1" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Marca da Máquina</label>
+                                    <input type="text" id="iptMarca" class="form-control mb-1" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email de Adm</label>
+                                    <input type="text" id="iptNomeAdm" class="form-control mb-1" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Senha de Adm</label>
+                                    <input type="password" id="iptSenha" class="form-control" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right mt-3">
+            <button type="button" onclick="verificar()" class="btn btn-primary">Cadastrar</button>&nbsp;
+        </div>
+    </div>
 
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -169,54 +213,6 @@
         </div>
     </div>
 
-    <div class="container light-style flex-grow-1 container-p-y">
-        <div class="card overflow-hidden">
-            <div class="row no-gutters row-bordered row-border-light">
-                <div class="col-md-3 pt-0">
-                    <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list"
-                            href="#account-general">Cadastrar Funcionários</a>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="account-general">
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Nome</label>
-                                    <input id="iptNome" type="text" class="form-control mb-1" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">E-mail</label>
-                                    <input id="iptEmail" type="email" class="form-control mb-1" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Cpf</label>
-                                    <input id="iptCpf" type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Cargo</label>
-                                    <input id="iptCargo" type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Senha</label>
-                                    <input id="iptSenha" type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Confrimação de Senha</label>
-                                    <input id="iptConfSenha" type="text" class="form-control" value="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-right mt-3">
-            <button type="button" onclick="verificar()" class="btn btn-primary">Cadastrar</button>&nbsp;
-        </div>
-    </div>
     <footer>
         <div class="paiFooter">
             <div class="redes">
@@ -288,68 +284,62 @@
 
     </script>
 </body>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+
+</html>
 <script>
-    $(document).ready(function () { 
-        var $campoCpf = $("#iptCpf");
-        $campoCpf.mask('000.000.000-00', {reverse: true});
-    });
-
-
     function verificar() {
 
-        const ax_email = iptEmail.value;
-        const ax_senha = iptSenha.value;
-        const ax_conf_senha = iptConfSenha.value;
-        const ax_nome = iptNome.value;
-        const ax_cpf = iptCpf.value;
-        const ax_cargo = iptCargo.value;
+        const varEmail= iptNomeAdm.value;
+        const varSenha = iptSenha.value;
+        const varNomeMaquina = iptNomeMaquina.value;
+        const varNumSerie = iptNumSerie.value;
+        const varMarca = iptMarca.value;
+
+        var emialReal = sessionStorage.EMAIL_FUNCIONARIO;
+        var senhaReal = sessionStorage.SENHA_FUNCIONARIO;
 
         erro = 0;
 
-        if (ax_email.indexOf('@') <= -1) {
-            erro++;
-        } else if (ax_email == "" ||ax_senha == "" ||ax_conf_senha == "" ||ax_nome == "" ||ax_cpf == "" ||ax_cargo == "") {
+        if (varEmail== "" || varMarca == "" || varNomeMaquina == "" || varSenha == "" || varNumSerie == "") {
             erro++
         }
 
-        if(erro != 0){
+
+        if (erro != 0) {
             alert("Preencha os campos corretamente!")
+        } else if (emialReal != varEmail || senhaReal != varSenha) {
+            alert("PREENCHA CORREAMENTE SUA SENHA E EMAIL")
         }else{
-            cadastrarFunc()
+            cadastrarTotem()
         }
     }
 
-    function cadastrarFunc() {
-        var emailVar = iptEmail.value;
-        var senhaVar = iptSenha.value;
-        var confSenhaVar = iptConfSenha.value;
-        var nomeVar = iptNome.value;
-        var cpfVar = iptCpf.value;
-        var cargoVar = iptCargo.value;
+    function cadastrarTotem() {
+        var varEmail= iptNomeAdm.value;
+        var varSenha = iptSenha.value;
+        var varNomeMaquina = iptNomeMaquina.value;
+        var varNumSerie = iptNumSerie.value;
+        var varMarca = iptMarca.value;
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-        console.log("FORM CONF SENHA: ", confSenhaVar);
-        console.log("FORM NOME: ", nomeVar);
-        console.log("FORM CPF: ", cpfVar);
-        console.log("FORM CARGO: ", cargoVar);
+        console.log("FORM EMAILADM: ", varEmail);
+        console.log("FORM SENHA: ", varSenha);
+        console.log("FORM NOME MAQUINA: ", varNomeMaquina);
+        console.log("FORM MARCA DA MAQUINA: ", varMarca);
+        console.log("FORM NUMERO DA SERIE: ", varNumSerie);
 
-        fetch("/usuarios/cadastrarFuncionarioAirway", {
+        fetch("/usuarios/cadastrarTotem", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                cpfServer: cpfVar,
-                cargoServer: cargoVar,
+                marcaServer: varMarca,
+                nomeMaquinaServer: varNomeMaquina,
+                numeroSerieServer: varNumSerie,
                 fkEmpresa: sessionStorage.FK_EMPRESA
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO CADASTRAR()!");
+            console.log("ESTOU NO THEN DO CADASTRAR TOTEM()!");
 
             if (resposta.ok) {
                 console.log(resposta);
@@ -357,25 +347,10 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-
-                    // sessionStorage.EMAIL_FUNCIONARIO = json.email;
-                    // sessionStorage.NOME_FUNCIONARIO = json.nome;
-                    // sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
-                    // sessionStorage.FK_REPRESENTANTE = json.fkRepresentante;
-                    // sessionStorage.FK_EMPRESA = json.fkEmpresa;
-                    // sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
-                    // sessionStorage.RAMO_EMPRESA = json.ramoEmpresa;
-
-                    setTimeout(function () {
-                        // if (json.ramoEmpresa === "empresaOni") {
-                            // window.location.href = "./dashboardGeral.html";
-                        // } else if (json.ramoEmpresa === "empresaAv") {
-                            window.location.href = "dashboardFunc.html";
-                        // }
-                    }, 2000);
+                    alert("Totem cadastrado com sucesso!")
                 });
             } else {
-                console.log("Houve um erro ao tentar realizar o cadastro!");
+                console.log("Houve um erro ao tentar realizar o cadastro DA MAQUINA!");
 
                 resposta.text().then(texto => {
                     console.error(texto);
@@ -388,5 +363,3 @@
         return false;
     }
 </script>
-
-</html>

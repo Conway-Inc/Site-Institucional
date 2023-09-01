@@ -32,9 +32,9 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    labels: ["10h", "10h30", "11h", "11h30", "12h", "12h30", "13h", "13h30", "14h", "14h30", "15h",],
     datasets: [{
-      label: "Earnings",
+      label: "Porcentagem usada",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.05)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -46,7 +46,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 5000, 11000, 9000, 8000, 12000, 10600, 5000, 15000,],
+      data: [50, 100, 50, 15, 35, 35, 40, 90, 80, 20, 60, 50,],
     }],
   },
   options: {
@@ -78,7 +78,7 @@ var myLineChart = new Chart(ctx, {
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return number_format(value) + '%';
           }
         },
         gridLines: {
@@ -110,7 +110,7 @@ var myLineChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + '%';
         }
       }
     }
@@ -121,9 +121,9 @@ var ctx1 = document.getElementById("myAreaChartMemo");
 var myLineChart = new Chart(ctx1, {
   type: 'line',
   data: {
-    labels: [".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
+    labels: ["10h", "10h30", "11h", "11h30", "12h", "12h30", "13h", "13h30", "14h", "14h30", "15h",],
     datasets: [{
-      label: "Earnings",
+      label: "Porcentagem usada",
       lineTension: 0.3,
       backgroundColor: "rgba(215, 185, 243, 0.281)",
       borderColor: "rgb(178, 17, 178)",
@@ -135,7 +135,7 @@ var myLineChart = new Chart(ctx1, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [10100, 10000, 10000, 11000, 10000, 10500, 11200, 9000, 10800, 10000, 10600, 10200, 11000,],
+      data: [90, 80, 85, 50, 65, 30, 35, 20, 30, 100, 90, 70,],
     }],
   },
   options: {
@@ -167,7 +167,7 @@ var myLineChart = new Chart(ctx1, {
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return number_format(value) + '%';
           }
         },
         gridLines: {
@@ -199,7 +199,7 @@ var myLineChart = new Chart(ctx1, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + '%';
         }
       }
     }
