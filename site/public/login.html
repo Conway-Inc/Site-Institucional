@@ -220,6 +220,7 @@
         sessionStorage.FK_EMPRESA = json.Empresa_idEmpresa;
         sessionStorage.NOME_EMPRESA = json.nomeEmpr;
         sessionStorage.RAMO_EMPRESA = json.ramoEmpr;
+        // sessionStorage.ADM_AIRWAY = json.adm;
 
         alert("Realizando Login")
         alert(json.ramoEmpr)
@@ -227,7 +228,11 @@
         if (json.ramoEmpr == "BusWay") {
           window.location.href = "./dashboardGeral.html";
         } else if (json.ramoEmpr == "AirWay") {
-          window.location.href = "./dashboardAirWay/dashboardFunc.html";
+          // if(json.adm == 1){
+            window.location.href = "./dashboardAirWay/adm/dashboardAdm.html";
+            // }else{
+            // window.location.href = "./dashboardAirWay/dashboardFunc.html";
+          // }
         }
 
       });
