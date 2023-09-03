@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     amount = document.getElementsByClassName("slide").length;
     // get the width of the container
     moveOffset = parseInt(window.getComputedStyle(document.getElementById('carousel-container')).width, 10);
-    // calcuate the width of the carousel
+    // calculate the width of the carousel
     document.getElementById('carousel').style.width = (amount * moveOffset) + 'px';
     // prevent multiple click when transition
     for (var i = 0; i < amount; i++) {
@@ -30,6 +30,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     document.getElementById('prev').addEventListener('click', prev, true);
     document.getElementById('next').addEventListener('click', next, true);
+
+    // Add a window resize event listener to recalculate moveOffset
+    window.addEventListener("resize", function () {
+        moveOffset = parseInt(window.getComputedStyle(document.getElementById('carousel-container')).width, 10);
+    });
 });
 
 function prev() {
@@ -70,10 +75,8 @@ function next() {
         currTransl[outerIndex] = currTransl[outerIndex] + moveOffset * (amount);
     }
 }
-setInterval(
-    () =>{
+
+setInterval(() => {
     next()
     amount = document.getElementsByClassName("slide").length;
-
-    }
-    ,3500)
+}, 3500)
