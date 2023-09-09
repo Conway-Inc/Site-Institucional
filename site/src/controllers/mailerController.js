@@ -51,6 +51,19 @@ function enviarEmail(req, res) {
     }
 }
 
+function senha(req, res){
+    console.log("Controller")
+    var email = req.params.email;
+
+    if(email == undefined){
+      res.status(400).send("pinto")
+    } else{
+      console.log("aqui")
+      mailerModel.senha(email);
+    }
+}
+
 module.exports = {
-    enviarEmail
+    enviarEmail,
+    senha
 }

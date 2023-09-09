@@ -1,4 +1,7 @@
 var nodemailer = require('nodemailer');
+var database = require("../database/config");
+
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -45,7 +48,44 @@ function enviarEmail(nome,
 
 }
 
+function senha(email) {
+  console.log("Coletando os dados do e-mail");
+  
+  comando = `SELECT senhaFunc FROM Funcionario WHERE emailFunc = '${email}'`
+  vSenha = "";
+  database.executar(comando).then((res) => {
+    if(res.length > 0){
+      vSenha = res[0];
+    } else{
+      vSenha = "não existe"
+    }
+  })
+
+  var mailOptions = {
+      from: 'conway.sptech@gmail.com',
+      to: email,
+      subject: 'Recuperação de senha',
+      text: `Sua senha ${vSenha} 
+
+      Obrigado!!
+      `
+    };
+    
+    return new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+              reject(error);
+          } else {
+              resolve('Email enviado com sucesso: ' + info.response);
+          }
+        });
+    })
+
+
+}
+
 module.exports = {
-    enviarEmail
+    enviarEmail,
+    senha
 }
   

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" media="(min-width: 700px)" />
+
+    <link rel="icon" href="images/icon.png">
+    <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
+    <title>Esqueci a senha</title>
+</head>
+<body>
+    <img src="images/logo.png" alt="" class="logo" id="main" />
+    <div class="header">
+      <div class="container">
+        <ul>
+          <li><a href="index.html"> INÍCIO </a></li>
+          <li><a href="index.html#busway"> PRODUTOS </a></li>
+          <li><a href="helpdesk.html"> SUPORTE </a></li>
+          <li><a href="index.html#about"> SOBRE NÓS </a></li>
+          <li><a href="login.html"> LOGIN </a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <header id="header" style="height: 6rem;">
+      <nav class="nav">
+        <button class="toggle-menu">
+          <span></span>
+        </button>
+      </nav>
+    </header>
+  
+    <div id="menu" class="">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="login.html">
+              Login
+            </a>
+          </li>
+          <li>
+            <a href="index.html">
+              Início
+            </a>
+          </li>
+          <li>
+            <a href="helpdesk.html">
+              Suporte
+            </a>
+          </li>
+  
+          <li>
+            <a href="contato.html">
+              Contato
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    
+  <div style="width: 100%; display: flex;align-items: center;margin-top: 8rem;justify-content: center;">
+
+    <div class="logincaixa">
+      <center>
+        <h1>Recuperar senha</h1>
+      </center>
+      <h3>Email:</h3>
+      <center>
+        <input type="text" id="ipt_email" placeholder="Digite seu email"><br>
+      </center>
+      <center>
+        <div class="botao"><button onclick="enviarEmail()"><u>Recuperar</u></button></div>
+      </center>
+    </div><br>
+  </div>
+
+  <footer>
+    <div class="paiFooter">
+      <div class="redes">
+        <h2>Redes Sociais</h2>
+        <ul>
+          <li>
+            <a href="https://twitter.com" target="_blank">
+              <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com" target="_blank">
+              <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
+            </a>
+          </li>
+          <li>
+            <a href="https://facebook.com" target="_blank">
+              <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com" target="_blank">
+              <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="acesso">
+        <h2>Acesso Rápido</h2>
+        <ul>
+          <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="">Suporte</a></li>
+        </ul>
+      </div>
+
+      <div class="contato">
+        <h2 id="contato">Contato</h2>
+        <ul>
+          <li>
+            <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
+              <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
+            </a>
+          </li>
+          <li>
+            <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
+          </li>
+          <li>
+            <a href="mailto:conway.enterprise@gmail.com" target="_blank">
+              <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+              target="_blank">
+              <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+<script>
+    function enviarEmail(){
+      alert("pinto")
+        var email = document.getElementById("ipt_email");
+
+        fetch(`/mailer/senha/${email}`).then( (resp) => {
+            if(resp.ok){
+                alert("Deu certo")
+            } else{
+                alert("Deu ruim")
+            }
+        })
+    }
+</script>
