@@ -164,6 +164,9 @@ INSERT INTO Funcionario (cpfFunc, nomeFunc, emailFunc, senhaFunc, gerente, fkEmp
 VALUES ('54693866209', 'Bárbara Barbato', 'babi@gmail.com', 'babi', 'S', 2);
 
 INSERT INTO Funcionario (cpfFunc, nomeFunc, emailFunc, senhaFunc, gerente, fkEmpresa)
+VALUES ('99988823417', 'Rebeca Barbato', 'beca@gmail.com', 'beca', 'N', 2);
+
+INSERT INTO Funcionario (cpfFunc, nomeFunc, emailFunc, senhaFunc, gerente, fkEmpresa)
 VALUES ('39823488841', 'João Silva', 'joao.silva@airway.com.br', '123456', 'S', 1);
 
 INSERT INTO Modelo (nomeModelo, kmsPorLitro, lotacao, portasEntrada, portasSaida)

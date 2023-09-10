@@ -178,73 +178,84 @@
     if (correcao_email01) {
       alert("Favor inserir o e-mail correspondente a sua conta.")
     } else if (correcao_email02) {
-        alert("Favor inserir o e-mail corretamente.")
-    }else if (correcao_senha) {
+      alert("Favor inserir o e-mail corretamente.")
+    } else if (correcao_senha) {
       alert("Insira sua senha para ter acesso a sua conta.")
-    }else{
+    } else {
       entrar()
     }
   }
 
   function entrar() {
-  var emailVar = ipt_email.value;
-  var senhaVar = ipt_senha.value;
+    var emailVar = ipt_email.value;
+    var senhaVar = ipt_senha.value;
 
-  console.log("FORM LOGIN: ", emailVar);
-  console.log("FORM SENHA: ", senhaVar);
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
 
-  fetch("/usuarios/autenticar", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      emailServer: emailVar,
-      senhaServer: senhaVar
-    })
-  }).then(function (resposta) {
-    console.log("ESTOU NO THEN DO entrar()!");
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!");
 
-    if (resposta.ok) {
-      console.log(resposta);
+      if (resposta.ok) {
+        console.log(resposta);
 
-      resposta.json().then(json => {
-        console.log(json);
-        console.log(JSON.stringify(json));
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
 
-        sessionStorage.EMAIL_FUNCIONARIO = json.emailFunc;
-        sessionStorage.NOME_FUNCIONARIO = json.nomeFunc;
-        sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
-        sessionStorage.FK_REPRESENTANTE = json.fkRepresentante;
-        sessionStorage.SENHA_FUNCIONARIO = json.senhaFunc;
-        sessionStorage.FK_EMPRESA = json.Empresa_idEmpresa;
-        sessionStorage.NOME_EMPRESA = json.nomeEmpr;
-        sessionStorage.RAMO_EMPRESA = json.ramoEmpr;
+          sessionStorage.EMAIL_FUNCIONARIO = json.emailFunc;
+          sessionStorage.NOME_FUNCIONARIO = json.nomeFunc;
+          sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
+          sessionStorage.FK_REPRESENTANTE = json.fkRepresentante;
+          sessionStorage.SENHA_FUNCIONARIO = json.senhaFunc;
+          sessionStorage.FK_EMPRESA = json.Empresa_idEmpresa;
+          sessionStorage.NOME_EMPRESA = json.nomeEmpr;
+          sessionStorage.RAMO_EMPRESA = json.ramoEmpr;
+          sessionStorage.ADM_AIRWAY = json.adm;
+          sessionStorage.ADM_EMPRESA = json.gerente;
 
-        alert("Realizando Login")
-        alert(json.ramoEmpr)
+          alert("Realizando Login")
+          alert(json.gerente)
 
-        if (json.ramoEmpr == "BusWay") {
-          window.location.href = "./dashboardGeral.html";
-        } else if (json.ramoEmpr == "AirWay") {
-          window.location.href = "./dashboardAirWay/dashboardFunc.html";
-        }
+          if (json.adm) {//se for trabalhador da airway
+            window.location.href = "./cadastroInterno.html"
+          } else {//se não
 
-      });
-    } else {
-      alert("Email ou senha incorretos")
-      console.log("Houve um erro ao tentar realizar o login!");
+            if (json.ramoEmpr == "Tranporte de Onibus") {
+              window.location.href = "./dashboardGeral.html";
+            } else if (json.ramoEmpr == "Transporte Aéreo") {
+              if(json.gerente == 'S'){
+                window.location.href = "./dashboardAirWay/adm/dashboardAdm.html";
+              }else{
+                window.location.href = "./dashboardAirWay/dashboardFunc.html";
+              }
+            }
+          }
 
-      resposta.text().then(texto => {
-        console.error(texto);
-      });
+        });
+      } else {
+        alert("Email ou senha incorretos")
+        console.log("Houve um erro ao tentar realizar o login!");
 
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-  });
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
 
-  return false;
-}
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    });
+
+    return false;
+  }
 
 </script>

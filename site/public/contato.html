@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/contato.css">
   <link rel="icon" href="images/icon.png" />
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
   <title>Página Inicial</title>
   <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
 </head>
@@ -201,8 +204,20 @@
 </body>
 
 </html>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
+  $(document).ready(function () { 
+      var $campoCpf = $("#cpf");
+      $campoCpf.mask('000.000.000-00', {reverse: true});
+  });
+  $(document).ready(function () { 
+      var $campoCel = $("#celContato");
+      $campoCel.mask('(00) 00000-0000', {reverse: true});
+  });
+
   $('.toggle-menu').click(function () {
     $(this).toggleClass('active');
     $('#menu').toggleClass('open');
