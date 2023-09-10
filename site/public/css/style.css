@@ -1,11 +1,9 @@
-*{
+* {
   box-sizing: border-box;
 }
 html {
   scroll-behavior: smooth;
-
 }
-
 
 body {
   margin: 0;
@@ -71,7 +69,7 @@ h1 {
   color: #69503c;
 }
 
-.banner button {
+.banner .btn-banner {
   background-color: #69503c;
   color: #fffce3;
   border-radius: 20px;
@@ -123,8 +121,6 @@ h1 {
   /* height: 150px; */
 }
 
-
-
 /* .card p {
   width: 50%;
 } */
@@ -156,16 +152,26 @@ hr {
   color: #69503c;
 }
 
-
-#busway-container {
+.busway-container {
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 0px 50px;
 }
+.img-carrossel-airway{
+  background-image: url("../images/img-banner-airway.png");
+  background-size: cover;
+}
+.img-carrossel-busway{
+  background-image: url("../images/busway_banner.png");
+  background-size: cover;
+}
+.img-banner{
+  width: 444px;
+  height: 444px;
+}
 @media only screen and (max-width: 600px) {
   .container {
     flex-direction: column;
-    align-items: center;
   }
 
   ul {
@@ -174,18 +180,18 @@ hr {
   }
 
   .logo {
-    padding-left: 0; 
+    padding-left: 0;
   }
 
   .banner-img {
-    width: 100%; 
+    width: 100%;
     height: auto;
   }
 
   .btn-area {
-    margin: 20px; 
+    margin: 20px;
   }
-  .banner{
+  .banner {
     padding: 10px;
   }
 
@@ -207,28 +213,47 @@ hr {
     /* height: 100px; */
     font-size: 10px;
   }
-  
+
   .card img {
     width: 30px;
     /* height: 150px; */
   }
-  
 
   .about h1 {
     width: 80%;
   }
-  .about{
+  .about {
     width: 360px;
     /* border: 1px solid red; */
   }
-  .about .text-area{
+  .about .text-area {
     width: 80%;
   }
+  .container .busway-container{
+    flex-direction: row;
+  }
 
-  #busway-container {
-    padding: 0 20px; 
+  .busway-container {
+    padding: 0;
+  }
+  .busway img{
+    width: 10px;
+  }
+  .busway p {
+    width: 50%;
+    font-size: 20px;
+  }
+  
+  .busway h1 {
+    margin-bottom: 20px;
+    font-size: 40px;
+  }
+  .img-banner{
+    width: 300px;
+    height: 300px;
   }
 }
+
 
 /* Alarme */
 #alerta {

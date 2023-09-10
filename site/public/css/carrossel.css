@@ -1,96 +1,36 @@
-.slideImage{
-    width: 100%;
-    height: 444px;
-    display: block;
-    background-size: cover;
-}
-.texto-busway{
-    color: #fff;
-}
-.texto-airway{
-    color: #fff;
-}
-#banner-1{
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/nature-1.jpg");
-}
-#banner-2{
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/nature-2.jpg");
-}
-#banner-3{
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/nature-3.jpg");
-}
-#banner-4{
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/nature-4.jpg");
-}
-#banner-5{
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1014830/nature-5.jpg");
+.slider {
+    width: 50%;
+    margin: 100px auto;
 }
 
-#carousel-container {
-    width: 100%;
-    height: 444px;
-    position: relative;
-    margin: 50px auto 0;
-    /* border: 10px solid #000; */
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.slick-slide {
+  margin: 20px;
 }
 
-#carousel-container>div:first-child {
-    overflow: hidden;
-    max-width: 100%;
-    margin: 0;
+.slick-slide img {
+  width: 100%;
 }
 
-#carousel {
-    position: relative;
-    width: 100%;
-    height: 444px;
-    padding: 0;
-    margin: 0;
+.slick-prev:before,
+.slick-next:before {
+  display: none;
+}
+.slick-arrow{
+  display: none;
 }
 
-.animate {
-    -webkit-transition-duration: .8s;
-    -moz-transition-duration: .8s;
-    -o-transition-duration: .8s;
-    transition-duration: .8s;
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -o-transition-property: -o-transform;
-    transition-property: transform;
+.slick-slide {
+  transition: all ease-in-out .3s;
+  opacity: .2;
 }
 
-.slide {
-    list-style: none;
-    position: relative;
-    float: left;
-    transform: translateX(-100%);
+.slick-active {
+  opacity: .5;
 }
 
-#controls {
-    position: absolute;
-    width: 100%;
-    top: calc(50% - 25px);
-    margin: 0 -60px;
+.slick-current {
+  opacity: 1;
 }
-
-#controls span {
-    width: 50px;
-    cursor: pointer;
-    opacity: 0.4;
-}
-
-#controls span:hover {
-    opacity: 1;
-}
-
-#prev {
-    float: left;
-}
-
-#next {
-    float: right;
+.carousel-container{
+  overflow: hidden;
 }

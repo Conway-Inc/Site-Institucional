@@ -15,19 +15,19 @@ p{
 
 /* Fim do header */
 .banner {
-  display: flex;
+  /* display: flex; */
   width: 100%;
   margin: 20px 0;
 }
 
 /* Começo do Banner */
 
-.banner .container {
+/* .banner .container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   text-align: justify;
-}
+} */
 
 .titulo-banner {
   font-family: "Agrandir Regular";
@@ -94,24 +94,6 @@ p{
 
 .banner-text b {
   font-family: "Poppins";
-}
-
-.banner-text li {
-  margin-bottom: 5px;
-  margin-right: 5px;
-  list-style: none;
-  font-family: "Poppins";
-}
-
-ul li a {
-  text-decoration: none;
-  color: #69503c;
-  text-transform: uppercase;
-  font-family: "Poppins";
-}
-
-ul li a:hover {
-  border-bottom: 3px solid #69503c;
 }
 
 .banner .container .titulo-banner {
