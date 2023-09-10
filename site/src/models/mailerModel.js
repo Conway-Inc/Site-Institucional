@@ -54,18 +54,12 @@ function senha(email) {
   comando = `SELECT senhaFunc FROM Funcionario WHERE emailFunc = '${email}'`
   vSenha = "";
   database.executar(comando).then((res) => {
-    if(res.length > 0){
-      vSenha = res[0];
-    } else{
-      vSenha = "não existe"
-    }
-  })
-
-  var mailOptions = {
+    console.log(res)
+    var mailOptions = {
       from: 'conway.sptech@gmail.com',
       to: email,
       subject: 'Recuperação de senha',
-      text: `Sua senha ${vSenha} 
+      text: `Sua senha ${res[0].senhaFunc} 
 
       Obrigado!!
       `
@@ -80,6 +74,9 @@ function senha(email) {
           }
         });
     })
+  })
+
+ 
 
 
 }

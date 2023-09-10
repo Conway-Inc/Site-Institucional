@@ -150,8 +150,7 @@
 
 <script>
     function enviarEmail(){
-      alert("pinto")
-        var email = document.getElementById("ipt_email");
+        var email = document.getElementById("ipt_email").value;
 
         fetch(`/mailer/senha/${email}`).then( (resp) => {
             if(resp.ok){

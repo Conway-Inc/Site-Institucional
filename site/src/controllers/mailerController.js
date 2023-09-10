@@ -59,7 +59,10 @@ function senha(req, res){
       res.status(400).send("pinto")
     } else{
       console.log("aqui")
-      mailerModel.senha(email);
+      mailerModel.senha(email).then( (resp) => {
+        res.send("Email enviado com sucesso");
+      }
+      );
     }
 }
 
