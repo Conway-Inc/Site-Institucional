@@ -56,7 +56,7 @@ function senha(req, res){
     var email = req.params.email;
 
     if(email == undefined){
-      res.status(400).send("pinto")
+      res.status(400).send("Erro, senha não definida")
     } else{
       console.log("aqui")
       mailerModel.senha(email).then( (resp) => {

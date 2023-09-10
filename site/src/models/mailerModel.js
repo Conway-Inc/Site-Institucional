@@ -53,7 +53,7 @@ function senha(email) {
   
   comando = `SELECT senhaFunc FROM Funcionario WHERE emailFunc = '${email}'`
   vSenha = "";
-  database.executar(comando).then((res) => {
+  return database.executar(comando).then((res) => {
     console.log(res)
     var mailOptions = {
       from: 'conway.sptech@gmail.com',
