@@ -103,7 +103,7 @@ function alterarFuncionario(id, nome, email, senha, celular, foto) {
 }
 
 function cadastrarFuncionarioAirway(nome, email, senha, cpf, cargo, empresa) {
-  var instrucao = `INSERT INTO Funcionario VALUES (null, '${cpf}', '${nome}', '${email}', '${senha}',${empresa}) `;
+  var instrucao = `INSERT INTO Funcionario VALUES (null, '${cpf}', '${nome}', '${email}', '${senha}','${cargo}',${empresa}) `;
 
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
