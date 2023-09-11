@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "127.0.0.1",
     database: "AirWay",
     user: "root",
-    password: "220807"
+    password: "babibanco"
 };
 
 function executar(instrucao) {

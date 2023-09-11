@@ -22,7 +22,22 @@ const createChatLi = (message, className) => {
     return chatLi; // retorna o elemento LI
 }
 
+const createChatA = (message, className) => {
+    // Cria no chat um A onde coloca a class "className
+    const chatA = document.createElement("a");
+    chatA.classList.add("chat", `${className}`);
+    let chatContentA = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+    chatA.innerHTML = chatContentA;
+    chatA.querySelector("p").textContent = message;
+    chatA.href = "contato.html"
+    return chatA; // retorna o elemento <a href="contato.html">Clique Aqui</a>
+}
+
+var tagA = "";
+var existeTagA = false;
+
 const handleChat = () => {
+    existeTagA = false;
     userMessage = chatInput.value.trim(); // Obtenha a mensagem inserida pelo usuário e remova o espaço em branco extra
     if (!userMessage) return;
 
@@ -39,6 +54,7 @@ const handleChat = () => {
 
         if (etapa == 0) {//se for a 1° vez vou pegar o nome da pessoa
             nome = userMessage;
+            tagA = createChatA("Clique Aqui","incoming");
             var incomingChatLi = createChatLi(`Seja bem vindo(a) ${nome}, primeiro quero saber qual público você pertence, digite:\n [1] Já sou cliente \n [2] Ainda não sou cliente`, "incoming");
             etapa = 1;
         } else {
@@ -61,8 +77,9 @@ const handleChat = () => {
                 if (cliente == true) { //se ele for cliente acontece isso
                     if (userMessage == 1) {
 
-                        var incomingChatLi = createChatLi("Que legal! Para entrar em contato com nosco basta enviar um formulário clicando neste link 'LINK' depois disso entraremos em contato para fecharmos um acordo!", "incoming");
-
+                        var incomingChatLi = createChatLi("Que legal! Para entrar em contato com nosco basta enviar um formulário e depois disso entraremos em contato para fecharmos um acordo! Segue link do formulário abaixo:", "incoming");
+                        existeTagA = true;
+                        
                     } else if (userMessage == 2) {
 
                         areaBusway = false;
@@ -80,7 +97,8 @@ const handleChat = () => {
                 } else { //se não for cliente acontece isso
 
                     if (userMessage == 1) {
-                        var incomingChatLi = createChatLi("Que legal! Para entrar em contato com nosco basta enviar um formulário clicando neste link 'LINK' depois disso entraremos em contato para fecharmos um acordo!", "incoming");
+                        var incomingChatLi = createChatLi("Que legal! Para entrar em contato com nosco basta enviar um formulário e depois disso entraremos em contato para fecharmos um acordo! Segue link do formulário abaixo:", "incoming");
+                        existeTagA = true;
                     } else if (userMessage == 2 || userMessage == 3) {
                         var incomingChatLi = createChatLi("Certo! Digite abaixo a opção que mais se encaixa na sua dúvida:\n[1] Posso acessar o sistema de qualquer lugar?\n[2] Vocês tem uma equipe de suporte?\n[3] Outra dúvida", "incoming");
                     } else {
@@ -161,6 +179,9 @@ const handleChat = () => {
         }
         // alert(userMessage)
         chatbox.appendChild(incomingChatLi);
+        if(existeTagA){
+            chatbox.appendChild(tagA);
+        }
         chatbox.scrollTo(0, chatbox.scrollHeight);
         generateResponse(incomingChatLi);
     }, 600);
