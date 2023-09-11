@@ -12,6 +12,11 @@
     height: 90%;
     display: flex;
     align-items: center;
+    animation-duration: 1000ms;
+}
+@keyframes mudarLado2{
+    0%{}
+    100%{transform: translateX(415px);}
 }
 
 .videoAviao img{
@@ -28,6 +33,11 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    animation-duration: 1000ms;
+}
+@keyframes mudarLado{
+    0%{}
+    100%{transform: translateX(-625px);}
 }
 
 .formCadastro h1{
@@ -95,6 +105,10 @@ select{
     .formCadastro input, .formCadastro label{
         width: 70%;
     }
+    @keyframes mudarLado{
+        0%{}
+        100%{transform: translateX(-5px);}
+    }
 }
 
 @media (max-width: 700px){
@@ -139,6 +153,10 @@ select{
     }
     .formCadastro h1{
         width: auto;
+    }
+    @keyframes mudarLado{
+        0%{}
+        100%{transform: translateX(-625px);}
     }
 }
 

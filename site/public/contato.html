@@ -68,14 +68,14 @@
   </div>
 
   <div class="contentCad" id="contentCad">
-    <div class="videoAviao">
+    <div class="videoAviao" id="videoAviao">
       <!-- <video width="100%  " height="100%" controls="controls" autoplay="true" loop="true" style="pointer-events: none;">
                 <source src="video/AirWay.mp4" type="video/mp4">
                 
             </video> -->
       <img src="video/AirWay.gif" alt="">
     </div>
-    <div class="formCadastro">
+    <div class="formCadastro" id="formCadastro">
       <h1>Contato</h1>
       
       <div class="nomeFantasia" id="classNomeFantasia">
@@ -132,7 +132,8 @@
       </div>
 
 
-      <button onclick="proximo()" id="btnProx">Próximo ></button>
+      <button onclick="animar()" id="btnProx">Próximo ></button>
+
       <button id="btnCad" onclick="enviar()">Enviar</button>
     </div>
   </div>
@@ -223,24 +224,33 @@
     $('#menu').toggleClass('open');
   });
 
-  function proximo() {
-    classNomeFantasia.style.display = "none";
-    classCnpj.style.display = "none";
-    classNomeRepre.style.display = "none";
-    classCargoRepre.style.display = "none";
-    classEmail.style.display = "none";
-    btnProx.style.display = "none";
-    classRamo.style.display = "none";
+function animar(){
+      formCadastro.style = "animation-name: mudarLado; filter: blur(1px);"
+      videoAviao.style = "animation-name: mudarLado2;"
 
-    classCpf.style.display = "flex";
-    classCelCont.style.display = "flex";
-    classSenha.style.display = "flex";
-    classConfSenha.style.display = "flex";
-    btnCad.style.display = "block";
+      setTimeout(() =>{
+        classNomeFantasia.style.display = "none";
+        classCnpj.style.display = "none";
+        classNomeRepre.style.display = "none";
+        classCargoRepre.style.display = "none";
+        classEmail.style.display = "none";
+        btnProx.style.display = "none";
+        classRamo.style.display = "none";
 
-    contentCad.style.flexDirection = "row-reverse";
+        classCpf.style.display = "flex";
+        classCelCont.style.display = "flex";
+        classSenha.style.display = "flex";
+        classConfSenha.style.display = "flex";
+        btnCad.style.display = "block";
+        contentCad.style.flexDirection = "row-reverse";
+        formCadastro.style = "";
+      },1000)
+  
+    
 
-  }
+    
+    }
+  
   function enviar() {
     nome = nomeFantasia.value;
     varnomeRepresentante = nomeRepresentante.value;
