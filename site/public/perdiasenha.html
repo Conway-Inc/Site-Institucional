@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" media="(min-width: 700px)" />
 
+    <style>
+      .logincaixa{
+        width: 35%;
+      }
+    </style>
+
     <link rel="icon" href="images/icon.png">
     <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
     <title>Esqueci a senha</title>
@@ -154,9 +160,9 @@
 
         fetch(`/mailer/senha/${email}`).then( (resp) => {
             if(resp.ok){
-                alert("Deu certo")
+                alert("E-mail enviado com sucesso!")
             } else{
-                alert("Deu ruim")
+                alert("Erro ao enviar o e-mail! Tente novamente.")
             }
         })
     }
