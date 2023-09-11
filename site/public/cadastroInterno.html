@@ -27,10 +27,10 @@
     <div class="header">
         <div class="container">
             <ul>
-                <li><a href="index.html#busway"> PRODUTOS </a></li>
+                <!-- <li><a href="index.html#busway"> PRODUTOS </a></li>
                 <li><a href="helpdesk.html"> SUPORTE </a></li>
-                <li><a href="index.html#about"> SOBRE NÓS </a></li>
-                <li><a href="login.html"> LOGIN </a></li>
+                <li><a href="index.html#about"> SOBRE NÓS </a></li> -->
+                <li><a href="login.html"> LOGOUT </a></li>
             </ul>
         </div>
     </div>
@@ -192,10 +192,10 @@
                 }),
             }).then((res) => {
                 if (res.status != 500 && res.status != 400) {
-                    alert("Deu certo")
+                    alert("Cadastro realizado com sucesso!")
                 }
                 else {
-                    alert("desgraça")
+                    alert("Erro ao realizar o cadastro! Tente novamente.")
                 }
             }
             )

@@ -16,6 +16,57 @@
 
 }
 
+.header .container ul{
+    justify-content: right;
+    padding-right: 50px;
+  }
+
+  .container ul li:nth-of-type(1) {
+    border: solid 1px #69503c;
+    padding: 10px;
+    position: relative;
+  }
+  
+  .container ul li:nth-of-type(1)::before {
+    position: absolute;
+    content: "";
+    top: 10px;
+    right: -1px;
+    width: 1px;
+    height: 30px;
+    background-color: white;
+  }
+  
+  .container ul li:nth-of-type(1):hover::before {
+    position: absolute;
+    content: "";
+    top: 10px;
+    right: -1px;
+    width: 1px;
+    height: 35px;
+    background-color: white;
+  }
+  
+  .container ul li:nth-of-type(1)::after {
+    position: absolute;
+    content: "";
+    top: 10px;
+    left: -1px;
+    width: 1px;
+    height: 30px;
+    background-color: white;
+  }
+  
+  .container ul li:nth-of-type(1):hover::after {
+    position: absolute;
+    content: "";
+    top: 10px;
+    left: -1px;
+    width: 1px;
+    height: 35px;
+    background-color: white;
+  }
+
 @media only screen and (max-width: 600px) {
     #formCad{
         width: 70%;
