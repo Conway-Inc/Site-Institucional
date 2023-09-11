@@ -6,6 +6,7 @@
   font-size: x-large;
   background-color: rgba(255, 255, 255, 0.349);
   border-bottom-left-radius: 50px;
+  z-index: 100;
 }
 
 .header .container {
