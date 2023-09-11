@@ -114,10 +114,10 @@ CREATE TABLE Componentes (
 idComponente int primary key auto_increment,
 nomeComponente varchar(45),
 metricaComponente varchar(45),
-limiteComponente DECIMAL(6,2),
-minimoComponente DECIMAL(6,2),
-maxTempComponente DECIMAL(6,2),
-minTempComponente DECIMAL(6,2)
+limiteComponente DECIMAL(8,2),
+minimoComponente DECIMAL(8,2),
+maxTempComponente DECIMAL(8,2),
+minTempComponente DECIMAL(8,2)
 );
 
 CREATE TABLE Aeroporto (
@@ -191,7 +191,35 @@ INSERT INTO Fluxo (dataHoraFluxo, entradas, saidas, Viagem_idViagem, Viagem_Linh
 VALUES ('2023-07-20 10:00:00', 100, 20, 1, 1, 1);
 
 INSERT INTO Componentes (nomeComponente, metricaComponente, limiteComponente, minimoComponente, maxTempComponente, minTempComponente)
-VALUES ('Nível de Combustível', 'Porcentagem', 80, 50, 90, 30);
+VALUES ('Porcentagem CPU', 'Porcentagem', 95, 20, 90, 30);
+
+INSERT INTO Componentes (nomeComponente, metricaComponente, limiteComponente, minimoComponente, maxTempComponente, minTempComponente)
+VALUES ('Frequencia CPU', 'GhZ', 4300, 500, 90, 30);
+
+INSERT INTO Componentes (nomeComponente, metricaComponente, limiteComponente, minimoComponente, maxTempComponente, minTempComponente)
+VALUES ('Memoria RAM (MB)', 'MB', 16000, 2000, 70, 20);
+
+
+INSERT INTO Aeroporto (nomeAeroporto, cep, logradouro, numero, cidade, estado, fkEmpresa)
+VALUES ('Aeroporto de São Paulo', '01001000', 'Avenida Santos Dumont', 3000, 'São Paulo', 'SP', 1);
+
+INSERT INTO Totem (marcaTotem, nomeTotem, numeroSerieTotem, fkAeroporto)
+VALUES ('TotemAir', 'Totem 1', '1234567890', 1);
+
+INSERT INTO Dados (dataHoraDados, valor, fkComponente, fkTotem)
+VALUES ('2023-07-20 10:00:00', 85, 1, 1);
+
+INSERT INTO Dados (dataHoraDados, valor, fkComponente, fkTotem)
+VALUES ('2023-07-20 10:00:20', 85, 1, 1);
+
+INSERT INTO Dados (dataHoraDados, valor, fkComponente, fkTotem)
+VALUES ('2023-07-20 10:00:20', 2285, 2, 1);
+
+INSERT INTO Dados (dataHoraDados, valor, fkComponente, fkTotem)
+VALUES ('2023-07-20 10:00:20', 3385, 3, 1);
+
+INSERT INTO Dados (dataHoraDados, valor, fkComponente, fkTotem)
+VALUES ('2023-07-20 10:00:20', 1885, 3, 1);
 
 INSERT INTO Aeroporto (nomeAeroporto, cep, logradouro, numero, cidade, estado, fkEmpresa)
 VALUES ('Aeroporto de São Paulo', '01001000', 'Avenida Santos Dumont', 3000, 'São Paulo', 'SP', 1);
