@@ -28,6 +28,7 @@
 
 .header .container {
   align-items: center;
+  width: 90%;
 }
 
 .header .container ul {
@@ -119,6 +120,7 @@ ul li a:hover {
     font-size: 22px;
   }
   .header{
+    height: 100px;
     width: 60%;
   }
 }
