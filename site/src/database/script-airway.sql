@@ -207,3 +207,34 @@ select * from empresa;
 SELECT * FROM Funcionario JOIN Empresa ON fkEmpresa = idEmpresa
 JOIN Totem ON fkEmpresa = idEmpresa,
 WHERE emailFunc = 'joao.silva@airway.com.br' AND senhaFunc = '123456';
+
+
+CREATE VIEW CompDados AS SELECT * FROM Dados JOIn Componentes ON fkComponente = idComponente;
+
+SET @sql = NULL; -- Criando uma variável para armazenar o comando
+
+SELECT
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "max(case when nomeComponente = '" , nomeComponente , "'", -- aqui vem o nome que você setou para os componentes na view!
+      " then valor end) as '",
+      nomeComponente, "'" -- aqui vem o nome que você setou para os componentes na view!
+    )
+  )
+INTO @sql
+
+FROM
+  CompDados; -- Aqui vem o nome da sua view!
+  
+-- max(case when Componente = 'Componente1' then Registro end) Componente1,
+-- max(case when Componente = 'Componente2' then Registro end) Componente2, .....
+select @sql;
+
+SELECT * FROM Dados;
+SET @sql = CONCAT('SELECT fkTotem, dataHoraDados, ', @sql, ' FROM CompDados GROUP BY fkTotem, dataHoraDados'); -- Lembra de trocar as informações (idServidor, MomentoRegistro, tabelaRegistros) pelos nomes que você usou na view
+
+select @sql;
+
+PREPARE stmt FROM @sql; -- Prepara um statement para executar o comando guardado na variável @sql
+
+EXECUTE stmt; -- Executa o statement
