@@ -282,10 +282,10 @@ function animar(){
         }),
       }).then((res) => {
         if (res.status != 500 && res.status != 400) {
-          alert("Deu certo")
+          alert("E-mail enviado com sucesso! Aguarde nosso retorno confirmando o cadastro.")
         }
         else {
-          alert("desgraça")
+          alert("Erro ao enviar o e-mail! Tente novamente.")
         }
       }
       )
