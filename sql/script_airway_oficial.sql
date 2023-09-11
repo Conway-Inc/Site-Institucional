@@ -161,7 +161,7 @@ INSERT INTO Empresa (cnpjEmpr, nomeEmpr, ramoEmpr, adm)
 VALUES ('93840678903846', 'Latam', 'Transporte Aéreo', FALSE);
 
 INSERT INTO Funcionario (cpfFunc, nomeFunc, emailFunc, senhaFunc, gerente, fkEmpresa)
-VALUES ('54693866209', 'Bárbara Barbato', 'babi@gmail.com', 'babi', 'S', 2);
+VALUES ('54693866209', 'Bárbara Barbato', 'babi.barbato@gmail.com', 'babi', 'S', 2);
 
 INSERT INTO Funcionario (cpfFunc, nomeFunc, emailFunc, senhaFunc, gerente, fkEmpresa)
 VALUES ('99988823417', 'Rebeca Barbato', 'beca@gmail.com', 'beca', 'N', 2);
@@ -205,5 +205,5 @@ VALUES ('2023-07-20 10:00:00', 85, 1, 1);
 select * from funcionario;
 select * from empresa;
 SELECT * FROM Funcionario JOIN Empresa ON fkEmpresa = idEmpresa
-JOIN Totem ON fkEmpresa = idEmpresa
+JOIN Totem ON fkEmpresa = idEmpresa,
 WHERE emailFunc = 'joao.silva@airway.com.br' AND senhaFunc = '123456';
