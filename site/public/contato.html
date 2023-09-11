@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/contato.css">
   <link rel="icon" href="images/icon.png" />
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
   <title>Página Inicial</title>
   <script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
 </head>
@@ -19,12 +22,49 @@
   <div class="header">
     <div class="container">
       <ul>
+        <li><a href="index.html"> INÍCIO </a></li>
         <li><a href="index.html#busway"> PRODUTOS </a></li>
         <li><a href="helpdesk.html"> SUPORTE </a></li>
         <li><a href="index.html#about"> SOBRE NÓS </a></li>
         <li><a href="login.html"> LOGIN </a></li>
       </ul>
     </div>
+  </div>
+
+  <header id="header">
+    <nav class="nav">
+      <button class="toggle-menu">
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div id="menu" class="">
+    <nav class="main-nav">
+      <ul>
+        <li>
+          <a href="login.html">
+            Login
+          </a>
+        </li>
+        <li>
+          <a href="index.html">
+            Início
+          </a>
+        </li>
+        <li>
+          <a href="helpdesk.html">
+            Suporte
+          </a>
+        </li>
+
+        <li>
+          <a href="contato.html">
+            Contato
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 
   <div class="contentCad" id="contentCad">
@@ -37,10 +77,18 @@
     </div>
     <div class="formCadastro" id="formCadastro">
       <h1>Contato</h1>
-
+      
       <div class="nomeFantasia" id="classNomeFantasia">
         <label for="">Nome fantasia</label>
         <input type="text" name="" id="nomeFantasia">
+      </div>
+      
+      <div class="cnpj" id="classRamo">
+        <label for="">Selecione o ramo da sua empresa: </label>
+        <select name="ramoSelEmpr" id="ramoSelEmpr">
+          <option value="empresaOni">Empresa de Ônibus</option>
+          <option value="empresaAv">Empresa de Avião</option>
+        </select>
       </div>
 
       <div class="cnpj" id="classCnpj">
@@ -83,7 +131,9 @@
         <input type="text" name="" id="confSenha">
       </div>
 
+
       <button onclick="animar()" id="btnProx">Próximo ></button>
+
       <button id="btnCad" onclick="enviar()">Enviar</button>
     </div>
   </div>
@@ -156,7 +206,23 @@
 
 </html>
 
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
+  $(document).ready(function () { 
+      var $campoCpf = $("#cpf");
+      $campoCpf.mask('000.000.000-00', {reverse: true});
+  });
+  $(document).ready(function () { 
+      var $campoCel = $("#celContato");
+      $campoCel.mask('(00) 00000-0000', {reverse: true});
+  });
+
+  $('.toggle-menu').click(function () {
+    $(this).toggleClass('active');
+    $('#menu').toggleClass('open');
+  });
 
 function animar(){
       formCadastro.style = "animation-name: mudarLado; filter: blur(1px);"
@@ -166,15 +232,14 @@ function animar(){
         proximo();
         formCadastro.style = "";
       },1000)
-    }
-
-  function proximo() {
+  
     classNomeFantasia.style.display = "none";
     classCnpj.style.display = "none";
     classNomeRepre.style.display = "none";
     classCargoRepre.style.display = "none";
     classEmail.style.display = "none";
     btnProx.style.display = "none";
+    classRamo.style.display = "none";
 
     classCpf.style.display = "flex";
     classCelCont.style.display = "flex";
@@ -183,8 +248,8 @@ function animar(){
     btnCad.style.display = "block";
 
     contentCad.style.flexDirection = "row-reverse";
-
-  }
+    }
+  
   function enviar() {
     nome = nomeFantasia.value;
     varnomeRepresentante = nomeRepresentante.value;

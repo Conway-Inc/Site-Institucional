@@ -51,6 +51,22 @@ function enviarEmail(req, res) {
     }
 }
 
+function senha(req, res){
+    console.log("Controller")
+    var email = req.params.email;
+
+    if(email == undefined){
+      res.status(400).send("Erro, senha não definida")
+    } else{
+      console.log("aqui")
+      mailerModel.senha(email).then( (resp) => {
+        res.send("Email enviado com sucesso");
+      }
+      );
+    }
+}
+
 module.exports = {
-    enviarEmail
+    enviarEmail,
+    senha
 }

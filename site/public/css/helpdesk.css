@@ -1,12 +1,14 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 .logoV1 {
     width: 125px;
     padding-top: 25px;
     padding-left: 50px;
     padding-bottom: 20px;
 }
-
-
-
 .headerV1 {
     font-family: 'Poppins', sans-serif;
     width: 50%;
@@ -48,7 +50,7 @@
 
 li{
     display: flex;
-}
+}   
 
 details{
     max-width: 100%;
@@ -61,6 +63,8 @@ ul li a:hover {
 }
 
 .meio {
+    min-height: 60vh;
+    flex-direction: column;
     display: flex;
     padding-top: 20px;
     justify-content: space-around;
@@ -92,9 +96,10 @@ ul li a:hover {
 }
 
 .caixona, .texto{
-    width: 40%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    padding: 30px;
 }
 
 .texto span {
@@ -158,4 +163,16 @@ margin-top: 20px;
 
 #botaoAoLado{
     text-decoration: underline;
+}
+
+@media (min-width: 700px) {
+    .meio{
+        flex-direction: row;
+    }
+    
+    .caixona, .texto{
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+    }
 }
