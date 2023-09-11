@@ -105,6 +105,10 @@ select{
     .formCadastro input, .formCadastro label{
         width: 70%;
     }
+    @keyframes mudarLado{
+        0%{}
+        100%{transform: translateX(-5px);}
+    }
 }
 
 @media (max-width: 700px){
@@ -149,6 +153,10 @@ select{
     }
     .formCadastro h1{
         width: auto;
+    }
+    @keyframes mudarLado{
+        0%{}
+        100%{transform: translateX(-625px);}
     }
 }
 

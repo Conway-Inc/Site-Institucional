@@ -228,26 +228,27 @@ function animar(){
       formCadastro.style = "animation-name: mudarLado; filter: blur(1px);"
       videoAviao.style = "animation-name: mudarLado2;"
 
-      setTimeout(()=>{
-        proximo();
+      setTimeout(() =>{
+        classNomeFantasia.style.display = "none";
+        classCnpj.style.display = "none";
+        classNomeRepre.style.display = "none";
+        classCargoRepre.style.display = "none";
+        classEmail.style.display = "none";
+        btnProx.style.display = "none";
+        classRamo.style.display = "none";
+
+        classCpf.style.display = "flex";
+        classCelCont.style.display = "flex";
+        classSenha.style.display = "flex";
+        classConfSenha.style.display = "flex";
+        btnCad.style.display = "block";
+        contentCad.style.flexDirection = "row-reverse";
         formCadastro.style = "";
       },1000)
   
-    classNomeFantasia.style.display = "none";
-    classCnpj.style.display = "none";
-    classNomeRepre.style.display = "none";
-    classCargoRepre.style.display = "none";
-    classEmail.style.display = "none";
-    btnProx.style.display = "none";
-    classRamo.style.display = "none";
+    
 
-    classCpf.style.display = "flex";
-    classCelCont.style.display = "flex";
-    classSenha.style.display = "flex";
-    classConfSenha.style.display = "flex";
-    btnCad.style.display = "block";
-
-    contentCad.style.flexDirection = "row-reverse";
+    
     }
   
   function enviar() {
