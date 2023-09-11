@@ -26,6 +26,50 @@
   color: white;
 }
 
+.sticky .container ul li:nth-of-type(5) {
+  border: solid 1px white;
+}
+
+.sticky .container ul li:nth-of-type(5)::before {
+  position: absolute;
+  content: "";
+  top: 10px;
+  right: -1px;
+  width: 1px;
+  height: 30px;
+  background-color: #69503c;
+}
+
+.sticky .container ul li:nth-of-type(5):hover::before {
+  position: absolute;
+  content: "";
+  top: 10px;
+  right: -1px;
+  width: 1px;
+  height: 35px;
+  background-color: #69503c;
+}
+
+.sticky .container ul li:nth-of-type(5)::after {
+  position: absolute;
+  content: "";
+  top: 10px;
+  left: -1px;
+  width: 1px;
+  height: 30px;
+  background-color: #69503c;
+}
+
+.sticky .container ul li:nth-of-type(5):hover::after {
+  position: absolute;
+  content: "";
+  top: 10px;
+  left: -1px;
+  width: 1px;
+  height: 35px;
+  background-color: #69503c;
+}
+
 .header .container {
   align-items: center;
   width: 90%;
