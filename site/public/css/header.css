@@ -1,12 +1,29 @@
 .header {
   width: 50%;
   position: fixed;
-  top: 10px;
+  top: -10px;
   right: 0px;
   font-size: x-large;
   background-color: rgba(255, 255, 255, 0.349);
   border-bottom-left-radius: 50px;
   z-index: 100;
+}
+
+.sticky{
+  background-color: #69503c;
+  border-bottom: 1px solid #FFFFFF1a;
+  width: 50%;
+}
+
+.sticky .container ul{
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sticky .container ul li a{
+  color: white;
 }
 
 .header .container {
@@ -18,11 +35,13 @@
   list-style: none;
   justify-content: space-around;
   align-items: center;
+  z-index: 101;
 }
 
 .header .container ul li a {
   display: flex;
   align-items: center;
+  z-index: 101;
 }
 
 .header .container ul li a:focus-visible {

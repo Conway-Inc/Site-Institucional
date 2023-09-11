@@ -50,6 +50,8 @@
       </nav>
     </header>
 
+    
+
     <div id="menu" class="">
       <nav class="main-nav">
         <ul>
@@ -241,4 +243,11 @@
       autoplay: true,
     });
   });
+
+
+  const header = document.querySelector(".header");
+  window.addEventListener ("scroll", function() {
+    header.classList.toggle ("sticky", window.scrollY > 100);
+  });
+  
 </script>
