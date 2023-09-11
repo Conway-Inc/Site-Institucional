@@ -12,6 +12,11 @@
     height: 90%;
     display: flex;
     align-items: center;
+    animation-duration: 1000ms;
+}
+@keyframes mudarLado2{
+    0%{}
+    100%{transform: translateX(415px);}
 }
 
 .videoAviao img{
@@ -28,6 +33,11 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    animation-duration: 1000ms;
+}
+@keyframes mudarLado{
+    0%{}
+    100%{transform: translateX(-625px);}
 }
 
 .formCadastro h1{
