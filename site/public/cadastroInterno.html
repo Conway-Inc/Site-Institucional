@@ -158,10 +158,19 @@
             </div>
         </div>
     </footer>
-</body>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+  </body>
+  
 </html>
 <script>
+    $(document).ready(function () {
+        $('#ipt_cnpj').mask('99.999.999/9999-99');
+    });
+    $(document).ready(function () {
+        $('#ipt_cpf').mask('999.999.999-99');
+    });
+
     function cadastrar() {
         var nome = ipt_nome.value;
         var cnpj = ipt_cnpj.value;
@@ -193,6 +202,13 @@
             }).then((res) => {
                 if (res.status != 500 && res.status != 400) {
                     alert("Cadastro realizado com sucesso!")
+                    ipt_nome.value = "";
+                    ipt_cnpj.value = "";
+                    ipt_representante.value = "";
+                    ipt_email.value = "";
+                    ipt_senha.value = "";
+                    ipt_ramo.value = "";
+                    ipt_cpf.value = "";
                 }
                 else {
                     alert("Erro ao realizar o cadastro! Tente novamente.")

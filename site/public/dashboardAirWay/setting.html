@@ -17,7 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="informacoes()">
     <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
 
         <li class="liMenu">
@@ -25,11 +25,11 @@
                 Dashboard
             </a>
         </li>
-        <li class="liMenu">
+        <!-- <li class="liMenu">
             <a class="liMenu" href="cadastrarFunc.html">
                 Cadastrar Novos Funcionários
             </a>
-        </li>
+        </li> -->
         <li class="liMenu">
             <a class="liMenu" href="cadastrarMaquina.html">
                 Cadastrar Nova Máquina
@@ -51,8 +51,8 @@
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-search fa-fw"></i>
                 </a>
                 <!-- Dropdown - Messages -->
@@ -60,9 +60,8 @@
                     aria-labelledby="searchDropdown">
                     <form class="form-inline mr-auto w-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small"
-                                placeholder="Search for..." aria-label="Search"
-                                aria-describedby="basic-addon2">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
@@ -75,8 +74,8 @@
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
                     <span class="badge badge-danger badge-counter">3+</span>
@@ -128,15 +127,13 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-white-600 small">Logado</span>
-                    <img class="img-profile rounded-circle"
-                        src="img/undraw_profile.png">
+                    <img class="img-profile rounded-circle" src="img/undraw_profile.png">
                 </a>
                 <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="setting.html">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         Perfil
@@ -170,36 +167,42 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="form-label">Nome</label>
-                                    <input type="text" class="form-control mb-1" value="">
+                                    <input id="iptNome" type="text" class="form-control mb-1" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="">
+                                    <input id="iptEmail" type="text" class="form-control mb-1" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Cpf</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input id="iptCpf" type="text" class="form-control" value="">
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Empresa</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
+                            </div>
+                            <div class="text-right mt-3" style="margin-bottom: 20px;">
+                                <button type="button" class="btn btn-primary" onclick="mudarInfos()">Salvar
+                                    Alterações</button>&nbsp;
+                                <button type="button" class="btn btn-default">Cancelar</button>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-change-password">
                             <div class="card-body pb-2">
                                 <div class="form-group">
                                     <label class="form-label">Senha Atual</label>
-                                    <input type="password" class="form-control">
+                                    <input id="senhaAtual" type="password" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Nova Senha</label>
-                                    <input type="password" class="form-control">
+                                    <input id="novaSenha" type="password" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Repita a Nova Senha</label>
-                                    <input type="password" class="form-control">
+                                    <input id="novaSenhaConf" type="password" class="form-control">
                                 </div>
+                            </div>
+                            <div class="text-right mt-3" style="margin-bottom: 20px;">
+                                <button type="button" class="btn btn-primary" onclick="mudarSenha()">Salvar
+                                    Alterações</button>&nbsp;
+                                <button type="button" class="btn btn-default">Cancelar</button>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="account-connections">
@@ -303,12 +306,9 @@
                 </div>
             </div>
         </div>
-        <div class="text-right mt-3">
-            <button type="button" class="btn btn-primary">Salvar Alterações</button>&nbsp;
-            <button type="button" class="btn btn-default">Cancelar</button>
-        </div>
+
     </div>
-    
+
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -330,74 +330,192 @@
 
     <footer>
         <div class="paiFooter">
-          <div class="redes">
-            <h2>Redes Sociais</h2>
-            <ul>
-              <li>
-                <a href="https://twitter.com" target="_blank">
-                  <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
-                </a>
-              </li>
-              <li>
-                <a href="https://instagram.com" target="_blank">
-                  <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
-                </a>
-              </li>
-              <li>
-                <a href="https://facebook.com" target="_blank">
-                  <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com" target="_blank">
-                  <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
-                </a>
-              </li>
-            </ul>
-          </div>
-    
-          <div class="acesso">
-            <h2>Acesso Rápido</h2>
-            <ul>
-              <li><a href="index.html">Página Inicial</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="cadastro.html">Cadastro</a></li>
-              <li><a href="">Suporte</a></li>
-            </ul>
-          </div>
-    
-          <div class="contato">
-            <h2 id="contato">Contato</h2>
-            <ul>
-              <li>
-                <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
-                  <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
-                </a>
-              </li>
-              <li>
-                <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
-              </li>
-              <li>
-                <a href="mailto:conway.enterprise@gmail.com" target="_blank">
-                  <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
-                </a>
-              </li>
-              <li>
-                <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
-                  target="_blank">
-                  <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
-                </a>
-              </li>
-            </ul>
-          </div>
+            <div class="redes">
+                <h2>Redes Sociais</h2>
+                <ul>
+                    <li>
+                        <a href="https://twitter.com" target="_blank">
+                            <i class="fa-brands fa-square-twitter fa-2xl"></i>Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" target="_blank">
+                            <i class="fa-brands fa-square-instagram fa-2xl"></i>Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://facebook.com" target="_blank">
+                            <i class="fa-brands fa-square-facebook fa-2xl"></i>Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com" target="_blank">
+                            <i class="fa-brands fa-linkedin fa-2xl"></i>Linkedin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="acesso">
+                <h2>Acesso Rápido</h2>
+                <ul>
+                    <li><a href="index.html">Página Inicial</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="cadastro.html">Cadastro</a></li>
+                    <li><a href="">Suporte</a></li>
+                </ul>
+            </div>
+
+            <div class="contato">
+                <h2 id="contato">Contato</h2>
+                <ul>
+                    <li>
+                        <a href="https://api.whatsapp.com/send?phone=5511985618695" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp fa-2xl"></i>(11) 98561-8695
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-square-phone fa-2xl"></i>(11) 5448-0817
+                    </li>
+                    <li>
+                        <a href="mailto:conway.enterprise@gmail.com" target="_blank">
+                            <i class="fa-solid fa-square-envelope fa-2xl"></i>conway.enterprise@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+César,+São+Paulo+-+SP,+01414-001/@-23.5581662,-46.661538,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2a5270055:0x3c7ea4f4c7d51fb6!8m2!3d-23.5581662!4d-46.661538!16s%2Fg%2F11b8v86f6p"
+                            target="_blank">
+                            <i class="fa-solid fa-location-dot fa-2xl"></i>Rua Hadddock Lobo, 595 - São Paulo, SP
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </footer>
+    </footer>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 </body>
 
 </html>
+<script>
+    $(document).ready(function () {
+        $('#iptCpf').mask('999.999.999-99');
+    });
+    function informacoes() {
+        iptNome.value = sessionStorage.NOME_FUNCIONARIO;
+        iptEmail.value = sessionStorage.EMAIL_FUNCIONARIO;
+        iptCpf.value = sessionStorage.CPF;
+    }
+
+    function mudarInfos() {
+        var emailVar = iptEmail.value;
+        var nomeVar = iptNome.value;
+        var cpfvar = iptCpf.value
+        var id = sessionStorage.ID_FUNCIONARIO;
+
+        console.log("Email, Nome, CPF: ", emailVar, nomeVar, cpfvar, id);
+
+        fetch("/usuarios/mudarInfos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                nomeServer: nomeVar,
+                cpfServer: cpfvar,
+                idServer: id
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO mudarInfos()!");
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_FUNCIONARIO = emailVar;
+                    sessionStorage.NOME_FUNCIONARIO = nomeVar;
+                    sessionStorage.CPF = cpfvar;
+
+                    alert("Informações Alteradas")
+
+                });
+            } else {
+                console.log("Houve um erro ao tentar Mudar informações");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+
+        return false;
+    }
+
+    function mudarSenha() {
+        var erro = 0;
+        var senhaAtualVar = senhaAtual.value;
+        var novaSenhaVar = novaSenha.value;
+        var novaSenhaConfVar = novaSenhaConf.value
+        var id = sessionStorage.ID_FUNCIONARIO;
+
+        if (senhaAtualVar != sessionStorage.SENHA_FUNCIONARIO) {
+            alert("A sua senha atual está incorreta!");
+            erro++
+        }
+        if (novaSenhaConfVar != novaSenhaVar) {
+            alert("Sua nova senha está diferente da confirmação da mesma!")
+            erro++;
+        }
+
+        if (erro == 0) {
+
+            fetch("/usuarios/mudarSenha", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    novaSenhaServer: novaSenhaVar,
+                    idServer: id
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO mudarSenha()!");
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log(JSON.stringify(json));
+
+                        sessionStorage.SENHA_FUNCIONARIO = novaSenhaVar;
+
+                        alert("Senha alterada, sua senha agora é: "+novaSenhaVar)
+
+                    });
+                } else {
+                    console.log("Houve um erro ao tentar Mudar senha");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+
+            return false;
+        }
+    }
+</script>

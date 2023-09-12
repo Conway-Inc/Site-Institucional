@@ -121,6 +121,15 @@ function excluirFuncionario(idFuncionario) {
   return database.executar(instrucao);
 }
 
+function mudarInfos(nome,email,cpf,id) {
+  var instrucao = `UPDATE Funcionario set nomeFunc = '${nome}',emailFunc = '${email}',cpfFunc = '${cpf}' where idFuncionario = ${id};`
+  return database.executar(instrucao);
+}
+
+function mudarSenha(senha,id) {
+  var instrucao = `UPDATE Funcionario set senhaFunc = '${senha}' where idFuncionario = ${id};`
+  return database.executar(instrucao);
+}
 
 module.exports = {
   entrar,
@@ -133,5 +142,7 @@ module.exports = {
   excluirFuncionario,
   cadastrarFuncionario,
   cadastrarFuncionarioAirway,
-  cadastrarTotem
+  cadastrarTotem,
+  mudarInfos,
+  mudarSenha
 };
