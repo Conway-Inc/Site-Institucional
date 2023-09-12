@@ -17,7 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="informacoes()">
     <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
 
         <li class="liMenu">
@@ -25,11 +25,11 @@
                 Dashboard
             </a>
         </li>
-        <li class="liMenu">
+        <!-- <li class="liMenu">
             <a class="liMenu" href="cadastrarFunc.html">
                 Cadastrar Novos Funcionários
             </a>
-        </li>
+        </li> -->
         <li class="liMenu">
             <a class="liMenu" href="cadastrarMaquina.html">
                 Cadastrar Nova Máquina
@@ -170,19 +170,15 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="form-label">Nome</label>
-                                    <input type="text" class="form-control mb-1" value="">
+                                    <input id="iptNome" type="text" class="form-control mb-1" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="">
+                                    <input id="iptEmail" type="text" class="form-control mb-1" value="">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Cpf</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Empresa</label>
-                                    <input type="text" class="form-control" value="">
+                                    <input id="iptCpf" type="text" class="form-control" value="">
                                 </div>
                             </div>
                         </div>
@@ -395,9 +391,18 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 </body>
 
 </html>
+<script>
+    $(document).ready(function () {
+        $('#iptCpf').mask('999.999.999-99');
+    });
+    function informacoes(){
+        iptNome.value = sessionStorage.NOME_FUNCIONARIO;
+        iptEmail.value = sessionStorage.EMAIL_FUNCIONARIO;
+        iptCpf.value = sessionStorage.CPF;
+    }
+</script>

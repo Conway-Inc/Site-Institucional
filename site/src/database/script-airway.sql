@@ -4,7 +4,7 @@ USE Airway;
 
 CREATE TABLE Empresa (
 idEmpresa int primary key auto_increment, 
-cnpjEmpr char(14),
+cnpjEmpr varchar(19),
 nomeEmpr varchar(45),
 ramoEmpr varchar(45),
 adm boolean
@@ -15,7 +15,7 @@ select * from Empresa;
 
 CREATE TABLE Funcionario (
     idFuncionario int primary key auto_increment,
-    cpfFunc CHAR(11),
+    cpfFunc Varchar(15),
     nomeFunc Varchar(45),
     emailFunc varchar(45),
     senhaFunc varchar(45),

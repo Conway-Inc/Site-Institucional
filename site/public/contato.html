@@ -202,22 +202,22 @@
       </div>
     </div>
   </footer>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
 </body>
 
 </html>
-
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-  $(document).ready(function () { 
-      var $campoCpf = $("#cpf");
-      $campoCpf.mask('000.000.000-00', {reverse: true});
+  $(document).ready(function () {
+      $('#cnpj').mask('99.999.999/9999-99');
   });
-  $(document).ready(function () { 
-      var $campoCel = $("#celContato");
-      $campoCel.mask('(00) 00000-0000', {reverse: true});
+  $(document).ready(function () {
+      $('#cpf').mask('999.999.999-99');
   });
+  $(document).ready(function () {
+      $('#celContato').mask('(99) 99999-9999');
+  });
+  
 
   $('.toggle-menu').click(function () {
     $(this).toggleClass('active');
