@@ -113,7 +113,9 @@ ul li a:hover {
   padding: 10px;
   position: relative;
 }
-
+.header{
+  display: flex;
+}
 .container ul li:nth-of-type(5)::before {
   position: absolute;
   content: "";

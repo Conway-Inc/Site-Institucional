@@ -215,7 +215,7 @@ hr {
   }
 
   .card img {
-    width: 30px;
+    width: 90px;
     /* height: 150px; */
   }
 
@@ -223,7 +223,7 @@ hr {
     width: 80%;
   }
   .about {
-    width: 360px;
+    width: 100%;
     /* border: 1px solid red; */
   }
   .about .text-area {
