@@ -45,6 +45,14 @@ router.post("/cadastrarTotem", function (req, res) {
     usuarioController.cadastrarTotem(req, res);
 });
 
+router.post("/mudarInfos", function (req, res) {
+    usuarioController.mudarInfos(req, res);
+});
+
+router.post("/mudarSenha", function (req, res) {
+    usuarioController.mudarSenha(req, res);
+});
+
 router.delete("/excluirFuncionario/:idFuncionario", function (req, res) {
     usuarioController.excluirFuncionario(req, res);
 });
