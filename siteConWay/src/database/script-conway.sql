@@ -40,13 +40,23 @@ CREATE TABLE Funcionario (
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
+CREATE TABLE Estado (
+	idEstado INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(60)
+);
+
+CREATE TABLE Municipio (
+	idMunicipio INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(60),
+    fkEstado INT,
+    FOREIGN KEY (fkEstado) REFERENCES Estado(idEstado)
+);
+
 CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(60),
-    cep CHAR(8),
-    logradouro VARCHAR(150),
-    num INT,
-    telefone CHAR(11)
+    fkMunicipio INT,
+    FOREIGN KEY (fkMunicipio) REFERENCES Municipio(idMunicipio)
 );
 
 CREATE TABLE Totem (
