@@ -1,5 +1,10 @@
-# Conway <img src="https://github.com/Conway-Inc/Site-Institucional/blob/main/site/public/images/icon.png" height="25px">
-A Conway é uma empresa de soluções tecnológicas, visando sempre melhorar e otimizar os processos mecânicos e virtuais de nossos parceiros.
+# <h1> Conway <img src="https://github.com/Conway-Inc/Site-Institucional/blob/main/site/public/images/icon.png" height="25px"> </h1>
+
+<p> Com prazer apresentamos a Conway, uma empresa com foco de desenvolvimento de soluções tecnológicas em transportes </p>
+
+<p> A Conway conta com um time especializado, capacitado e inovador na área de tecnologia, com <b> foco em qualidade e em transformar processos </b> em uma experiência extraordinária para os nossos clientes. Contudo é de extrema importância ressaltar nossa prioridade com a inovação e com nossos clientes, oferecendo o nosso melhor para revolucionar o seu negócio, e sempre visando melhorar e otimizar processos mecânicos e virtuais de nossos parceiros, transformando o seu futuro e o jeito que você usa a tecnologia.
+</p>
+
 #
 <b>Tecnologias utilizadas:</b><br>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" style="height: 30px">
@@ -18,6 +23,8 @@ Através desse portal, apresentamos nosso primeiro lançamento: <strong>Busway</
 Tambem apresentamos nosso novo grande lançamento: <strong>Airway</strong>. Através dela, é possível visualizar as condições de seus totens em momentos de check-in, conseguindo analisar da sua máquina, o CPU, Memoria Ram, Rede Wi-Fi e Armazenamento.
 <img src="https://github.com/Conway-Inc/Site-Institucional/blob/main/site/public/images/print_dois.png">
 <br><br>
+Equipe Atual - Ana Luiza, Beatriz Rosa, Bruno Henrique, Gustavo Presilli, João Vitor, Kauan Cruz
+
 Copyright ©️ 2023 - Adriano Allexander, Alexandra Yara, Arthur Rafael, Bárbara Barbato, Danielle Munakata, Eduardo Corrêa, Felipe Guerrino, Gustavo Pereira, Mateus Capellari e Vitor Boos.
 
 
