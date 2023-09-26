@@ -110,39 +110,3 @@ CREATE USER 'user_conway'@'localhost' IDENTIFIED BY 'urubu100';
 GRANT ALL ON conway.* TO 'user_conway'@'localhost';
 FLUSH PRIVILEGES;
 
--- VIEW
-CREATE VIEW CompRegistros AS SELECT * FROM Registros JOIn Componentes ON fkComponente = idComponente;
-
-CREATE VIEW vwFuncsEmpresa AS
-SELECT
-    f.*,
-    e.idEmpresa,
-    e.ramoEmpr,
-    e.cnpjEmpr,
-    e.nomeEmpr AS nomeEmpresa
-FROM Empresa AS e
-JOIN Funcionario AS f ON e.idEmpresa = f.fkEmpresa;
-
-SET @sql = NULL; -- Criando uma variável para armazenar o comando
-
-SELECT
-  GROUP_CONCAT(DISTINCT
-    CONCAT(
-      "max(case when nomeComponente = '" , nomeComponente , "'", -- aqui vem o nome que você setou para os componentes na view!
-      " then valor end) as '",
-      nomeComponente, "'" -- aqui vem o nome que você setou para os componentes na view!
-    )
-  )
-INTO @sql
-
-FROM
-  CompRegistros; -- Aqui vem o nome da sua view!
-  
--- max(case when Componente = 'Componente1' then Registro end) Componente1,
--- max(case when Componente = 'Componente2' then Registro end) Componente2, .....
-
-SET @sql = CONCAT('SELECT fkTotem, dataHora, ', @sql, ' FROM CompRegistros GROUP BY fkTotem, dataHora'); -- Lembra de trocar as informações (idServidor, MomentoRegistro, tabelaRegistros) pelos nomes que você usou na view
-
-PREPARE stmt FROM @sql; -- Prepara um statement para executar o comando guardado na variável @sql
-
--- EXECUTE stmt; -- Executa o statement
