@@ -25,7 +25,7 @@ function validar_entrada() {
     console.log("FORM LOGIN: ", emailVar);
     console.log("FORM SENHA: ", senhaVar);
 
-    fetch("/usuarios/autenticar", {
+    fetch("/login/entrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
