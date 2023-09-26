@@ -1,0 +1,178 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.logoV1 {
+    width: 125px;
+    padding-top: 25px;
+    padding-left: 50px;
+    padding-bottom: 20px;
+}
+.headerV1 {
+    font-family: 'Poppins', sans-serif;
+    width: 50%;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    font-size: x-large;
+    background-color: rgba(255, 255, 255, 0.349);
+    border-bottom-left-radius: 50px;
+
+}
+
+.containerV1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.headerV1 .container {
+    align-items: center;
+}
+
+.headerV1 .container ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.headerV1 .container ul li a {
+    display: flex;
+    align-items: center;
+}
+
+.headerV1 .container ul li img {
+    width: 35px;
+}
+
+li{
+    display: flex;
+}   
+
+details{
+    max-width: 100%;
+    text-align: justify;
+    cursor: pointer;
+}
+
+ul li a:hover {
+    border-bottom: 3px solid #69503c;
+}
+
+.meio {
+    min-height: 60vh;
+    flex-direction: column;
+    display: flex;
+    padding-top: 20px;
+    justify-content: space-around;
+}
+
+.perguntasV1 {
+    color: #69503c;
+    font-family: "Poppins";
+    font-weight: bolder;
+    display: flex;
+    font-size: 23px;
+    padding-left: 20px;
+}
+
+.div_caixona {
+    display: flex;
+    border-bottom: 3px solid #69503c;
+}
+
+.suporte {
+    font-family: "Agrandir Regular";
+    font-weight: 1000;
+    font-size: 50px;
+    color: #69503c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 280px;
+}
+
+.caixona, .texto{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.texto span {
+    font-family: "Agrandir Regular";
+    color: #69503c;
+    display: flex;
+   justify-content: flex-end;
+   padding-top: 80px;
+   padding-right: 20px;
+   font-size: 20px;
+}
+
+.perguntas ul {
+gap: 20px;
+padding-left: 20px;
+margin:0;
+margin-top: 20px;
+ flex-direction: column;
+}
+
+
+.botao {
+    display: flex;
+    justify-content: center;
+}
+
+.botao button {
+    width: 120px;
+    align-self: center;
+    border-radius: 25px;
+    border-style: none;
+    background-color: #BD916E;
+    color: #fff;
+    padding: 10px 25px 10px 25px;
+    font-size: medium;
+    margin-top: 20px;
+    transition: 1s;
+}
+
+.botao button:hover{
+    cursor: pointer;
+}
+.botao :focus > button{
+    border: solid 1px white;
+    animation-name: pulsar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsar{
+    0% {
+      box-shadow: 0 0 0 0px white;
+    }
+    70% {
+        box-shadow: 0 0 0 5px #dd0000a4;
+    }
+    100% {
+        box-shadow: 0 0 0 0px white;
+    }
+  }
+
+#botaoAoLado{
+    text-decoration: underline;
+}
+
+@media (min-width: 700px) {
+    .meio{
+        flex-direction: row;
+    }
+    
+    .caixona, .texto{
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+}

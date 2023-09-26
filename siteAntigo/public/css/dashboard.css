@@ -1,0 +1,295 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Agrandir Regular";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+body, button, select{
+    font-family: 'Poppins';
+    display: flex;
+}
+
+#sidebar{
+    display: flex;
+    flex-direction: column;
+    background-color: #69503C;
+    width: 15%;
+    height: 620px;
+}
+#sidebar div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background-color: #BD916E;
+    border-radius: 38px;
+}
+#sidebar div span, #sidebar div p{
+    color: white;
+    font-size: 14px;
+    margin: 0;
+}
+#sidebar div span{
+    font-weight: bold;
+}
+
+#sidebar .KPIAlerta{
+    border: solid 5px #DB0300;
+}
+#sidebar div .alerta{
+    color: #DB0300;
+    font-weight: bold;
+}
+
+#conteudoDashboard{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
+
+#cabecalhoDashboard{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: fit-content;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+#tituloRota{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    border-radius: 0 38px 38px 0;
+    background-color: #BE383B;
+    font-family: 'Agrandir Regular';
+    padding-right: 30px;
+}
+#tituloRota h1, #tituloRota p{
+    margin: 0 10px;
+    color: white;
+}
+#tituloRota h1{
+    font-size: 58px;
+}
+#tituloRota #infosRota{
+    width: 100%;
+    margin: 10px;
+}
+#tituloRota p{
+    font-size: 22px;
+}
+#selecionarHorario{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+#selecionarHorario p{
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+#selecionarHorario div{
+    display: flex;
+    flex-direction: row;
+}
+#selecionarHorario div select, #selecionarHorario div button{
+    background-color: #BD916E;
+    color: white;
+    border: none;
+    border-radius: 38px;
+    padding: 5px 5px;
+    text-align: center;
+}
+#selecionarHorario div button{
+    padding: 10px 20px;
+    font-weight: bold;
+    margin: 0 15px;
+    cursor: pointer;
+}
+details{
+    color: #BD916E;
+    font-size: 12px;
+    text-align: justify;
+}
+
+#corpoDashboard{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+#graficoDashboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 445px;
+}
+#graficoDashboard h2{
+    margin: 0;
+    color: #69503C;
+    font-weight: bold;
+}
+#graficoDashboard p{
+    width: 95%;
+    margin: 5px 0 5px 0;
+    color: #BD916E;
+    text-align: justify;
+}
+.graficoLoading{
+    height: 300px;
+    background-image: url('../images/loading.gif');
+    background-position: center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+}
+#graficoRota{
+    background-color: white;
+}
+
+#sidebarOutrosDados{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0 10px 0 5px;
+}
+#classificacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0 5px 0;
+    width: 50%;
+    align-self: center;
+}
+#classificacao canvas{
+    width: 65%;
+}
+#classificacao p{
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+#veiculosDashboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #69503C;
+    padding: 20px;
+    border-radius: 38px;
+}
+#veiculosDashboard h3, #veiculosDashboard p{
+    color: white;
+    margin: 0;
+    /* text-align: center; */
+    font-size: 12px;
+    margin: 0 5px;
+    width: fit-content;
+}
+#veiculosDashboard h3{
+    font-family: 'Agrandir Regular';
+    font-size: 28px;
+}
+#veiculosDashboard span{
+    margin: 0;
+    color: white;
+    margin-bottom: 10px;
+}
+#tabelaVeiculosDashboard{
+    width: 100%;
+}
+.tabelaVeiculosLinha{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px 0;
+    border-bottom: solid 0.5px #BD916E;
+    /*Usando 'border-bottom' tanto para as bordas aparecerem só na horizontal, quanto para as linhas mais centrais não
+    juntarem duas bordas (a top de uma e a bottom da outra) em uma borda só mais grossa*/
+}
+#tabelaVeiculosCabecalho{
+    font-weight: bold;
+    border-top: solid 0.5px #BD916E;
+    /*Aqui é usado o 'border-top' para fechar a tabela por cima, já que só as bordas de baixo de cada linha são pintadas,
+    como descrito acima*/
+}
+#sidebarOutrosDados a{
+    align-self: center;
+    font-size: 22px;
+}
+
+/*Alterações dashboard hora*/
+#dicaDias{
+    width: 45%;
+    font-size: 12px;
+    margin: 0 15px;
+}
+.sidebarHora{
+    width: 20% !important;
+    height: 600px !important;
+}
+
+.classificRuim, .classificRegular, .classificBoa, .classificIdeal{
+    top: 50px;
+    font-size: 14px !important;
+    position: absolute;
+    -webkit-text-stroke: black 0.5px;
+}
+.classificRuim{
+    color: #DB0300;
+}
+.classificRegular{
+    color: #d86f00;
+    font-size: 12px !important;
+}
+.classificBoa{
+    color: #4c52c6;
+}
+.classificIdeal{
+    color: #00BF63;
+}
+
+.tituloBom{
+    background-color: #00BF63 !important;
+}
+
+
+#detailsFormula{
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.imgSaibaMais{
+    width: 150px;
+}
+#modalFormula{
+    position: absolute;
+    width: 100%;
+    height: 620px;
+    background-color:rgba(255, 255, 255, 0.45);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+#modalFormula img{
+    height: 80%;
+    border-radius: 25px;
+    border: solid 1px #69503C;
+}
+#modalFormula svg{
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    cursor: pointer;
+}
+#modalFormula svg:hover{
+    opacity: 80%;
+}

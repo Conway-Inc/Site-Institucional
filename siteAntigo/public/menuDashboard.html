@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/alerta.css">
+
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/menuDashboard.css" />
+
+    <link rel="stylesheet" href="css/modal2.css" />
+    <link rel="stylesheet" href="css/modal3.css" />
+
+    <link rel="stylesheet" href="css/footer.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
+    <script src="js/alerta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  </head>
+
+  <body onload="suaRota()" id="body">
+    <!--Começo do header-->
+
+    <div class="navbar">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path
+          d="M224 0C348.8 0 448 35.2 448 80V96 416c0 17.7-14.3 32-32 32v32c0 17.7-14.3 32-32 32H352c-17.7 0-32-14.3-32-32V448H128v32c0 17.7-14.3 32-32 32H64c-17.7 0-32-14.3-32-32l0-32c-17.7 0-32-14.3-32-32V96 80C0 35.2 99.2 0 224 0zM64 128V256c0 17.7 14.3 32 32 32H352c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H96c-17.7 0-32 14.3-32 32zM80 400a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm288 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+          fill="rgb(105,80,60)"
+        />
+      </svg>
+
+      <h1 id="idNomeUsuario"></h1>
+      <div>
+        <a onclick="sair()" id="btnSair"> SAIR </a>
+      </div>
+    </div>
+    <!--Fim do header-->
+
+    <!-- Conteúdo - Gráficos -->
+    <main>
+      <div class="conteudos" id="conteudos">
+        <div class="caixaContent">
+          <div class="titulos">
+            <h2 class="suasRotas" id="idSuasRotas" onclick="suaRota()">
+              Suas Rotas
+            </h2>
+            <h2 class="suasFrotas" id="idSuasFrotas" onclick="suaFrota()">
+              Sua Frota
+            </h2>
+          </div>
+          <div class="content" id="content"></div>
+        </div>
+
+        <!-- Conteúdo - Funcionários -->
+        <aside>
+          <div class="imgHeader">
+            <img id="imgEmpresa"/>
+          </div>
+
+          <div class="funcionarios" id="barraLateralFuncionarios">
+            <p>Outros Funcionários:</p>
+            <ul id="listaDeFuncionarios"></ul>
+            <p>
+              <b>Clique em algum deles para ver suas informações de contato</b>
+            </p>
+          </div>
+        </aside>
+        <!-- Fim do Conteúdo - Funcionários -->
+      </div>
+    </main>
+    <!-- Fim do Conteúdo - Gráficos -->
+  </body>
+</html>
+
+<script>
+  function adicionar(link){
+    sessionStorage.ID_LINHA = null;
+    sessionStorage.COD_LINHA = null;
+    sessionStorage.TIPO_LINHA = null;
+    sessionStorage.NOME_IDA_LINHA = null;
+    sessionStorage.NOME_VOLTA_LINHA = null;
+
+    window.location = "alterarRota.html";
+  }
+
+  var veiculos = [];
+  var rotas = [];
+  function suaFrota() {
+    idSuasRotas.style.color = "rgba(189, 145, 110, 0.5)";
+    idSuasRotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
+
+    idSuasFrotas.style.color = "#BD916E";
+    idSuasFrotas.style.backgroundColor = "#E4D4C7";
+
+    fetch(`/veiculos/listar/${sessionStorage.FK_EMPRESA}`)
+      .then(function (resposta) {
+        if (resposta.status == 200) {
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+            var content = document.getElementById("content");
+            content.innerHTML = "";
+            for (let i = 0; i < resposta.length; i++) {
+              veiculos.push(resposta[i]);
+              var veiculo = resposta[i];
+              var titulo = document.createElement("h2");
+              var tipoVeiculo = document.createElement("p");
+              var rotas = document.createElement("p");
+              var tituloArea = document.createElement("div");
+              var imgArea = document.createElement("div");
+              var imgOnibus = document.createElement("img");
+              var card = document.createElement("div");
+              var cardInfos = document.createElement("div");
+
+              titulo.innerHTML = veiculo.placaVeiculo;
+              tipoVeiculo.innerHTML = veiculo.nomeModelo;
+
+              cardInfos.appendChild(tituloArea);
+              cardInfos.appendChild(imgArea);
+              card.appendChild(cardInfos);
+              card.className = "cardVeiculo";
+
+              tituloArea.appendChild(titulo);
+              tituloArea.appendChild(rotas);
+              tituloArea.appendChild(tipoVeiculo);
+              tituloArea.className = "tituloBus";
+              rotas.className = "rotas";
+
+              imgArea.className = "qtdVeic";
+              imgArea.appendChild(imgOnibus);
+              imgOnibus.src = `images/modelosOnibus/${veiculo.nomeModelo}.png`;
+
+              card.addEventListener("click", (click) =>
+                redirecionarAdicionarVeiculo(i)
+              );
+              content.appendChild(card);
+            }
+            var botaoAdicionar = document.createElement("a");
+            var botaoAdicionarDiv1 = document.createElement("div");
+            var botaoAdicionarDiv2 = document.createElement("div");
+            var sinalAdicionar = document.createElement("h2");
+            var textoAdicionar = document.createElement("p");
+
+            botaoAdicionar.href = "adicionarVeiculo.html";
+            sinalAdicionar.innerHTML = "+";
+            textoAdicionar.innerHTML = "Adicionar novo veículo";
+            botaoAdicionarDiv1.id = "visu05";
+            botaoAdicionarDiv2.className = "cardVeiculo";
+
+            botaoAdicionar.appendChild(botaoAdicionarDiv1);
+            botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+            botaoAdicionarDiv2.appendChild(sinalAdicionar);
+            botaoAdicionarDiv2.appendChild(textoAdicionar);
+            content.appendChild(botaoAdicionar);
+          });
+        } else {
+          var content = document.getElementById("content");
+          content.innerHTML = "";
+
+          var botaoAdicionar = document.createElement("a");
+          var botaoAdicionarDiv1 = document.createElement("div");
+          var botaoAdicionarDiv2 = document.createElement("div");
+          var sinalAdicionar = document.createElement("h2");
+          var textoAdicionar = document.createElement("p");
+
+          botaoAdicionar.href = "adicionarVeiculo.html";
+          sinalAdicionar.innerHTML = "+";
+          textoAdicionar.innerHTML = "Adicionar novo veículo";
+          botaoAdicionarDiv1.id = "visu05";
+          botaoAdicionarDiv2.className = "cardVeiculo";
+
+          botaoAdicionar.appendChild(botaoAdicionarDiv1);
+          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+          botaoAdicionarDiv2.appendChild(sinalAdicionar);
+          botaoAdicionarDiv2.appendChild(textoAdicionar);
+          content.appendChild(botaoAdicionar);
+        }
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
+      });
+  }
+
+  let alertasDisparados = false
+
+  function suaRota() {
+    idSuasFrotas.style.color = "rgba(189, 145, 110, 0.5)";
+    idSuasFrotas.style.backgroundColor = "rgba(228, 212, 199, 0.5)";
+
+    idSuasRotas.style.color = "#BD916E";
+    idSuasRotas.style.backgroundColor = "#E4D4C7";
+
+    fetch(`/linha/listar/${sessionStorage.FK_EMPRESA}`)
+      .then(function (resposta) {
+        if (resposta.status == 200) {
+          resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+            var content = document.getElementById("content");
+            content.innerHTML = "";
+            for (let i = 0; i < resposta.length; i++) {
+              rotas.push(resposta[i]);
+              var rota = resposta[i];
+
+              var tituloArea = document.createElement("div");
+              var titulo = document.createElement("h2");
+              var nomeLinha = document.createElement("p");
+
+              var qtdVeiculoArea = document.createElement("div");
+              var qtdVeiculo = document.createElement("h2");
+              var qtdVeiculoSub = document.createElement("p");
+              if(rota.numVeiculos == null){
+                rota.numVeiculos = 0;
+              }
+              qtdVeiculo.innerHTML = rota.numVeiculos;
+              qtdVeiculoSub.innerHTML = "Veículos";
+
+              var graficoArea = document.createElement("div");
+              var grafico = document.createElement("canvas");
+              grafico.id = `grafico${rota.idLinha}`;
+              graficoArea.className = "grafico";
+              graficoArea.id = `graficoArea${rota.idLinha}`
+
+              var card = document.createElement("div");
+              var cardInfo = document.createElement("div");
+
+              titulo.innerHTML = rota.codLinha;
+              nomeLinha.innerHTML = `${rota.nomeLinhaIda}/${rota.nomeLinhaVolta}`;
+
+              cardInfo.appendChild(tituloArea);
+              cardInfo.appendChild(qtdVeiculoArea);
+              card.appendChild(cardInfo);
+              card.appendChild(graficoArea);
+              card.className = "cardVeiculo";
+              cardInfo.className = "cardVeiculoInfo";
+
+              tituloArea.appendChild(titulo);
+              tituloArea.appendChild(nomeLinha);
+              tituloArea.className = "tituloBus";
+
+              qtdVeiculoArea.appendChild(qtdVeiculo);
+              qtdVeiculoArea.appendChild(qtdVeiculoSub);
+              qtdVeiculoArea.className = "qtdVeic";
+
+              graficoArea.appendChild(grafico);
+
+              card.addEventListener("click", (click) =>
+                redirecionarAdicionarRota(i)
+              );
+              content.appendChild(card);
+              gerarGraficoOtimizacao(rotas[i]);
+            }
+            var botaoAdicionar = document.createElement("a");
+            var botaoAdicionarDiv1 = document.createElement("div");
+            var botaoAdicionarDiv2 = document.createElement("div");
+            var sinalAdicionar = document.createElement("h2");
+            var textoAdicionar = document.createElement("p");
+
+            sinalAdicionar.innerHTML = "+";
+            textoAdicionar.innerHTML = "Adicionar nova rota";
+            botaoAdicionarDiv1.id = "visu05";
+            botaoAdicionarDiv1.addEventListener("click", (click) =>
+                adicionar()
+              );
+            botaoAdicionarDiv2.className = "cardVeiculo";
+
+            botaoAdicionar.appendChild(botaoAdicionarDiv1);
+            botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+            botaoAdicionarDiv2.appendChild(sinalAdicionar);
+            botaoAdicionarDiv2.appendChild(textoAdicionar);
+            content.appendChild(botaoAdicionar);
+
+            if(!alertasDisparados) {
+              alertar(rotas)
+              alertasDisparados = true
+            }
+          });
+        } else {
+          var content = document.getElementById("content");
+          content.innerHTML = "";
+
+          var botaoAdicionar = document.createElement("a");
+          var botaoAdicionarDiv1 = document.createElement("div");
+          var botaoAdicionarDiv2 = document.createElement("div");
+          var sinalAdicionar = document.createElement("h2");
+          var textoAdicionar = document.createElement("p");
+
+          botaoAdicionar.href = "adicionarVeiculo.html";
+          sinalAdicionar.innerHTML = "+";
+          textoAdicionar.innerHTML = "Adicionar novo veículo";
+          botaoAdicionarDiv1.id = "visu05";
+          botaoAdicionarDiv2.className = "cardVeiculo";
+
+          botaoAdicionar.appendChild(botaoAdicionarDiv1);
+          botaoAdicionarDiv1.appendChild(botaoAdicionarDiv2);
+          botaoAdicionarDiv2.appendChild(sinalAdicionar);
+          botaoAdicionarDiv2.appendChild(textoAdicionar);
+          content.appendChild(botaoAdicionar);
+        }
+      })
+      .catch(function (resposta) {
+        console.error(resposta);
+      });
+  }
+
+  function validar() {
+    return true;
+  }
+
+  function cadastrarPonto() {
+    var logradouroVar = ipt_logradouro.value;
+    var cepVar = ipt_cep.value;
+    var numVar = ipt_num.value;
+    var coordXVar = ipt_coordX.value;
+    var coordYVar = ipt_coordY.value;
+
+    if (coordXVar == "" || coordYVar == "") {
+      coordXVar = null;
+      coordYVar = null;
+    }
+
+    fetch("/ponto/cadastrarPonto", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cepServer: cepVar,
+        logradouroServer: logradouroVar,
+        numServer: numVar,
+        coordYServer: coordYVar,
+        coordXServer: coordXVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          alert("Cadastro REALIZADO com Sucesso!!!");
+        } else {
+          throw "Houve um ERRO ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+  
+</script>
+<script>
+  function gerarGraficoOtimizacao(linha) {
+    var otimizacao = Number(linha.pctOtimizacao);
+    var areaBranca = 100 - otimizacao;
+
+    var corClassific = "";
+    var nomeClassific = "";
+    if (otimizacao >= 80) {
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
+
+    var graficoArea = document.getElementById(`graficoArea${linha.idLinha}`);
+    var pClassificacao = document.createElement("p")
+
+    pClassificacao.innerHTML = nomeClassific;
+    pClassificacao.className = "classific" + nomeClassific;
+    graficoArea.appendChild(pClassificacao)
+
+    const classificacao = ["Otimização Atual", "Melhora possível"];
+    const dadosClassfic = {
+      labels: classificacao,
+      datasets: [
+        {
+          backgroundColor: [corClassific, "white"],
+          borderColor: ["black"],
+          borderWidth: "0.5",
+          data: [otimizacao, areaBranca],
+          circumference: 180,
+          rotation: 270,
+        },
+      ],
+    };
+    const configGraficoClassific = {
+      type: "doughnut",
+      data: dadosClassfic,
+      options: {
+        aspectRatio: "1/4",
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      },
+    };
+    new Chart(
+      document.getElementById(`grafico${linha.idLinha}`),
+      configGraficoClassific
+    );
+  }
+
+  function gerarGraficoFluxo(pLogs, pFluxo) {
+    const lotacaoOnibus = 80;
+    const dadosGeral = {
+      labels: pLogs,
+      datasets: pFluxo,
+    };
+    const configGraficoGeral = {
+      type: "line",
+      data: dadosGeral,
+      options: {
+        scales: {
+          x: {
+            //Deixa as labels do eixo X (pontos) na vertical
+            ticks: {
+              maxRotation: 90,
+              minRotation: 90,
+            },
+          },
+        },
+      },
+    };
+    const graficoGeral = new Chart(
+      document.getElementById("graficoRota"),
+      configGraficoGeral
+    );
+  }
+</script>
+<script>
+  /*--------------------------------------------------------------------------------
+    --- Funções que carregam as informações do funcionário logado, suas rotas, -------
+    --- veículos e subordinados ------------------------------------------------------
+    --------------------------------------------------------------------------------*/
+  var funcionarioLogado = [];
+  var outrosFuncionarios = [];
+
+  carregarFuncLogado();
+  carregarFuncsDaEmpresa();
+
+  function verificarSessao() {
+    if (sessionStorage.ID_FUNCIONARIO == "null") {
+      alert("Por favor, logue-se para continuar.");
+      window.location = "index.html";
+    }
+  }
+
+  function sair() {
+    sessionStorage.ID_FUNCIONARIO = null;
+    window.location = "index.html";
+  }
+
+  function carregarFuncLogado() {
+    verificarSessao();
+    fetch(`funcionarios/listarPorID/${sessionStorage.ID_FUNCIONARIO}`, {
+      cache: "no-store",
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Funcionários: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            funcionarioLogado = resposta;
+            receberFuncLogado(funcionarioLogado);
+          });
+        } else {
+          console.error("Nenhum dado encontrado na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados: ${error.message}`);
+      });
+  }
+  function receberFuncLogado(funcionarioLogado) {
+    idNomeUsuario.innerHTML = `
+            Bem-vindo(a), ${funcionarioLogado[0].nome}
+        `;
+  }
+
+  
+  function carregarFuncsDaEmpresa() {
+    fetch(`funcionarios/listarPorEmpresa/${sessionStorage.FK_EMPRESA}`, {
+      cache: "no-store",
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            outrosFuncionarios = resposta;
+            receberOutrosFuncs(outrosFuncionarios, funcionarioLogado);
+          });
+        } else {
+          console.error("Nenhum dado encontrado na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados: ${error.message}`);
+      });
+  }
+  function receberOutrosFuncs(outrosFuncionarios, funcionarioLogado) {
+    var botaoAdicionar = "";
+    var botoesEditarExcluir = "";
+    if (funcionarioLogado[0].fkRepresentante == undefined) {
+      botaoAdicionar = `
+            <p><b>ou</b></p>
+            <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios"for="modal-2">
+                <b>Adicionar</b>
+            </label>
+            <input class="modal-state" id="modal-2" type="checkbox" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-2"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-2"></label>
+                        <span class="addFuncionario">
+                            <svg style="height: 100px"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path
+                                    d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"
+                                    fill="rgb(255,255,255)" />
+                            </svg>
+                            <div class="div_ipt">
+                                  <input class="ipt_func"  id="ipt_funcionario" placeholder="Nome">
+                                <input class="ipt_func" id="ipt_cpf" placeholder="CPF">
+                                <input class="ipt_func" id="ipt_email" placeholder="Email">
+                                <input class="ipt_func" id="ipt_cel" placeholder="Celular">
+                                <input class="ipt_func" id="ipt_senha" placeholder="Senha">
+                                <input class="ipt_func" id="ipt_confirmarSenha" placeholder=" Confirme a Senha"><br>
+                                <input class="ipt_func" id="ipt_foto" placeholder=" Foto (URL)"><br>
+                            </div>
+                            <div class="btnFunc">
+                                <button onclick="cadastrarFuncionario()"><b>Registrar</b></button>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            `;
+      botoesEditarExcluir = `
+            <div class="btnFunc">
+                <button class="btn_adicionar_mais" onclick="atualizarFuncionario()"><b>Editar</b></button>
+                <button class="btn_adicionar_mais" onclick="excluirFuncionario()"><b>Excluir</b></button>
+            </div>`;
+    }
+    for (var i = 0; i < outrosFuncionarios.length; i++) {
+      let senha = outrosFuncionarios[i].senha;
+      let senhaEscondida = "";
+      for (let c = 0; c < senha.length; c++) {
+        senhaEscondida += "•";
+      }
+
+      imgEmpresa.src = `images/${outrosFuncionarios[i].nomeEmpresa}.png`;
+      imgEmpresa.alt = `Logo da ${outrosFuncionarios[i].nomeEmpresa}`;
+
+      listaDeFuncionarios.innerHTML += `
+            <label id="btnAdicionarMaisFuncionarios" for="modal-3${i}">
+                <li>${outrosFuncionarios[i].nome}</li>
+            </label>
+            <input class="modal-state" id="modal-3${i}" type="checkbox" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-3${i}"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-3${i}"></label>
+                        <span class="editFuncionario">
+                            <img src="images/${outrosFuncionarios[i].foto}">
+                            <p><b>${outrosFuncionarios[i].nome}</b></p>
+                            <p>Funcionário(a) na  ${outrosFuncionarios[i].nomeEmpresa}</p>
+                            <p>CPF: ${outrosFuncionarios[i].cpf}</p>
+                            <p>Celular: ${outrosFuncionarios[i].celular}</p>
+                            <p>
+                              <a href="mailto:${outrosFuncionarios[i].email}">
+                                Email: ${outrosFuncionarios[i].email}
+                              </a>
+                            </p>
+                            <p class="descricao">(clique para mandar email)</p>
+                            <p id="senhaInvisivel">Senha: ${senhaEscondida}</p>
+                            <p id="senhaVisivel">Senha: ${senha}</p>
+                            <p class="descricao">(passe o mouse para revelar)</p>
+                            <div class="btnFunc">
+                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="alterarFuncionario(${i})"><b>Editar</b></label>
+                                <label for="modal-3${i}" class="btn_adicionar_mais" onclick="excluirFuncionario(${Number(
+        outrosFuncionarios[i].idFuncionario
+      )})"><b>Excluir</b></label>
+                            </div>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            `;
+    }
+    barraLateralFuncionarios.innerHTML += botaoAdicionar;
+  }
+
+  function alterarFuncionario(elementId) {
+    barraLateralFuncionarios.innerHTML += `
+            <input class="modal-state" id="modal-2${elementId}" type="checkbox" checked="true" />
+            <div class="modal">
+                <label class="modal__bg" for="modal-2${elementId}"></label>
+                <div class="modal__inner">
+                    <div class="container">
+                        <label class="modal__close" for="modal-2${elementId}"></label>
+                        <span class="addFuncionario editFuncionario">
+                            <img src="images/${outrosFuncionarios[elementId].foto}">
+                            <input class="ipt_func" value="${outrosFuncionarios[elementId].nome}"" id="alterandoNome" >
+                            <input class="ipt_func"  value="${outrosFuncionarios[elementId].cpf}"" id="alterandoCpf" >
+                            <input class="ipt_func"  value="${outrosFuncionarios[elementId].celular}"" id="alterandoCelular" >
+                            <input class="ipt_func"  value="${outrosFuncionarios[elementId].email}"" id="alterandoEmail" >
+                            <input class="ipt_func" value="${outrosFuncionarios[elementId].senha}"" id="alterandoSenha" >
+                            <input class="ipt_func" value="${outrosFuncionarios[elementId].foto}"" id="alterandoFoto" >
+                            <label class="btn_adicionar_mais" id="btnAdicionarMaisFuncionarios" for="modal-2${elementId}" onclick="atualizarFuncionario(${outrosFuncionarios[elementId].idFuncionario})">
+                              <b>Atualizar</b>
+                            </label>
+                        </span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    `;
+  }
+
+  function atualizarFuncionario(idFuncionario) {
+    const nome = alterandoNome.value;
+    const email = alterandoEmail.value;
+    const cpf = alterandoCpf.value;
+    const celular = alterandoCelular.value;
+    const senha = alterandoSenha.value;
+    const foto = alterandoFoto.value;
+    fetch(`/usuarios/alterarFuncionario/${idFuncionario}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nome,
+        emailServer: email,
+        cpfServer: cpf,
+        celularServer: celular,
+        senhaServer: senha,
+        fotoServer: foto,
+      }),
+    })
+      .then(function (resposta) {
+        // if (resposta.ok) {
+        //   window.alert(
+        //     "Post atualizado com sucesso pelo usuario de email: " +
+        //       sessionStorage.getItem("EMAIL_USUARIO") +
+        //       "!"
+        //   );
+        //   window.location = "/dashboard/mural.html";
+        // } else if (resposta.status == 404) {
+        //   window.alert("Deu 404!");
+        // } else {
+        //   throw (
+        //     "Houve um erro ao tentar realizar a postagem! Código da resposta: " +
+        //     resposta.status
+        //   );
+        // }
+        console.log(resposta);
+        setTimeout(() => {
+          location.reload()
+        }, 1000)
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function excluirFuncionario(idFuncionario) {
+    console.log("Criar função de apagar post escolhido - ID" + idFuncionario);
+    fetch(`/usuarios/excluirFuncionario/${idFuncionario}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resposta) {
+        console.log(resposta);
+        setTimeout(() => {
+          location.reload();
+        }, 2000)
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function redirecionarAdicionarVeiculo(index) {
+    sessionStorage.ID_VEICULO = veiculos[index].idVeiculo;
+    sessionStorage.PLACA_VEICULO = veiculos[index].placaVeiculo;
+    sessionStorage.ANO_AQUISICAO = veiculos[index].anoAquisicao;
+    sessionStorage.NOME_MODELO = veiculos[index].nomeModelo;
+    sessionStorage.ID_MODELO = veiculos[index].idModelo;
+
+    window.location = "alterarVeiculo.html";
+  }
+
+  function redirecionarAdicionarRota(index) {
+    sessionStorage.ID_LINHA = rotas[index].idLinha;
+    sessionStorage.COD_LINHA = rotas[index].codLinha;
+    sessionStorage.TIPO_LINHA = rotas[index].tipoLinha;
+    sessionStorage.NOME_IDA_LINHA = rotas[index].nomeLinhaIda
+    sessionStorage.NOME_VOLTA_LINHA = rotas[index].nomeLinhaVolta
+
+    Swal.fire({
+      title: sessionStorage.COD_LINHA,
+      text: 'O que você deseja fazer com essa rota?',
+      showDenyButton: true,
+      showCancelButton: true,
+
+      confirmButtonText: "Visualizar na dashboard",
+      denyButtonText: "Editar",
+      cancelButtonText: "Fechar"
+    }).then((result) => {
+      if(result.isConfirmed){
+        window.location = "dashboardGeral.html";
+      }
+      if(result.isDenied){
+        window.location = "alterarRota.html";
+      }
+    });
+  }
+
+  function cadastrarFuncionario() {
+        const nome = ipt_funcionario.value;
+        const email = ipt_email.value;
+        const cpf = ipt_cpf.value;
+        const celular = ipt_cel.value;
+        const senha = ipt_senha.value;
+        const foto = ipt_foto.value;
+        var idRepresentante = sessionStorage.ID_FUNCIONARIO;
+        var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+        if (validar()) {
+            fetch("/usuarios/cadastrarFuncionario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeFuncionarioServer: nome,
+                    emailServer: email,
+                    cpfServer: cpf,
+                    celularServer: celular,
+                    senhaServer: senha,
+                    fotoFuncionarioServer: foto,
+                    fkEmpresaServer: fkEmpresa,
+                    fkRepresentanteServer: idRepresentante
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        // cardErro.style.display = "block";
+
+                        // mensagem_erro.innerHTML =
+                        //   "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+                        alert("Cadastro realizado com sucesso!")
+                        setTimeout(() => {
+                          location.reload()
+                        }, 1000);
+                    }
+                })
+        }
+    }
+</script>

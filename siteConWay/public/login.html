@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>ConWay</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Favicon -->
+    <link href="img/logo.png" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="cardMsg"></div>
+    <div class="bg-geral">
+        <!-- Spinner Start -->
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Carregando...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0" >
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <img src="img/logo.png" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="index.html#inicio" class="nav-item nav-link active">Início</a>
+                        <a href="index.html#sobreNos" class="nav-item nav-link">Sobre Nós</a>
+                        <a href="index.html#servicos" class="nav-item nav-link">Serviços</a>
+                        <a href="index.html#time" class="nav-item nav-link">Time</a>
+                        <a href="preCadastro.html" class="nav-item nav-link">Pré-Cadastro</a>
+                    </div>
+                    <a href="login.html" class="btn btn-primary py-2 px-4">Login</a>
+                </div>
+            </nav>
+        </div>
+        <div id="espaco-login"></div>
+        <!-- Reservation Start -->
+        <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
+            <!-- <div class="row g-0 "> -->
+                <div class="col-md-6 bg-dark  text-center" style="margin: 0 auto; max-width: 90%;">
+                    <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
+                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Login</h5>
+                        <h1 class="text-white mb-4">Acesse sua conta</h1>
+                        <div class="row g-3">
+                            <div>
+                                <div class="col-md-6" style="width: 100%;">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="ipt_email" placeholder="exemplo@exemplo.com">
+                                        <label for="name">Email</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-md-6" style="width: 100%;">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="ipt_senha" placeholder="******">
+                                        <label for="email">Senha</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" onclick="validar_entrada()">Entrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <!-- Footer -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Acesso Rápido</h4>
+                        <a class="btn btn-link" href="">Início</a>
+                        <a class="btn btn-link" href="">Sobre Nós</a>
+                        <a class="btn btn-link" href="">Serviços</a>
+                        <a class="btn btn-link" href="">Pré-Cadastro</a>
+                        <a class="btn btn-link" href="">Login</a>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contato</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+55 (11) 91234-4321</p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>conway@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; ConWay, All Right Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script><!--Link do Jquery-->
+<script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
+<!--Link do script para funcionar o slide show-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/counterup/counterup.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="https://kit.fontawesome.com/89d28f01ec.js" crossorigin="anonymous"></script>
+
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+<script>
+    //fUNÇÃO QUE RODA O SLIDE SHOW
+    $(".toggle-menu").click(function () {
+        $(this).toggleClass("active");
+        $("#menu").toggleClass("open");
+    });
+
+    //fUNÇÃO QUE RODA O SLIDE SHOW
+    $(".lazy").slick({
+        lazyLoad: 'ondemand',
+        autoplay: true, //Rodar sozinho
+        infinite: true, //rodar infinitamente
+        speed: 300, //tempo para passar cada slide
+    });
+
+
+    const header = document.querySelector(".header");
+    window.addEventListener("scroll", function () {
+        header.classList.toggle("sticky", window.scrollY > 100);
+    });
+</script>

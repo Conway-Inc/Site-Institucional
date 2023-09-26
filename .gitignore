@@ -1,4 +1,6 @@
-/site/node_modules
+/siteAntigo/node_modules
+/siteConWay/node_modules
+
 
 
 .github

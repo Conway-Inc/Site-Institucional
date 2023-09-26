@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>775N - 12:00</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+</head>
+<body>
+    <!--Começando a barra lateral das KPIs-->
+    <div id="sidebar" class="sidebarHora">
+        <div id="KPIDias">
+            <span>Dia Mais Cheio:</span>
+            <p id="pDiasMaisCh">Segunda-Feira</p>
+            <span>Dia Mais Vazio:</span>
+            <p id="pDiasMenosCh">Sábado</p>
+        </div>
+        <div id="KPIMovMais">
+            <span>Ponto mais movimentado</span>
+            <p id="pPontoMaisMov"></p>
+            <p id="pLogMaisMov"></p>
+        </div>
+        <div id="KPIMovMenos">
+            <span>Ponto menos movimentado</span>
+            <p id="pPontoMenosMov"></p>
+            <p id="pLogMenosMov"></p>
+        </div>
+    </div>
+    <!--Terminada a barra lateral das KPIs-->
+    <!--Início do conteúdo principal da dashboard-->
+    <div id="conteudoDashboard">
+        <!--Início do corpo da dashboard-->
+        <div id="corpoDashboard">
+            <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
+            <div id="cabecalhoDashboard">
+                <div id="tituloRota">
+                    <h1 id="h1Codigo"></h1>
+                    <div id="infosRota">
+                        <p id="pNomeIda"></p>
+                        <p id="pNomeVolta"></p>
+                        <p id="pTipoRota"></p>
+                    </div>
+                </div>
+                <div id="dicaDias">
+                    Clique em um dos dias na legenda para ocultá-lo, facilitando a visualização dos demais. Para exibi-lo
+                    novamente, basta clicá-lo que ele volta a aparecer no gráfico.  
+                </div>
+            </div>
+            <!--Fim do cabeçalho da dashboard-->
+            <!--Início da área do gráfico da dashboard-->
+            <div id="graficoDashboard"><!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
+                <h2 id="titHorario"></h2><!--cada horário por si só.-->
+                <canvas id="graficoRota" class="graficoLoading"></canvas>
+            </div>
+            <!--Fim da área do gráfico da dashboard-->
+        </div>
+        <!--Fim do corpo da dashboard-->
+        <!--Início da barra lateral da classificação e dos veículos nessa rota-->
+            <div id="sidebarOutrosDados">
+                <div id="classificacao">
+                    <p class="classificIdeal" id="classific">Boa</p>
+                    <canvas id="graficoClassific"></canvas>
+                    <p>Classificação da hora</p>
+                </div>
+                <details id="detailsFormula">
+                    Fórmula utilizada:
+                    <img class="imgSaibaMais" src="images/formula busway.png" onclick="mostrarFormula(true)">
+                    (Clique para ampliar)
+                </details>
+                <div id="veiculosDashboard">
+                    <h3>Veículos</h3>
+                    <span>utilizados nesse horário</span>
+                    <div id="tabelaVeiculosDashboard">
+                        <div id="tabelaVeiculosCabecalho" class="tabelaVeiculosLinha">
+                           <p>Placa</p>
+                            <p>Lotação</p>
+                            <p>Modelo</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="dashboardGeral.html">< VOLTAR</a>
+            </div>
+            <!--Fim da barra lateral dos veículos nessa rota-->
+    </div>
+    <!--Fim do conteúdo principal da dashboard-->
+    <div id="modalFormula">
+        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512" fill="#69503C" onclick="mostrarFormula(false)">
+            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
+        </svg>
+        <img src="images/formula busway.png">
+    </div>
+</body>
+</html>
+<script>
+    if(sessionStorage.HORARIO_DA_LINHA == undefined){
+        window.location.href = "menuDashboard.html";
+    }
+    else{
+        // alert(sessionStorage.HORARIO_DA_LINHA);
+    }
+    const codRota = sessionStorage.COD_LINHA;
+    const horario = sessionStorage.HORARIO_DA_LINHA;
+    var linha = null;
+    var dias = [];
+    var otimizacaoHorario = null;
+    var kpiPico = null;
+    var fluxo = null;
+    var pontos = null;
+    var veiculos = null;
+
+    function mostrarFormula(mostrar){
+        if(mostrar){
+            modalFormula.style = "visibility: visible";
+        }
+        else{
+            modalFormula.style = "visibility: hidden";
+        }
+    }
+
+    function carregarLinha() {
+        fetch(`linha/listarPorCodigo/${codRota}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Linha: ${JSON.stringify(resposta)}`);
+            linha = resposta;
+            configLinha();
+            carregarDias();
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarDias() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        //Cortando o horário, para usar de base no WHERE do banco.
+        //Este where só aceita a hora inteira, então cortamos valores como 09:00 para 9 e 12:00 para 12
+        fetch(`viagem/diasPorHorario/${codRota}/${horarioCortado}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Dias: ${JSON.stringify(resposta)}`);
+            dias = resposta;
+            for (let i = 0; i < dias.length; i++) {
+                switch(dias[i].diaSemana){
+                    case 'Sunday':
+                        dias[i].diaSemana = 'Domingo';
+                        break;
+                    case 'Monday':
+                        dias[i].diaSemana = 'Segunda-Feira';
+                        break;
+                    case 'Tuesday':
+                        dias[i].diaSemana = 'Terça-Feira';
+                        break;
+                    case 'Wednesday':
+                        dias[i].diaSemana = 'Quarta-Feira';
+                        break;
+                    case 'Thursday':
+                        dias[i].diaSemana = 'Quinta-Feira';
+                        break;
+                    case 'Friday':
+                        dias[i].diaSemana = 'Sexta-Feira';
+                        break;
+                    case 'Saturday':
+                        dias[i].diaSemana = 'Sábado';
+                        break;
+                }
+            }
+            gerarGraficoOtimizacao(dias);
+            carregarPontos();
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarPontos() {
+        fetch(`ponto/listarPorCodLinha/${codRota}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Pontos: ${JSON.stringify(resposta)}`);
+                pontos = resposta;
+                configPontos();
+                carregarFluxo();
+            });
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+    function carregarFluxo() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        //Mesmo corte do 'carregarDias()'
+        fetch(`viagem/fluxoDias/${codRota}/${horarioCortado}`, {
+            cache: "no-store",
+        }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+            console.log(`Fluxo: ${JSON.stringify(resposta)}`);
+            fluxo = resposta;
+            configFluxo(fluxo);
+            carregarKPIs()
+        });
+        }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarKPIs() {
+        fetch(`linha/kpiMovLinha/${codRota}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
+                kpiMov = resposta;
+                configKPIMovLinha();
+            });
+            }
+        })
+    }
+    carregarLinha();
+
+    var codigo = document.getElementById("h1Codigo");
+    var nomeIda = document.getElementById("pNomeIda");
+    var nomeVolta = document.getElementById("pNomeVolta");
+    var tipoRota = document.getElementById("pTipoRota");
+
+    var tituloHorario = document.getElementById("titHorario");
+
+    var pClassificacao = document.getElementById("classific");
+
+    var pDiasMaisCh = document.getElementById("pDiasMaisCh");
+    var pDiasMenosCh = document.getElementById("pDiasMenosCh");
+
+    var kpiPontoMaisMov = document.getElementById("pPontoMaisMov");
+    var kpiLogMaisMov = document.getElementById("pLogMaisMov");
+    var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
+    var kpiLogMenosMov = document.getElementById("pLogMenosMov");
+
+    function configLinha(){
+        document.title = `${linha.codLinha} - Dados gerais`;
+        codigo.innerHTML = linha.codLinha;
+        nomeIda.innerHTML = linha.nomeLinhaIda;
+        nomeVolta.innerHTML = linha.nomeLinhaVolta;
+
+        tituloHorario.innerHTML = `Média do horário das ${horario}`;
+        
+        var codTipoLinha = linha.tipoLinha;
+        var transcTipoLinha = null; //Transcreve o tipo da linha baseado no código desse tipo
+        if(codTipoLinha == 10){
+            transcTipoLinha = "normal";
+        }
+        else if(codTipoLinha == 11){
+            transcTipoLinha = "noturna";
+        }
+        else if(codTipoLinha > 20 && codTipoLinha < 30){
+            transcTipoLinha = "retorno";
+        }
+        else if(codTipoLinha < 40){
+            transcTipoLinha = "derivição";
+        } 
+        else if(codTipoLinha < 50){
+            transcTipoLinha = "bifurcação";
+        }
+        else if(codTipoLinha < 60){
+            transcTipoLinha = "prolongamento";
+        }
+
+        if(transcTipoLinha != null){
+            pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
+        }
+    }
+    var logs = [];
+    function configPontos(){
+        for (let i = 0; i < pontos.length; i++) {
+            if(pontos[i].numNaRua != undefined){
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+            }
+            else{
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}`;
+            }
+        }
+    }
+    
+    var fluxoTratado = [];
+    var kpiDias = [];
+    var graficoCriado = false;
+
+    setInterval(() =>{
+        carregarFluxo();
+    },3000)
+    
+    function configFluxo(){
+        fluxoTratado = []
+        for (let i = 0; i < dias.length; i++) {
+            let data = [];
+            kpiDias = [];
+            kpiDias.push({ 
+                dia: dias[i].diaSemana,
+                saldoAcumulado: 0 });
+            for (let c = 0; c < fluxo.length; c++) {
+                if(fluxo[c].dataV == dias[i].dataV){
+                    data.push(fluxo[c].saldoPass);
+                    kpiDias[i].saldoAcumulado += Number(fluxo[c].saldoPass);
+                }
+            }
+
+            var diaFluxo = (dias[i].dataV.slice(0,5)).replace("-","/") + " " + (dias[i].diaSemana).slice(0,3) + ".";
+            fluxoTratado.push({label: diaFluxo, data});
+            
+        }
+
+        if(!graficoCriado){
+            graficoCriado = true;
+            gerarGraficoFluxoHora(logs, fluxoTratado);
+        }
+        else{
+            console.log(fluxoTratado);
+            graficoGeral.destroy();
+            gerarGraficoFluxoHora(logs, fluxoTratado).update();
+        }
+        configKPIdias();
+        
+    }
+
+    function configKPIdias(){
+        var diaMaisCheio = { dia: null, saldo: 0 };
+        var diaMenosCheio = { dia: null, saldo: 10000 };
+
+        for (let i = 0; i < kpiDias.length; i++) {
+            if(kpiDias[i].saldoAcumulado > diaMaisCheio.saldo){
+                diaMaisCheio.saldo = kpiDias[i].saldoAcumulado;
+                diaMaisCheio.dia = kpiDias[i].dia;
+            }
+            if(kpiDias[i].saldoAcumulado < diaMenosCheio.saldo){
+                diaMenosCheio.saldo = kpiDias[i].saldoAcumulado;
+                diaMenosCheio.dia = kpiDias[i].dia;
+            }
+        }
+        pDiasMaisCh.innerHTML = diaMaisCheio.dia;
+        pDiasMenosCh.innerHTML = diaMenosCheio.dia;
+    }
+
+    function configKPIMovLinha(){
+        var cheio = { idPonto: 0, logradouro: null, movimentacao: 0 };
+        var vazio = { idPonto: 0, logradouro: null, movimentacao: 100000 };
+
+        cheio.idPonto = kpiMov[1].idPonto;
+        cheio.movimentacao = kpiMov[1].movimentacao;
+        cheio.logradouro = `${kpiMov[1].logradouro}, ${kpiMov[1].numNaRua}`;
+
+        vazio.idPonto = kpiMov[kpiMov.length-1].idPonto;
+        vazio.movimentacao = kpiMov[kpiMov.length-1].movimentacao;
+        vazio.logradouro = `${kpiMov[kpiMov.length-1].logradouro}, ${kpiMov[kpiMov.length-1].numNaRua}`
+        
+        kpiPontoMaisMov.innerHTML = cheio.idPonto;
+        kpiLogMaisMov.innerHTML = cheio.logradouro;
+
+        kpiPontoMenosMov.innerHTML = vazio.idPonto;
+        kpiLogMenosMov.innerHTML = vazio.logradouro;
+    }
+
+    var graficoGeral = null;
+    function gerarGraficoOtimizacao(pDias) {
+        var otimizacao = 0;
+
+        let soma = 0;
+        for (var i = 0; i < pDias.length; i++) {
+            soma += Number(pDias[i].pctOtimizacao);
+        }
+        otimizacao = soma / i;
+        var areaBranca = 100 - otimizacao;
+
+        var corClassific = "";
+        var nomeClassific = "";
+        if (otimizacao >= 80) {
+            corClassific = "#00BF63";
+            nomeClassific = "Ideal";
+        }
+        else if (otimizacao >= 50) {
+            corClassific = "#4c52c6";
+            nomeClassific = "Boa";
+        }
+        else if(otimizacao >= 30){
+            corClassific = "#d86f00";
+            nomeClassific = "Regular";
+        }
+        else {
+            corClassific = "#DB0300";
+            nomeClassific = "Ruim";
+        }
+
+        var tituloRota = document.getElementById("tituloRota");
+        tituloRota.style = "background-color: "+corClassific;
+        pClassificacao.innerHTML = nomeClassific;
+        pClassificacao.className = "classific" + nomeClassific;
+
+        const classificacao = ["Otimização Atual","Melhora possível"]
+        const dadosClassfic = {
+            labels: classificacao,
+            datasets: [{
+                    backgroundColor: [corClassific,"white"],
+                    borderColor: ["black"],
+                    borderWidth: "0.5",
+                    data: [otimizacao,areaBranca],
+                    circumference: 180,
+                    rotation: 270
+                }
+            ]
+        }
+        const configGraficoClassific = {
+            type: "doughnut",
+            data: dadosClassfic,
+            options: {
+                aspectRatio: '1/4',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+        const graficoClassific = new Chart(
+            document.getElementById("graficoClassific"),
+            configGraficoClassific
+        );
+    }
+
+    function gerarGraficoFluxoHora(pDias, pFluxo){
+        const lotacaoOnibus = 70;
+        const dadosHora = {
+            labels: pDias,
+            datasets: pFluxo
+        }
+        const configGraficoGeral = {
+            type: "line",
+            data: dadosHora,
+            options: {
+                animation: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        max: (lotacaoOnibus +25)
+                }
+                }
+            }
+        }
+        graficoRota.className = "";
+        graficoGeral = new Chart(
+            document.getElementById("graficoRota"),
+            configGraficoGeral
+        );
+
+        return graficoGeral;
+    }
+
+    function graficoModelo() {
+        var horarioCortado = 0;
+        if(horario[0] == 0){
+            horarioCortado = horario.slice(1,2);
+        }
+        else{
+            horarioCortado = horario.slice(0,2);
+        }
+        fetch(`veiculos/graficoModelo/${codRota}/${horarioCortado}`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(response)}`);
+
+                        var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
+                        for (let i = 0; i < resposta.length; i++) {
+                            var veiculo = document.createElement("div");
+                            var placa = document.createElement("p");
+                            var lotacao = document.createElement("p");
+                            var modelo = document.createElement("p");
+
+                            placa.innerHTML = resposta[i].placaVeiculo;
+                            lotacao.innerHTML = resposta[i].lotacao;
+                            modelo.innerHTML = resposta[i].nomeModelo;
+
+                            veiculo.appendChild(placa);
+                            veiculo.appendChild(lotacao);
+                            veiculo.appendChild(modelo);
+                            veiculo.className = 'tabelaVeiculosLinha';
+
+                            listaVeiculos.appendChild(veiculo);
+                        }
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado na API");
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+</script>

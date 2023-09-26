@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!--Começando a barra lateral das KPIs-->
+    <div id="sidebar">
+        <div id="KPIHorariosCheios">
+            <span>Horário mais cheio</span>
+            <p id="pHrCheio"></p>
+            <span>Média em horários cheios</span>
+            <p id="pMediaPassHrCheio"></p>
+        </div>
+        <div id="KPIHorariosVazios">
+            <span>Horário mais vazio</span>
+            <p id="pHrVazio"></p>
+            <span>Média em horários vazios</span>
+            <p id="pMediaPassHrVazio"></p>
+        </div>
+        <div id="KPIMovMais">
+            <span>Ponto mais movimentado</span>
+            <p id="pPontoMaisMov"></p>
+            <p id="pLogMaisMov"></p>
+        </div>
+        <div id="KPIMovMenos">
+            <span>Ponto menos movimentado</span>
+            <p id="pPontoMenosMov"></p>
+            <p id="pLogMenosMov"></p>
+        </div>
+    </div>
+    <!--Terminada a barra lateral das KPIs-->
+    <!--Início do conteúdo principal da dashboard-->
+    <div id="conteudoDashboard">
+        <!--Início do corpo da dashboard-->
+        <div id="corpoDashboard">
+            <!--Início do cabeçalho da dashboard, contendo o título da rota, suas infos. e classificação-->
+            <div id="cabecalhoDashboard">
+                <div id="tituloRota">
+                    <h1 id="h1Codigo"></h1>
+                    <div id="infosRota">
+                        <p id="pTipoRota"></p>
+                        <p id="pNomeIda"></p>
+                        <p id="pNomeVolta"></p>
+                    </div>
+                </div>
+                <div id="selecionarHorario">
+                    <p>Selecionar um horário</p>
+                    <div>
+                        <select id="selectHorario">
+                            <option value="N">Selecionar</option>
+                        </select>
+                        <button onclick="dashboardHorario()">Ir</button>
+                    </div>
+                    <details>
+                        <summary>?</summary>
+                        Selecione um horário de saída para ver informações de dias específicos
+                    </details>
+                </div>
+            </div>
+            <!--Fim do cabeçalho da dashboard-->
+            <!--Início da área do gráfico da dashboard-->
+            <div id="graficoDashboard">
+                <!--Esta div contém, além do gráfico, seu título e uma descrição de como visualizar-->
+                <h2>Média geral dos horários da rota</h2><!--cada horário por si só.-->
+                <canvas id="graficoRota" class="graficoLoading">
+                </canvas>
+            </div>
+            <!--Fim da área do gráfico da dashboard-->
+        </div>
+        <!--Fim do corpo da dashboard-->
+        <!--Início da barra lateral da classificação e dos veículos nessa rota-->
+        <div id="sidebarOutrosDados">
+            <div id="classificacao">
+                <canvas id="graficoClassific"></canvas>
+                <p class="classificRuim" id="classific">Ruim</p>
+                <p>Classificação da Rota</p>
+            </div>
+            <details id="detailsFormula">
+                Fórmula utilizada:
+                <img class="imgSaibaMais" src="images/formula busway.png" onclick="mostrarFormula(true)">
+                (Clique para ampliar)
+            </details>
+            <div id="veiculosDashboard">
+                <h3>Veículos</h3>
+                <span>utilizados nessa rota</span>
+                <div id="tabelaVeiculosDashboard">
+                    <div id="tabelaVeiculosCabecalho" class="tabelaVeiculosLinha">
+                        <p>Placa</p>
+                        <p>Lotação</p>
+                        <p>Modelo</p>
+                    </div>
+                </div>
+            </div>
+            <a href="menuDashboard.html">
+                < VOLTAR</a>
+        </div>
+        <!--Fim da barra lateral dos veículos nessa rota-->
+    </div>
+    <!--Fim do conteúdo principal da dashboard-->
+    <div id="modalFormula">
+        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 384 512" fill="#69503C" onclick="mostrarFormula(false)">
+            <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
+        </svg>
+        <img src="images/formula busway.png">
+    </div>
+</body>
+
+</html>
+<script>
+    function mostrarFormula(mostrar){
+        if(mostrar){
+            modalFormula.style = "visibility: visible";
+        }
+        else{
+            modalFormula.style = "visibility: hidden";
+        }
+    }
+
+    if (sessionStorage.COD_LINHA == undefined) {
+        window.location = "menuDashboard.html";
+    }
+    var linha = null;
+    var kpiHor = [];
+    var kpiMov = [];
+    var fluxo = null;
+    var horarios = null;
+    var pontos = null;
+    
+    var pontos
+    
+    veiculoRota()
+    function carregarLinha() {
+        fetch(`linha/listarPorCodigo/${sessionStorage.COD_LINHA}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Linha: ${JSON.stringify(resposta)}`);
+                        linha = resposta;
+                        configLinha();
+                        gerarGraficoOtimizacao();
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    function carregarKPIs() {
+        fetch(`linha/kpiMovLinha/${sessionStorage.COD_LINHA}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`KPI pontos +/- movimentados: ${JSON.stringify(resposta)}`);
+                kpiMov = resposta;
+                configKPIMovLinha();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+
+        fetch(`viagem/mediaPassageirosPorHorario/${sessionStorage.COD_LINHA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`KPI média de passageiros por horário: ${JSON.stringify(resposta)}`);
+                        kpiHor = resposta;
+                        for (let i = 0; i < kpiHor.length; i++) {
+                            kpiHor[i].horario += ":00";
+                        if(kpiHor[i].horario.length == 4){
+                            kpiHor[i].horario = "0" + kpiHor[i].horario
+                        }
+                }
+                        configKPIMediaPass();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarhorarios() {
+        fetch(`viagem/horariosPorRota/${sessionStorage.COD_LINHA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`horarios: ${JSON.stringify(resposta)}`);
+                horarios = resposta;
+                for (let i = 0; i < horarios.length; i++) {
+                    horarios[i].horario += ":00";
+                    if(horarios[i].horario.length == 4){
+                        horarios[i].horario = "0" + horarios[i].horario
+                    }
+                }
+                confighorarios();
+                carregarPontos();
+            });
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`);
+        });
+    }
+    function carregarPontos() {
+        fetch(`ponto/listarPorCodLinha/${sessionStorage.COD_LINHA}`, {
+        cache: "no-store",
+        })
+        .then(function (response) {
+            if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Pontos: ${JSON.stringify(resposta)}`);
+                pontos = resposta;
+                configPontos();
+                setInterval(()=>carregarFluxo(),1000);
+                }).catch(function (error){
+                    console.warn(`Essa linha não tem fluxo cadastrado: ${error.message}`);
+                    graficoDashboard.innerHTML += "Essa linha não tem pontos cadastrados";
+                });
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+    function carregarFluxo() {
+        fetch(`viagem/fluxoViagens/${sessionStorage.COD_LINHA}`, {
+            cache: "no-store",
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Fluxo: ${JSON.stringify(resposta)}`);
+                        fluxo = resposta;
+                        for (let i = 0; i < fluxo.length; i++) {
+                            fluxo[i].horario += ":00";
+                            if(fluxo[i].horario.length == 4){
+                                fluxo[i].horario = "0" + fluxo[i].horario
+                            }
+                        }
+                        configFluxo();
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+
+    carregarLinha();
+    carregarKPIs();
+    carregarhorarios();
+
+    var codigo = document.getElementById("h1Codigo");
+    var nomeIda = document.getElementById("pNomeIda");
+    var nomeVolta = document.getElementById("pNomeVolta");
+    var tipoRota = document.getElementById("pTipoRota");
+
+    var kpiPontoMaisMov = document.getElementById("pPontoMaisMov");
+    var kpiLogMaisMov = document.getElementById("pLogMaisMov");
+    var kpiPontoMenosMov = document.getElementById("pPontoMenosMov");
+    var kpiLogMenosMov = document.getElementById("pLogMenosMov");
+
+    var cardHrCheio = document.getElementById("KPIHorariosCheios");
+    var kpiHrCheio = document.getElementById("pHrCheio");
+    var kpiMediaPassHrCheio = document.getElementById("pMediaPassHrCheio");
+    
+    var cardHrVazio = document.getElementById("KPIHorariosVazios");
+    var kpiHrVazio = document.getElementById("pHrVazio");
+    var kpiMediaPassHrVazio = document.getElementById("pMediaPassHrVazio");
+
+    var pClassificacao = document.getElementById("classific");
+
+    function configLinha(){
+        document.title = `${linha.codLinha} - Dados gerais`;
+        codigo.innerHTML = linha.codLinha;
+        nomeIda.innerHTML = linha.nomeLinhaIda;
+        nomeVolta.innerHTML = linha.nomeLinhaVolta;
+        
+        var codTipoLinha = linha.tipoLinha;
+        var transcTipoLinha = null; //Transcreve o tipo da linha baseado no código desse tipo
+        if(codTipoLinha == 10){
+            transcTipoLinha = "normal";
+        }
+        else if(codTipoLinha == 11){
+            transcTipoLinha = "noturna";
+        }
+        else if(codTipoLinha > 20 && codTipoLinha < 30){
+            transcTipoLinha = "retorno";
+        }
+        else if(codTipoLinha < 40){
+            transcTipoLinha = "derivição";
+        }
+        else if(codTipoLinha < 50){
+            transcTipoLinha = "bifurcação";
+        }
+        else if(codTipoLinha < 60){
+            transcTipoLinha = "prolongamento";
+        }
+
+        if(transcTipoLinha != null){
+            pTipoRota.innerHTML = `<i>Rota ${transcTipoLinha}</i> (${codTipoLinha})`;
+        }
+    }
+    function configKPIMovLinha(){
+        if(kpiMov[1] != null){
+            var cheio = { idPonto: 0, logradouro: null, movimentacao: 0 };
+            var vazio = { idPonto: 0, logradouro: null, movimentacao: 100000 };
+
+            cheio.idPonto = kpiMov[1].idPonto;
+            cheio.movimentacao = kpiMov[1].movimentacao;
+            cheio.logradouro = `${kpiMov[1].logradouro}, ${kpiMov[1].numNaRua}`;
+
+            vazio.idPonto = kpiMov[kpiMov.length-1].idPonto;
+            vazio.movimentacao = kpiMov[kpiMov.length-1].movimentacao;
+            vazio.logradouro = `${kpiMov[kpiMov.length-1].logradouro}, ${kpiMov[kpiMov.length-1].numNaRua}`
+            
+            kpiPontoMaisMov.innerHTML = cheio.idPonto;
+            kpiLogMaisMov.innerHTML = cheio.logradouro;
+
+            kpiPontoMenosMov.innerHTML = vazio.idPonto;
+            kpiLogMenosMov.innerHTML = vazio.logradouro;
+        }
+        else{
+            KPIMovMais.style = "display: none";
+            KPIMovMenos.style = "display: none";
+        }
+    }
+    function configKPIMediaPass(){
+        var cheio = { horario: null, media: 0, alerta: false };
+        var vazio = { horario: null, media: 100000, alerta: false };
+        
+        // PARA TESTAS OS ALERTAS DAS KPIS, DESCOMENTE ABAIXO:
+        // kpiHor = [
+        //     {
+        //         horario: "09:00",
+        //         lotacao: "80",
+        //         mediaPass: "10",
+        //     },{
+        //         horario: "12:00",
+        //         lotacao: "80",
+        //         mediaPass: "92",
+        //     },
+        // ]
+
+        for (let i = 0; i < kpiHor.length; i++) {
+            if(kpiHor[i].mediaPass > cheio.media){
+                cheio.media = kpiHor[i].mediaPass;
+                cheio.horario = kpiHor[i].horario;
+                if(kpiHor[i].mediaPass > kpiHor[i].lotacao){
+                    cheio.alerta = true;
+                }
+                else{
+                    cheio.alerta = false;
+                }
+            }
+            if(kpiHor[i].mediaPass < vazio.media){
+                vazio.media = kpiHor[i].mediaPass;
+                vazio.horario = kpiHor[i].horario;
+                if(kpiHor[i].mediaPass < kpiHor[i].lotacao *0.3){
+                    vazio.alerta = true;
+                }
+                else{
+                    vazio.alerta = false;
+                }
+            }
+        }
+        if(kpiHor.length < 1){
+            vazio.media = 0;
+        }
+
+        kpiHrCheio.innerHTML = cheio.horario;
+        kpiMediaPassHrCheio.innerHTML = `${cheio.media} passageiros por ponto`;
+        if(cheio.alerta){
+            cardHrCheio.className = "KPIAlerta";
+            kpiMediaPassHrCheio.className = "alerta";
+        }
+
+        kpiHrVazio.innerHTML = vazio.horario;
+        kpiMediaPassHrVazio.innerHTML = `${vazio.media} passageiros por ponto`;
+        if(vazio.alerta){
+            cardHrVazio.className = "KPIAlerta";
+            kpiMediaPassHrVazio.className = "alerta";
+        }
+    }
+    
+    function confighorarios(){
+        for (let i = 0; i < horarios.length; i++) {
+            selectHorario.innerHTML +=
+                `<option value="${horarios[i].horario}">
+                    ${horarios[i].horario}
+                </option>`;
+        }
+    }
+    function dashboardHorario(){
+        if(selectHorario.value == "N"){
+            alert("Selecione um horário válido");
+        }
+        else{
+            sessionStorage.HORARIO_DA_LINHA = selectHorario.value;
+            window.location.href = "dashboardHora.html";
+        }
+    }
+
+    var logs = [];
+    function configPontos(){
+        for (let i = 0; i < pontos.length; i++) {
+            if(pontos[i].numNaRua != undefined){
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}, ${pontos[i].numNaRua}`;
+            }
+            else{
+                logs[i] = `${i + 1} - ${pontos[i].logradouro}`;
+            }
+        }
+    }
+
+    // [{ -- Formato entendido pelo CHART.JS, para referência
+    //     label: "12:00 (CCV-4234)" ,
+    //     data: [0,8,12,18.5,24.5,30.5,37,34,25,19]
+    // }]
+    
+    var graficoCriado = false;
+    function configFluxo(){
+        var fluxoTratado = [];
+        for (let i = 0; i < horarios.length; i++) {
+            let data = [];
+            for (let c = 0; c < fluxo.length; c++) {
+                if(fluxo[c].horario == horarios[i].horario){
+                    data.push(fluxo[c].saldoPass);
+                }
+            }
+            var horarioFluxo = (horarios[i].horario);
+            fluxoTratado.push({label: horarioFluxo, data});
+        }
+        if(!graficoCriado){
+            graficoCriado = true;
+            gerarGraficoFluxo(logs, fluxoTratado);
+        }
+        else{
+            console.log(fluxoTratado);
+            graficoGeral.destroy();
+            gerarGraficoFluxo(logs, fluxoTratado).update();
+        }
+    }
+
+    var graficoGeral = null;
+    function gerarGraficoOtimizacao() {
+        var otimizacao = Number(linha.pctOtimizacao);
+        var areaBranca = 100 - otimizacao;
+
+        var corClassific = "";
+        var nomeClassific = "";
+        var contorno = "";
+            if (otimizacao >= 80) {
+                corClassific = "#00BF63";
+                nomeClassific = "Ideal";
+            }
+            else if (otimizacao >= 50) {
+                corClassific = "#4c52c6";
+                nomeClassific = "Boa";
+            }
+            else if(otimizacao >= 30){
+                corClassific = "#d86f00";
+                nomeClassific = "Regular";
+            }
+            else {
+                corClassific = "#DB0300";
+                nomeClassific = "Ruim";
+            }
+
+        var tituloRota = document.getElementById("tituloRota");
+        tituloRota.style = `background-color: ${corClassific};`;
+        pClassificacao.innerHTML = nomeClassific;
+        pClassificacao.className = "classific" + nomeClassific;
+
+        const classificacao = ["Otimização Atual","Melhora possível"]
+        const dadosClassfic = {
+            labels: classificacao,
+            datasets: [{
+                    backgroundColor: [corClassific,"white"],
+                    borderColor: ["black"],
+                    borderWidth: "0.5",
+                    data: [otimizacao,areaBranca],
+                    circumference: 180,
+                    rotation: 270
+                }
+            ]
+        }
+        const configGraficoClassific = {
+            type: "doughnut",
+            data: dadosClassfic,
+            options: {
+                aspectRatio: '1/4',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+        const graficoClassific = new Chart(
+            document.getElementById("graficoClassific"),
+            configGraficoClassific
+        );
+    }
+
+    function gerarGraficoFluxo(pLogs, pFluxo){
+        const lotacaoOnibus = 80;
+        const dadosGeral = {
+            labels: pLogs,
+            datasets: pFluxo
+        }
+        const configGraficoGeral = {
+            type: "line",
+            data: dadosGeral,
+            options: {
+                animation: false,
+                scales: {
+                    x: { //Deixa as labels do eixo X (pontos) na vertical
+                        ticks: {
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }
+                }
+            }
+        }
+        graficoRota.className = "";
+        graficoGeral = new Chart(
+            document.getElementById("graficoRota"),
+            configGraficoGeral
+        );
+
+        return graficoGeral;
+    }
+
+    function veiculoRota() {
+        fetch(`linha/veiculoRota/${sessionStorage.COD_LINHA}`)
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(response)}`);
+                        var listaVeiculos = document.getElementById("tabelaVeiculosDashboard");
+                        for (let i = 0; i < resposta.length; i++) {
+                            var veiculo = document.createElement("div");
+                            var placa = document.createElement("p");
+                            var lotacao = document.createElement("p");
+                            var modelo = document.createElement("p");
+
+                            placa.innerHTML = resposta[i].placaVeiculo;
+                            lotacao.innerHTML = resposta[i].lotacao;
+                            modelo.innerHTML = resposta[i].nomeModelo;
+
+
+                            veiculo.appendChild(placa);
+                            veiculo.appendChild(lotacao);
+                            veiculo.appendChild(modelo);
+                            veiculo.className = 'tabelaVeiculosLinha';
+
+                            listaVeiculos.appendChild(veiculo);
+                        }
+                    });
+                } else {
+                    console.error("Nenhum dado encontrado na API");
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
+</script>

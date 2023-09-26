@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Agrandir Regular";
+  src: url(../fonts/Agrandir-Regular.otf);
+}
+
+footer {
+  background-color: #69503c;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  color: white;
+}
+
+footer h2 {
+  margin: 0;
+  font-family: "Agrandir Regular";
+  font-size: 35px;
+  padding: 20px 0px 10px 0px;
+}
+
+.paiFooter {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.paiFooter ul {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding: 0px 0px 0px 0px;
+}
+
+.paiFooter li {
+  list-style: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0px 0px 10px 0px;
+}
+
+.paiFooter ul img {
+  width: 10%;
+  padding-right: 5px;
+}
+
+.paiFooter ul li{
+  cursor: default;
+}
+
+.paiFooter ul li a {
+  text-decoration: none;
+  text-transform: none;
+  font-size: 16px;
+  color: white;
+  border: none;
+}
+
+.paiFooter ul li a:hover, .paiFooter ul li a:focus-visible {
+  color: rgb(223, 223, 223);
+}
+
+.redes,
+.acesso,
+.contato {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+i {
+  padding-right: 10px;
+}
+
+@media (max-width:700px){
+  .paiFooter{
+    flex-direction: column;
+    align-items: center;
+}
+
+.redes,
+.acesso,
+.contato{
+    width: 60%;
+}
+}
