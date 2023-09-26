@@ -47,31 +47,24 @@ function validar_entrada() {
           cardMsg.style.color = "greenyellow"
           cardMsg.innerHTML = "✅Entrando! Aguarde...✅";
 
-          sessionStorage.EMAIL_FUNCIONARIO = json.emailFunc;
-          sessionStorage.NOME_FUNCIONARIO = json.nomeFunc;
-          sessionStorage.CPF = json.cpfFunc;
           sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
-          sessionStorage.SENHA_FUNCIONARIO = json.senhaFunc;
+          sessionStorage.EMAIL_FUNCIONARIO = json.email;
+          sessionStorage.SENHA_FUNCIONARIO = json.senha;
+          sessionStorage.NOME_FUNCIONARIO = json.nomeFuncionario;
+          sessionStorage.CPF = json.cpf;
           sessionStorage.FK_EMPRESA = json.idEmpresa;
-          sessionStorage.NOME_EMPRESA = json.nomeEmpr;
-          sessionStorage.RAMO_EMPRESA = json.ramoEmpr;
+          sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
+          sessionStorage.RAMO_EMPRESA = json.ramo;
           sessionStorage.GERENTE_FUNCIONARIO = json.fkGerente;
 
-
-          if (sessionStorage.GERENTE_FUNCIONARIO == 'null') {
+          if (sessionStorage.RAMO_EMPRESA == '1') {
             setTimeout(function () {
-              window.location = "./cadastroInterno.htmlhtml";
+              window.location = "../busway/index.html";
             }, 2000);
           } else {
-            if (sessionStorage.RAMO_EMPRESA == "Tranporte de Onibus") {
-              setTimeout(function () {
-                window.location = "./busway/dashboardGeral.html";
-              }, 2000);
-            } else if (sessionStorage.RAMO_EMPRESA == "Transporte Aéreo") {
-              setTimeout(function () {
-                window.location = "./airway/index.html";
-              }, 2000);
-            }
+            setTimeout(function () {
+              window.location = "../airway/index.html";
+            }, 2000);
           }
         });
       } else {
