@@ -54,9 +54,9 @@ CREATE TABLE Municipio (
 
 CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(60),
-    fkMunicipio INT,
-    FOREIGN KEY (fkMunicipio) REFERENCES Municipio(idMunicipio)
+    nome VARCHAR(150),
+    estado CHAR(2),
+    municipio VARCHAR(60)
 );
 
 CREATE TABLE Totem (
@@ -94,8 +94,6 @@ CREATE TABLE TotemComponente (
 
 -- SCRIPTs GERAIS
 INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
-INSERT INTO Aeroporto (nome, cep, logradouro, num) VALUES 
-		('Aeroporto de São Paulo', '01001000', 'Avenida Santos Dumont', 3000);
 
 -- ADMIN
 INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway');
@@ -110,9 +108,6 @@ INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEm
 VALUES (2, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', 1, 2);
 INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
 VALUES (3, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', 2, 2);
-
-INSERT INTO Totem (idTotem, nome, fkAeroporto, fkEmpresa)
-VALUES (1, 'Totem Latam 1', 1, 2);
 
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
