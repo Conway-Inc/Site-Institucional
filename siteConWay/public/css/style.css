@@ -6,9 +6,6 @@
 }
 
 
-.ff-secondary {
-    font-family: 'Pacifico', cursive;
-}
 
 .fw-medium {
     font-weight: 600 !important;
@@ -27,9 +24,9 @@
 }
 
 .bg-geral {
-    background: url(../img/conway-bg.png);
-    background-size: contain;
-  background-attachment: fixed;
+    background: url(../img/fundoLoginTeste.jpg);
+    background-size: 100vw, auto;
+    /* background-attachment: fixed; */
 }
 
 /*** Spinner ***/
@@ -206,10 +203,10 @@
     background: var(--primary);
 }
 
-.section-title.text-start::before,
+/* .section-title.text-start::before,
 .section-title.text-end::after {
     display: none;
-}
+} */
 
 
 /*** Service ***/
@@ -329,6 +326,13 @@
 }
 #espaco-section {
     height: 70px;
+}
+#divFooterLogin{
+    height: auto;
+}
+.logo{
+    height: auto;
+    max-width: 10vw;
 }
 
 

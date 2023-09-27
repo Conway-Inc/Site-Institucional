@@ -6,7 +6,7 @@
     <title>ConWay</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
-    <link href="img/logo.png" rel="icon">
+    <link href="img/logo.png" rel="icon" >
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
 
 
         <!-- Navbar & Hero Start -->
-        <div class="container-xxl position-relative p-0" >
+        <!-- <div class="container-xxl position-relative p-0" >
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
                     <img src="img/logo.png" alt="Logo">
@@ -59,14 +59,14 @@
                     <a href="login.html" class="btn btn-primary py-2 px-4">Login</a>
                 </div>
             </nav>
-        </div>
+        </div> -->
         <div id="espaco-login"></div>
         <!-- Reservation Start -->
         <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
             <!-- <div class="row g-0 "> -->
                 <div class="col-md-6 bg-dark  text-center" style="margin: 0 auto; max-width: 90%;">
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Login</h5>
+                        <a href="index.html"><img class="logo" src="img/logo.png"></a>
                         <h1 class="text-white mb-4">Acesse sua conta</h1>
                         <div class="row g-3">
                             <div>
@@ -99,11 +99,11 @@
 
 
         <!-- Footer -->
-        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div id="divFooterLogin" class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Acesso Rápido</h4>
+                        <h4 class="section-title text-start text-primary fw-normal mb-4">Acesso Rápido</h4>
                         <a class="btn btn-link" href="">Início</a>
                         <a class="btn btn-link" href="">Sobre Nós</a>
                         <a class="btn btn-link" href="">Serviços</a>
@@ -111,8 +111,8 @@
                         <a class="btn btn-link" href="">Login</a>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contato</h4>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                        <h4 class="section-title text-start text-primary fw-normal mb-4">Contato</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Hadock Lobo 595, São Paulo, Brasil</p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+55 (11) 91234-4321</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>conway@gmail.com</p>
                     </div>
@@ -128,8 +128,6 @@
                 </div>
             </div>
         </div>
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
 </body>
@@ -167,8 +165,8 @@
     });
 
 
-    const header = document.querySelector(".header");
-    window.addEventListener("scroll", function () {
-        header.classList.toggle("sticky", window.scrollY > 100);
-    });
+    // const header = document.querySelector(".header");
+    // window.addEventListener("scroll", function () {
+    //     header.classList.toggle("sticky", window.scrollY > 100);
+    // });
 </script>
