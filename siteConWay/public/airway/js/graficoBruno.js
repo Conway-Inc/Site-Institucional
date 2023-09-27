@@ -1,0 +1,7 @@
+function exibirQuantidadeTotens() {
+    
+}
+
+function exibirInfoTotem() {
+    
+}
