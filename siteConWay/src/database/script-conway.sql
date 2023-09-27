@@ -40,18 +40,6 @@ CREATE TABLE Funcionario (
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
-CREATE TABLE Estado (
-	idEstado INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(60)
-);
-
-CREATE TABLE Municipio (
-	idMunicipio INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(60),
-    fkEstado INT,
-    FOREIGN KEY (fkEstado) REFERENCES Estado(idEstado)
-);
-
 CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(150),
@@ -114,4 +102,9 @@ DROP USER IF EXISTS 'user_conway'@'localhost';
 CREATE USER 'user_conway'@'localhost' IDENTIFIED BY 'urubu100';
 GRANT ALL ON conway.* TO 'user_conway'@'localhost';
 FLUSH PRIVILEGES;
+
+-- VIEW
+DROP VIEW IF EXISTS vw_aeroportos;
+CREATE VIEW vw_aeroportos AS
+SELECT * FROM Aeroporto;
 

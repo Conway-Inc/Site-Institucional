@@ -8,6 +8,7 @@ var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
 var app = express();
 
+var graficoBrunoRouter = require("./src/routes/graficoBruno");
 var loginRouter = require("./src/routes/login");
 
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
+app.use("/graficoBruno", graficoBrunoRouter);
 app.use("/login", loginRouter);
 
 

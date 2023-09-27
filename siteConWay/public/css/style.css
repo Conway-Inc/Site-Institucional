@@ -24,6 +24,12 @@
 }
 
 .bg-geral {
+    background: url(../img/avioes-de-papel.jpg);
+    background-size: 100vw, auto;
+    background-attachment: fixed;
+}
+
+.bg-login {
     background: url(../img/fundoLoginTeste.jpg);
     background-size: 100vw, auto;
     /* background-attachment: fixed; */
