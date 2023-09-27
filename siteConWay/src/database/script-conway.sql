@@ -4,99 +4,110 @@ USE ConWay;
 
 CREATE TABLE Empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT, 
-cnpjEmpr VARCHAR(19),
-nomeEmpr VARCHAR(45),
-ramoEmpr VARCHAR(45)
+cnpj CHAR(14),
+nome VARCHAR(60),
+cep CHAR(8),
+logradouro VARCHAR(150),
+num INT,
+telefone CHAR(11)
+);
+
+CREATE TABLE Ramo (
+	idRamo INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45)
+);
+
+CREATE TABLE RamoEmpresa (
+	fkRamo INT,
+    fkEmpresa INT,
+	FOREIGN KEY (fkRamo) REFERENCES Ramo(idRamo),
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),
+	PRIMARY KEY (fkRamo, fkEmpresa)
 );
 
 CREATE TABLE Funcionario (
     idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
-    cpfFunc VARCHAR(15),
-    nomeFunc VARCHAR(45),
-    emailFunc VARCHAR(45),
-    senhaFunc VARCHAR(45),
+    email VARCHAR(80),
+    senha VARCHAR(16),
+    nome VARCHAR(60),
+    cpf CHAR(11),
+    telefone CHAR(11),
+    dataNascimento DATE,
+    foto VARCHAR(255),
     fkGerente INT,
     fkEmpresa INT,
     FOREIGN KEY (fkGerente) REFERENCES Funcionario(idFuncionario),
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
-CREATE TABLE Componentes (
-idComponente int primary key auto_increment,
-nomeComponente varchar(45),
-metricaComponente varchar(45),
-limiteComponente DECIMAL(8,2),
-minimoComponente DECIMAL(8,2),
-maxTempComponente DECIMAL(8,2),
-minTempComponente DECIMAL(8,2)
+CREATE TABLE Estado (
+	idEstado INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(60)
+);
+
+CREATE TABLE Municipio (
+	idMunicipio INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(60),
+    fkEstado INT,
+    FOREIGN KEY (fkEstado) REFERENCES Estado(idEstado)
 );
 
 CREATE TABLE Aeroporto (
-    idAeroporto int primary key auto_increment,
-    nomeAeroporto varchar(45),
-    cep char(8),
-    logradouro varchar(45),
-    numero INT,
-    cidade varchar(45),
-    estado varchar(45),
-    fkEmpresa INT,
-    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
+    idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150),
+    estado CHAR(2),
+    municipio VARCHAR(60)
 );
-
 
 CREATE TABLE Totem (
-idTotem int primary key auto_increment,
-marcaTotem varchar(45),
-nomeTotem varchar(45),
-numeroSerieTotem varchar(45),
+idTotem INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(45),
 fkAeroporto INT,
-FOREIGN KEY (fkAeroporto) REFERENCES Empresa(idEmpresa)
+fkEmpresa INT,
+FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto),
+FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
+CREATE TABLE Componente (
+    idComponente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    unidadeMedida VARCHAR(45)
+);
 
-CREATE TABLE Registros (
-    idDados INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Registro (
+    idRegistro INT PRIMARY KEY AUTO_INCREMENT,
+    valor DECIMAL(8,2),
     dataHora DATETIME,
-    valor decimal(7,2),
-    fkComponente int,
-    fkTotem int,
-    FOREIGN KEY (fkComponente) REFERENCES Componentes(idComponente),
+    fkComponente INT,
+    fkTotem INT,
+    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente),
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
 
+CREATE TABLE TotemComponente (
+    fkComponente INT,
+    fkTotem INT,
+    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente),
+    FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem),
+	PRIMARY KEY (fkComponente, fkTotem)
+);
+
+-- SCRIPTs GERAIS
+INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
+
 -- ADMIN
-INSERT INTO Empresa (idEmpresa, cnpjEmpr, nomeEmpr, ramoEmpr)
-VALUES (1,'12345678901234', 'Airway', 'Transporte Aéreo');
-INSERT INTO Funcionario (idFuncionario, cpfFunc, nomeFunc, emailFunc, senhaFunc, fkEmpresa)
-VALUES (1,'54693866209', 'ADMIN AIRWAY', 'admairway@gmail.com', '12345', 1);
+INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway');
+INSERT INTO RamoEmpresa VALUES (2,1);
+INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkEmpresa) VALUES (1, 'admairway@gmail.com', '12345','ADMIN AIRWAY', '12312312300', 1);
 
 -- LATAM
-INSERT INTO Empresa (idEmpresa, cnpjEmpr, nomeEmpr, ramoEmpr)
-VALUES (2,'93840678903846', 'Latam', 'Transporte Aéreo');
+INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (2,'93840678903846', 'Latam');
+INSERT INTO RamoEmpresa VALUES (2,2);
 
-INSERT INTO Funcionario (idFuncionario, cpfFunc, nomeFunc, emailFunc, senhaFunc, fkGerente, fkEmpresa)
-VALUES (2,'54693866209', 'Fernando Brandão', 'gerentelatam@gmail.com', '12345', 1, 2);
-INSERT INTO Funcionario (idFuncionario,cpfFunc, nomeFunc, emailFunc, senhaFunc, fkGerente, fkEmpresa)
-VALUES (3,'99988823417', 'Julia Lima', 'analistalatam@gmail.com', '12345', 2, 2);
-
-INSERT INTO Componentes (idComponente,nomeComponente, metricaComponente, limiteComponente, minimoComponente, maxTempComponente, minTempComponente)
-VALUES (1,'cpuPercentual', '%', 95, 20, 90, 30),
-	   (2,'cpuFrequencia', 'GhZ', 4300, 500, 90, 30),
-       (3,'memoriaMB', 'MB', 16000, 2000, 70, 20);
-
-INSERT INTO Aeroporto (idAeroporto, nomeAeroporto, cep, logradouro, numero, cidade, estado, fkEmpresa)
-VALUES (1, 'Aeroporto de São Paulo', '01001000', 'Avenida Santos Dumont', 3000, 'São Paulo', 'SP', 2);
-
-INSERT INTO Totem (idTotem, marcaTotem, nomeTotem, numeroSerieTotem, fkAeroporto)
-VALUES (1,'TotemAir', 'Totem 1', '1234567890', 1);
-
-INSERT INTO Registros (dataHora, valor, fkComponente, fkTotem)
-VALUES ('2023-07-20 10:00:00', 85, 1, 1),
-	   ('2023-07-20 10:00:20', 85, 1, 1),
-       ('2023-07-20 10:00:20', 2285, 2, 1),
-       ('2023-07-20 10:00:20', 3385, 3, 1),
-       ('2023-07-20 10:00:20', 1885, 3, 1);
-
+INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
+VALUES (2, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', 1, 2);
+INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
+VALUES (3, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', 2, 2);
 
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
@@ -104,39 +115,3 @@ CREATE USER 'user_conway'@'localhost' IDENTIFIED BY 'urubu100';
 GRANT ALL ON conway.* TO 'user_conway'@'localhost';
 FLUSH PRIVILEGES;
 
--- VIEW
-CREATE VIEW CompRegistros AS SELECT * FROM Registros JOIn Componentes ON fkComponente = idComponente;
-
-CREATE VIEW vwFuncsEmpresa AS
-SELECT
-    f.*,
-    e.idEmpresa,
-    e.ramoEmpr,
-    e.cnpjEmpr,
-    e.nomeEmpr AS nomeEmpresa
-FROM Empresa AS e
-JOIN Funcionario AS f ON e.idEmpresa = f.fkEmpresa;
-
-SET @sql = NULL; -- Criando uma variável para armazenar o comando
-
-SELECT
-  GROUP_CONCAT(DISTINCT
-    CONCAT(
-      "max(case when nomeComponente = '" , nomeComponente , "'", -- aqui vem o nome que você setou para os componentes na view!
-      " then valor end) as '",
-      nomeComponente, "'" -- aqui vem o nome que você setou para os componentes na view!
-    )
-  )
-INTO @sql
-
-FROM
-  CompRegistros; -- Aqui vem o nome da sua view!
-  
--- max(case when Componente = 'Componente1' then Registro end) Componente1,
--- max(case when Componente = 'Componente2' then Registro end) Componente2, .....
-
-SET @sql = CONCAT('SELECT fkTotem, dataHora, ', @sql, ' FROM CompRegistros GROUP BY fkTotem, dataHora'); -- Lembra de trocar as informações (idServidor, MomentoRegistro, tabelaRegistros) pelos nomes que você usou na view
-
-PREPARE stmt FROM @sql; -- Prepara um statement para executar o comando guardado na variável @sql
-
--- EXECUTE stmt; -- Executa o statement
