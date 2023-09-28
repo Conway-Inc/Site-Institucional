@@ -1,11 +1,8 @@
-/********** Template CSS **********/
 :root {
     --primary: #C71B1B;
     --light: #F1F8FF;
     --dark: #000000;
 }
-
-
 
 .fw-medium {
     font-weight: 600 !important;
@@ -32,7 +29,6 @@
 .bg-login {
     background: url(../img/fundoLoginTeste.jpg);
     background-size: 100vw, auto;
-    /* background-attachment: fixed; */
 }
 
 /*** Spinner ***/
@@ -48,7 +44,6 @@
     visibility: visible;
     opacity: 1;
 }
-
 
 /*** Button ***/
 .btn {
@@ -88,7 +83,6 @@
     font-weight: normal;
     border-radius: 2px;
 }
-
 
 /*** Navbar ***/
 .navbar-dark .navbar-nav .nav-link {
