@@ -8,6 +8,7 @@ var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
 var app = express();
 
+var totemRouter = require("./src/routes/totem");
 var graficoBrunoRouter = require("./src/routes/graficoBruno");
 var loginRouter = require("./src/routes/login");
 
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
+app.use("/totem", totemRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
 app.use("/login", loginRouter);
 

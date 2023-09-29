@@ -1,7 +1,7 @@
 function exibirOptionMunicipio() {
     var estado = document.getElementById("select-estado");
 
-    fetch(`/graficoBruno/exibirMunicipios/${estado.value}`)
+    fetch(`/totem/exibirMunicipios/${estado.value}`)
         .then(function (resposta) {
             console.log("ESTOU NO THEN DO exibirMunicipios()!");
 
@@ -48,7 +48,7 @@ function exibirOptionMunicipio() {
 
 function exibirOptionAeroporto(municipio) {
     var municipio = document.getElementById("select-municipio");
-    fetch(`/graficoBruno/exibirAeroportos/${municipio.value}`)
+    fetch(`/totem/exibirAeroportos/${municipio.value}`)
         .then(function (resposta) {
             console.log("ESTOU NO THEN DO exibirAeroportos()!");
 
