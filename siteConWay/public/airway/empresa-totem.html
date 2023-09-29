@@ -294,8 +294,83 @@
                             <h6 class="m-0 font-weight-bold text-primary">Cadastrar Totem</h6>
                         </div>
                         <div class="card-body">
-                            
-                        </div>
+                            <div class="container-fluid">
+
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">Informe os dados do aeroporto: </label>
+                                    <select id="select-estado" onchange="exibirOptionMunicipio()">
+                                        <option>Selecione um estado...</option>
+                                        <option value="AC">Acre (AC)</option>
+                                        <option value="AL">Alagoas (AL)</option>
+                                        <option value="AM">Amazonas (AM)</option>
+                                        <option value="AP">Amapá (AP)</option>
+                                        <option value="BA">Bahia (BA)</option>
+                                        <option value="CE">Ceará (CE)</option>
+                                        <option value="DF">Distrito Federal (DF)</option>
+                                        <option value="ES">Espírito Santo (ES)</option>
+                                        <option value="GO">Goiás (GO)</option>
+                                        <option value="MA">Maranhão (MA)</option>
+                                        <option value="MG">Minas Gerais (MG)</option>
+                                        <option value="MS">Mato Grosso do Sul (MS)</option>
+                                        <option value="MT">Mato Grosso (MT)</option>
+                                        <option value="PA">Pará (PA)</option>
+                                        <option value="PB">Paraíba (PB)</option>
+                                        <option value="PE">Pernambuco (PE)</option>
+                                        <option value="PI">Piauí (PI)</option>
+                                        <option value="PR">Paraná (PR)</option>
+                                        <option value="RJ">Rio de Janeiro (RJ)</option>
+                                        <option value="RN">Rio Grande do Norte (RN)</option>
+                                        <option value="RO">Rondônia (RO)</option>
+                                        <option value="RR">Roraima (RR)</option>
+                                        <option value="RS">Rio Grande do Sul (RS)</option>
+                                        <option value="SC">Santa Catarina (SC)</option>
+                                        <option value="SE">Sergipe (SE)</option>
+                                        <option value="SP">São Paulo (SP)</option>
+                                        <option value="TO">Tocantins (TO)</option>
+                                    </select>
+                               
+                                    <select id="select-municipio" onchange="exibirOptionAeroporto()" disabled>
+                                        <option>Selecione um município...</option>
+                                    </select>
+                                    <select id="select-aeroporto" disabled>
+                                        <option>Selecione um aeroporto...</option>
+                                    </select>
+                                </div>
+                                </div>
+
+                              
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">Nome do Totem</label>
+                                    <div class="col-md-8 col-lg-9">
+                                      <input type="text" id="ipt_nomeMaquina" class="form-control">
+                                    </div>
+                                  </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-lg-3 col-form-label">CPU</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input type="checkbox" class="checkboxAgencia" id="ckb_cpu" value="1">
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label class="col-md-4 col-lg-3 col-form-label">Memória</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input type="checkbox" class="checkboxAgencia" id="ckb_memoria" value="2">
+                            </div>
+                          </div>
+          
+                          <div class="row mb-3">
+                            <label class="col-md-4 col-lg-3 col-form-label">Disco</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input type="checkbox" class="checkboxAgencia" id="ckb_disco" value="3">
+                            </div>
+                          </div>
+
+                          <div class="text-center" id="campo-botao">
+                            <button class="btn btn-primary" id="botao-cadastrar" onclick="cadastrarNomeMaquina()">Cadastrar</button>
+                          </div>
+                      </section>
                     </div>
 
                 </div>

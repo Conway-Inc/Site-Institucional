@@ -248,12 +248,14 @@ select {
   text-transform: none;
 }
 
+
 [role="button"] {
   cursor: pointer;
 }
 
 select {
   word-wrap: normal;
+  width: 20%;
 }
 
 button,
@@ -576,6 +578,7 @@ pre code {
   flex-wrap: wrap;
   margin-right: -0.75rem;
   margin-left: -0.75rem;
+  justify-content: space-around;
 }
 
 .no-gutters {
@@ -1814,9 +1817,13 @@ pre code {
   border: 0;
 }
 
+.div-nome-maquina {
+  display: flex;
+}
+
 .form-control {
   display: block;
-  width: 100%;
+  width: 50%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
@@ -1828,6 +1835,10 @@ pre code {
   border: 1px solid #d1d3e2;
   border-radius: 0.35rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dados-aeroporto{
+  margin-left: 30%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1950,6 +1961,7 @@ select.form-control:focus::-ms-value {
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.2rem;
+  width: 30%;
 }
 
 .form-control-lg {
