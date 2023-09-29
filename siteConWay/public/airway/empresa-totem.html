@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="img/icon.png" rel="icon" >
+    <link href="img/icon.png" rel="icon">
     <title>AirWay</title>
 </head>
 
@@ -297,7 +299,10 @@
                             <div class="container-fluid">
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Informe os dados do aeroporto: </label>
+                                    <div class="div-informar-dados">
+                                    <label class="label-aeroporto">Informe os
+                                        dados do aeroporto: </label>
+                                    </div>
                                     <select id="select-estado" onchange="exibirOptionMunicipio()">
                                         <option>Selecione um estado...</option>
                                         <option value="AC">Acre (AC)</option>
@@ -328,7 +333,7 @@
                                         <option value="SP">São Paulo (SP)</option>
                                         <option value="TO">Tocantins (TO)</option>
                                     </select>
-                               
+
                                     <select id="select-municipio" onchange="exibirOptionAeroporto()" disabled>
                                         <option>Selecione um município...</option>
                                     </select>
@@ -336,79 +341,93 @@
                                         <option>Selecione um aeroporto...</option>
                                     </select>
                                 </div>
-                                </div>
-
-                              
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Nome do Totem</label>
-                                    <div class="col-md-8 col-lg-9">
-                                      <input type="text" id="ipt_nomeMaquina" class="form-control">
-                                    </div>
-                                  </div>
-
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">CPU</label>
-                            <div class="col-md-8 col-lg-9">
-                              <input type="checkbox" class="checkboxAgencia" id="ckb_cpu" value="1">
+                                    <label class="col-md-4 col-lg-3 col-form-label">Quantidade de totens: <span>4</span></label>
                             </div>
-                          </div>
 
-                          <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Memória</label>
-                            <div class="col-md-8 col-lg-9">
-                              <input type="checkbox" class="checkboxAgencia" id="ckb_memoria" value="2">
-                            </div>
-                          </div>
-          
-                          <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Disco</label>
-                            <div class="col-md-8 col-lg-9">
-                              <input type="checkbox" class="checkboxAgencia" id="ckb_disco" value="3">
-                            </div>
-                          </div>
+                            <!-- <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Tipo de máquina</label>
+                                <div class="col-md-8 col-lg-9">
+                                  <select id="ipt_fkMaquina" class="form-control">
+                                    <option data-default disabled selected id="opt_tipoMaquina">Selecione um tipo...</option>
+                                    <option value="1">Servidor</option>
+                                    <option value="2">Caixa eletrônico</option>
+                                  </select>
+                                </div>
+                              </div> -->
 
-                          <div class="text-center" id="campo-botao">
-                            <button class="btn btn-primary" id="botao-cadastrar" onclick="cadastrarNomeMaquina()">Cadastrar</button>
-                          </div>
-                      </section>
+                            <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Nome do Totem</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="text" id="ipt_nomeMaquina" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">CPU</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="checkbox" class="checkboxAgencia" id="ckb_cpu" value="1">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Memória</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="checkbox" class="checkboxAgencia" id="ckb_memoria" value="2">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label">Disco</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input type="checkbox" class="checkboxAgencia" id="ckb_disco" value="3">
+                                </div>
+                            </div>
+
+                            <div class="text-center" id="campo-botao">
+                                <button class="btn btn-primary" id="botao-cadastrar"
+                                    onclick="cadastrarNomeMaquina()">Cadastrar</button>
+                            </div>
+                            </section>
+                        </div>
+
                     </div>
 
                 </div>
-
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; ConWay 2023</span>
+                        </div>
+                    </div>
+                </footer>
             </div>
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; ConWay 2023</span>
+
+        </div>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="../index.html">Sair</a>
                     </div>
                 </div>
-            </footer>
-        </div>
-
-    </div>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="../index.html">Sair</a>
-                </div>
             </div>
         </div>
-    </div>
 </body>
+
 </html>
 
 <script src="vendor/jquery/jquery.min.js"></script>
