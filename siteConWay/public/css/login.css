@@ -30,6 +30,8 @@
     background: url(../img/fundoLoginTeste.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /*** Spinner ***/
@@ -145,6 +147,7 @@
         left: 0;
         z-index: 999;
         background: transparent !important;
+        height: 12vh;
     }
     
     .sticky-top.navbar-dark {
