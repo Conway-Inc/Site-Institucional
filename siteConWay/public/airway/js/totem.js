@@ -83,3 +83,40 @@ function exibirOptionAeroporto(municipio) {
         });
     return false;
 }
+
+function cadastrarTotem() {
+    var nomeTotemVar = ipt_nomeTotem.value;
+    var fkAeroportoVar = select-aeroporto.value;
+    
+    fetch(`/hardware/cadastrarTotem`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nomeTotemServer: nomeTotemVar,
+            fkAeroportoServer : fkAeroportoVar
+        })
+    }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+           // cadastrarComponente()
+            // criarViewMaquina(nomeMaquinaVar)
+            cardMsg.style.display = "block"
+            cardMsg.style.border = "2px solid greenyellow"
+            cardMsg.style.color = "greenyellow"
+            cardMsg.innerHTML = "✅Máquina cadastrada! Atualizando...✅";
+            setTimeout(function () {
+                //location.reload();
+            }, 2000);
+        } else {
+            cardMsg.style.display = "block"
+            cardMsg.style.border = "2px solid red"
+            cardMsg.style.color = "red"
+            cardMsg.innerHTML = "❌Erro ao cadastrar máquina! Tente novamente...❌";
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`)
+    });
+    return false
+}
