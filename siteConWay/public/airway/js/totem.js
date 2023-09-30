@@ -109,18 +109,19 @@ function cadastrarTotem() {
         if (resposta.ok) {
             cadastrarComponente()
            // criarViewMaquina(nomeMaquinaVar)
-            cardMsg.style.display = "block"
-            cardMsg.style.border = "2px solid greenyellow"
-            cardMsg.style.color = "greenyellow"
-            cardMsg.innerHTML = "✅Máquina cadastrada! Atualizando...✅";
+           cardMsg.style.display = "block"
+           cardMsg.style.border = "2px solid greenyellow"
+           cardMsg.style.boxShadow = "0px 0px 12px black"
+           cardMsg.style.color = "greenyellow"
+           cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
             setTimeout(function () {
-                //location.reload();
+                location.reload();
             }, 2000);
         } else {
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid red"
             cardMsg.style.color = "red"
-            cardMsg.innerHTML = "❌Erro ao cadastrar máquina! Tente novamente...❌";
+            cardMsg.innerHTML = "❌Erro ao cadastrar totem! Tente novamente...❌";
         }
     }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`)

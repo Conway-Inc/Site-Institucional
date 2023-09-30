@@ -9876,6 +9876,21 @@ a:focus {
   animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
 }
 
+#cardMsg {
+  position: fixed;
+  display: none;
+  background-color: #69503c;
+  padding: 10px 20px;
+  top: 80px;
+  right: 20px;
+  font-size: 18px;
+  font-weight: bolder;
+  border-radius: 10px;
+  z-index: 10000;
+  box-shadow: 0px 4px 8px black;
+}
+
+
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
