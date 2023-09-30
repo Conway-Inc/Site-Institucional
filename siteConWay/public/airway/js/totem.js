@@ -107,7 +107,7 @@ function cadastrarTotem() {
     }).then(function (resposta) {
         console.log("resposta: ", resposta);
         if (resposta.ok) {
-            cadastrarComponente()
+          cadastrarComponente()
            // criarViewMaquina(nomeMaquinaVar)
            cardMsg.style.display = "block"
            cardMsg.style.border = "2px solid greenyellow"
@@ -115,13 +115,22 @@ function cadastrarTotem() {
            cardMsg.style.color = "greenyellow"
            cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
             setTimeout(function () {
-                location.reload();
-            }, 2000);
+                //location.reload();
+                ipt_nomeTotem.value = "";
+                document.getElementById("select-estado").selectedIndex = 0;
+                document.getElementById("select-municipio").selectedIndex = 0;
+                document.getElementById("select-aeroporto").selectedIndex = 0;
+                cardMsg.style.display = "none";
+            }, 3000);
         } else {
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid red"
             cardMsg.style.color = "red"
             cardMsg.innerHTML = "❌Erro ao cadastrar totem! Tente novamente...❌";
+            setTimeout(function () {
+                //location.reload();
+                cardMsg.style.display = "none";
+            }, 3000);
         }
     }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`)
@@ -152,6 +161,9 @@ function cadastrarComponente() {
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
+                setTimeout(function () {
+                    valorCheckBox[i].checked = false;
+                }, 3000);
             } else {
                 throw ("Houve um erro ao realizar o cadastro os componentes!")
             }
