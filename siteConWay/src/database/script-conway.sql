@@ -49,11 +49,11 @@ CREATE TABLE Aeroporto (
 
 CREATE TABLE Totem (
 idTotem INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
+nome VARCHAR(45) UNIQUE,
 fkAeroporto INT,
 fkEmpresa INT,
-FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto),
-FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
+FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto) ON DELETE CASCADE,
+FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
 );
 
 CREATE TABLE Componente (
@@ -68,17 +68,26 @@ CREATE TABLE Registro (
     dataHora DATETIME,
     fkComponente INT,
     fkTotem INT,
-    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente),
+    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente) ON DELETE CASCADE,
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
 
 CREATE TABLE TotemComponente (
     fkComponente INT,
     fkTotem INT,
-    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente),
-    FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem),
+    FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente) ON DELETE CASCADE,
+    FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem) ON DELETE CASCADE,
 	PRIMARY KEY (fkComponente, fkTotem)
 );
+
+DELIMITER //
+CREATE PROCEDURE cadastrar_maquinaComponente(
+	maco_fkComponente INT
+)
+BEGIN 
+	INSERT INTO TotemComponente (fkComponente,fkTotem) VALUES (maco_fkComponente, (SELECT MAX(idTotem) FROM Totem));
+END//
+DELIMITER ;
 
 -- SCRIPTs GERAIS
 INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
@@ -91,6 +100,11 @@ INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkEmpresa) VALU
 -- LATAM
 INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (2,'93840678903846', 'Latam');
 INSERT INTO RamoEmpresa VALUES (2,2);
+
+-- COMPONENTE
+INSERT INTO Componente (nome, unidadeMedida) VALUES
+-- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
+('CPU', '%'), ('Memória', '%'), ('Disco', '%');
 
 INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
 VALUES (2, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', 1, 2);
@@ -107,4 +121,8 @@ FLUSH PRIVILEGES;
 DROP VIEW IF EXISTS vw_aeroportos;
 CREATE VIEW vw_aeroportos AS
 SELECT * FROM Aeroporto;
+
+
+
+
 
