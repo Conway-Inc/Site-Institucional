@@ -1,3 +1,8 @@
+const select = document.querySelector("select");
+const valorPadrao = select.options[0].value;
+select.value = valorPadrao;
+
+
 function exibirOptionMunicipio() {
     var estado = document.getElementById("select-estado");
 
@@ -86,22 +91,24 @@ function exibirOptionAeroporto(municipio) {
 
 function cadastrarTotem() {
     var nomeTotemVar = ipt_nomeTotem.value;
-    var fkAeroportoVar = select-aeroporto.value;
-    
-    fetch(`/hardware/cadastrarTotem`, {
+    var fkAeroportoVar = document.getElementById("select-aeroporto").value;
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA;
+   
+    fetch(`/totem/cadastrarTotem`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             nomeTotemServer: nomeTotemVar,
-            fkAeroportoServer : fkAeroportoVar
+            fkAeroportoServer : fkAeroportoVar,
+            fkEmpresaServer : fkEmpresaVar
         })
     }).then(function (resposta) {
         console.log("resposta: ", resposta);
         if (resposta.ok) {
-           // cadastrarComponente()
-            // criarViewMaquina(nomeMaquinaVar)
+           cadastrarComponente()
+            //criarViewMaquina(nomeMaquinaVar)
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid greenyellow"
             cardMsg.style.color = "greenyellow"

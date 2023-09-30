@@ -31,7 +31,38 @@ function exibirAeroportos(req, res) {
     res.status(500).json(erro.sqlMessage);
   });
 }
+
+function cadastrarTotem(req, res){
+  var nomeTotem = req.body.nomeTotemServer;
+  var fkAeroporto = req.body.fkAeroportoServer;
+  var fkEmpresa = req.body.fkEmpresaServer;
+
+  if (nomeTotem == undefined) {
+      res.status(400).send("O nome do seu Totem está undefined")
+  } else if(fkAeroporto == undefined){
+      res.status(400).send("A sua fkAeroporto está undefined")
+  } else if (fkEmpresa == undefined){
+    res.status(400).send("A sua fkEmpresa está undefined")
+  }
+  else{
+      totemModel.cadastrarTotem(nomeTotem, fkAeroporto, fkEmpresa)
+          .then(
+              function(resultado){
+                  res.json(resultado);
+              }
+          ).catch(
+              function(erro){
+                  console.log(erro);
+                  console.log("\nHouve um erro ao realizar o cadastro!Erro: ",
+                  erro.sqlMessage
+                  );
+                  res.status(500).send(erro.sqlMessage);
+              }
+          )
+  }
+}
 module.exports = {
   exibirMunicipios,
-  exibirAeroportos
+  exibirAeroportos,
+  cadastrarTotem
 };
