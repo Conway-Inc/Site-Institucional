@@ -127,3 +127,37 @@ function cadastrarTotem() {
     });
     return false
 }
+
+function cadastrarComponente() {
+
+    var valorCheckBox = document.querySelectorAll('input[type="checkbox"]:checked');
+    var vt_listaComponentes = [];
+
+    valorCheckBox.forEach((checkbox) => {
+        vt_listaComponentes.push(checkbox.value);
+    });
+
+    for (let i = 0; i < vt_listaComponentes.length; i++) {
+
+        var componenteVar = vt_listaComponentes[i]
+        fetch(`/totem/cadastrarComponente`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                componenteServer: componenteVar
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+            } else {
+                throw ("Houve um erro ao realizar o cadastro os componentes!")
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`)
+        });
+
+    }
+
+}

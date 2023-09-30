@@ -61,8 +61,33 @@ function cadastrarTotem(req, res){
           )
   }
 }
+
+function cadastrarComponente(req, res){
+    
+  var componente = req.body.componenteServer
+
+  if (componente == undefined) {
+      res.status(400).send("A sua cpu está undefined")
+  }else {
+      totemModel.cadastrarComponente(componente)
+          .then(
+              function(resultado){
+                  res.json(resultado);
+              }
+          ).catch(
+                  function(erro){
+                  console.log(erro);
+                  console.log("\nHouver um erro ao realizar o cadastro!Erro: ",
+                  erro.sqlMessage
+                  );
+                  res.status(500).send(erro.sqlMessage);
+              }
+          )
+  }
+}
 module.exports = {
   exibirMunicipios,
   exibirAeroportos,
-  cadastrarTotem
+  cadastrarTotem,
+  cadastrarComponente
 };
