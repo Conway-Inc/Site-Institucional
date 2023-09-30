@@ -16,4 +16,5 @@ router.post("/cadastrarTotem", function(req,res){
 router.post("/cadastrarComponente", function(req,res){
     totemController.cadastrarComponente(req,res)
 });
+
 module.exports = router;

@@ -108,7 +108,7 @@ function cadastrarTotem() {
         console.log("resposta: ", resposta);
         if (resposta.ok) {
            cadastrarComponente()
-            //criarViewMaquina(nomeMaquinaVar)
+            criarViewMaquina(nomeMaquinaVar)
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid greenyellow"
             cardMsg.style.color = "greenyellow"

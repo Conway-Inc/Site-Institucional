@@ -85,9 +85,10 @@ function cadastrarComponente(req, res){
           )
   }
 }
+
 module.exports = {
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
-  cadastrarComponente
+  cadastrarComponente,
 };

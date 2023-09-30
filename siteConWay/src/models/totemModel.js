@@ -41,9 +41,19 @@ function cadastrarComponente(componente){
   return database.executar(instrucao);
 }
 
+function criarViewTotem(nomeTotem){
+  console.log("ACESSEI O HARDWARE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function criarViewTotem()");
+  var instrucao = `
+  CREATE VIEW vw_maquina_${nomeTotem} AS SELECT * FROM vw_registrosEstruturados WHERE id = (SELECT idTotem FROM Totem ORDER BY idTotem DESC limit 1);
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
-  cadastrarComponente
+  cadastrarComponente,
+  criarViewTotem
 };
