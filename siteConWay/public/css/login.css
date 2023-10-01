@@ -33,7 +33,17 @@
     height: 100vh;
     overflow: hidden;
 }
-
+#divBoxLogin{
+    width: 40%;
+    height: 72vh;
+}
+.inputLogin{
+    width: 70%;
+}
+.boxInputsLogin{
+    display: flex;
+    justify-content: center;
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -54,6 +64,7 @@
     font-weight: 500;
     text-transform: uppercase;
     transition: .5s;
+    width: 50%;
 }
 
 .btn.btn-primary,
