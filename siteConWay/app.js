@@ -11,6 +11,8 @@ var app = express();
 var totemRouter = require("./src/routes/totem");
 var graficoBrunoRouter = require("./src/routes/graficoBruno");
 var loginRouter = require("./src/routes/login");
+var funcionarioRouter = require("./src/routes/funcionario")
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,6 +20,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
+
+app.use("/funcionario", funcionarioRouter)
 app.use("/totem", totemRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
 app.use("/login", loginRouter);
