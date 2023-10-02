@@ -49,7 +49,7 @@
         <!-- Reservation Start -->
         <div class="container-xxl py-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
             <!-- <div class="row g-0 "> -->
-                <div class="col-md-6 bg-dark  text-center" style="margin: 0 auto; max-width: 90%;">
+                <div class="col-md-6 bg-dark  text-center" id="divBoxLogin" style="margin: 0 auto; max-width: 90%;">
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
                         <a href="index.html">
                             <img class="logo" src="img/logo.png">
@@ -58,21 +58,21 @@
                         <div class="row g-3">
                             <div>
                                 <div class="col-md-6" style="width: 100%;">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="ipt_email" placeholder="exemplo@exemplo.com">
-                                        <label for="name">Email</label>
+                                    <div class="form-floating boxInputsLogin">
+                                        <input type="text" class="form-control inputLogin" id="ipt_email" placeholder="exemplo@exemplo.com">
+                                        <label for="name"class="text-white">Email</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="col-md-6" style="width: 100%;">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="ipt_senha" placeholder="******">
-                                        <label for="email">Senha</label>
+                                    <div class="form-floating boxInputsLogin">
+                                        <input type="password" class="form-control inputLogin" id="ipt_senha" placeholder="******">
+                                        <label for="email" class="text-white" >Senha</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" onclick="validar_entrada()">Entrar</button>
+                                <button class="btn btn-primary py-3" onclick="validar_entrada()">Entrar</button>
                             </div>
                         </div>
                     </div>
