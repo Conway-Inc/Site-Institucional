@@ -257,36 +257,33 @@
                 </nav>
 
                 <div class="container-fluid">
-
-                    <h1 class="h3 mb-2 text-gray-800">Totem</h1>
-                    <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the.</p> -->
-
+                    <h1 class="h3 mb-2 text-gray-800">Funcionário</h1>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens Existentes</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Funcionários Existentes</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <!-- Aqui ficará os funcionários e suas informações -->
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Nome</th>
+                                            <th>Cargo</th>
+                                            <th>CPF</th>
+                                            <th>Telefone</th>
+                                            <th>Idade</th>
+                                            <th>Empresa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            <td id="nomeFunc"></td>
+                                            <td id="cargoFunc"></td>
+                                            <td id="cpfFunc"></td>
+                                            <td id="telefoneFunc"></td>
+                                            <td id="idadeFunc"></td>
+                                            <td id="empresa"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -300,98 +297,49 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Cadastrar Totem</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Cadastrar Funcionário</h6>
                         </div>
                         <div class="card-body">
                             <div class="container-fluid">
-
                                 <div class="row mb-3">
-                                    <div class="div-informar-dados">
-                                        <label class="label-aeroporto">Informe os
-                                            dados do aeroporto: </label>
-                                    </div>
+                                    <label class="label-aeroporto">Nome do funcionário: </label>
                                     <div class="col-md-8 col-lg-9">
-                                        <select class="form-control" id="select-estado"
-                                            onchange="exibirOptionMunicipio()">
-                                            <option>Selecione um estado...</option>
-                                            <option value="AC">Acre (AC)</option>
-                                            <option value="AL">Alagoas (AL)</option>
-                                            <option value="AM">Amazonas (AM)</option>
-                                            <option value="AP">Amapá (AP)</option>
-                                            <option value="BA">Bahia (BA)</option>
-                                            <option value="CE">Ceará (CE)</option>
-                                            <option value="DF">Distrito Federal (DF)</option>
-                                            <option value="ES">Espírito Santo (ES)</option>
-                                            <option value="GO">Goiás (GO)</option>
-                                            <option value="MA">Maranhão (MA)</option>
-                                            <option value="MG">Minas Gerais (MG)</option>
-                                            <option value="MS">Mato Grosso do Sul (MS)</option>
-                                            <option value="MT">Mato Grosso (MT)</option>
-                                            <option value="PA">Pará (PA)</option>
-                                            <option value="PB">Paraíba (PB)</option>
-                                            <option value="PE">Pernambuco (PE)</option>
-                                            <option value="PI">Piauí (PI)</option>
-                                            <option value="PR">Paraná (PR)</option>
-                                            <option value="RJ">Rio de Janeiro (RJ)</option>
-                                            <option value="RN">Rio Grande do Norte (RN)</option>
-                                            <option value="RO">Rondônia (RO)</option>
-                                            <option value="RR">Roraima (RR)</option>
-                                            <option value="RS">Rio Grande do Sul (RS)</option>
-                                            <option value="SC">Santa Catarina (SC)</option>
-                                            <option value="SE">Sergipe (SE)</option>
-                                            <option value="SP">São Paulo (SP)</option>
-                                            <option value="TO">Tocantins (TO)</option>
-                                        </select>
-                                        <select class="form-control" id="select-municipio"
-                                            onchange="exibirOptionAeroporto()" disabled>
-                                            <option>Selecione um município...</option>
-                                        </select>
-                                        <select class="form-control" id="select-aeroporto" disabled>
-                                            <option>Selecione um aeroporto...</option>
-                                        </select>
+                                        <input type="text" id="ipt_nomeFunc" class="form-control">
                                     </div>
                                 </div>
-
-
-                                <!-- <div class="row mb-3">
-                                <label class="col-md-4 col-lg-3 col-form-label">Tipo de máquina</label>
-                                <div class="col-md-8 col-lg-9">
-                                  <select id="ipt_fkMaquina" class="form-control">
-                                    <option data-default disabled selected id="opt_tipoMaquina">Selecione um tipo...</option>
-                                    <option value="1">Servidor</option>
-                                    <option value="2">Caixa eletrônico</option>
-                                  </select>
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">E-mail do funcionário: </label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="text" id="ipt_emailFunc" class="form-control">
+                                    </div>
                                 </div>
-                              </div> -->
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">Senha funcionário: </label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="text" id="ipt_senhaFunc" class="form-control">
+                                    </div>
+                                </div>  
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Nome do Totem</label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">CPF do funcionário: </label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_nomeTotem" class="form-control">
+                                        <input type="text" id="ipt_cpfFunc" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">CPU</label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">Telefone do funcionário: </label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="checkbox" class="checkboxTotem" id="ckb_cpu" value="1">
+                                        <input type="text" id="ipt_telFunc" class="form-control">
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Memória</label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">Data de nascimento: </label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="checkbox" class="checkboxTotem" id="ckb_memoria" value="2">
+                                        <input type="text" id="ipt_dataFunc" class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Disco</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="checkbox" class="checkboxTotem" id="ckb_disco" value="3">
-                                    </div>
-                                </div>
-
+                                  
                                 <div class="text-center" id="campo-botao">
                                     <button class="btn btn-primary" id="botao-cadastrar"
                                         onclick="cadastrarTotem()">Cadastrar</button>
@@ -444,7 +392,7 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="js/totem.js"></script>
+<script src="js/funcionario.js"></script>
 <script>
     // Chamar o plugin JQuery do dataTables 
     $(document).ready(function () {
