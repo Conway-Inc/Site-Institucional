@@ -65,7 +65,7 @@
                 <a class="nav-link" href="perfil.html">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Perfil</span>
-                </li>
+            </li>
             </a>
 
             <li class="nav-item">
@@ -264,55 +264,148 @@
                 </div>
 
                 <div class="container-fluid">
+                    <h1 class="h3 mb-2 text-gray-800">Cadastrar Funcionário</h1>
+                    <div class="row">
 
+                        <div class="col-xl-8 col-lg-7">
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Cadastrar Funcionário</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label">Nome Completo</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_nomeFunc" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label">CPF</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_cpfFunc" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label">Telefone</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_telefoneFunc" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label">Data de Nascimento</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="date" id="ipt_dataFunc" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_emailFunc" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label">Cargo</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_cargoFunc" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center" id="campo-botao">
+                                        </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Informações Empresariais</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        <div class="row mb-3">
+                                            <label class="col-lg-3 col-form-label">CNJP</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_cnpjEmpresa" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-lg-3 col-form-label">Razão Social</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_razaoSocialEmpresa" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-lg-3 col-form-label">CEP</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_cepEmpresa" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-lg-3 col-form-label">Logradouro</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_logradouroEmpresa" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-lg-3 col-form-label">Número</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_numeroEmpresa" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-lg-3 col-form-label" style="width: 90%;">Telefone</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input type="text" id="ipt_telefoneEmpresa" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center" id="campo-botao">
+                                        </div>
+                                        </section>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Cadastrar Funcionário</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Informações de Acesso</h6>
                         </div>
                         <div class="card-body">
                             <div class="container-fluid">
                                 <div class="row mb-3">
-                                    <label class="label-aeroporto">Nome do funcionário: </label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">Login</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_nomeFunc" class="form-control">
+                                        <input type="text" id="ipt_loginFunc" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">E-mail do funcionário: </label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_emailFunc" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Senha funcionário: </label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">Senha</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input type="text" id="ipt_senhaFunc" class="form-control">
                                     </div>
-                                </div>  
-
+                                </div>
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">CPF do funcionário: </label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">Repetir Senha</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_cpfFunc" class="form-control">
+                                        <input type="text" id="ipt_repetirSenhaFunc" class="form-control">
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Telefone do funcionário: </label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_telFunc" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Data de nascimento: </label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_dataFunc" class="form-control">
-                                    </div>
-                                </div>
-                                  
                                 <div class="text-center" id="campo-botao">
-                                    <button class="btn btn-primary" id="botao-cadastrar"
-                                        onclick="cadastrarFuncionario()">Cadastrar</button>
                                 </div>
                                 </section>
                             </div>
@@ -320,14 +413,16 @@
                         </div>
 
                     </div>
-                    <footer class="sticky-footer bg-white">
-                        <div class="container my-auto">
-                            <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; ConWay 2023</span>
-                            </div>
-                        </div>
-                    </footer>
+                    <button class="btn btn-primary" id="botao-cadastrar"
+                        onclick="cadastrarFuncionario()">Cadastrar</button>
                 </div>
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; ConWay 2023</span>
+                        </div>
+                    </div>
+                </footer>
 
             </div>
             <!-- Scroll to Top Button-->
