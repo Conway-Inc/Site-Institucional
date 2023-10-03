@@ -101,11 +101,11 @@ CREATE PROCEDURE inserirDadosTotem(IN
 )
 BEGIN
 	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data)
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data)
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data)
 END//
 DELIMITER ;
 

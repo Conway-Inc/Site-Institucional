@@ -1,11 +1,5 @@
-const select = document.querySelector("select");
-const valorPadrao = select.options[0].value;
-select.value = valorPadrao;
-
-
 function exibirOptionMunicipio() {
     var estado = document.getElementById("select-estado");
-
     fetch(`/totem/exibirMunicipios/${estado.value}`)
         .then(function (resposta) {
             console.log("ESTOU NO THEN DO exibirMunicipios()!");
@@ -30,7 +24,7 @@ function exibirOptionMunicipio() {
                     option2.innerHTML = "Selecione um aeroporto...";
                     option2.setAttribute("default", "");
                     aeroporto.appendChild(option2);
-                    aeroporto.setAttribute("disabled",'')
+                    aeroporto.setAttribute("disabled", '')
 
                     for (let i = 0; i < json.length; i++) {
                         let publicacao = json[i];
@@ -39,6 +33,7 @@ function exibirOptionMunicipio() {
                         option.setAttribute("value", publicacao.municipio);
                         municipio.appendChild(option);
                     }
+                    exibirTotensEstado(estado.value);
                 });
             } else {
                 resposta.text().then(texto => {
@@ -77,6 +72,7 @@ function exibirOptionAeroporto(municipio) {
                         option.setAttribute("value", publicacao.idAeroporto);
                         aeroporto.appendChild(option);
                     }
+
                 });
             } else {
                 resposta.text().then(texto => {
@@ -89,88 +85,83 @@ function exibirOptionAeroporto(municipio) {
     return false;
 }
 
-function cadastrarTotem() {
-    var nomeTotemVar = ipt_nomeTotem.value;
-    var fkAeroportoVar = document.getElementById("select-aeroporto").value;
-    var fkEmpresaVar = sessionStorage.FK_EMPRESA;
-   
-    fetch(`/totem/cadastrarTotem`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nomeTotemServer: nomeTotemVar,
-            fkAeroportoServer : fkAeroportoVar,
-            fkEmpresaServer : fkEmpresaVar
-        })
-    }).then(function (resposta) {
-        console.log("resposta: ", resposta);
-        if (resposta.ok) {
-          cadastrarComponente()
-           // criarViewMaquina(nomeMaquinaVar)
-           cardMsg.style.display = "block"
-           cardMsg.style.border = "2px solid greenyellow"
-           cardMsg.style.boxShadow = "0px 0px 12px black"
-           cardMsg.style.color = "greenyellow"
-           cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
-            setTimeout(function () {
-                //location.reload();
-                ipt_nomeTotem.value = "";
-                document.getElementById("select-estado").selectedIndex = 0;
-                document.getElementById("select-municipio").selectedIndex = 0;
-                document.getElementById("select-aeroporto").selectedIndex = 0;
-                cardMsg.style.display = "none";
-            }, 3000);
-        } else {
-            cardMsg.style.display = "block"
-            cardMsg.style.border = "2px solid red"
-            cardMsg.style.color = "red"
-            cardMsg.innerHTML = "❌Erro ao cadastrar totem! Tente novamente...❌";
-            setTimeout(function () {
-                //location.reload();
-                cardMsg.style.display = "none";
-            }, 3000);
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`)
-    });
-    return false
+function exibirTotensEstado(estado) {
+    fetch(`/graficoBruno/exibirTotensEstado/${estado}`)
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO exibirTotensEstado()!");
+
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+
+                    // <div class="row mb-3 campo-totem">
+                    //      <div class="column mb-3">
+                    //          <p id="nome-maquina-1">AB849BD</p>
+                    //          <p>CPU: <span id="cpu-maquina-1"></span></p>
+                    //          <p>Memória: <span id="memoria-maquina-1"></span></p>
+                    //          <p>Disco: <span id="disco-maquina-1"></span></p>
+                    //      </div>
+                    //      <img class="img-totem" src="../img/totem.png" alt="">
+                    //  </div>
+
+                    var divTotens = document.getElementById("div-totens");
+                    for (let i = 0; i < json.length; i++) {
+                        var publi = json[i];
+                        var divCamporTotem = document.createElement("div");
+                        divCamporTotem.setAttribute("class","row mb-3 campo-totem");
+                        var divInfos = document.createElement("div");
+                        divInfos.setAttribute("class","column mb-3");
+                        var imgTotem = document.createElement("img");
+                        imgTotem.setAttribute("class","img-totem");
+                        imgTotem.setAttribute("src","../img/totem.png");
+
+                        var pNome = document.createElement("p");
+                        pNome.setAttribute("id",`nome-maquina-${i+1}`);
+                        pNome.innerHTML = publi.nomeTotem
+                        var pCpu = document.createElement("p");
+                        pCpu.innerHTML = "CPU:"
+                        var spanCpu = document.createElement("span");
+                        spanCpu.setAttribute("id",`cpu-maquina-${i+1}`);
+                        var pMemoria = document.createElement("p");
+                        pMemoria.innerHTML = "Memória:"
+                        var spanMemoria = document.createElement("span");
+                        spanMemoria.setAttribute("id",`memoria-maquina-${i+1}`);
+                        var pDisco = document.createElement("p");
+                        pDisco.innerHTML = "Disco:"
+                        var spanDisco = document.createElement("span");
+                        spanDisco.setAttribute("id",`disco-maquina-${i+1}`);
+
+                        pCpu.appendChild(spanCpu);
+                        pMemoria.appendChild(spanMemoria);
+                        pDisco.appendChild(spanDisco);
+
+                        divInfos.appendChild(pNome)
+                        divInfos.appendChild(pCpu)
+                        divInfos.appendChild(pMemoria)
+                        divInfos.appendChild(pDisco)
+
+                        divCamporTotem.appendChild(divInfos)
+                        divCamporTotem.appendChild(imgTotem)
+
+                        divTotens.append(divCamporTotem);
+                    }
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    return false;
 }
 
-function cadastrarComponente() {
+function exibirTotensMunicipio(aeroporto) {
 
-    var valorCheckBox = document.querySelectorAll('input[type="checkbox"]:checked');
-    var vt_listaComponentes = [];
+}
 
-    valorCheckBox.forEach((checkbox) => {
-        vt_listaComponentes.push(checkbox.value);
-    });
-
-    for (let i = 0; i < vt_listaComponentes.length; i++) {
-
-        var componenteVar = vt_listaComponentes[i]
-        fetch(`/totem/cadastrarComponente`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                componenteServer: componenteVar
-            })
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
-            if (resposta.ok) {
-                setTimeout(function () {
-                    valorCheckBox[i].checked = false;
-                }, 3000);
-            } else {
-                throw ("Houve um erro ao realizar o cadastro os componentes!")
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`)
-        });
-
-    }
+function exibirTotensAeroporto(aeroporto) {
 
 }
