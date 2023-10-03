@@ -1,0 +1,12 @@
+.select-airport select {
+    width: 100%;
+}
+
+.campo-totem {
+    max-width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+.img-totem {
+    width: 100px;
+}

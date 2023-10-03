@@ -89,6 +89,26 @@ BEGIN
 END//
 DELIMITER ;
 
+CREATE PROCEDURE inserirDadosTotem(IN 
+    nomeTotem VARCHAR(45),
+    co1_nome VARCHAR(45),
+    re1_valor DECIMAL(8, 2),
+    co2_nome VARCHAR(45),
+    re2_valor DECIMAL(8, 2),
+    co3_nome VARCHAR(45),
+    re3_valor DECIMAL(8, 2),
+    re_data DATETIME
+)
+BEGIN
+	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
+END//
+DELIMITER ;
+
 -- SCRIPTs GERAIS
 INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
 
@@ -111,16 +131,42 @@ VALUES (2, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209'
 INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
 VALUES (3, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', 2, 2);
 
+INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
+													   ('Viracopos', 'SP', 'Campinas');
+						
+INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
+													    ('TLT-2', 1, 2),
+                                                        ('TLT-3', 1, 2);
+
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (15.5, '2023-09-30 12:00:00', 1, 1),
+																	 (27.8, '2023-09-30 12:00:00', 2, 1),
+                                                                     (63.0, '2023-09-30 12:00:00', 3, 1);
+
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
-CREATE USER 'user_conway'@'localhost' IDENTIFIED BY 'urubu100';
-GRANT ALL ON conway.* TO 'user_conway'@'localhost';
+CREATE USER 'user_conway'@'localhost' IDENTIFIED WITH mysql_native_password BY 'urubu100';
+GRANT ALL ON ConWay.* TO 'user_conway'@'localhost';
 FLUSH PRIVILEGES;
 
 -- VIEW
 DROP VIEW IF EXISTS vw_aeroportos;
 CREATE VIEW vw_aeroportos AS
 SELECT * FROM Aeroporto;
+
+DROP VIEW IF EXISTS vw_RegistroEstruturado;
+CREATE OR REPLACE VIEW vw_RegistroEstruturado AS 
+SELECT Registro.fkTotem as "ID", Totem.nome as "Nome", Registro.dataHora as "Data",
+MAX( CASE WHEN Registro.fkComponente = 1 THEN Registro.valor END ) "CPU" ,
+MAX( CASE WHEN Registro.fkComponente = 2 THEN Registro.valor END ) "Memória" ,
+MAX( CASE WHEN Registro.fkComponente = 3 THEN Registro.valor END ) "Disco"
+FROM Registro JOIN Totem ON fkTotem = idTotem
+GROUP BY Registro.fkTotem, Registro.dataHora
+ORDER BY Registro.fkTotem, Registro.dataHora ASC;
+
+
+
+
+
 
 
 

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/graficoBruno.css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -223,57 +224,133 @@
 
                 </nav>
 
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    <h1 class="h3 mb-2 text-gray-800">Gráfico Bruno</h1>
                     <div class="row">
-                        <select id="select-estado" onchange="exibirOptionMunicipio()">
-                            <option>Selecione um estado...</option>
-                            <option value="AC">Acre (AC)</option>
-                            <option value="AL">Alagoas (AL)</option>
-                            <option value="AM">Amazonas (AM)</option>
-                            <option value="AP">Amapá (AP)</option>
-                            <option value="BA">Bahia (BA)</option>
-                            <option value="CE">Ceará (CE)</option>
-                            <option value="DF">Distrito Federal (DF)</option>
-                            <option value="ES">Espírito Santo (ES)</option>
-                            <option value="GO">Goiás (GO)</option>
-                            <option value="MA">Maranhão (MA)</option>
-                            <option value="MG">Minas Gerais (MG)</option>
-                            <option value="MS">Mato Grosso do Sul (MS)</option>
-                            <option value="MT">Mato Grosso (MT)</option>
-                            <option value="PA">Pará (PA)</option>
-                            <option value="PB">Paraíba (PB)</option>
-                            <option value="PE">Pernambuco (PE)</option>
-                            <option value="PI">Piauí (PI)</option>
-                            <option value="PR">Paraná (PR)</option>
-                            <option value="RJ">Rio de Janeiro (RJ)</option>
-                            <option value="RN">Rio Grande do Norte (RN)</option>
-                            <option value="RO">Rondônia (RO)</option>
-                            <option value="RR">Roraima (RR)</option>
-                            <option value="RS">Rio Grande do Sul (RS)</option>
-                            <option value="SC">Santa Catarina (SC)</option>
-                            <option value="SE">Sergipe (SE)</option>
-                            <option value="SP">São Paulo (SP)</option>
-                            <option value="TO">Tocantins (TO)</option>
-                        </select>
 
-                        <select id="select-municipio" onchange="exibirOptionAeroporto()" disabled>
-                            <option>Selecione um município...</option>
-                        </select>
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Aeroporto</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid select-airport">
+                                        <label >Informe os
+                                            dados do aeroporto que deseja monitorar: </label>
+                                        <select id="select-estado" class="form-control" onchange="exibirOptionMunicipio()">
+                                            <option>Selecione um estado...</option>
+                                            <option value="AC">Acre (AC)</option>
+                                            <option value="AL">Alagoas (AL)</option>
+                                            <option value="AM">Amazonas (AM)</option>
+                                            <option value="AP">Amapá (AP)</option>
+                                            <option value="BA">Bahia (BA)</option>
+                                            <option value="CE">Ceará (CE)</option>
+                                            <option value="DF">Distrito Federal (DF)</option>
+                                            <option value="ES">Espírito Santo (ES)</option>
+                                            <option value="GO">Goiás (GO)</option>
+                                            <option value="MA">Maranhão (MA)</option>
+                                            <option value="MG">Minas Gerais (MG)</option>
+                                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                                            <option value="MT">Mato Grosso (MT)</option>
+                                            <option value="PA">Pará (PA)</option>
+                                            <option value="PB">Paraíba (PB)</option>
+                                            <option value="PE">Pernambuco (PE)</option>
+                                            <option value="PI">Piauí (PI)</option>
+                                            <option value="PR">Paraná (PR)</option>
+                                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                                            <option value="RN">Rio Grande do Norte (RN)</option>
+                                            <option value="RO">Rondônia (RO)</option>
+                                            <option value="RR">Roraima (RR)</option>
+                                            <option value="RS">Rio Grande do Sul (RS)</option>
+                                            <option value="SC">Santa Catarina (SC)</option>
+                                            <option value="SE">Sergipe (SE)</option>
+                                            <option value="SP">São Paulo (SP)</option>
+                                            <option value="TO">Tocantins (TO)</option>
+                                        </select>
+            
+                                        <select id="select-municipio" class="form-control" onchange="exibirOptionAeroporto()" disabled>
+                                            <option>Selecione um município...</option>
+                                        </select>
+            
+                                        <select id="select-aeroporto" class="form-control" disabled>
+                                            <option>Selecione um aeroporto...</option>
+                                        </select>
+                                    </div>
 
-                        <select id="select-aeroporto" disabled>
-                            <option>Selecione um aeroporto...</option>
-                        </select>
+                                </div>
 
-                        <h2>Quantidade de Totens: <span>4</span></h2>
+                            </div>
+                            
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Informações da Máquina: </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-4 col-lg-5">
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Totens</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        <div class="row mb-3 campo-totem">
+                                            <div class="column mb-3">
+                                                <p id="nome-maquina-1">AB849BD</p>
+                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
+                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
+                                                <p>Disco: <span id="disco-maquina-1"></span></p>
+                                            </div>
+                                            <img class="img-totem" src="../img/totem.png" alt="">
+                                        </div>
+                                        <div class="row mb-3 campo-totem">
+                                            <div class="column mb-3">
+                                                <p id="nome-maquina-1">AB849BD</p>
+                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
+                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
+                                                <p>Disco: <span id="disco-maquina-1"></span></p>
+                                            </div>
+                                            <img class="img-totem" src="../img/totem.png" alt="">
+                                        </div>
+                                        <div class="row mb-3 campo-totem">
+                                            <div class="column mb-3">
+                                                <p id="nome-maquina-1">AB849BD</p>
+                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
+                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
+                                                <p>Disco: <span id="disco-maquina-1"></span></p>
+                                            </div>
+                                            <img class="img-totem" src="../img/totem.png" alt="">
+                                        </div>
+                                        <div class="row mb-3 campo-totem">
+                                            <div class="column mb-3">
+                                                <p id="nome-maquina-1">AB849BD</p>
+                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
+                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
+                                                <p>Disco: <span id="disco-maquina-1"></span></p>
+                                            </div>
+                                            <img class="img-totem" src="../img/totem.png" alt="">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
                     </div>
-
-                    <div>
-
-                    </div>
-
+                    
+                    
                 </div>
+
             </div>
 
             <footer class="sticky-footer bg-white">
@@ -321,89 +398,5 @@
 <script src="js/graficoBruno.js"></script>
 <script>
 
-    function exibirOptionMunicipio() {
-        var estado = document.getElementById("select-estado");
-
-        fetch(`/graficoBruno/exibirMunicipios/${estado.value}`)
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO exibirMunicipios()!");
-
-                if (resposta.ok) {
-                    console.log(resposta);
-                    resposta.json().then(json => {
-                        console.log(json);
-
-                        var municipio = document.getElementById("select-municipio");
-                        municipio.removeAttribute("disabled");
-                        municipio.innerHTML = "";
-                        let option1 = document.createElement("option");
-                        option1.innerHTML = "Selecione um município...";
-                        option1.setAttribute("default", "");
-                        municipio.appendChild(option1);
-
-                        var aeroporto = document.getElementById("select-aeroporto");
-                        aeroporto.removeAttribute("disabled");
-                        aeroporto.innerHTML = "";
-                        let option2 = document.createElement("option");
-                        option2.innerHTML = "Selecione um aeroporto...";
-                        option2.setAttribute("default", "");
-                        aeroporto.appendChild(option2);
-                        aeroporto.setAttribute("disabled",'')
-
-                        for (let i = 0; i < json.length; i++) {
-                            let publicacao = json[i];
-                            let option = document.createElement("option");
-                            option.innerHTML = publicacao.municipio;
-                            option.setAttribute("value", publicacao.municipio);
-                            municipio.appendChild(option);
-                        }
-                    });
-                } else {
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                    });
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-            });
-        return false;
-    }
-
-    function exibirOptionAeroporto(municipio) {
-        var municipio = document.getElementById("select-municipio");
-        fetch(`/graficoBruno/exibirAeroportos/${municipio.value}`)
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO exibirAeroportos()!");
-
-                if (resposta.ok) {
-                    console.log(resposta);
-                    resposta.json().then(json => {
-                        console.log(json);
-
-                        var aeroporto = document.getElementById("select-aeroporto");
-                        aeroporto.removeAttribute("disabled");
-                        aeroporto.innerHTML = "";
-                        let option = document.createElement("option");
-                        option.innerHTML = "Selecione um aeroporto...";
-                        option.setAttribute("default", "");
-                        aeroporto.appendChild(option);
-
-                        for (let i = 0; i < json.length; i++) {
-                            let publicacao = json[i];
-                            let option = document.createElement("option");
-                            option.innerHTML = publicacao.nome;
-                            option.setAttribute("value", publicacao.idAeroporto);
-                            aeroporto.appendChild(option);
-                        }
-                    });
-                } else {
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                    });
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-            });
-        return false;
-    }
+    
 </script>
