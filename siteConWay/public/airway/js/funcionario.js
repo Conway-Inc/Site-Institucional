@@ -62,38 +62,51 @@ function cadastrarFuncionario() {
     });
     return false
 }
+function exibirInfosFunc(idFuncionarioVar){
+    var tituloNome = document.getElementById("tituloNomeFunc");
+        tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
+    var infosNome = document.getElementById("ipt_nomeFunc")
+        infosNome.value = sessionStorage.NOME_FUNCIONARIO
+    var infosEmail = document.getElementById("ipt_emailFunc")
+        infosEmail.value = sessionStorage.EMAIL_FUNCIONARIO
+    var infosCpf = document.getElementById("ipt_cpfFunc")
+        infosCpf.value = sessionStorage.CPF
+    var infosTelefone = document.getElementById("ipt_telefoneFunc")
+        infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO
+    
+    var infosCargo = document.getElementById("ipt_cargoFunc")
+    if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
+            infosCargo.value = "ADMIN"
+        } else if (sessionStorage.GERENTE_FUNCIONARIO == sessionStorage.ID_FUNCIONARIO) {
+            infosCargo.value = "Gerente"
+        } else{
+            infosCargo.value = "Mão de obra"
+        }
 
-function obterLogin() {
-    (document.getElementById("ipt_loginFunc")).value = (document.getElementById("ipt_emailFunc")).value;
-}
 
+    var acessoEmail = document.getElementById("ipt_loginFunc")
+        acessoEmail.value = sessionStorage.EMAIL_FUNCIONARIO
+    var acessoSenha = document.getElementById("ipt_senhaFunc")
+        acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
+    // var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO
 
-function mascaraCPF() {
-    var tamanhoCpf = (document.getElementById("ipt_cpfFunc")).value.length;
-    var ipt = document.getElementById("ipt_cpfFunc");
+    // fetch(`/funcionario/exibirInfosFunc/${idFuncionarioVar}`)
+    //     .then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO exibirInfosFunc()!");
 
-    if (tamanhoCpf == 3) {
-        ipt.value += "."
-    }
-    if (tamanhoCpf == 7) {
-        ipt.value += "."
-    }
-    if (tamanhoCpf == 11) {
-        ipt.value += "-"
-    }
-}
-
-function mascaraTelefone() {
-    var tamanhoTelefone = (document.getElementById("ipt_telefoneFunc")).value.length
-    var ipt = document.getElementById("ipt_telefoneFunc");
-
-    if (tamanhoTelefone == 0) {
-        ipt.value += "("
-    }
-    if (tamanhoTelefone == 3) {
-        ipt.value += ")"
-    }
-    if (tamanhoTelefone == 9) {
-        ipt.value += "-"
-    }
+    //         if (resposta.ok) {
+    //             console.log(resposta);
+    //             resposta.json().then(json => {
+    //                 console.log(json);
+                    
+    //             });
+    //         } else {
+    //             resposta.text().then(texto => {
+    //                 console.error(texto);
+    //             });
+    //         }
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     });
+    // return false;
 }
