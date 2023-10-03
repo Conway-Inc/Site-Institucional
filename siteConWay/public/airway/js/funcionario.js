@@ -62,7 +62,7 @@ function cadastrarFuncionario() {
     });
     return false
 }
-function exibirInfosFunc(idFuncionarioVar){
+function exibirInfosFunc(){
     var tituloNome = document.getElementById("tituloNomeFunc");
         tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
     var infosNome = document.getElementById("ipt_nomeFunc")
@@ -88,25 +88,28 @@ function exibirInfosFunc(idFuncionarioVar){
         acessoEmail.value = sessionStorage.EMAIL_FUNCIONARIO
     var acessoSenha = document.getElementById("ipt_senhaFunc")
         acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
-    // var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO
-
-    // fetch(`/funcionario/exibirInfosFunc/${idFuncionarioVar}`)
-    //     .then(function (resposta) {
-    //         console.log("ESTOU NO THEN DO exibirInfosFunc()!");
-
-    //         if (resposta.ok) {
-    //             console.log(resposta);
-    //             resposta.json().then(json => {
-    //                 console.log(json);
-                    
-    //             });
-    //         } else {
-    //             resposta.text().then(texto => {
-    //                 console.error(texto);
-    //             });
-    //         }
-    //     }).catch(function (erro) {
-    //         console.log(erro);
-    //     });
-    // return false;
+    }
+    function exibirInfosEmpresa(fkEmpresaVar){
+        var fkEmpresaVar = sessionStorage.FK_EMPRESA
+    
+        fetch(`/empresa/exibirInfosEmpresa/${fkEmpresaVar}`)
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO exibirInfosEmpresa()!");
+                if (resposta.ok) {
+                    console.log(resposta);
+                    resposta.json().then(json => {
+                        console.log(json);
+                        var infosCnpjEmpresa = document.getElementById("ipt_cnpjEmpresa")
+                        infosCnpjEmpresa.value = json[0].cnpj
+                    });
+                } else {
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+        return false;
+        
 }

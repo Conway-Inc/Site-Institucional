@@ -12,6 +12,7 @@ var totemRouter = require("./src/routes/totem");
 var graficoBrunoRouter = require("./src/routes/graficoBruno");
 var loginRouter = require("./src/routes/login");
 var funcionarioRouter = require("./src/routes/funcionario")
+var empresaRouter = require("./src/routes/empresa");
 
 
 app.use(express.json());
@@ -25,7 +26,7 @@ app.use("/funcionario", funcionarioRouter)
 app.use("/totem", totemRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
 app.use("/login", loginRouter);
-
+app.use("/empresa", empresaRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
