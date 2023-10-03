@@ -62,3 +62,38 @@ function cadastrarFuncionario() {
     });
     return false
 }
+
+function obterLogin() {
+    (document.getElementById("ipt_loginFunc")).value = (document.getElementById("ipt_emailFunc")).value;
+}
+
+
+function mascaraCPF() {
+    var tamanhoCpf = (document.getElementById("ipt_cpfFunc")).value.length;
+    var ipt = document.getElementById("ipt_cpfFunc");
+
+    if (tamanhoCpf == 3) {
+        ipt.value += "."
+    }
+    if (tamanhoCpf == 7) {
+        ipt.value += "."
+    }
+    if (tamanhoCpf == 11) {
+        ipt.value += "-"
+    }
+}
+
+function mascaraTelefone() {
+    var tamanhoTelefone = (document.getElementById("ipt_telefoneFunc")).value.length
+    var ipt = document.getElementById("ipt_telefoneFunc");
+
+    if (tamanhoTelefone == 0) {
+        ipt.value += "("
+    }
+    if (tamanhoTelefone == 3) {
+        ipt.value += ")"
+    }
+    if (tamanhoTelefone == 9) {
+        ipt.value += "-"
+    }
+}
