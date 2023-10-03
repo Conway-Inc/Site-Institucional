@@ -104,6 +104,8 @@ function exibirInfosFunc(){
                         var infosCnpjEmpresa = document.getElementById("ipt_cnpjEmpresa")
                         infosCnpjEmpresa.value = json[0].cnpj
 
+                        var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
+                        infosTelefoneEmpresa.value = json[0].telefone
                         obterInfosEmpresa()
                     });
                 } else {
