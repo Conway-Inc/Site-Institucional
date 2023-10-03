@@ -89,6 +89,7 @@ function exibirInfosFunc(){
     var acessoSenha = document.getElementById("ipt_senhaFunc")
         acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
     }
+
     function exibirInfosEmpresa(fkEmpresaVar){
         var fkEmpresaVar = sessionStorage.FK_EMPRESA
         ipt_telefoneEmpresa.value = sessionStorage.TELEFONE_EMPRESA;
@@ -102,6 +103,7 @@ function exibirInfosFunc(){
                         console.log(json);
                         var infosCnpjEmpresa = document.getElementById("ipt_cnpjEmpresa")
                         infosCnpjEmpresa.value = json[0].cnpj
+
                         obterInfosEmpresa()
                     });
                 } else {
@@ -115,6 +117,7 @@ function exibirInfosFunc(){
         return false;
         
 }
+
 function obterInfosEmpresa() {
     fetch(`https://publica.cnpj.ws/cnpj/${ipt_cnpjEmpresa.value}`)
         .then(data => {
@@ -132,25 +135,39 @@ function obterInfosEmpresa() {
 
         })
         .catch(error => {
+            ipt_razaoSocialEmpresa.value = "Empresa não encontrada"
+            ipt_logradouroEmpresa.value = "Empresa não encontrada"
+            ipt_numeroEmpresa.value = "Empresa não encontrada"
+            ipt_cepEmpresa.value = "Empresa não encontrada"
             console.log("CNPJ não localizado na base de dados!")
         })
 
 }
 
+function desativarInputsEmpresa (){
+    ipt_cnpjEmpresa.value = sessionStorage.CNPJ_EMPRESA;
+    ipt_cnpjEmpresa.setAttribute('disabled', '');
+    ipt_razaoSocialEmpresa.setAttribute('disabled', '');
+    ipt_cepEmpresa.setAttribute('disabled', '');
+    ipt_logradouroEmpresa.setAttribute('disabled', '');
+    ipt_numeroEmpresa.setAttribute('disabled', '');
+    ipt_telefoneEmpresa.setAttribute('disabled', '');
+}
+
 function disableInputs(){
     ipt_cnpjEmpresa.value = sessionStorage.CNPJ_EMPRESA;
-        ipt_cnpjEmpresa.setAttribute('disabled', '');
-        ipt_razaoSocialEmpresa.setAttribute('disabled', '');
-        ipt_cepEmpresa.setAttribute('disabled', '');
-        ipt_logradouroEmpresa.setAttribute('disabled', '');
-        ipt_numeroEmpresa.setAttribute('disabled', '');
-        ipt_telefoneEmpresa.setAttribute('disabled', '');
-        ipt_nomeFunc.setAttribute('disabled', '');
-        ipt_cpfFunc.setAttribute('disabled', '');
-        ipt_telefoneFunc.setAttribute('disabled', '');
-        ipt_dataFunc.setAttribute('disabled', '');
-        ipt_emailFunc.setAttribute('disabled', '');
-        ipt_cargoFunc.setAttribute('disabled', '');
-        ipt_loginFunc.setAttribute('disabled', '');
-        ipt_senhaFunc.setAttribute('disabled', '');
+    ipt_cnpjEmpresa.setAttribute('disabled', '');
+    ipt_razaoSocialEmpresa.setAttribute('disabled', '');
+    ipt_cepEmpresa.setAttribute('disabled', '');
+    ipt_logradouroEmpresa.setAttribute('disabled', '');
+    ipt_numeroEmpresa.setAttribute('disabled', '');
+    ipt_telefoneEmpresa.setAttribute('disabled', '');
+    ipt_nomeFunc.setAttribute('disabled', '');
+    ipt_cpfFunc.setAttribute('disabled', '');
+    ipt_telefoneFunc.setAttribute('disabled', '');
+    ipt_dataFunc.setAttribute('disabled', '');
+    ipt_emailFunc.setAttribute('disabled', '');
+    ipt_cargoFunc.setAttribute('disabled', '');
+    ipt_loginFunc.setAttribute('disabled', '');
+    ipt_senhaFunc.setAttribute('disabled', '');
 }
