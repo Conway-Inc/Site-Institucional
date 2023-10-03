@@ -7,4 +7,19 @@ router.get("/exibirTotensEstado/:estado", function (req, res) {
     graficoBrunoController.exibirTotensEstado(req, res);
 });
 
+router.get("/exibirTotensMunicipio/:municipio", function (req, res) {
+    graficoBrunoController.exibirTotensMunicipio(req, res);
+});
+
+router.get("/exibirEstadosComTotens", function (req, res) {
+    graficoBrunoController.exibirEstadosComTotens(req, res);
+});
+
+router.get("/exibirMunicipiosComTotens/:estado", function (req, res) {
+    graficoBrunoController.exibirMunicipiosComTotens(req, res);
+});
+
+router.get("/exibirAeroportosComTotens/:municipio", function (req, res) {
+    graficoBrunoController.exibirAeroportosComTotens(req, res);
+});
 module.exports = router;

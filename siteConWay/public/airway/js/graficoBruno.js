@@ -1,14 +1,66 @@
-function exibirOptionMunicipio() {
+function exibirEstadosComTotens() {
     var estado = document.getElementById("select-estado");
-    fetch(`/totem/exibirMunicipios/${estado.value}`)
+    fetch(`/graficoBruno/exibirEstadosComTotens`)
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO exibirEstadosComTotens()!");
+
+            if (resposta.ok) {
+                exibirTotensEstado(estado.value);
+
+                resposta.json().then(json => {
+                    
+                    estado.innerHTML = "";
+                    let option1 = document.createElement("option");
+                    option1.innerHTML = "Selecione um estado...";
+                    option1.setAttribute("default", "");
+                    estado.appendChild(option1);
+
+                    var municipio = document.getElementById("select-municipio");
+                    municipio.innerHTML = "";
+                    let option2 = document.createElement("option");
+                    option2.innerHTML = "Selecione um município...";
+                    option2.setAttribute("default", "");
+                    municipio.appendChild(option2);
+
+                    var aeroporto = document.getElementById("select-aeroporto");
+                    aeroporto.removeAttribute("disabled");
+                    aeroporto.innerHTML = "";
+                    let option3 = document.createElement("option");
+                    option3.innerHTML = "Selecione um aeroporto...";
+                    option3.setAttribute("default", "");
+                    aeroporto.appendChild(option3);
+                    aeroporto.setAttribute("disabled", '')
+
+                    for (let i = 0; i < json.length; i++) {
+                        let publicacao = json[i];
+                        let option = document.createElement("option");
+                        option.innerHTML = publicacao.estado;
+                        option.setAttribute("value", publicacao.estado);
+                        estado.appendChild(option);
+                    }
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    return false;
+}
+
+function exibirMunicipiosComTotens() {
+    var estado = document.getElementById("select-estado");
+    fetch(`/graficoBruno/exibirMunicipiosComTotens/${estado.value}`)
         .then(function (resposta) {
             console.log("ESTOU NO THEN DO exibirMunicipios()!");
 
             if (resposta.ok) {
-                console.log(resposta);
-                resposta.json().then(json => {
-                    console.log(json);
+                exibirTotensEstado(estado.value);
 
+                resposta.json().then(json => {
+                    
                     var municipio = document.getElementById("select-municipio");
                     municipio.removeAttribute("disabled");
                     municipio.innerHTML = "";
@@ -33,7 +85,6 @@ function exibirOptionMunicipio() {
                         option.setAttribute("value", publicacao.municipio);
                         municipio.appendChild(option);
                     }
-                    exibirTotensEstado(estado.value);
                 });
             } else {
                 resposta.text().then(texto => {
@@ -46,16 +97,16 @@ function exibirOptionMunicipio() {
     return false;
 }
 
-function exibirOptionAeroporto(municipio) {
+function exibirAeroportosComTotens(municipio) {
     var municipio = document.getElementById("select-municipio");
-    fetch(`/totem/exibirAeroportos/${municipio.value}`)
+    fetch(`/graficoBruno/exibirAeroportosComTotens/${municipio.value}`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO exibirAeroportos()!");
+            console.log("ESTOU NO THEN DO exibirAeroportosComTotens()!");
 
             if (resposta.ok) {
-                console.log(resposta);
+                // exibirTotensAeroporto(municipio.value);
+
                 resposta.json().then(json => {
-                    console.log(json);
 
                     var aeroporto = document.getElementById("select-aeroporto");
                     aeroporto.removeAttribute("disabled");
@@ -68,7 +119,7 @@ function exibirOptionAeroporto(municipio) {
                     for (let i = 0; i < json.length; i++) {
                         let publicacao = json[i];
                         let option = document.createElement("option");
-                        option.innerHTML = publicacao.nome;
+                        option.innerHTML = publicacao.nomeAeroporto;
                         option.setAttribute("value", publicacao.idAeroporto);
                         aeroporto.appendChild(option);
                     }
@@ -95,17 +146,13 @@ function exibirTotensEstado(estado) {
                 resposta.json().then(json => {
                     console.log(json);
 
-                    // <div class="row mb-3 campo-totem">
-                    //      <div class="column mb-3">
-                    //          <p id="nome-maquina-1">AB849BD</p>
-                    //          <p>CPU: <span id="cpu-maquina-1"></span></p>
-                    //          <p>Memória: <span id="memoria-maquina-1"></span></p>
-                    //          <p>Disco: <span id="disco-maquina-1"></span></p>
-                    //      </div>
-                    //      <img class="img-totem" src="../img/totem.png" alt="">
-                    //  </div>
-
+                    if (json.length == 1) {
+                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
+                    } else {
+                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totens`
+                    }
                     var divTotens = document.getElementById("div-totens");
+                    divTotens.innerHTML = "";
                     for (let i = 0; i < json.length; i++) {
                         var publi = json[i];
                         var divCamporTotem = document.createElement("div");
@@ -158,8 +205,74 @@ function exibirTotensEstado(estado) {
     return false;
 }
 
-function exibirTotensMunicipio(aeroporto) {
+function exibirTotensMunicipio(municipio) {
+    fetch(`/graficoBruno/exibirTotensMunicipio/${municipio}`)
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO exibirTotensMunicipio()!");
 
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+
+                    if (json.length == 1) {
+                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
+                    } else {
+                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totens`
+                    }
+
+                    var divTotens = document.getElementById("div-totens");
+                    divTotens.innerHTML = "";
+                    for (let i = 0; i < json.length; i++) {
+                        var publi = json[i];
+                        var divCamporTotem = document.createElement("div");
+                        divCamporTotem.setAttribute("class","row mb-3 campo-totem");
+                        var divInfos = document.createElement("div");
+                        divInfos.setAttribute("class","column mb-3");
+                        var imgTotem = document.createElement("img");
+                        imgTotem.setAttribute("class","img-totem");
+                        imgTotem.setAttribute("src","../img/totem.png");
+
+                        var pNome = document.createElement("p");
+                        pNome.setAttribute("id",`nome-maquina-${i+1}`);
+                        pNome.innerHTML = publi.nomeTotem
+                        var pCpu = document.createElement("p");
+                        pCpu.innerHTML = "CPU:"
+                        var spanCpu = document.createElement("span");
+                        spanCpu.setAttribute("id",`cpu-maquina-${i+1}`);
+                        var pMemoria = document.createElement("p");
+                        pMemoria.innerHTML = "Memória:"
+                        var spanMemoria = document.createElement("span");
+                        spanMemoria.setAttribute("id",`memoria-maquina-${i+1}`);
+                        var pDisco = document.createElement("p");
+                        pDisco.innerHTML = "Disco:"
+                        var spanDisco = document.createElement("span");
+                        spanDisco.setAttribute("id",`disco-maquina-${i+1}`);
+
+                        pCpu.appendChild(spanCpu);
+                        pMemoria.appendChild(spanMemoria);
+                        pDisco.appendChild(spanDisco);
+
+                        divInfos.appendChild(pNome)
+                        divInfos.appendChild(pCpu)
+                        divInfos.appendChild(pMemoria)
+                        divInfos.appendChild(pDisco)
+
+                        divCamporTotem.appendChild(divInfos)
+                        divCamporTotem.appendChild(imgTotem)
+
+                        divTotens.append(divCamporTotem);
+                    }
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    return false;
 }
 
 function exibirTotensAeroporto(aeroporto) {
