@@ -256,7 +256,7 @@
                             
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Informações do <span id="info-aeroporto-nome"></span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Informações de <span id="info-aeroporto-nome">-</span></h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
@@ -272,7 +272,8 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
-                                        
+                                        <div id="grafico-totem"></div>
+                                        <div id="grafico-disco"></div>
                                     </div>
 
                                 </div>
@@ -344,6 +345,7 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="js/graficoBruno.js"></script>
 <script>
     exibirEstadosComTotens()

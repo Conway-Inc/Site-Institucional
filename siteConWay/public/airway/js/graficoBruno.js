@@ -5,7 +5,6 @@ function exibirEstadosComTotens() {
             console.log("ESTOU NO THEN DO exibirEstadosComTotens()!");
 
             if (resposta.ok) {
-                exibirTotensEstado(estado.value);
 
                 resposta.json().then(json => {
                     
@@ -158,6 +157,7 @@ function exibirTotensEstado(estado) {
                 resposta.json().then(json => {
                     console.log(json);
 
+                    document.getElementById("info-aeroporto-nome").innerHTML = document.getElementById("select-estado").value;
                     if (json.length == 1) {
                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
                     } else {
@@ -174,6 +174,8 @@ function exibirTotensEstado(estado) {
                         var imgTotem = document.createElement("img");
                         imgTotem.setAttribute("class","img-totem");
                         imgTotem.setAttribute("src","../img/totem.png");
+                        imgTotem.setAttribute("onclick","graficoTotem()");
+
 
                         var pNome = document.createElement("p");
                         pNome.setAttribute("id",`nome-maquina-${i+1}`);
@@ -244,6 +246,7 @@ function exibirTotensMunicipio(municipio) {
                         var imgTotem = document.createElement("img");
                         imgTotem.setAttribute("class","img-totem");
                         imgTotem.setAttribute("src","../img/totem.png");
+                        imgTotem.setAttribute("onclick","graficoTotem()");
 
                         var pNome = document.createElement("p");
                         pNome.setAttribute("id",`nome-maquina-${i+1}`);
@@ -289,4 +292,143 @@ function exibirTotensMunicipio(municipio) {
 
 function exibirTotensAeroporto(aeroporto) {
 
+}
+
+
+
+function graficoTotem() {
+    document.getElementById("grafico-totem").innerHTML = "";
+    var options = {
+        series: [{
+        name: 'Inflation',
+        data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+      }],
+        chart: {
+        height: 350,
+        type: 'bar',
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 10,
+          dataLabels: {
+            position: 'top', // top, center, bottom
+          },
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+          return val + "%";
+        },
+        offsetY: -20,
+        style: {
+          fontSize: '12px',
+          colors: ["#304758"]
+        }
+      },
+      
+      xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        position: 'top',
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          fill: {
+            type: 'gradient',
+            gradient: {
+              colorFrom: '#D8E3F0',
+              colorTo: '#BED1E6',
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5,
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: false,
+          formatter: function (val) {
+            return val + "%";
+          }
+        }
+      
+      },
+      title: {
+        text: 'Média da CPU nos últimos 10 dias',
+        floating: true,
+        offsetY: 330,
+        align: 'center',
+        style: {
+          color: '#444'
+        }
+      }
+      };
+
+      var chart = new ApexCharts(document.getElementById("grafico-totem"), options);
+      chart.render();
+
+      document.getElementById("grafico-disco").innerHTML = "";
+      var options = {
+        series: [
+        {
+          name: 'GB Usado',
+          data: [
+            {
+              x: '',
+              y: 67,
+              goals: [
+                {
+                  name: 'GB Total',
+                  value: 70,
+                  strokeWidth: 5,
+                  strokeHeight: 20,
+                  strokeColor: '#775DD0'
+                }
+              ]
+            }
+          ]
+        }
+      ],
+        xaxis: {
+            max: 70
+        },
+        chart: {
+        height: 110,
+        type: 'bar'
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      colors: ['#00E396'],
+      dataLabels: {
+        formatter: function(val, opt) {
+          const goals =
+            opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+              .goals
+          if (goals && goals.length) {
+            return `${val} / ${goals[0].value}`
+          }
+          return val
+        }
+      }
+      };
+
+      var chart = new ApexCharts(document.querySelector("#grafico-disco"), options);
+      chart.render();
 }
