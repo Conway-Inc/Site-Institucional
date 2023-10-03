@@ -1,3 +1,4 @@
+-- Active: 1695823604597@@127.0.0.1@3306@ConWay
 DROP DATABASE IF EXISTS ConWay ;
 CREATE DATABASE ConWay;
 USE ConWay; 
@@ -80,6 +81,15 @@ CREATE TABLE TotemComponente (
 	PRIMARY KEY (fkComponente, fkTotem)
 );
 
+CREATE TABLE Alerta (
+    idAlerta INT,
+    tipo VARCHAR(45),
+    descricao TEXT,
+    fkRegistro INT,
+    FOREIGN KEY (fkRegistro) REFERENCES Registro(idRegistro) ON DELETE CASCADE,
+    PRIMARY KEY (idAlerta, fkRegistro)
+);
+
 DELIMITER //
 CREATE PROCEDURE cadastrar_maquinaComponente(
 	maco_fkComponente INT
@@ -89,25 +99,25 @@ BEGIN
 END//
 DELIMITER ;
 
-CREATE PROCEDURE inserirDadosTotem(IN 
-    nomeTotem VARCHAR(45),
-    co1_nome VARCHAR(45),
-    re1_valor DECIMAL(8, 2),
-    co2_nome VARCHAR(45),
-    re2_valor DECIMAL(8, 2),
-    co3_nome VARCHAR(45),
-    re3_valor DECIMAL(8, 2),
-    re_data DATETIME
-)
-BEGIN
-	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
-    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
-    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
-END//
-DELIMITER ;
+-- CREATE PROCEDURE inserirDadosTotem(IN 
+--     nomeTotem VARCHAR(45),
+--     co1_nome VARCHAR(45),
+--     re1_valor DECIMAL(8, 2),
+--     co2_nome VARCHAR(45),
+--     re2_valor DECIMAL(8, 2),
+--     co3_nome VARCHAR(45),
+--     re3_valor DECIMAL(8, 2),
+--     re_data DATETIME
+-- )
+-- BEGIN
+-- 	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+-- 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
+--     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+-- 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
+--     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+-- 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
+-- END//
+-- DELIMITER ;
 
 -- SCRIPTs GERAIS
 INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
