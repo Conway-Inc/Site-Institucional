@@ -12,14 +12,18 @@ function exibirEstadosComTotens() {
                     estado.innerHTML = "";
                     let option1 = document.createElement("option");
                     option1.innerHTML = "Selecione um estado...";
-                    option1.setAttribute("default", "");
+                    option1.setAttribute("data-default", "");
+                    option1.setAttribute("disabled", "");
+                    option1.setAttribute("selected", "");
                     estado.appendChild(option1);
 
                     var municipio = document.getElementById("select-municipio");
                     municipio.innerHTML = "";
                     let option2 = document.createElement("option");
                     option2.innerHTML = "Selecione um município...";
-                    option2.setAttribute("default", "");
+                    option2.setAttribute("data-default", "");
+                    option2.setAttribute("disabled", "");
+                    option2.setAttribute("selected", "");
                     municipio.appendChild(option2);
 
                     var aeroporto = document.getElementById("select-aeroporto");
@@ -27,7 +31,9 @@ function exibirEstadosComTotens() {
                     aeroporto.innerHTML = "";
                     let option3 = document.createElement("option");
                     option3.innerHTML = "Selecione um aeroporto...";
-                    option3.setAttribute("default", "");
+                    option3.setAttribute("data-default", "");
+                    option3.setAttribute("disabled", "");
+                    option3.setAttribute("selected", "");
                     aeroporto.appendChild(option3);
                     aeroporto.setAttribute("disabled", '')
 
@@ -66,7 +72,9 @@ function exibirMunicipiosComTotens() {
                     municipio.innerHTML = "";
                     let option1 = document.createElement("option");
                     option1.innerHTML = "Selecione um município...";
-                    option1.setAttribute("default", "");
+                    option1.setAttribute("data-default", "");
+                    option1.setAttribute("disabled", "");
+                    option1.setAttribute("selected", "");
                     municipio.appendChild(option1);
 
                     var aeroporto = document.getElementById("select-aeroporto");
@@ -74,7 +82,9 @@ function exibirMunicipiosComTotens() {
                     aeroporto.innerHTML = "";
                     let option2 = document.createElement("option");
                     option2.innerHTML = "Selecione um aeroporto...";
-                    option2.setAttribute("default", "");
+                    option2.setAttribute("data-default", "");
+                    option2.setAttribute("disabled", "");
+                    option2.setAttribute("selected", "");
                     aeroporto.appendChild(option2);
                     aeroporto.setAttribute("disabled", '')
 
@@ -113,7 +123,9 @@ function exibirAeroportosComTotens(municipio) {
                     aeroporto.innerHTML = "";
                     let option = document.createElement("option");
                     option.innerHTML = "Selecione um aeroporto...";
-                    option.setAttribute("default", "");
+                    option.setAttribute("data-default", "");
+                    option.setAttribute("disabled", "");
+                    option.setAttribute("selected", "");;
                     aeroporto.appendChild(option);
 
                     for (let i = 0; i < json.length; i++) {
