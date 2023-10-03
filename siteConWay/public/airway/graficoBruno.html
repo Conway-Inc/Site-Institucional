@@ -237,38 +237,11 @@
                                     <div class="container-fluid select-airport">
                                         <label >Informe os
                                             dados do aeroporto que deseja monitorar: </label>
-                                        <select id="select-estado" class="form-control" onchange="exibirOptionMunicipio()">
+                                        <select id="select-estado" class="form-control" onchange="exibirMunicipiosComTotens()">
                                             <option>Selecione um estado...</option>
-                                            <option value="AC">Acre (AC)</option>
-                                            <option value="AL">Alagoas (AL)</option>
-                                            <option value="AM">Amazonas (AM)</option>
-                                            <option value="AP">Amapá (AP)</option>
-                                            <option value="BA">Bahia (BA)</option>
-                                            <option value="CE">Ceará (CE)</option>
-                                            <option value="DF">Distrito Federal (DF)</option>
-                                            <option value="ES">Espírito Santo (ES)</option>
-                                            <option value="GO">Goiás (GO)</option>
-                                            <option value="MA">Maranhão (MA)</option>
-                                            <option value="MG">Minas Gerais (MG)</option>
-                                            <option value="MS">Mato Grosso do Sul (MS)</option>
-                                            <option value="MT">Mato Grosso (MT)</option>
-                                            <option value="PA">Pará (PA)</option>
-                                            <option value="PB">Paraíba (PB)</option>
-                                            <option value="PE">Pernambuco (PE)</option>
-                                            <option value="PI">Piauí (PI)</option>
-                                            <option value="PR">Paraná (PR)</option>
-                                            <option value="RJ">Rio de Janeiro (RJ)</option>
-                                            <option value="RN">Rio Grande do Norte (RN)</option>
-                                            <option value="RO">Rondônia (RO)</option>
-                                            <option value="RR">Roraima (RR)</option>
-                                            <option value="RS">Rio Grande do Sul (RS)</option>
-                                            <option value="SC">Santa Catarina (SC)</option>
-                                            <option value="SE">Sergipe (SE)</option>
-                                            <option value="SP">São Paulo (SP)</option>
-                                            <option value="TO">Tocantins (TO)</option>
                                         </select>
             
-                                        <select id="select-municipio" class="form-control" onchange="exibirOptionAeroporto()" disabled>
+                                        <select id="select-municipio" class="form-control" onchange="exibirAeroportosComTotens()" disabled>
                                             <option>Selecione um município...</option>
                                         </select>
             
@@ -283,7 +256,19 @@
                             
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Informações da Máquina: </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Informações do <span id="info-aeroporto-nome"></span></h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Informações da Máquina: <span id="info-maq-nome"></span></h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
@@ -298,48 +283,12 @@
 
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Totens</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary" id="qtd-totens">Totens</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="container-fluid">
-                                        <div class="row mb-3 campo-totem">
-                                            <div class="column mb-3">
-                                                <p id="nome-maquina-1">AB849BD</p>
-                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
-                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
-                                                <p>Disco: <span id="disco-maquina-1"></span></p>
-                                            </div>
-                                            <img class="img-totem" src="../img/totem.png" alt="">
-                                        </div>
-                                        <div class="row mb-3 campo-totem">
-                                            <div class="column mb-3">
-                                                <p id="nome-maquina-1">AB849BD</p>
-                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
-                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
-                                                <p>Disco: <span id="disco-maquina-1"></span></p>
-                                            </div>
-                                            <img class="img-totem" src="../img/totem.png" alt="">
-                                        </div>
-                                        <div class="row mb-3 campo-totem">
-                                            <div class="column mb-3">
-                                                <p id="nome-maquina-1">AB849BD</p>
-                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
-                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
-                                                <p>Disco: <span id="disco-maquina-1"></span></p>
-                                            </div>
-                                            <img class="img-totem" src="../img/totem.png" alt="">
-                                        </div>
-                                        <div class="row mb-3 campo-totem">
-                                            <div class="column mb-3">
-                                                <p id="nome-maquina-1">AB849BD</p>
-                                                <p>CPU: <span id="cpu-maquina-1"></span></p>
-                                                <p>Memória: <span id="memoria-maquina-1"></span></p>
-                                                <p>Disco: <span id="disco-maquina-1"></span></p>
-                                            </div>
-                                            <img class="img-totem" src="../img/totem.png" alt="">
-                                        </div>
-                                    </div>
+                                    <div class="container-fluid" id="div-totens">
 
+                                    </div>
                                 </div>
 
                             </div>
@@ -397,6 +346,6 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/graficoBruno.js"></script>
 <script>
-
+    exibirEstadosComTotens()
     
 </script>

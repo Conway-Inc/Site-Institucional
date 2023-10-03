@@ -16,7 +16,7 @@
     <title>AirWay</title>
 </head>
 
-<body id="page-top" onload="exibirInfosFunc()">
+<body id="page-top" onload="exibirInfosFunc(), exibirInfosEmpresa(), disableInputs()">
     <div id="wrapper">
         <div id="cardMsg"></div>
 
@@ -298,7 +298,7 @@
                                         <div class="row mb-3">
                                             <label class="col-lg-3 col-form-label">CNJP</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="text" id="ipt_cnpjEmpresa" class="form-control">
+                                                <input type="text" id="ipt_cnpjEmpresa" class="form-control" onfocusout="obterDadosEmpresa()">
                                             </div>
                                         </div>
                                         <div class="row mb-3">

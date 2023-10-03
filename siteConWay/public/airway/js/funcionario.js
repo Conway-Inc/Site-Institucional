@@ -62,7 +62,7 @@ function cadastrarFuncionario() {
     });
     return false
 }
-function exibirInfosFunc(idFuncionarioVar){
+function exibirInfosFunc(){
     var tituloNome = document.getElementById("tituloNomeFunc");
         tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
     var infosNome = document.getElementById("ipt_nomeFunc")
@@ -88,25 +88,69 @@ function exibirInfosFunc(idFuncionarioVar){
         acessoEmail.value = sessionStorage.EMAIL_FUNCIONARIO
     var acessoSenha = document.getElementById("ipt_senhaFunc")
         acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
-    // var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO
+    }
+    function exibirInfosEmpresa(fkEmpresaVar){
+        var fkEmpresaVar = sessionStorage.FK_EMPRESA
+        ipt_telefoneEmpresa.value = sessionStorage.TELEFONE_EMPRESA;
+    
+        fetch(`/empresa/exibirInfosEmpresa/${fkEmpresaVar}`)
+            .then(function (resposta) {
+                console.log("ESTOU NO THEN DO exibirInfosEmpresa()!");
+                if (resposta.ok) {
+                    console.log(resposta);
+                    resposta.json().then(json => {
+                        console.log(json);
+                        var infosCnpjEmpresa = document.getElementById("ipt_cnpjEmpresa")
+                        infosCnpjEmpresa.value = json[0].cnpj
+                        obterInfosEmpresa()
+                    });
+                } else {
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+        return false;
+        
+}
+function obterInfosEmpresa() {
+    fetch(`https://publica.cnpj.ws/cnpj/${ipt_cnpjEmpresa.value}`)
+        .then(data => {
+            return data.json();
+        })
+        .then(post => {
 
-    // fetch(`/funcionario/exibirInfosFunc/${idFuncionarioVar}`)
-    //     .then(function (resposta) {
-    //         console.log("ESTOU NO THEN DO exibirInfosFunc()!");
+            dadosCNPJ = post;
+            // console.log(dadosCNPJ)
 
-    //         if (resposta.ok) {
-    //             console.log(resposta);
-    //             resposta.json().then(json => {
-    //                 console.log(json);
-                    
-    //             });
-    //         } else {
-    //             resposta.text().then(texto => {
-    //                 console.error(texto);
-    //             });
-    //         }
-    //     }).catch(function (erro) {
-    //         console.log(erro);
-    //     });
-    // return false;
+            ipt_razaoSocialEmpresa.value = dadosCNPJ.razao_social;;
+            ipt_logradouroEmpresa.value = `${dadosCNPJ.estabelecimento.tipo_logradouro} ${dadosCNPJ.estabelecimento.logradouro}`;
+            ipt_numeroEmpresa.value = dadosCNPJ.estabelecimento.numero;
+            ipt_cepEmpresa.value = dadosCNPJ.estabelecimento.cep;
+
+        })
+        .catch(error => {
+            console.log("CNPJ não localizado na base de dados!")
+        })
+
+}
+
+function disableInputs(){
+    ipt_cnpjEmpresa.value = sessionStorage.CNPJ_EMPRESA;
+        ipt_cnpjEmpresa.setAttribute('disabled', '');
+        ipt_razaoSocialEmpresa.setAttribute('disabled', '');
+        ipt_cepEmpresa.setAttribute('disabled', '');
+        ipt_logradouroEmpresa.setAttribute('disabled', '');
+        ipt_numeroEmpresa.setAttribute('disabled', '');
+        ipt_telefoneEmpresa.setAttribute('disabled', '');
+        ipt_nomeFunc.setAttribute('disabled', '');
+        ipt_cpfFunc.setAttribute('disabled', '');
+        ipt_telefoneFunc.setAttribute('disabled', '');
+        ipt_dataFunc.setAttribute('disabled', '');
+        ipt_emailFunc.setAttribute('disabled', '');
+        ipt_cargoFunc.setAttribute('disabled', '');
+        ipt_loginFunc.setAttribute('disabled', '');
+        ipt_senhaFunc.setAttribute('disabled', '');
 }

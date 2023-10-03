@@ -173,6 +173,10 @@ FROM Registro JOIN Totem ON fkTotem = idTotem
 GROUP BY Registro.fkTotem, Registro.dataHora
 ORDER BY Registro.fkTotem, Registro.dataHora ASC;
 
+CREATE VIEW vw_totem_estado AS
+SELECT idTotem, t.nome as nomeTotem, fkEmpresa, idAeroporto, a.nome as nomeAeroporto, estado, municipio
+		FROM Totem as t JOIN Aeroporto as a ON fkAeroporto = idAeroporto;
+
 
 
 
