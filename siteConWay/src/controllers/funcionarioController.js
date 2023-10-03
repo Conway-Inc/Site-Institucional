@@ -40,6 +40,30 @@ function cadastrarFuncionario(req, res) {
     }
 }
 
+function exibirInfosFunc(req,res){
+    var idFuncionarioVar = req.params
+    if (idFuncionarioVar == undefined) {
+        res.status(400).send("Não foi possível encontrar o ID deste funcionário")
+    } else{
+        funcionarioModel.exibirInfosFunc(idFuncionarioVar)
+            .then(
+                function(resultado){
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro){
+                    console.log(erro);
+                    console.log("\nHouve um erro ao localizar este funcionário!Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).send(erro.sqlMessage);
+                }
+            )
+    }
+
+}
+
 module.exports = {
-    cadastrarFuncionario
+    cadastrarFuncionario,
+    exibirInfosFunc
 };

@@ -62,3 +62,51 @@ function cadastrarFuncionario() {
     });
     return false
 }
+function exibirInfosFunc(idFuncionarioVar){
+    var tituloNome = document.getElementById("tituloNomeFunc");
+        tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
+    var infosNome = document.getElementById("ipt_nomeFunc")
+        infosNome.value = sessionStorage.NOME_FUNCIONARIO
+    var infosEmail = document.getElementById("ipt_emailFunc")
+        infosEmail.value = sessionStorage.EMAIL_FUNCIONARIO
+    var infosCpf = document.getElementById("ipt_cpfFunc")
+        infosCpf.value = sessionStorage.CPF
+    var infosTelefone = document.getElementById("ipt_telefoneFunc")
+        infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO
+    
+    var infosCargo = document.getElementById("ipt_cargoFunc")
+    if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
+            infosCargo.value = "ADMIN"
+        } else if (sessionStorage.GERENTE_FUNCIONARIO == sessionStorage.ID_FUNCIONARIO) {
+            infosCargo.value = "Gerente"
+        } else{
+            infosCargo.value = "Mão de obra"
+        }
+
+
+    var acessoEmail = document.getElementById("ipt_loginFunc")
+        acessoEmail.value = sessionStorage.EMAIL_FUNCIONARIO
+    var acessoSenha = document.getElementById("ipt_senhaFunc")
+        acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
+    // var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO
+
+    // fetch(`/funcionario/exibirInfosFunc/${idFuncionarioVar}`)
+    //     .then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO exibirInfosFunc()!");
+
+    //         if (resposta.ok) {
+    //             console.log(resposta);
+    //             resposta.json().then(json => {
+    //                 console.log(json);
+                    
+    //             });
+    //         } else {
+    //             resposta.text().then(texto => {
+    //                 console.error(texto);
+    //             });
+    //         }
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     });
+    // return false;
+}
