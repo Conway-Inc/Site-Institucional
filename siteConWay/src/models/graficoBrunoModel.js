@@ -57,10 +57,25 @@ function exibirAeroportosComTotens(municipio) {
   return database.executar(instrucao);
 }
 
+function valorDisco(idTotem) {
+  console.log(
+    "ACESSEI O graficoBrunoModel \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function valorDisco(): ",idTotem
+  );
+  var instrucao = `
+    SELECT t.idTotem, t.nome, c.idComponente as idComp, c.nome, tc.valor, c.unidadeMedida as medida, r.valor as porcent
+      FROM Totem as t JOIN TotemComponente as tc ON fkTotem = idTotem 
+        JOIN Componente as c ON fkComponente = idComponente
+          JOIN Registro as r ON r.fkTotem = idTotem AND r.fkComponente = 3 AND idTotem = ${idTotem};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirTotensEstado,
   exibirTotensMunicipio,
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
-  exibirAeroportosComTotens
+  exibirAeroportosComTotens,
+  valorDisco
 };
