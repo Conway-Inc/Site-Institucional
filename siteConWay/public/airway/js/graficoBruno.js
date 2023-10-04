@@ -2,8 +2,6 @@ function exibirEstadosComTotens() {
     var estado = document.getElementById("select-estado");
     fetch(`/graficoBruno/exibirEstadosComTotens`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO exibirEstadosComTotens()!");
-
             if (resposta.ok) {
 
                 resposta.json().then(json => {
@@ -59,8 +57,6 @@ function exibirMunicipiosComTotens() {
     var estado = document.getElementById("select-estado");
     fetch(`/graficoBruno/exibirMunicipiosComTotens/${estado.value}`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO exibirMunicipios()!");
-
             if (resposta.ok) {
                 exibirTotensEstado(estado.value);
 
@@ -110,11 +106,8 @@ function exibirAeroportosComTotens(municipio) {
     var municipio = document.getElementById("select-municipio");
     fetch(`/graficoBruno/exibirAeroportosComTotens/${municipio.value}`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO exibirAeroportosComTotens()!");
-
             if (resposta.ok) {
                 // exibirTotensAeroporto(municipio.value);
-
                 resposta.json().then(json => {
 
                     var aeroporto = document.getElementById("select-aeroporto");
@@ -150,12 +143,8 @@ function exibirAeroportosComTotens(municipio) {
 function exibirTotensEstado(estado) {
     fetch(`/graficoBruno/exibirTotensEstado/${estado}`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO exibirTotensEstado()!");
-
             if (resposta.ok) {
-                console.log(resposta);
                 resposta.json().then(json => {
-                    console.log(json);
 
                     document.getElementById("info-aeroporto-nome").innerHTML = document.getElementById("select-estado").value;
                     if (json.length == 1) {
@@ -225,12 +214,8 @@ function exibirTotensEstado(estado) {
 function exibirTotensMunicipio(municipio) {
     fetch(`/graficoBruno/exibirTotensMunicipio/${municipio}`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO exibirTotensMunicipio()!");
-
             if (resposta.ok) {
-                console.log(resposta);
                 resposta.json().then(json => {
-                    console.log(json);
 
                     if (json.length == 1) {
                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
@@ -388,95 +373,15 @@ function graficoTotem(idTotem) {
     var chart = new ApexCharts(document.getElementById("grafico-totem"), options);
     chart.render();
 
-    valorDisco(idTotem);    
+    pegarValorDisco(idTotem);
 }
 
-function valorDisco(idTotem) {
+function pegarValorDisco(idTotem) {
     fetch(`/graficoBruno/valorDisco/${idTotem}`)
         .then(function (resposta) {
-            console.log("ESTOU NO THEN DO valorDisco()!");
             if (resposta.ok) {
                 resposta.json().then(json => {
-
-                    console.log(json)
-                    document.getElementById("grafico-disco").innerHTML = "";
-                    var valorAtual = Math.round((((json[0].porcent) * (json[0].valor)) / 100),1);
-                    var options = {
-                        series: [
-                            {
-                                name: 'GB Usado',
-                                data: [
-                                    {
-                                        x: '',
-                                        y: valorAtual,
-                                        goals: [
-                                            {
-                                                name: 'GB Total',
-                                                value: json[0].valor,
-                                                strokeWidth: 5,
-                                                strokeHeight: 20,
-                                                strokeColor: '#775DD0'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        xaxis: {
-                            max: json[0].valor,
-                            axisBorder: {
-                                show: false
-                            },
-                            axisTicks: {
-                                show: false,
-                            },
-                            labels: {
-                                show: false,
-                                formatter: function (val) {
-                                    return val + "%";
-                                }
-                            }
-                        },
-                        chart: {
-                            height: 110,
-                            type: 'bar',
-                            toolbar: {
-                                show: false
-                            }
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: true
-                            }
-                        },
-                        colors: ['#00E396'],
-                        dataLabels: {
-                            formatter: function (val, opt) {
-                                const goals =
-                                    opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
-                                        .goals
-                                if (goals && goals.length) {
-                                    return `${val} / ${goals[0].value}`
-                                }
-                                return val
-                            }
-                        },
-                        title: {
-                            text: 'Disco',
-                            floating: true,
-                            offsetY: 10,
-                            align: 'center',
-                            style: {
-                                color: '#444'
-                            }
-                        },
-                        grid: {
-                            show: false
-                        }
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#grafico-disco"), options);
-                    chart.render();
+                    graficoDisco(json);
                 });
             } else {
                 resposta.text().then(texto => {
@@ -487,4 +392,89 @@ function valorDisco(idTotem) {
             console.log(erro);
         });
     return false;
+}
+
+function graficoDisco(json) {
+    document.getElementById("grafico-disco").innerHTML = "";
+    var valorAtual = Math.round((((json[0].porcent) * (json[0].valor)) / 100), 1);
+    var options = {
+        series: [
+            {
+                name: 'GB Usado',
+                data: [
+                    {
+                        x: '',
+                        y: valorAtual,
+                        goals: [
+                            {
+                                name: 'GB Total',
+                                value: json[0].valor,
+                                strokeWidth: 5,
+                                strokeHeight: 20,
+                                strokeColor: '#775DD0'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        xaxis: {
+            max: json[0].valor,
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false,
+            },
+            labels: {
+                show: false,
+                formatter: function (val) {
+                    return val + "%";
+                }
+            }
+        },
+        chart: {
+            height: 110,
+            type: 'bar',
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true
+            }
+        },
+        colors: ['#00E396'],
+        dataLabels: {
+            formatter: function (val, opt) {
+                const goals =
+                    opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+                        .goals
+                if (goals && goals.length) {
+                    return `${val} / ${goals[0].value}`
+                }
+                return val
+            }
+        },
+        title: {
+            text: 'Disco',
+            floating: true,
+            offsetY: 10,
+            align: 'center',
+            style: {
+                color: '#444'
+            }
+        },
+        grid: {
+            show: false
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#grafico-disco"), options);
+    chart.render();
+}
+
+function graficoBarra() {
+    
 }
