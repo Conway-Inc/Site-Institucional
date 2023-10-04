@@ -172,13 +172,15 @@ SELECT * FROM Aeroporto;
 
 DROP VIEW IF EXISTS vw_RegistroEstruturado;
 CREATE OR REPLACE VIEW vw_RegistroEstruturado AS 
-SELECT Registro.fkTotem as "ID", Totem.nome as "Nome", Registro.dataHora as "Data",
-MAX( CASE WHEN Registro.fkComponente = 1 THEN Registro.valor END ) "CPU" ,
-MAX( CASE WHEN Registro.fkComponente = 2 THEN Registro.valor END ) "Memória" ,
-MAX( CASE WHEN Registro.fkComponente = 3 THEN Registro.valor END ) "Disco"
-FROM Registro JOIN Totem ON fkTotem = idTotem
-GROUP BY Registro.fkTotem, Registro.dataHora
-ORDER BY Registro.fkTotem, Registro.dataHora ASC;
+SELECT r.fkTotem as "id", t.nome as "nome", r.dataHora as "data",
+MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
+MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
+MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
+a.nome as nomeAero, a.municipio, a.estado
+FROM Registro as r JOIN Totem as t ON r.fkTotem = t.idTotem
+JOIN Aeroporto as a ON t.fkAeroporto = a.idAeroporto
+GROUP BY r.fkTotem, r.dataHora
+ORDER BY r.fkTotem, r.dataHora ASC;
 
 CREATE VIEW vw_totem_estado AS
 SELECT idTotem, t.nome as nomeTotem, fkEmpresa, idAeroporto, a.nome as nomeAeroporto, estado, municipio

@@ -27,4 +27,8 @@ router.get("/valorDisco/:idTotem", function (req, res) {
     graficoBrunoController.valorDisco(req, res);
 });
 
+router.get("/metricasGerais/:tipo", function (req, res) {
+    graficoBrunoController.metricasGerais(req, res);
+});
+
 module.exports = router;
