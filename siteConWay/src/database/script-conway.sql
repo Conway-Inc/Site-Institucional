@@ -155,7 +155,7 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
                                    
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (15.5, '2023-09-30 12:00:00', 1, 1),
 																	 (27.8, '2023-09-30 12:00:00', 2, 1),
-                                                                     (63.0, '2023-09-30 12:00:00', 3, 1),
+                                                                     (63.0, '2023-09-29 12:00:00', 3, 1),
                                                                      (48.0, '2023-09-30 12:00:00', 3, 2),
                                                                      (16.0, '2023-09-30 12:00:00', 3, 3);
 
@@ -183,6 +183,13 @@ ORDER BY Registro.fkTotem, Registro.dataHora ASC;
 CREATE VIEW vw_totem_estado AS
 SELECT idTotem, t.nome as nomeTotem, fkEmpresa, idAeroporto, a.nome as nomeAeroporto, estado, municipio
 		FROM Totem as t JOIN Aeroporto as a ON fkAeroporto = idAeroporto;
+        
+-- View para coletar os ultimos dados do disco de todas as máquinas, para filtrar por idTotem na rota do webdataviz
+CREATE VIEW vw_disco_atual AS
+SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.valor, c.unidadeMedida as medida, r.valor as porcent, r.dataHora
+		FROM Totem as t JOIN TotemComponente as tc ON fkTotem = idTotem 
+			JOIN Componente as c ON fkComponente = idComponente
+				JOIN Registro as r ON r.fkTotem = idTotem AND r.fkComponente = 3 ORDER BY dataHora DESC;
 
 
 
