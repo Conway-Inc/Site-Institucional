@@ -76,6 +76,7 @@ CREATE TABLE Registro (
 CREATE TABLE TotemComponente (
     fkComponente INT,
     fkTotem INT,
+    valor DOUBLE,
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente) ON DELETE CASCADE,
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem) ON DELETE CASCADE,
 	PRIMARY KEY (fkComponente, fkTotem)
@@ -134,7 +135,7 @@ INSERT INTO RamoEmpresa VALUES (2,2);
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memória', '%'), ('Disco', '%');
+('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 
 INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
 VALUES (2, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', 1, 2);
@@ -148,6 +149,10 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
                                                         ('TLT-3', 1, 2);
 
+INSERT INTO TotemComponente VALUES (4,1,256.4),
+								   (4,2,528.6),
+                                   (4,3,128.8);
+                                   
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (15.5, '2023-09-30 12:00:00', 1, 1),
 																	 (27.8, '2023-09-30 12:00:00', 2, 1),
                                                                      (63.0, '2023-09-30 12:00:00', 3, 1);
