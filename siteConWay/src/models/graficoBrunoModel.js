@@ -1,5 +1,16 @@
 var database = require("../database/config");
 
+function exibirTotensTodos(estado) {
+  console.log(
+    "Acessei o grafiBrunoModel e executei a função exibirTotensTodos(): "
+  );
+  var instrucao = `
+    SELECT * FROM vw_totem_estado;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function exibirTotensEstado(estado) {
   console.log(
     "Acessei o grafiBrunoModel e executei a função exibirTotensEstado(): ",
@@ -73,7 +84,7 @@ function metricasGerais(tipo) {
     "ACESSEI O graficoBrunoModel \n function metricasGerais(): ",tipo
   );
   var instrucao = `
-    SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as max, min(cpu) as min FROM vw_RegistroEstruturado group by ${tipo};
+    SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as maxCpu, min(cpu) as minCpu, max(memoria) as maxMem, min(memoria) as minMen FROM vw_RegistroEstruturado group by ${tipo};
 
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -81,6 +92,7 @@ function metricasGerais(tipo) {
 }
 
 module.exports = {
+  exibirTotensTodos,
   exibirTotensEstado,
   exibirTotensMunicipio,
   exibirEstadosComTotens,

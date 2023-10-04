@@ -1,18 +1,28 @@
-const { join } = require("path");
 
-// EXIBIR GRAFICOS GERAIS
-function exibirOpcoesEstados(tipo) {
-    exibirMunicipiosComTotens()
-    pegarMetricasGerais(tipo)
-}
-
-// GRAFICO ESTADO
+// GRAFICO GERAL
 function pegarMetricasGerais(tipo) {
     if (tipo == 1) {
         tipo = 'estado';
+        document.getElementById("info-aeroporto-nome").innerHTML = "todos os estados do Brasil";
     } else if (tipo == 2) {
         tipo = 'municipio';
+        document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
+        // Se o usuario selecionar 0 (todos), ele exibe os estados
+        if (document.getElementById("select-estado").value == "0") {
+            tipo = 'estado';
+            document.getElementById("info-aeroporto-nome").innerHTML = `todos os estados do Brasil`;
+        }
+    } else if (tipo == 3) {
+        tipo = 'nomeAero';
+        document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
+        // Se o usuario selecionar 0 (todos), ele exibe os municipios
+        if (document.getElementById("select-municipio").value == "0") {
+            tipo = 'municipio';
+            document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
+        }
     }
+    let texto = "";
+    
     fetch(`/graficoBruno/metricasGerais/${tipo}`)
         .then(function (resposta) {
             if (resposta.ok) {
@@ -42,6 +52,7 @@ function graficoEstados(json) {
         dataMemoria.push(Math.round((json[i].mediaMem) * 100) / 100)
         labels.push(json[i].tipo)
     }
+
     var options = {
         series: [{
             name: 'CPU',
@@ -101,6 +112,7 @@ function graficoEstados(json) {
             }
         },
         yaxis: {
+            max: 100,
             axisBorder: {
                 show: false
             },
@@ -243,17 +255,19 @@ function exibirEstadosComTotens() {
                 resposta.json().then(json => {
 
                     estado.innerHTML = "";
+
                     let option1 = document.createElement("option");
-                    option1.innerHTML = "Selecione um estado...";
+                    option1.innerHTML = "Todos os estados";
                     option1.setAttribute("data-default", "");
-                    option1.setAttribute("disabled", "");
+                    option1.setAttribute("value", "0");
                     option1.setAttribute("selected", "");
                     estado.appendChild(option1);
 
                     var municipio = document.getElementById("select-municipio");
+
                     municipio.innerHTML = "";
                     let option2 = document.createElement("option");
-                    option2.innerHTML = "Selecione um município...";
+                    option2.innerHTML = "Selecione um estado...";
                     option2.setAttribute("data-default", "");
                     option2.setAttribute("disabled", "");
                     option2.setAttribute("selected", "");
@@ -263,7 +277,7 @@ function exibirEstadosComTotens() {
                     aeroporto.removeAttribute("disabled");
                     aeroporto.innerHTML = "";
                     let option3 = document.createElement("option");
-                    option3.innerHTML = "Selecione um aeroporto...";
+                    option3.innerHTML = "Selecione um municipio...";
                     option3.setAttribute("data-default", "");
                     option3.setAttribute("disabled", "");
                     option3.setAttribute("selected", "");
@@ -291,79 +305,174 @@ function exibirEstadosComTotens() {
 
 function exibirMunicipiosComTotens() {
     var estado = document.getElementById("select-estado");
-    fetch(`/graficoBruno/exibirMunicipiosComTotens/${estado.value}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                exibirTotensEstado(estado.value);
+    if (estado.value == 0) {
+        exibirTotensTodos();
+        var municipio = document.getElementById("select-municipio");
+        municipio.setAttribute("disabled", "");
 
-                resposta.json().then(json => {
+    } else {
+        fetch(`/graficoBruno/exibirMunicipiosComTotens/${estado.value}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    exibirTotensEstado(estado.value);
 
-                    var municipio = document.getElementById("select-municipio");
-                    municipio.removeAttribute("disabled");
-                    municipio.innerHTML = "";
-                    let option1 = document.createElement("option");
-                    option1.innerHTML = "Selecione um município...";
-                    option1.setAttribute("data-default", "");
-                    option1.setAttribute("disabled", "");
-                    option1.setAttribute("selected", "");
-                    municipio.appendChild(option1);
+                    resposta.json().then(json => {
 
-                    var aeroporto = document.getElementById("select-aeroporto");
-                    aeroporto.removeAttribute("disabled");
-                    aeroporto.innerHTML = "";
-                    let option2 = document.createElement("option");
-                    option2.innerHTML = "Selecione um aeroporto...";
-                    option2.setAttribute("data-default", "");
-                    option2.setAttribute("disabled", "");
-                    option2.setAttribute("selected", "");
-                    aeroporto.appendChild(option2);
-                    aeroporto.setAttribute("disabled", '')
+                        var municipio = document.getElementById("select-municipio");
+                        municipio.removeAttribute("disabled");
+                        municipio.innerHTML = "";
+                        let option1 = document.createElement("option");
+                        option1.innerHTML = "Todos os municípios";
+                        option1.setAttribute("data-default", "");
+                        option1.setAttribute("value", "0");
+                        option1.setAttribute("selected", "");
+                        municipio.appendChild(option1);
 
-                    for (let i = 0; i < json.length; i++) {
-                        let publicacao = json[i];
-                        let option = document.createElement("option");
-                        option.innerHTML = publicacao.municipio;
-                        option.setAttribute("value", publicacao.municipio);
-                        municipio.appendChild(option);
-                    }
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
+                        var aeroporto = document.getElementById("select-aeroporto");
+                        aeroporto.setAttribute("disabled", '')
+                        aeroporto.innerHTML = "";
+                        let option2 = document.createElement("option");
+                        option2.innerHTML = "Selecione um município...";
+                        option2.setAttribute("data-default", "");
+                        option2.setAttribute("disabled", "");
+                        option2.setAttribute("selected", "");
+                        aeroporto.appendChild(option2);
+
+                        for (let i = 0; i < json.length; i++) {
+                            let publicacao = json[i];
+                            let option = document.createElement("option");
+                            option.innerHTML = publicacao.municipio;
+                            option.setAttribute("value", publicacao.municipio);
+                            municipio.appendChild(option);
+                        }
+                    });
+                } else {
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+        return false;
+    }
 }
 
 function exibirAeroportosComTotens(municipio) {
+    var estado = document.getElementById("select-estado");
     var municipio = document.getElementById("select-municipio");
-    fetch(`/graficoBruno/exibirAeroportosComTotens/${municipio.value}`)
+    if (municipio.value == 0) {
+        exibirTotensEstado(estado.value);
+        var aeroporto = document.getElementById("select-aeroporto");
+        aeroporto.removeAttribute("disabled");
+        aeroporto.innerHTML = "";
+        let option3 = document.createElement("option");
+        option3.innerHTML = "Selecione um municipio...";
+        option3.setAttribute("data-default", "");
+        option3.setAttribute("disabled", "");
+        option3.setAttribute("selected", "");
+        aeroporto.appendChild(option3);
+        aeroporto.setAttribute("disabled", '')
+    } else {
+        fetch(`/graficoBruno/exibirAeroportosComTotens/${municipio.value}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    exibirTotensMunicipio(municipio.value);
+                    resposta.json().then(json => {
+
+                        var aeroporto = document.getElementById("select-aeroporto");
+                        aeroporto.removeAttribute("disabled");
+                        aeroporto.innerHTML = "";
+                        let option = document.createElement("option");
+                        option.innerHTML = "Todos os aeroportos";
+                        option.setAttribute("data-default", "");
+                        option.setAttribute("value", "0");
+                        option.setAttribute("selected", "");
+                        aeroporto.appendChild(option);
+
+                        for (let i = 0; i < json.length; i++) {
+                            let publicacao = json[i];
+                            let option = document.createElement("option");
+                            option.innerHTML = publicacao.nomeAeroporto;
+                            option.setAttribute("value", publicacao.idAeroporto);
+                            aeroporto.appendChild(option);
+                        }
+
+                    });
+                } else {
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+            });
+        return false;
+
+    }
+}
+
+//  EXIBIR TOTENS DE ACORDO COM O TODOS, ESTADO E MUNICIPIO
+
+function exibirTotensTodos() {
+    exibirEstadosComTotens()
+    fetch(`/graficoBruno/exibirTotensTodos`)
         .then(function (resposta) {
             if (resposta.ok) {
-                // exibirTotensAeroporto(municipio.value);
                 resposta.json().then(json => {
 
-                    var aeroporto = document.getElementById("select-aeroporto");
-                    aeroporto.removeAttribute("disabled");
-                    aeroporto.innerHTML = "";
-                    let option = document.createElement("option");
-                    option.innerHTML = "Selecione um aeroporto...";
-                    option.setAttribute("data-default", "");
-                    option.setAttribute("disabled", "");
-                    option.setAttribute("selected", "");;
-                    aeroporto.appendChild(option);
-
-                    for (let i = 0; i < json.length; i++) {
-                        let publicacao = json[i];
-                        let option = document.createElement("option");
-                        option.innerHTML = publicacao.nomeAeroporto;
-                        option.setAttribute("value", publicacao.idAeroporto);
-                        aeroporto.appendChild(option);
+                    if (json.length == 1) {
+                        document.getElementById("qtd-totens").innerHTML = `Geral - ${json.length} Totem`
+                    } else {
+                        document.getElementById("qtd-totens").innerHTML = `Geral - ${json.length} Totens`
                     }
+                    var divTotens = document.getElementById("div-totens");
+                    divTotens.innerHTML = "";
+                    for (let i = 0; i < json.length; i++) {
+                        var publi = json[i];
+                        var divCamporTotem = document.createElement("div");
+                        divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
+                        var divInfos = document.createElement("div");
+                        divInfos.setAttribute("class", "column mb-3");
+                        var imgTotem = document.createElement("img");
+                        imgTotem.setAttribute("class", "img-totem");
+                        imgTotem.setAttribute("src", "../img/totem.png");
+                        imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem})`);
+                        var aImg = document.createElement("a");
+                        aImg.setAttribute("href", "#grafico-totem");
 
+
+                        var pNome = document.createElement("p");
+                        pNome.setAttribute("id", `nome-maquina-${i + 1}`);
+                        pNome.innerHTML = publi.nomeTotem
+                        var pCpu = document.createElement("p");
+                        pCpu.innerHTML = "CPU:"
+                        var spanCpu = document.createElement("span");
+                        spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
+                        var pMemoria = document.createElement("p");
+                        pMemoria.innerHTML = "Memória:"
+                        var spanMemoria = document.createElement("span");
+                        spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
+                        var pDisco = document.createElement("p");
+                        pDisco.innerHTML = "Disco:"
+                        var spanDisco = document.createElement("span");
+                        spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
+
+                        pCpu.appendChild(spanCpu);
+                        pMemoria.appendChild(spanMemoria);
+                        pDisco.appendChild(spanDisco);
+
+                        divInfos.appendChild(pNome)
+                        divInfos.appendChild(pCpu)
+                        divInfos.appendChild(pMemoria)
+                        divInfos.appendChild(pDisco)
+
+                        aImg.appendChild(imgTotem)
+                        divCamporTotem.appendChild(aImg)
+                        divCamporTotem.appendChild(divInfos)
+
+                        divTotens.append(divCamporTotem);
+                    }
                 });
             } else {
                 resposta.text().then(texto => {
@@ -375,9 +484,6 @@ function exibirAeroportosComTotens(municipio) {
         });
     return false;
 }
-
-//  EXIBIR TOTENS DE ACORDO COM O ESTADO E MUNICIPIO
-
 
 function exibirTotensEstado(estado) {
     fetch(`/graficoBruno/exibirTotensEstado/${estado}`)
@@ -385,7 +491,6 @@ function exibirTotensEstado(estado) {
             if (resposta.ok) {
                 resposta.json().then(json => {
 
-                    document.getElementById("info-aeroporto-nome").innerHTML = document.getElementById("select-estado").value;
                     if (json.length == 1) {
                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
                     } else {
@@ -457,9 +562,9 @@ function exibirTotensMunicipio(municipio) {
                 resposta.json().then(json => {
 
                     if (json.length == 1) {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
+                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-municipio").value} - ${json.length} Totem`
                     } else {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totens`
+                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-municipio").value} - ${json.length} Totens`
                     }
 
                     var divTotens = document.getElementById("div-totens");

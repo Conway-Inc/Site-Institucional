@@ -237,11 +237,11 @@
                                     <div class="container-fluid select-airport">
                                         <label >Informe os
                                             dados do aeroporto que deseja monitorar: </label>
-                                        <select id="select-estado" class="form-control" onchange="exibirOpcoesEstados(2)">
+                                        <select id="select-estado" class="form-control" onchange="exibirMunicipiosComTotens(), pegarMetricasGerais(2)">
                                             <option>Selecione um estado...</option>
                                         </select>
             
-                                        <select id="select-municipio" class="form-control" onchange="exibirAeroportosComTotens()" disabled>
+                                        <select id="select-municipio" class="form-control" onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3)" disabled>
                                             <option>Selecione um município...</option>
                                         </select>
             
@@ -348,6 +348,9 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="js/graficoBruno.js"></script>
 <script>
-    exibirEstadosComTotens()
+    // Exibindo informações dos estados
+    exibirEstadosComTotens();
+    exibirTotensTodos();
+    pegarMetricasGerais(1);
     
 </script>
