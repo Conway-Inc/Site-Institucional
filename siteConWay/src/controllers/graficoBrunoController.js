@@ -110,9 +110,10 @@ function valorDisco(req, res) {
 }
 
 function metricasGerais(req, res) {
-  var tipo = req.params.tipo;
+  var tipo = req.body.tipoServer;
+  var texto = req.body.textoServer;
 
-  graficoBrunoModel.metricasGerais(tipo).then(function (resultado) {
+  graficoBrunoModel.metricasGerais(tipo,texto).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

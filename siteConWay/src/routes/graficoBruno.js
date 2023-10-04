@@ -31,8 +31,9 @@ router.get("/valorDisco/:idTotem", function (req, res) {
     graficoBrunoController.valorDisco(req, res);
 });
 
-router.get("/metricasGerais/:tipotexto", function (req, res) {
+router.post("/metricasGerais", function (req, res) {
     graficoBrunoController.metricasGerais(req, res);
 });
+
 
 module.exports = router;

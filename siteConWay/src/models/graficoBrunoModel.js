@@ -79,12 +79,12 @@ function valorDisco(idTotem) {
   return database.executar(instrucao);
 }
 
-function metricasGerais(tipo) {
+function metricasGerais(tipo,texto) {
   console.log(
-    "ACESSEI O graficoBrunoModel \n function metricasGerais(): ",tipo
+    "ACESSEI O graficoBrunoModel \n function metricasGerais(): ",tipo,texto
   );
   var instrucao = `
-    SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as maxCpu, min(cpu) as minCpu, max(memoria) as maxMem, min(memoria) as minMen FROM vw_RegistroEstruturado group by ${tipo};
+    SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as maxCpu, min(cpu) as minCpu, max(memoria) as maxMem, min(memoria) as minMen FROM vw_RegistroEstruturado ${texto} group by ${tipo};
 
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);

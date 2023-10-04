@@ -1,42 +1,68 @@
 
 // GRAFICO GERAL
 function pegarMetricasGerais(tipo) {
+    let texto;
+    let estado = document.getElementById("select-estado").value;
+    let municipio = document.getElementById("select-municipio").value;
+    let aeroporto = document.getElementById("select-aeroporto").value;
     if (tipo == 1) {
         tipo = 'estado';
         document.getElementById("info-aeroporto-nome").innerHTML = "todos os estados do Brasil";
+        texto = "";
     } else if (tipo == 2) {
         tipo = 'municipio';
+        texto = `WHERE estado = '${estado}'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os estados
-        if (document.getElementById("select-estado").value == "0") {
+        if (estado == "0") {
             tipo = 'estado';
+            texto = "";
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os estados do Brasil`;
         }
     } else if (tipo == 3) {
         tipo = 'nomeAero';
+        texto = `WHERE municipio = '${municipio}'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
-        if (document.getElementById("select-municipio").value == "0") {
+        if (municipio == "0") {
             tipo = 'municipio';
+            texto = `WHERE estado = '${estado}'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         }
+    } else if (tipo == 4) {
+        tipo = 'nome';
+        texto = `WHERE nomeAero = '${aeroporto}'`;
+        document.getElementById("info-aeroporto-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
+        // Se o usuario selecionar 0 (todos), ele exibe os municipios
+        if (aeroporto == "0") {
+            tipo = 'nomeAero';
+            texto = `WHERE municipio = '${municipio}'`;
+            document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
+        }
     }
-    let texto = "";
     
-    fetch(`/graficoBruno/metricasGerais/${tipo}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    graficoEstados(json);
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
+    fetch("/graficoBruno/metricasGerais", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            tipoServer: tipo,
+            textoServer: texto
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                graficoEstados(json);
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
     return false;
 }
 
@@ -394,7 +420,7 @@ function exibirAeroportosComTotens(municipio) {
                             let publicacao = json[i];
                             let option = document.createElement("option");
                             option.innerHTML = publicacao.nomeAeroporto;
-                            option.setAttribute("value", publicacao.idAeroporto);
+                            option.setAttribute("value", publicacao.nomeAeroporto);
                             aeroporto.appendChild(option);
                         }
 
