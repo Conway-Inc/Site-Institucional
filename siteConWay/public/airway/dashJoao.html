@@ -328,7 +328,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Aeroportos</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -351,7 +351,7 @@
                                             <!-- Aqui ficará os funcionários e suas informações -->
                                             <thead>
                                                 <tr>
-                                                    <th>Aeroporto</th>
+                                                    <th>Nome</th>
                                                     <th>Total de alertas</th>
                                                     <th>Ultimo alerta</th>
                                                     <th>Estado atual</th>
@@ -386,7 +386,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Estado Aeroportos</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -409,13 +409,13 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fas fa-circle text-success"></i> Estável
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
+                                            <i class="fas fa-circle text-warning"></i> Alerta
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
+                                            <i class="fas fa-circle text-danger"></i> Crítico
                                         </span>
                                     </div>
                                 </div>
@@ -616,7 +616,33 @@
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script>
+    // Chamar o plugin JQuery do dataTables 
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+    });
+
+    var options = {
+  chart: {
+    type: 'line'
+  },
+  series: [{
+    name: 'sales',
+    data: [30,40,35,50,49,60,70,91,125]
+  }],
+  xaxis: {
+    categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+  }
+}
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+chart.render();
+</script>
