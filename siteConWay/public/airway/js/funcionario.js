@@ -19,7 +19,7 @@ function cadastrarFuncionario() {
         alert("O telefone está undefined")
     } else if (dataFuncVar == undefined) {
         alert("A data está undefined")
-    } else if (fkEmpresaVar == undefined){
+    } else if (fkEmpresaVar == undefined) {
         alert("A FkEmpresa está undefined")
     }
 
@@ -62,66 +62,74 @@ function cadastrarFuncionario() {
     });
     return false
 }
-function exibirInfosFunc(){
+function exibirInfosFunc() {
     var tituloNome = document.getElementById("tituloNomeFunc");
-        tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
+    tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
     var infosNome = document.getElementById("ipt_nomeFunc")
-        infosNome.value = sessionStorage.NOME_FUNCIONARIO
+    infosNome.value = sessionStorage.NOME_FUNCIONARIO
     var infosEmail = document.getElementById("ipt_emailFunc")
-        infosEmail.value = sessionStorage.EMAIL_FUNCIONARIO
+    infosEmail.value = sessionStorage.EMAIL_FUNCIONARIO
     var infosCpf = document.getElementById("ipt_cpfFunc")
-        infosCpf.value = sessionStorage.CPF
+    infosCpf.value = sessionStorage.CPF
     var infosTelefone = document.getElementById("ipt_telefoneFunc")
-        infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO
-    
+    infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO
+
     var infosCargo = document.getElementById("ipt_cargoFunc")
     if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
-            infosCargo.value = "ADMIN"
-        } else if (sessionStorage.GERENTE_FUNCIONARIO == sessionStorage.ID_FUNCIONARIO) {
-            infosCargo.value = "Gerente"
-        } else{
-            infosCargo.value = "Mão de obra"
-        }
+        infosCargo.value = "ADMIN"
+    } else if (sessionStorage.GERENTE_FUNCIONARIO == sessionStorage.ID_FUNCIONARIO) {
+        infosCargo.value = "Gerente"
+    } else {
+        infosCargo.value = "Mão de obra"
+    }
 
 
     var acessoEmail = document.getElementById("ipt_loginFunc")
-        acessoEmail.value = sessionStorage.EMAIL_FUNCIONARIO
+    acessoEmail.value = sessionStorage.EMAIL_FUNCIONARIO
     var acessoSenha = document.getElementById("ipt_senhaFunc")
-        acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
-    }
+    acessoSenha.value = sessionStorage.SENHA_FUNCIONARIO
+}
 
-    function exibirInfosEmpresa(fkEmpresaVar){
-        var fkEmpresaVar = sessionStorage.FK_EMPRESA
-        ipt_telefoneEmpresa.value = sessionStorage.TELEFONE_EMPRESA;
-    
-        fetch(`/empresa/exibirInfosEmpresa/${fkEmpresaVar}`)
-            .then(function (resposta) {
-                console.log("ESTOU NO THEN DO exibirInfosEmpresa()!");
-                if (resposta.ok) {
-                    console.log(resposta);
-                    resposta.json().then(json => {
-                        console.log(json);
-                        var infosCnpjEmpresa = document.getElementById("ipt_cnpjEmpresa")
-                        infosCnpjEmpresa.value = json[0].cnpj
+var cnpjEmpresa;
 
-                        var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
-                        infosTelefoneEmpresa.value = json[0].telefone
-                        obterInfosEmpresa()
-                    });
-                } else {
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                    });
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-            });
-        return false;
-        
+function exibirInfosEmpresa(fkEmpresaVar) {
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA
+    ipt_telefoneEmpresa.value = sessionStorage.TELEFONE_EMPRESA;
+
+    fetch(`/empresa/exibirInfosEmpresa/${fkEmpresaVar}`)
+        .then(function (resposta) {
+            // console.log("ESTOU NO THEN DO exibirInfosEmpresa()!");
+            if (resposta.ok) {
+                // console.log(resposta);
+                resposta.json().then(json => {
+                    // console.log(json);
+                    cnpjEmpresa = json[0].cnpj
+                    var infosCnpjEmpresa = document.getElementById("ipt_cnpjEmpresa")
+                    infosCnpjEmpresa.value = json[0].cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+
+                    var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
+                    infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g,"($1) $2");
+                    infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/,"$1-$2");
+                    
+
+                    obterInfosEmpresa()
+
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    return false;
+
 }
 
 function obterInfosEmpresa() {
-    fetch(`https://publica.cnpj.ws/cnpj/${ipt_cnpjEmpresa.value}`)
+    
+    fetch(`https://publica.cnpj.ws/cnpj/${cnpjEmpresa}`)
         .then(data => {
             return data.json();
         })
@@ -146,7 +154,7 @@ function obterInfosEmpresa() {
 
 }
 
-function desativarInputsEmpresa (){
+function desativarInputsEmpresa() {
     ipt_cnpjEmpresa.value = sessionStorage.CNPJ_EMPRESA;
     ipt_cnpjEmpresa.setAttribute('disabled', '');
     ipt_razaoSocialEmpresa.setAttribute('disabled', '');
@@ -156,7 +164,7 @@ function desativarInputsEmpresa (){
     ipt_telefoneEmpresa.setAttribute('disabled', '');
 }
 
-function disableInputs(){
+function disableInputs() {
     ipt_cnpjEmpresa.value = sessionStorage.CNPJ_EMPRESA;
     ipt_cnpjEmpresa.setAttribute('disabled', '');
     ipt_razaoSocialEmpresa.setAttribute('disabled', '');
@@ -172,4 +180,8 @@ function disableInputs(){
     ipt_cargoFunc.setAttribute('disabled', '');
     ipt_loginFunc.setAttribute('disabled', '');
     ipt_senhaFunc.setAttribute('disabled', '');
+}
+
+function obterLogin() {
+    ipt_loginFunc.value = ipt_emailFunc.value
 }
