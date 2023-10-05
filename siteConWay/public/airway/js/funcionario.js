@@ -181,7 +181,110 @@ function disableInputs() {
     ipt_loginFunc.setAttribute('disabled', '');
     ipt_senhaFunc.setAttribute('disabled', '');
 }
+function enableInputs(){
+    ipt_nomeFunc.removeAttribute('disabled');
+    ipt_cpfFunc.removeAttribute('disabled');
+    ipt_telefoneFunc.removeAttribute('disabled');
+    ipt_dataFunc.removeAttribute('disabled');
+    ipt_loginFunc.removeAttribute('disabled');
+    ipt_senhaFunc.removeAttribute('disabled');
+    
+}
 
 function obterLogin() {
     ipt_loginFunc.value = ipt_emailFunc.value
+}
+function trocarBotaoPerfil(){
+    enableInputs()
+    var btn = document.getElementById("botao-cadastrar")
+
+    btn.addEventListener('click', function mudarParaSalvarInfos(){
+        const initialText = "Alterar Informações de entrada"
+        if (btn.textContent == initialText) {
+            btn.innerHTML = "Salvar informações"
+        }else{
+            btn.innerHTML = initialText
+            btn.onclick = atualizarInformacoes()
+        }
+        
+    })
+}
+
+function atualizarInformacoes(){
+        var nomeFuncVar = ipt_nomeFunc.value;
+        var emailFuncVar = ipt_loginFunc.value;
+        var senhaFuncVar = ipt_senhaFunc.value;
+        var cpfFuncVar = ipt_cpfFunc.value;
+        var telFuncVar = ipt_telefoneFunc.value;
+        var dataFuncVar = ipt_dataFunc.value
+        var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
+
+        if (dataFuncVar == '') {
+            dataFuncVar = 'NULL'
+        }
+        
+        if (nomeFuncVar == undefined) {
+            alert("O nome está undefined")
+        } else if (emailFuncVar == undefined) {
+            alert("O e-mail está undefined")
+        } else if (senhaFuncVar == undefined) {
+            alert("A senha está undefined")
+        } else if (cpfFuncVar == undefined) {
+            alert("O CPF está undefined")
+        } else if (telFuncVar == undefined) {
+            alert("O telefone está undefined")
+        } else if (dataFuncVar == undefined) {
+            alert("A data está undefined")
+        }else if (idFuncionarioVar == undefined) {
+            alert("O id do funcionário está undefined")
+        }else {
+            fetch(`/funcionario/atualizarFuncionario`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeFuncVarServer: nomeFuncVar,
+                    emailFuncVarServer: emailFuncVar,
+                    senhaFuncVarServer: senhaFuncVar,
+                    cpfFuncVarServer: cpfFuncVar,
+                    telFuncVarServer: telFuncVar,
+                    dataFuncVarServer: dataFuncVar,
+                    idFuncionarioServer: idFuncionarioVar
+                })
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    cardMsg.style.display = "block"
+                    cardMsg.style.border = "2px solid greenyellow"
+                    cardMsg.style.boxShadow = "0px 0px 12px black"
+                    cardMsg.style.color = "greenyellow"
+                    cardMsg.innerHTML = "✅Cadastro atualizado com sucesso!✅";
+                    setTimeout(function () {
+                        cardMsg.style.display = "none";
+
+                        sessionStorage.NOME_FUNCIONARIO = nomeFuncVar
+                        sessionStorage.EMAIL_FUNCIONARIO = emailFuncVar
+                        sessionStorage.SENHA_FUNCIONARIO = senhaFuncVar
+                        sessionStorage.CPF = cpfFuncVar
+                        sessionStorage.TELEFONE_FUNCIONARIO = telFuncVarFuncVar
+                        location.reload();
+                    }, 3000);
+                } else {
+                    cardMsg.style.display = "block"
+                    cardMsg.style.border = "2px solid red"
+                    cardMsg.style.color = "red"
+                    cardMsg.innerHTML = "❌Erro ao atualizar o cadastro! Tente novamente...❌";
+                    setTimeout(function () {
+                        cardMsg.style.display = "none";
+                    }, 3000);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`)
+            });
+
+        }
+    
+        return false
+    
 }

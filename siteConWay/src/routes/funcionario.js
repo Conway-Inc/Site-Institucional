@@ -7,6 +7,8 @@ var funcionarioController = require("../controllers/funcionarioController");
 router.post("/cadastrarFuncionario", function(req,res){
     funcionarioController.cadastrarFuncionario(req,res)
 });
-
+router.post("/atualizarFuncionario", function(req,res){
+    funcionarioController.atualizarFuncionario(req,res)
+});
 
 module.exports = router;
