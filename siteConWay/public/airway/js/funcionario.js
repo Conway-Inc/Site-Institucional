@@ -198,7 +198,6 @@ function trocarBotaoPerfil(){
     var btn = document.getElementById("botao-cadastrar")
     const initialText = "Alterar Informações de entrada"
     
-    btn.addEventListener('click', function mudarParaSalvarInfos(){
         if (btn.textContent == initialText) {
             btn.innerHTML = "Salvar informações"
             enableInputs()
@@ -206,8 +205,6 @@ function trocarBotaoPerfil(){
             btn.innerHTML = initialText
             btn.onclick = atualizarInformacoes()
         }
-        
-    })
 }
 
 function atualizarInformacoes(){
