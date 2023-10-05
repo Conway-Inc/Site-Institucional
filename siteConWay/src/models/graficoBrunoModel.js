@@ -91,6 +91,17 @@ function valorDisco(idTotem) {
   return database.executar(instrucao);
 }
 
+function valorTotem(idTotem) {
+  console.log(
+    "Acessei o graficoBrunoModel e executei a função valorDisco(): ",idTotem
+  );
+  var instrucao = `
+    SELECT * FROM vw_RegistroEstruturado WHERE id = ${idTotem} ORDER BY data DESC;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function metricasGerais(tipo,texto) {
   console.log(
     "Acessei o graficoBrunoModel e executei a função metricasGerais(): ",tipo,texto
@@ -112,5 +123,6 @@ module.exports = {
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,
   valorDisco,
+  valorTotem,
   metricasGerais
 };

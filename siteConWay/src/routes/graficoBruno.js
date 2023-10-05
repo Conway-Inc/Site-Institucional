@@ -35,6 +35,10 @@ router.get("/valorDisco/:idTotem", function (req, res) {
     graficoBrunoController.valorDisco(req, res);
 });
 
+router.get("/valorTotem/:idTotem", function (req, res) {
+    graficoBrunoController.valorTotem(req, res);
+});
+
 router.post("/metricasGerais", function (req, res) {
     graficoBrunoController.metricasGerais(req, res);
 });

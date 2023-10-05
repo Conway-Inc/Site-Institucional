@@ -20,3 +20,7 @@ html {
     scale: calc(1.1);
     transition: .3s;
 }
+
+#toolbar {
+    display: none;
+}
