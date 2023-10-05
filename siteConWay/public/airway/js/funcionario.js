@@ -252,29 +252,12 @@ function atualizarInformacoes(){
             }).then(function (resposta) {
                 console.log("resposta: ", resposta);
                 if (resposta.ok) {
-                    cardMsg.style.display = "block"
-                    cardMsg.style.border = "2px solid greenyellow"
-                    cardMsg.style.boxShadow = "0px 0px 12px black"
-                    cardMsg.style.color = "greenyellow"
-                    cardMsg.innerHTML = "✅Cadastro atualizado com sucesso!✅";
-                    setTimeout(function () {
-                        cardMsg.style.display = "none";
-
-                        sessionStorage.NOME_FUNCIONARIO = nomeFuncVar
-                        sessionStorage.EMAIL_FUNCIONARIO = emailFuncVar
-                        sessionStorage.SENHA_FUNCIONARIO = senhaFuncVar
-                        sessionStorage.CPF = cpfFuncVar
-                        sessionStorage.TELEFONE_FUNCIONARIO = telFuncVarFuncVar
-                        location.reload();
-                    }, 3000);
-                } else {
-                    cardMsg.style.display = "block"
-                    cardMsg.style.border = "2px solid red"
-                    cardMsg.style.color = "red"
-                    cardMsg.innerHTML = "❌Erro ao atualizar o cadastro! Tente novamente...❌";
-                    setTimeout(function () {
-                        cardMsg.style.display = "none";
-                    }, 3000);
+                    sessionStorage.NOME_FUNCIONARIO = nomeFuncVar
+                    sessionStorage.EMAIL_FUNCIONARIO = emailFuncVar
+                    sessionStorage.SENHA_FUNCIONARIO = senhaFuncVar
+                    sessionStorage.CPF = cpfFuncVar
+                    sessionStorage.TELEFONE_FUNCIONARIO = telFuncVar
+                    location.reload();
                 }
             }).catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`)
