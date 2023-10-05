@@ -47,6 +47,22 @@ function exibirTotensMunicipio(req, res) {
   });
 }
 
+function exibirTotensAeroportos(req, res) {
+  var aeroporto = req.params.aeroporto;
+
+  graficoBrunoModel.exibirTotensAeroportos(aeroporto).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum municipio encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 function exibirEstadosComTotens(req, res) {
   graficoBrunoModel.exibirEstadosComTotens().then(function (resultado) {
     if (resultado.length > 0) {
@@ -130,6 +146,7 @@ module.exports = {
   exibirTotensTodos,
   exibirTotensEstado,
   exibirTotensMunicipio,
+  exibirTotensAeroportos,
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,

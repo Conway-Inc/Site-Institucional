@@ -1,8 +1,8 @@
 var database = require("../database/config");
 
-function exibirTotensTodos(estado) {
+function exibirTotensTodos() {
   console.log(
-    "Acessei o grafiBrunoModel e executei a função exibirTotensTodos(): "
+    "Acessei o graficoBrunoModel e executei a função exibirTotensTodos(): "
   );
   var instrucao = `
     SELECT * FROM vw_totem_estado;
@@ -13,7 +13,7 @@ function exibirTotensTodos(estado) {
 
 function exibirTotensEstado(estado) {
   console.log(
-    "Acessei o grafiBrunoModel e executei a função exibirTotensEstado(): ",
+    "Acessei o graficoBrunoModel e executei a função exibirTotensEstado(): ",
     estado
   );
   var instrucao = `
@@ -25,7 +25,7 @@ function exibirTotensEstado(estado) {
 
 function exibirTotensMunicipio(municipio) {
   console.log(
-    "Acessei o grafiBrunoModel e executei a função exibirTotensMunicipio(): ",
+    "Acessei o graficoBrunoModel e executei a função exibirTotensMunicipio(): ",
     municipio
   );
   var instrucao = `
@@ -35,9 +35,21 @@ function exibirTotensMunicipio(municipio) {
   return database.executar(instrucao);
 }
 
+function exibirTotensAeroportos(aeroporto) {
+  console.log(
+    "Acessei o graficoBrunoModel e executei a função exibirTotensAeroportos(): ",
+    aeroporto
+  );
+  var instrucao = `
+    SELECT * FROM vw_totem_estado WHERE nomeAeroporto = '${aeroporto}';
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function exibirEstadosComTotens() {
   console.log(
-    "ACESSEI O graficoBrunoModel \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirEstadosComTotens(): "
+    "Acessei o graficoBrunoModel e executei a função exibirEstadosComTotens(): ",
   );
   var instrucao = `
     SELECT estado FROM vw_totem_estado GROUP BY estado ORDER BY estado;
@@ -48,7 +60,7 @@ function exibirEstadosComTotens() {
 
 function exibirMunicipiosComTotens(estado) {
   console.log(
-    "ACESSEI O graficoBrunoModel \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirMunicipiosComTotens(): ",estado
+    "Acessei o graficoBrunoModel e executei a função exibirMunicipiosComTotens(): ",estado
   );
   var instrucao = `
     SELECT municipio FROM vw_totem_estado WHERE estado = '${estado}' GROUP BY municipio ORDER BY municipio;
@@ -59,7 +71,7 @@ function exibirMunicipiosComTotens(estado) {
 
 function exibirAeroportosComTotens(municipio) {
   console.log(
-    "ACESSEI O graficoBrunoModel \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirAeroportosComTotens(): ",municipio
+    "Acessei o graficoBrunoModel e executei a função exibirAeroportosComTotens(): ",municipio
   );
   var instrucao = `
     SELECT idAeroporto, nomeAeroporto FROM vw_totem_estado WHERE municipio = '${municipio}' GROUP BY idAeroporto ORDER BY nomeAeroporto;
@@ -70,7 +82,7 @@ function exibirAeroportosComTotens(municipio) {
 
 function valorDisco(idTotem) {
   console.log(
-    "ACESSEI O graficoBrunoModel \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function valorDisco(): ",idTotem
+    "Acessei o graficoBrunoModel e executei a função valorDisco(): ",idTotem
   );
   var instrucao = `
     SELECT * FROM vw_disco_atual WHERE idTotem = ${idTotem} LIMIT 1;
@@ -81,7 +93,7 @@ function valorDisco(idTotem) {
 
 function metricasGerais(tipo,texto) {
   console.log(
-    "ACESSEI O graficoBrunoModel \n function metricasGerais(): ",tipo,texto
+    "Acessei o graficoBrunoModel e executei a função metricasGerais(): ",tipo,texto
   );
   var instrucao = `
     SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as maxCpu, min(cpu) as minCpu, max(memoria) as maxMem, min(memoria) as minMen FROM vw_RegistroEstruturado ${texto} group by ${tipo};
@@ -95,6 +107,7 @@ module.exports = {
   exibirTotensTodos,
   exibirTotensEstado,
   exibirTotensMunicipio,
+  exibirTotensAeroportos,
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,

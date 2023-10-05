@@ -15,6 +15,10 @@ router.get("/exibirTotensMunicipio/:municipio", function (req, res) {
     graficoBrunoController.exibirTotensMunicipio(req, res);
 });
 
+router.get("/exibirTotensAeroportos/:aeroporto", function (req, res) {
+    graficoBrunoController.exibirTotensAeroportos(req, res);
+});
+
 router.get("/exibirEstadosComTotens", function (req, res) {
     graficoBrunoController.exibirEstadosComTotens(req, res);
 });
