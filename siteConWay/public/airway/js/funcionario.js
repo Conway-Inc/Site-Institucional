@@ -195,13 +195,13 @@ function obterLogin() {
     ipt_loginFunc.value = ipt_emailFunc.value
 }
 function trocarBotaoPerfil(){
-    enableInputs()
     var btn = document.getElementById("botao-cadastrar")
-
+    const initialText = "Alterar Informações de entrada"
+    
     btn.addEventListener('click', function mudarParaSalvarInfos(){
-        const initialText = "Alterar Informações de entrada"
         if (btn.textContent == initialText) {
             btn.innerHTML = "Salvar informações"
+            enableInputs()
         }else{
             btn.innerHTML = initialText
             btn.onclick = atualizarInformacoes()
