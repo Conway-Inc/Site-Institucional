@@ -1,13 +1,15 @@
 function cadastrarFuncionario() {
     var nomeFuncVar = ipt_nomeFunc.value;
-    var emailFuncVar = ipt_emailFunc.value;
-    var senhaFuncVar = ipt_senhaFunc.value;
     var cpfFuncVar = ipt_cpfFunc.value;
-    var telFuncVar = ipt_telFunc.value;
+    var telFuncVar = ipt_telefoneFunc.value;
     var dataFuncVar = ipt_dataFunc.value;
+    var emailFuncVar = ipt_emailFunc.value;
+    var cargoFuncVar = ipt_cargoFunc.value;
+    var senhaFuncVar = ipt_senhaFunc.value;
+    var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
-    if (nomeFuncVar == undefined) {
+    if (nomeFuncVar == undefined) { 
         alert("O nome está undefined")
     } else if (emailFuncVar == undefined) {
         alert("O e-mail está undefined")
@@ -21,7 +23,13 @@ function cadastrarFuncionario() {
         alert("A data está undefined")
     } else if (fkEmpresaVar == undefined) {
         alert("A FkEmpresa está undefined")
+    } else if (cargoFuncVar == undefined){
+        alert("O cargo do funcionário está como undefined")
+    }  else if (idFuncionarioVar == undefined){
+        alert("O idFuncionário está como undefined")
     }
+
+    // validar()
 
     fetch(`/funcionario/cadastrarFuncionario`, {
         method: "POST",
@@ -35,6 +43,8 @@ function cadastrarFuncionario() {
             cpfFuncVarServer: cpfFuncVar,
             telFuncVarServer: telFuncVar,
             dataFuncVarServer: dataFuncVar,
+            cargoFuncVarServer: cargoFuncVar,
+            idFuncionarioVarServer: idFuncionarioVar,
             fkEmpresaServer: fkEmpresaVar
         })
     }).then(function (resposta) {
@@ -62,6 +72,7 @@ function cadastrarFuncionario() {
     });
     return false
 }
+
 function exibirInfosFunc() {
     var tituloNome = document.getElementById("tituloNomeFunc");
     tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
@@ -181,6 +192,7 @@ function disableInputs() {
     ipt_loginFunc.setAttribute('disabled', '');
     ipt_senhaFunc.setAttribute('disabled', '');
 }
+
 function enableInputs(){
     ipt_nomeFunc.removeAttribute('disabled');
     ipt_cpfFunc.removeAttribute('disabled');
