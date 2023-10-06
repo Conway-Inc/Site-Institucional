@@ -7,6 +7,8 @@ function cadastrarFuncionario(req, res) {
     var cpfFuncVar = req.body.cpfFuncVarServer;
     var telFuncVar = req.body.telFuncVarServer;
     var dataFuncVar = req.body.dataFuncVarServer;
+    var cargoFuncVar = req.body.cargoFuncVarServer;    
+    var idFuncionarioVar = req.body.idFuncionarioVarServer;
     var fkEmpresa = req.body.fkEmpresaServer;
 
     
@@ -22,8 +24,13 @@ function cadastrarFuncionario(req, res) {
         res.status(400).send("O telefone está undefined")
     } else if (dataFuncVar == undefined) {
         res.status(400).send("A data está undefined")
-    } else {
-        funcionarioModel.cadastrarFuncionario(nomeFuncVar, emailFuncVar, senhaFuncVar, cpfFuncVar, telFuncVar, dataFuncVar, fkEmpresa)
+    } else if (cargoFuncVar == undefined){
+        res.status(400).send("O cargo está undefined")
+    } else if (idFuncionarioVar == undefined){
+        res.status(400).send("O idFuncionário está undefined")
+    }
+    else {
+        funcionarioModel.cadastrarFuncionario(nomeFuncVar, emailFuncVar, senhaFuncVar, cpfFuncVar, telFuncVar, dataFuncVar, cargoFuncVar, idFuncionarioVar, fkEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -64,7 +71,7 @@ function atualizarFuncionario(req,res){
     } else if (idFuncionarioVar == undefined) {
         res.status(400).send("O id do funcionário está undefined")
     } else {
-        funcionarioModel.cadastrarFuncionario(nomeFuncVar, emailFuncVar, senhaFuncVar, cpfFuncVar, telFuncVar, dataFuncVar, idFuncionarioVar)
+        funcionarioModel.atualizarFuncionario(nomeFuncVar, emailFuncVar, senhaFuncVar, cpfFuncVar, telFuncVar, dataFuncVar, idFuncionarioVar)
             .then(
                 function (resultado) {
                     res.json(resultado);
