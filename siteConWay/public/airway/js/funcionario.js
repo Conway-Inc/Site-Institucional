@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 function cadastrarFuncionario() {
     var nomeFuncVar = ipt_nomeFunc.value;
     var cpfFuncVar = ipt_cpfFunc.value;
@@ -48,7 +50,7 @@ function cadastrarFuncionario() {
             fkEmpresaServer: fkEmpresaVar
         })
     }).then(function (resposta) {
-        console.log("resposta: ", resposta);
+        // console.log("resposta: ", resposta);
         if (resposta.ok) {
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid greenyellow"
@@ -147,6 +149,7 @@ function obterInfosEmpresa() {
         .then(post => {
 
             dadosCNPJ = post;
+
             // console.log(dadosCNPJ)
 
             ipt_razaoSocialEmpresa.value = dadosCNPJ.razao_social;;
@@ -160,6 +163,7 @@ function obterInfosEmpresa() {
             ipt_logradouroEmpresa.value = "Empresa não encontrada"
             ipt_numeroEmpresa.value = "Empresa não encontrada"
             ipt_cepEmpresa.value = "Empresa não encontrada"
+
             console.log("CNPJ não localizado na base de dados!")
         })
 
@@ -206,6 +210,7 @@ function enableInputs() {
 function obterLogin() {
     ipt_loginFunc.value = ipt_emailFunc.value
 }
+
 function trocarBotaoPerfil() {
     var btn = document.getElementById("botao-cadastrar")
     const initialText = "Alterar Informações de entrada"
@@ -262,7 +267,7 @@ function atualizarInformacoes() {
                 idFuncionarioServer: idFuncionarioVar
             })
         }).then(function (resposta) {
-            console.log("resposta: ", resposta);
+            // console.log("resposta: ", resposta);
             if (resposta.ok) {
                 sessionStorage.NOME_FUNCIONARIO = nomeFuncVar
                 sessionStorage.EMAIL_FUNCIONARIO = emailFuncVar
@@ -281,7 +286,7 @@ function atualizarInformacoes() {
 
 }
 
-function exibirFuncionarios(fkEmpresaVar){
+function exibirFuncionarios(fkEmpresaVar) {
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
 
     fetch(`/empresa/exibirFuncionarios/${fkEmpresaVar}`)
@@ -289,26 +294,42 @@ function exibirFuncionarios(fkEmpresaVar){
             // console.log("ESTOU NO THEN DO exibirFuncionarios()!");
             if (resposta.ok) {
                 console.log(resposta);
-                
+
                 resposta.json().then(json => {
                     console.log(json);
+
+                    // Áreas onde mostrarão as informações
+
+                    var nomeFunc = document.getElementById("nomeFunc")
+                    var cargoFunc = document.getElementById("cargoFunc")
+                    var cpfFunc = document.getElementById("cpfFunc")
+                    var telefoneFunc = document.getElementById("telefoneFunc")
+                    var idadeFunc = document.getElementById("idadeFunc")
+                    var emailFunc = document.getElementById("emailFunc")
+
+
+                    // Formatação de data 
+                    // Aqui está formatando a data que chega do Banco de dados para poder calcular sua idade
                     
-                    var infosCnpjEmpresa = document.getElementById("nomeFunc")
-                    var infosCnpjEmpresa = document.getElementById("cargoFunc")
-                    var infosCnpjEmpresa = document.getElementById("cpfFunc")
-                    var infosCnpjEmpresa = document.getElementById("telefoneFunc")
-                    var infosCnpjEmpresa = document.getElementById("idadeFunc")
-                    var infosCnpjEmpresa = document.getElementById("emailFunc")
+                    const anoAtual = new Date().getFullYear
+                    const dataNascimento = json[0].dataNascimento
+                    const dataNasc = new Date(dataNascimento)
+                    const dataFormatada = dataNasc.toLocaleDateString('pt-BR', {
+                        timeZone: 'UTC',
+                    });
 
 
+                    nomeFunc.innerHTML = json[0].nome
 
-                    cnpjEmpresa = json[0].cnpj
-                    infosCnpjEmpresa.value = json[0].cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+                    cargoFunc.innerHTML = json[0].fkGerente
 
-                    var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
-                    infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
-                    infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/, "$1-$2");
+                    cpfFunc.innerHTML = json[0].cpf
 
+                    telefoneFunc.innerHTML = json[0].telefone
+
+                    idadeFunc.innerHTML = `${calcularIdade(dataFormatada)} anos`
+
+                    emailFunc.innerHTML = json[0].email
 
                 });
             } else {
@@ -321,4 +342,51 @@ function exibirFuncionarios(fkEmpresaVar){
         });
     return false;
 
+}
+
+function calcularIdade(dataFormatada) {
+    
+    // Criando um Objeto com a data atual usando o Date, nativo do JavaScript
+    var dataAtual = new Date();
+    
+    // Método que retorna o ano apenas da data atual
+    var anoAtual = dataAtual.getFullYear();
+    
+    // Aqui ele usa o split para dividir uma String e transforma-la em um Array, neste caso utilizado quando estiver uma barra
+    var anoNascParts = dataFormatada.split('/');
+    
+    // Aqui ele pega a String que é a dataFormatada e retira dela apenas o dia
+    var diaNasc = anoNascParts[0];
+    
+    // Aqui ele pega a String que é a dataFormatada e retira dela apenas o mes
+    var mesNasc = anoNascParts[1];
+    
+    // Aqui ele pega a String que é a dataFormatada e retira dela apenas o ano
+    var anoNasc = anoNascParts[2];
+
+    // Calculando a idade
+    var idade = anoAtual - anoNasc;
+
+    // Pegando o mes atual para futuras atualizações
+    var mesAtual = dataAtual.getMonth() + 1;
+
+    // Validações para checar se a pessoa já fez aniversário, sendo que se o mes atual 
+    // for menor que o mês de Nascimento ele reduz um em sua idade
+
+    if (mesAtual < mesNasc) {
+        idade--;
+    }
+    else {
+        // Validação pra ver se ele está no mês de seu nascimento, caso sim, 
+        // vai fazer outra validação caso ele tenha feito aniversário, caso não ele já fez
+
+        if (mesAtual == mesNasc) {
+            if (new Date().getDate() < diaNasc) {
+                // Se a data atual for menor que o dia de nascimento ele ainda nao fez aniversário
+                idade--;
+            }
+        }
+    }
+
+    return idade;
 }
