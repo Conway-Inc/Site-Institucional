@@ -95,7 +95,9 @@ address {
   font-style: normal;
   line-height: inherit;
 }
-
+ul{
+  position: sticky;
+}
 ol,
 ul,
 dl {
