@@ -297,22 +297,16 @@ function exibirFuncionarios(fkEmpresaVar) {
             if (resposta.ok) {
                 console.log(resposta);
 
-                resposta.json().then(json => {
+                resposta    .json().then(json => {
                     console.log(json);
 
-                    // Áreas onde mostrarão as informações
-
-                    // var nomeFuncio = document.getElementById("nomeFunc")
-                    // var cargoFuncio = document.getElementById("cargoFunc")
-                    // var cpfFuncio = document.getElementById("cpfFunc")
-                    // var telefoneFuncio = document.getElementById("telefoneFunc")
-                    // var idadeFuncio = document.getElementById("idadeFunc")
-                    // var emailFuncio = document.getElementById("emailFunc")
-
-
-                    // Formatação de data 
-                    // Aqui está formatando a data que chega do Banco de dados para poder calcular sua idade
                     for (let i = 0; i < json.length; i++) {
+                        var telefone = json[i].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
+                        telefone = telefone.replace(/(\d)(\d{4})$/, "$1-$2");
+                        
+                        var cpf = json[i].cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+                        // Formatação de data 
                         const anoAtual = new Date().getFullYear
                         const dataNascimento = json[i].dataNascimento
                         const dataNasc = new Date(dataNascimento)
@@ -325,8 +319,8 @@ function exibirFuncionarios(fkEmpresaVar) {
                             <tr class="odd">
                                 <td class="sorting_1">${json[i].nome}</td>
                                 <td>${json[i].fkGerente}</td>
-                                <td>${json[i].telefone}</td>
-                                <td>${json[i].cpf}</td>
+                                <td>${telefone}</td>
+                                <td>${cpf}</td>
                                 <td>${`${calcularIdade(dataFormatada)} anos`}</td>
                                 <td>${json[i].email}</td>
                             </tr>`
