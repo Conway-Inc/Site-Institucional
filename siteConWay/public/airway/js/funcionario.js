@@ -313,6 +313,10 @@ function exibirFuncionarios(fkEmpresaVar) {
                     // Formatação de data 
                     // Aqui está formatando a data que chega do Banco de dados para poder calcular sua idade
                     
+                    for(let i = 0; i < json.lenght; i++){
+
+                    }
+                    
                     const anoAtual = new Date().getFullYear
                     const dataNascimento = json[0].dataNascimento
                     const dataNasc = new Date(dataNascimento)
