@@ -312,30 +312,28 @@ function exibirFuncionarios(fkEmpresaVar) {
 
                     // Formatação de data 
                     // Aqui está formatando a data que chega do Banco de dados para poder calcular sua idade
-                    
-                    for(let i = 0; i < json.lenght; i++){
 
+
+
+                    for (let i = 0; i < json.length; i++) {
+                        const anoAtual = new Date().getFullYear
+                        const dataNascimento = json[i].dataNascimento
+                        const dataNasc = new Date(dataNascimento)
+                        const dataFormatada = dataNasc.toLocaleDateString('pt-BR', {
+                            timeZone: 'UTC',
+                        });
+
+
+                        linhaFuncionario.innerHTML += `
+                     
+                        <td>${nomeFunc.innerHTML = json[i].nome}</td>
+                        <td>${cargoFunc.innerHTML = json[i].fkGerente}</td>
+                        <td>${telefoneFunc.innerHTML = json[i].telefone}</td>
+                        <td>${cpfFunc.innerHTML = json[i].cpf}</td>
+                        <td>${idadeFunc.innerHTML = `${calcularIdade(dataFormatada)} anos`}</td>
+                        <td>${emailFunc.innerHTML = json[i].email}</td>
+                    `
                     }
-                    
-                    const anoAtual = new Date().getFullYear
-                    const dataNascimento = json[0].dataNascimento
-                    const dataNasc = new Date(dataNascimento)
-                    const dataFormatada = dataNasc.toLocaleDateString('pt-BR', {
-                        timeZone: 'UTC',
-                    });
-
-
-                    nomeFunc.innerHTML = json[0].nome
-
-                    cargoFunc.innerHTML = json[0].fkGerente
-
-                    cpfFunc.innerHTML = json[0].cpf
-
-                    telefoneFunc.innerHTML = json[0].telefone
-
-                    idadeFunc.innerHTML = `${calcularIdade(dataFormatada)} anos`
-
-                    emailFunc.innerHTML = json[0].email
 
                 });
             } else {
@@ -351,22 +349,22 @@ function exibirFuncionarios(fkEmpresaVar) {
 }
 
 function calcularIdade(dataFormatada) {
-    
+
     // Criando um Objeto com a data atual usando o Date, nativo do JavaScript
     var dataAtual = new Date();
-    
+
     // Método que retorna o ano apenas da data atual
     var anoAtual = dataAtual.getFullYear();
-    
+
     // Aqui ele usa o split para dividir uma String e transforma-la em um Array, neste caso utilizado quando estiver uma barra
     var anoNascParts = dataFormatada.split('/');
-    
+
     // Aqui ele pega a String que é a dataFormatada e retira dela apenas o dia
     var diaNasc = anoNascParts[0];
-    
+
     // Aqui ele pega a String que é a dataFormatada e retira dela apenas o mes
     var mesNasc = anoNascParts[1];
-    
+
     // Aqui ele pega a String que é a dataFormatada e retira dela apenas o ano
     var anoNasc = anoNascParts[2];
 
