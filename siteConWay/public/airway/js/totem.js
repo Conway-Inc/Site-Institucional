@@ -175,6 +175,62 @@ function cadastrarComponente() {
 
 }
 
-function ExibirTabelatotem(){
-    var lista = document.getElementById("table-responsive");
+function ExibirTabelaTotem(){
+    var lista = document.getElementById("tableTotens-responsive");
+    var trColunas = document.createElement("tr");
+    var thead = document.createElement("thead");
+    var thId = document.createElement("th");
+    thId.setAttribute("scope", "row");
+    thId.innerHTML = "#";
+    var thNome = document.createElement("th");
+    thNome.setAttribute("scope", "row");
+    thNome.innerHTML = "Nome";
+    
+
+    trColunas.appendChild(thId);
+    trColunas.appendChild(thNome);
+    thead.appendChild(trColunas);
+    lista.appendChild(thead);
+
+    fetch(`/usuarios/exibirTabelaTotem/${sessionStorage.ID_USUARIO}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                var lista = document.getElementById("Totens-responsive");
+                var mensagem = document.createElement("p");
+                mensagem.innerHTML = "Nenhum resultado encontrado."
+                lista.innerHTML = "";
+                lista.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+            resposta.json().then(function (resposta) {
+                var contId = 0;
+                for (let i = resposta.length - 1; i >= 0; i--) {
+                    console.log(i)
+                    console.log(publicacao)
+                    var lista = document.getElementById("tableTotens-responsive");
+                    var publicacao = resposta[i];
+
+                    var thNumero = document.createElement("th");
+                    thNumero.innerHTML = contId + 1;
+                    thNumero.setAttribute("scope", "row");
+                    var tdNome = document.createElement("td");
+                    tdNome.innerHTML = publicacao.nome;
+                    var tr = document.createElement("tr");
+                    var tbody = document.createElement("tbody");
+
+                    tr.appendChild(thNumero);
+                    tr.appendChild(tdNome);
+                    tbody.appendChild(tr);
+                    lista.appendChild(tbody);
+
+                    contId++;
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+        // finalizarAguardar();
+    });
 }
