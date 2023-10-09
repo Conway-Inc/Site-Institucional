@@ -60,6 +60,8 @@ function cadastrarFuncionario() {
             setTimeout(function () {
                 cardMsg.style.display = "none";
             }, 3000);
+
+            exibirFuncionarios();
         } else {
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid red"
