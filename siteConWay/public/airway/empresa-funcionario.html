@@ -15,7 +15,7 @@
     <title>AirWay</title>
 </head>
 
-<body id="page-top" onload = "exibirInfosEmpresa(), desativarInputsEmpresa()">
+<body id="page-top" onload = "exibirInfosEmpresa(), desativarInputsEmpresa(), exibirFuncionarios()">
     <div id="wrapper">
         <div id="cardMsg"></div>
 
@@ -41,11 +41,17 @@
                     <span>Bruno</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="graficoKauan.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Kauan</span>
+                </a>
+            </li>
 
             <hr class="sidebar-divider">
 
-            <li class="nav-item">
-                <a class="nav-link active" href="empresa-funcionario.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="empresa-funcionario.html">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Funcionário</span>
                 </a>
@@ -253,7 +259,7 @@
                                             <td id="cpfFunc"></td>
                                             <td id="telefoneFunc"></td>
                                             <td id="idadeFunc"></td>
-                                            <td id="empresa"></td>
+                                            <td id="emailFunc"></td>
                                         </tr>
                                     </tbody>
                                 </table>
