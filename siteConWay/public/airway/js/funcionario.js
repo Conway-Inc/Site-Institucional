@@ -9,7 +9,7 @@ function cadastrarFuncionario() {
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
-    if (nomeFuncVar == undefined) { 
+    if (nomeFuncVar == undefined) {
         alert("O nome está undefined")
     } else if (emailFuncVar == undefined) {
         alert("O e-mail está undefined")
@@ -23,9 +23,9 @@ function cadastrarFuncionario() {
         alert("A data está undefined")
     } else if (fkEmpresaVar == undefined) {
         alert("A FkEmpresa está undefined")
-    } else if (cargoFuncVar == undefined){
+    } else if (cargoFuncVar == undefined) {
         alert("O cargo do funcionário está como undefined")
-    }  else if (idFuncionarioVar == undefined){
+    } else if (idFuncionarioVar == undefined) {
         alert("O idFuncionário está como undefined")
     }
 
@@ -119,9 +119,9 @@ function exibirInfosEmpresa(fkEmpresaVar) {
                     infosCnpjEmpresa.value = json[0].cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
 
                     var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
-                    infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g,"($1) $2");
-                    infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/,"$1-$2");
-                    
+                    infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
+                    infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/, "$1-$2");
+
 
                     obterInfosEmpresa()
 
@@ -139,7 +139,7 @@ function exibirInfosEmpresa(fkEmpresaVar) {
 }
 
 function obterInfosEmpresa() {
-    
+
     fetch(`https://publica.cnpj.ws/cnpj/${cnpjEmpresa}`)
         .then(data => {
             return data.json();
@@ -193,90 +193,132 @@ function disableInputs() {
     ipt_senhaFunc.setAttribute('disabled', '');
 }
 
-function enableInputs(){
+function enableInputs() {
     ipt_nomeFunc.removeAttribute('disabled');
     ipt_cpfFunc.removeAttribute('disabled');
     ipt_telefoneFunc.removeAttribute('disabled');
     ipt_dataFunc.removeAttribute('disabled');
     ipt_loginFunc.removeAttribute('disabled');
     ipt_senhaFunc.removeAttribute('disabled');
-    
+
 }
 
 function obterLogin() {
     ipt_loginFunc.value = ipt_emailFunc.value
 }
-function trocarBotaoPerfil(){
+function trocarBotaoPerfil() {
     var btn = document.getElementById("botao-cadastrar")
     const initialText = "Alterar Informações de entrada"
-    
-        if (btn.textContent == initialText) {
-            btn.innerHTML = "Salvar informações"
-            enableInputs()
-        }else{
-            btn.innerHTML = initialText
-            btn.onclick = atualizarInformacoes()
-        }
+
+    if (btn.textContent == initialText) {
+        btn.innerHTML = "Salvar informações"
+        enableInputs()
+    } else {
+        btn.innerHTML = initialText
+        btn.onclick = atualizarInformacoes()
+    }
 }
 
-function atualizarInformacoes(){
-        var nomeFuncVar = ipt_nomeFunc.value;
-        var emailFuncVar = ipt_loginFunc.value;
-        var senhaFuncVar = ipt_senhaFunc.value;
-        var cpfFuncVar = ipt_cpfFunc.value;
-        var telFuncVar = ipt_telefoneFunc.value;
-        var dataFuncVar = ipt_dataFunc.value
-        var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
+function atualizarInformacoes() {
+    var nomeFuncVar = ipt_nomeFunc.value;
+    var emailFuncVar = ipt_loginFunc.value;
+    var senhaFuncVar = ipt_senhaFunc.value;
+    var cpfFuncVar = ipt_cpfFunc.value;
+    var telFuncVar = ipt_telefoneFunc.value;
+    var dataFuncVar = ipt_dataFunc.value
+    var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
 
-        if (dataFuncVar == '') {
-            dataFuncVar = 'NULL'
-        }
-        
-        if (nomeFuncVar == undefined) {
-            alert("O nome está undefined")
-        } else if (emailFuncVar == undefined) {
-            alert("O e-mail está undefined")
-        } else if (senhaFuncVar == undefined) {
-            alert("A senha está undefined")
-        } else if (cpfFuncVar == undefined) {
-            alert("O CPF está undefined")
-        } else if (telFuncVar == undefined) {
-            alert("O telefone está undefined")
-        } else if (dataFuncVar == undefined) {
-            alert("A data está undefined")
-        }else if (idFuncionarioVar == undefined) {
-            alert("O id do funcionário está undefined")
-        }else {
-            fetch(`/funcionario/atualizarFuncionario`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nomeFuncVarServer: nomeFuncVar,
-                    emailFuncVarServer: emailFuncVar,
-                    senhaFuncVarServer: senhaFuncVar,
-                    cpfFuncVarServer: cpfFuncVar,
-                    telFuncVarServer: telFuncVar,
-                    dataFuncVarServer: dataFuncVar,
-                    idFuncionarioServer: idFuncionarioVar
-                })
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    sessionStorage.NOME_FUNCIONARIO = nomeFuncVar
-                    sessionStorage.EMAIL_FUNCIONARIO = emailFuncVar
-                    sessionStorage.SENHA_FUNCIONARIO = senhaFuncVar
-                    sessionStorage.CPF = cpfFuncVar
-                    sessionStorage.TELEFONE_FUNCIONARIO = telFuncVar
-                    location.reload();
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`)
-            });
+    if (dataFuncVar == '') {
+        dataFuncVar = 'NULL'
+    }
 
-        }
-    
-        return false
-    
+    if (nomeFuncVar == undefined) {
+        alert("O nome está undefined")
+    } else if (emailFuncVar == undefined) {
+        alert("O e-mail está undefined")
+    } else if (senhaFuncVar == undefined) {
+        alert("A senha está undefined")
+    } else if (cpfFuncVar == undefined) {
+        alert("O CPF está undefined")
+    } else if (telFuncVar == undefined) {
+        alert("O telefone está undefined")
+    } else if (dataFuncVar == undefined) {
+        alert("A data está undefined")
+    } else if (idFuncionarioVar == undefined) {
+        alert("O id do funcionário está undefined")
+    } else {
+        fetch(`/funcionario/atualizarFuncionario`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeFuncVarServer: nomeFuncVar,
+                emailFuncVarServer: emailFuncVar,
+                senhaFuncVarServer: senhaFuncVar,
+                cpfFuncVarServer: cpfFuncVar,
+                telFuncVarServer: telFuncVar,
+                dataFuncVarServer: dataFuncVar,
+                idFuncionarioServer: idFuncionarioVar
+            })
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                sessionStorage.NOME_FUNCIONARIO = nomeFuncVar
+                sessionStorage.EMAIL_FUNCIONARIO = emailFuncVar
+                sessionStorage.SENHA_FUNCIONARIO = senhaFuncVar
+                sessionStorage.CPF = cpfFuncVar
+                sessionStorage.TELEFONE_FUNCIONARIO = telFuncVar
+                location.reload();
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`)
+        });
+
+    }
+
+    return false
+
+}
+
+function exibirFuncionarios(fkEmpresaVar){
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA
+
+    fetch(`/empresa/exibirFuncionarios/${fkEmpresaVar}`)
+        .then(function (resposta) {
+            // console.log("ESTOU NO THEN DO exibirFuncionarios()!");
+            if (resposta.ok) {
+                console.log(resposta);
+                
+                resposta.json().then(json => {
+                    console.log(json);
+                    
+                    var infosCnpjEmpresa = document.getElementById("nomeFunc")
+                    var infosCnpjEmpresa = document.getElementById("cargoFunc")
+                    var infosCnpjEmpresa = document.getElementById("cpfFunc")
+                    var infosCnpjEmpresa = document.getElementById("telefoneFunc")
+                    var infosCnpjEmpresa = document.getElementById("idadeFunc")
+                    var infosCnpjEmpresa = document.getElementById("emailFunc")
+
+
+
+                    cnpjEmpresa = json[0].cnpj
+                    infosCnpjEmpresa.value = json[0].cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+
+                    var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
+                    infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
+                    infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/, "$1-$2");
+
+
+                });
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    return false;
+
 }
