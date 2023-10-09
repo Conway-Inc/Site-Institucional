@@ -92,10 +92,10 @@ function exibirInfosFunc() {
     var infosCargo = document.getElementById("ipt_cargoFunc")
     if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
         infosCargo.value = "ADMIN"
-    } else if (sessionStorage.GERENTE_FUNCIONARIO == sessionStorage.ID_FUNCIONARIO) {
+    } else if (sessionStorage.GERENTE_FUNCIONARIO == 1) {
         infosCargo.value = "Gerente"
     } else {
-        infosCargo.value = "Mão de obra"
+        infosCargo.value = "Analista"
     }
 
 

@@ -126,7 +126,9 @@ INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
 -- ADMIN
 INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway');
 INSERT INTO RamoEmpresa VALUES (2,1);
-INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkEmpresa) VALUES (1, 'admairway@gmail.com', '12345','ADMIN AIRWAY', '12312312300', 1);
+
+
+INSERT INTO Funcionario VALUES (NULL, 'admairway@gmail.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
 
 -- LATAM
 INSERT INTO Empresa VALUES (NULL, '33937681000178', 'LATAM AIRLINES GROUP S/A', '04634042', 'Rua Atica' , 673, '11226872400');
@@ -137,10 +139,8 @@ INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
 ('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 
-INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
-VALUES (2, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', 1, 2);
-INSERT INTO Funcionario (idFuncionario, email, senha, nome, cpf, fkGerente, fkEmpresa)
-VALUES (3, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', 2, 2);
+INSERT INTO Funcionario VALUES (NULL, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
+INSERT INTO Funcionario VALUES (NULL, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
 													   ('Viracopos', 'SP', 'Campinas');
@@ -192,13 +192,3 @@ SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.
 		FROM Totem as t JOIN TotemComponente as tc ON fkTotem = idTotem 
 			JOIN Componente as c ON fkComponente = idComponente
 				JOIN Registro as r ON r.fkTotem = idTotem AND r.fkComponente = 3 ORDER BY dataHora DESC;
-
-
-
-
-
-
-
-
-
-
