@@ -302,19 +302,16 @@ function exibirFuncionarios(fkEmpresaVar) {
 
                     // Áreas onde mostrarão as informações
 
-                    var nomeFunc = document.getElementById("nomeFunc")
-                    var cargoFunc = document.getElementById("cargoFunc")
-                    var cpfFunc = document.getElementById("cpfFunc")
-                    var telefoneFunc = document.getElementById("telefoneFunc")
-                    var idadeFunc = document.getElementById("idadeFunc")
-                    var emailFunc = document.getElementById("emailFunc")
+                    // var nomeFuncio = document.getElementById("nomeFunc")
+                    // var cargoFuncio = document.getElementById("cargoFunc")
+                    // var cpfFuncio = document.getElementById("cpfFunc")
+                    // var telefoneFuncio = document.getElementById("telefoneFunc")
+                    // var idadeFuncio = document.getElementById("idadeFunc")
+                    // var emailFuncio = document.getElementById("emailFunc")
 
 
                     // Formatação de data 
                     // Aqui está formatando a data que chega do Banco de dados para poder calcular sua idade
-
-
-
                     for (let i = 0; i < json.length; i++) {
                         const anoAtual = new Date().getFullYear
                         const dataNascimento = json[i].dataNascimento
@@ -325,16 +322,15 @@ function exibirFuncionarios(fkEmpresaVar) {
 
 
                         linhaFuncionario.innerHTML += `
-                     
-                        <td>${nomeFunc.innerHTML = json[i].nome}</td>
-                        <td>${cargoFunc.innerHTML = json[i].fkGerente}</td>
-                        <td>${telefoneFunc.innerHTML = json[i].telefone}</td>
-                        <td>${cpfFunc.innerHTML = json[i].cpf}</td>
-                        <td>${idadeFunc.innerHTML = `${calcularIdade(dataFormatada)} anos`}</td>
-                        <td>${emailFunc.innerHTML = json[i].email}</td>
-                    `
+                            <tr class="odd">
+                                <td class="sorting_1">${json[i].nome}</td>
+                                <td>${json[i].fkGerente}</td>
+                                <td>${json[i].telefone}</td>
+                                <td>${json[i].cpf}</td>
+                                <td>${`${calcularIdade(dataFormatada)} anos`}</td>
+                                <td>${json[i].email}</td>
+                            </tr>`
                     }
-
                 });
             } else {
                 resposta.text().then(texto => {
