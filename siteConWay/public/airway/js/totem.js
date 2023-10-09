@@ -176,7 +176,7 @@ function cadastrarComponente() {
 }
 
 function ExibirTabelaTotem(){
-    var lista = document.getElementById("tableTotens-responsive");
+    var lista = document.getElementById("tabela-totens");
     var trColunas = document.createElement("tr");
     var thead = document.createElement("thead");
     var thId = document.createElement("th");
@@ -185,17 +185,25 @@ function ExibirTabelaTotem(){
     var thNome = document.createElement("th");
     thNome.setAttribute("scope", "row");
     thNome.innerHTML = "Nome";
+    var thAeroporto = document.createElement("th");
+    thAeroporto.setAttribute("scope", "row");
+    thAeroporto.innerHTML = "Aeroporto";
+    var thEmpresa = document.createElement("th");
+    thEmpresa.setAttribute("scope", "row");
+    thEmpresa.innerHTML = "Empresa";
     
 
     trColunas.appendChild(thId);
     trColunas.appendChild(thNome);
+    trColunas.appendChild(thAeroporto);
+    trColunas.appendChild(thEmpresa);
     thead.appendChild(trColunas);
     lista.appendChild(thead);
 
-    fetch(`/usuarios/exibirTabelaTotem/${sessionStorage.ID_USUARIO}`).then(function (resposta) {
+    fetch(`/totem/exibirTabelaTotem/${sessionStorage.ID_FUNCIONARIO}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                var lista = document.getElementById("Totens-responsive");
+                var lista = document.getElementById("tabela-totens");
                 var mensagem = document.createElement("p");
                 mensagem.innerHTML = "Nenhum resultado encontrado."
                 lista.innerHTML = "";
@@ -207,7 +215,7 @@ function ExibirTabelaTotem(){
                 for (let i = resposta.length - 1; i >= 0; i--) {
                     console.log(i)
                     console.log(publicacao)
-                    var lista = document.getElementById("tableTotens-responsive");
+                    var lista = document.getElementById("tabela-totens");
                     var publicacao = resposta[i];
 
                     var thNumero = document.createElement("th");

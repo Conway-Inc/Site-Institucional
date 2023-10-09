@@ -1,5 +1,21 @@
 var totemModel = require("../models/totemModel");
 
+function ExibirTabelaTotem(req, res) {
+  var idUsuario = req.params.idUsuario;
+
+  usuariosModel.exibirTabelaTotem(idUsuario).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os totens cadastrados: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 function exibirMunicipios(req, res) {
   var estado = req.params.estado;
 
@@ -87,8 +103,9 @@ function cadastrarComponente(req, res){
 }
 
 module.exports = {
+  ExibirTabelaTotem,
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
-  cadastrarComponente,
+  cadastrarComponente
 };

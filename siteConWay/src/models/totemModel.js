@@ -1,5 +1,14 @@
 var database = require("../database/config");
 
+function exibirTabelaTotem(idUsuario) {
+  console.log("ACESSEI O TOTEM  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirTabelaUsuarios()");
+    var instrucao = `
+    SELECT m.idTotem, m.nome,  a.nome as Aeroporto, a.nome as Empresa FROM Totem as m JOIN Aeroporto as a ON m.fkEmpresa = a.idEmpresa AND a.fkEmpresa = 2;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function exibirMunicipios(estado) {
   console.log(
     "ACESSEI O graficoBrunoModel \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirMunicipios(): ",estado
@@ -43,8 +52,9 @@ function cadastrarComponente(componente){
 
 
 module.exports = {
+  exibirTabelaTotem,
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
-  cadastrarComponente,
+  cadastrarComponente
 };
