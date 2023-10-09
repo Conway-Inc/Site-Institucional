@@ -174,3 +174,7 @@ function cadastrarComponente() {
     }
 
 }
+
+function ExibirTabelatotem(){
+    var lista = document.getElementById("table-responsive");
+}
