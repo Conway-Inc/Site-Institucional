@@ -1,9 +1,11 @@
 var database = require("../database/config");
 
-function exibirTabelaTotem(idUsuario) {
+function exibirTabelaTotem(idEmpresa) {
   console.log("ACESSEI O TOTEM  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirTabelaUsuarios()");
     var instrucao = `
-    SELECT m.idTotem, m.nome,  a.nome as Aeroporto, a.nome as Empresa FROM Totem as m JOIN Aeroporto as a ON m.fkEmpresa = a.idEmpresa AND a.fkEmpresa = 2;
+    SELECT tot.idTotem, tot.nome, aro.nome AS nome_aeroporto, emp.nome AS nome_empresa
+    FROM Totem tot INNER JOIN aeroporto aro ON tot.fkAeroporto = aro.idAeroporto INNER JOIN empresa emp
+    ON tot.fkEmpresa = emp.idEmpresa WHERE tot.fkEmpresa = ${idEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

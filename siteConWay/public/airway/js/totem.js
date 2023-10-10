@@ -181,16 +181,12 @@ function ExibirTabelaTotem(){
     var thead = document.createElement("thead");
     var thId = document.createElement("th");
     thId.setAttribute("scope", "row");
-    thId.innerHTML = "#";
     var thNome = document.createElement("th");
     thNome.setAttribute("scope", "row");
-    thNome.innerHTML = "Nome";
     var thAeroporto = document.createElement("th");
     thAeroporto.setAttribute("scope", "row");
-    thAeroporto.innerHTML = "Aeroporto";
     var thEmpresa = document.createElement("th");
     thEmpresa.setAttribute("scope", "row");
-    thEmpresa.innerHTML = "Empresa";
     
 
     trColunas.appendChild(thId);
