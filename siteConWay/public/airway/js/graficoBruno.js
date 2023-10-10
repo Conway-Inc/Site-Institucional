@@ -9,35 +9,35 @@ function pegarMetricasGerais(tipo) {
     if (tipo == 1) {
         tipo = 'estado';
         document.getElementById("info-aeroporto-nome").innerHTML = "todos os estados do Brasil";
-        texto = "";
+        texto = "estado LIKE '%%'";
     } else if (tipo == 2) {
         tipo = 'municipio';
-        texto = `WHERE estado = '${estado}'`;
+        texto = `estado LIKE '%${estado}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os estados
         if (estado == "0") {
             tipo = 'estado';
-            texto = "";
+            texto = "estado LIKE '%%'";
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os estados do Brasil`;
         }
     } else if (tipo == 3) {
-        tipo = 'nomeAero';
-        texto = `WHERE municipio = '${municipio}'`;
+        tipo = 'aeroporto';
+        texto = `municipio LIKE '%${municipio}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (municipio == "0") {
             tipo = 'municipio';
-            texto = `WHERE estado = '${estado}'`;
+            texto = `estado = '${estado}'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         }
     } else if (tipo == 4) {
-        tipo = 'nome';
-        texto = `WHERE nomeAero = '${aeroporto}'`;
+        tipo = 'idTotem';
+        texto = `aeroporto LIKE '%${aeroporto}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (aeroporto == "0") {
-            tipo = 'nomeAero';
-            texto = `WHERE municipio = '${municipio}'`;
+            tipo = 'aeroporto';
+            texto = `municipio LIKE '%${municipio}%'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
             exibirAeroportosComTotens();
         }
@@ -72,23 +72,34 @@ function graficoEstados(json) {
     document.getElementById("grafico-geral").innerHTML = "";
     console.log(json)
 
-    let dataCpu = [];
-    let dataMemoria = [];
+    let alerta = [];
+    let critico = [];
     let labels = [];
+    let max = -1;
     for (let i = 0; i < json.length; i++) {
-        dataCpu.push(Math.round((json[i].mediaCpu) * 100) / 100)
-        dataMemoria.push(Math.round((json[i].mediaMem) * 100) / 100)
+        var dadoAlerta = Math.round((json[i].memAlerta) * 100) / 100;
+        var dadoCritico = Math.round((json[i].memCritico) * 100) / 100;
+        alerta.push(dadoAlerta)
+        critico.push(dadoCritico)
         labels.push(json[i].tipo)
+        if (dadoAlerta >= max) {
+            max = dadoAlerta;
+        }
+        if (dadoCritico >= max) {
+            max = dadoCritico;
+        }
     }
 
     var options = {
         series: [{
-            name: 'CPU',
-            data: dataCpu
+            name: 'Alerta',
+            data: alerta,
+            color: '#FFEE75'
         },
         {
-            name: 'Memória',
-            data: dataMemoria
+            name: 'Crítico',
+            data: critico,
+            color: '#E91E63'
         }],
         chart: {
             height: 350,
@@ -105,7 +116,7 @@ function graficoEstados(json) {
         dataLabels: {
             enabled: true,
             formatter: function (val) {
-                return val + "%";
+                return val;
             },
             offsetY: -20,
             style: {
@@ -140,7 +151,7 @@ function graficoEstados(json) {
             }
         },
         yaxis: {
-            max: 100,
+            max: max + 1,
             axisBorder: {
                 show: false
             },
@@ -156,15 +167,17 @@ function graficoEstados(json) {
 
         },
         title: {
-            text: 'Média CPU / Memória',
+            text: 'Quantidade de ocorrências',
             floating: true,
-            // offsetY: 330,
             position: 'top',
             align: 'center',
             style: {
-                color: '#444'
+                colors: ["#304758"]
             }
-        }
+        },
+        // fill: {
+        //     colors: ['#F44336', '#E91E63']
+        //   }
     };
 
     var chart = new ApexCharts(document.getElementById("grafico-geral"), options);
@@ -270,104 +283,6 @@ function graficoDisco(json) {
 
     var chart = new ApexCharts(document.querySelector("#grafico-disco"), options);
     chart.render();
-}
-
-// GRAFICO CPU E MEMORIA DO TOTEM
-
-function pegarValorTotem(idTotem) {
-    fetch(`/graficoBruno/valorTotem/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    infosTotem = json;
-                    graficoTotem(infosTotem);
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
-function graficoTotem(infosTotem) {
-    document.getElementById("toolbar").style.display = 'block';
-    document.getElementById("grafico-totem").innerHTML = "";
-    let dataCpu = [];
-    let dataMemoria = [];
-    let labels = [];
-    
-    for (let i = 0; i < infosTotem.length; i++) {
-        dataCpu.unshift(infosTotem[i].cpu);
-        dataMemoria.unshift(infosTotem[i].memoria);
-        let dataHora = new Date(infosTotem[i].data);
-        dataHora = `${dataHora.getFullYear().toString()}-${(dataHora.getMonth() + 1).toString().padStart(2, '0')}-${dataHora.getDate().toString().padStart(2, '0')} ${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
-        labels.unshift(dataHora);
-        // dataHora = `${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
-    }
-    var options = {
-        series: [{
-            data: dataCpu
-        }],
-        chart: {
-            id: 'area-datetime',
-            type: 'area',
-            height: 350,
-            zoom: {
-                autoScaleYaxis: true
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        markers: {
-            size: 0,
-            style: 'hollow',
-        },
-        xaxis: {
-            categories: labels,
-            position: 'bottom',
-            axisBorder: {
-                show: false
-            },
-            axisTicks: {
-                show: false
-            },
-            crosshairs: {
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        colorFrom: '#D8E3F0',
-                        colorTo: '#BED1E6',
-                        stops: [0, 100],
-                        opacityFrom: 0.4,
-                        opacityTo: 0.5,
-                    }
-                }
-            },
-            tooltip: {
-                enabled: true,
-            }
-        },
-        yaxis: {
-            max: 100,
-            min: 0
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.7,
-                opacityTo: 0.9,
-                stops: [0, 100]
-            }
-        },
-    };
-
-    var chart = new ApexCharts(document.getElementById("grafico-totem"), options);
-    chart.render();    
 }
 
 // EXIBIR OPTIONS DE ESTADO, MUNICIPIO E AEROPORTO
@@ -515,8 +430,8 @@ function exibirAeroportosComTotens(municipio) {
                         for (let i = 0; i < json.length; i++) {
                             let publicacao = json[i];
                             let option = document.createElement("option");
-                            option.innerHTML = publicacao.nomeAeroporto;
-                            option.setAttribute("value", publicacao.nomeAeroporto);
+                            option.innerHTML = publicacao.aeroporto;
+                            option.setAttribute("value", publicacao.aeroporto);
                             aeroporto.appendChild(option);
                         }
 

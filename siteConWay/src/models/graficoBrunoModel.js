@@ -107,8 +107,9 @@ function metricasGerais(tipo,texto) {
     "Acessei o graficoBrunoModel e executei a função metricasGerais(): ",tipo,texto
   );
   var instrucao = `
-    SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as maxCpu, min(cpu) as minCpu, max(memoria) as maxMem, min(memoria) as minMen FROM vw_RegistroEstruturado ${texto} group by ${tipo};
-
+    SELECT ${tipo} as tipo, (SELECT count(idAlerta) FROM vw_alertas WHERE ${texto} AND comp = 2 AND valor >= 80 AND valor <= 89) as memAlerta,
+						  (SELECT count(idAlerta) FROM vw_alertas WHERE ${texto} AND comp = 2 AND valor >= 90) as memCritico
+								FROM vw_alertas WHERE ${texto} group by ${tipo};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
