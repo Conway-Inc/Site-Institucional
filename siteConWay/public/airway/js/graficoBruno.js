@@ -296,14 +296,13 @@ function graficoTotem(json) {
     let dataCpu = [];
     let dataMemoria = [];
     let labels = [];
-    let texto = "";
     for (let i = 0; i < json.length; i++) {
         dataCpu.unshift(json[i].cpu);
         dataMemoria.unshift(json[i].memoria);
         let dataHora = new Date(json[i].data);
         dataHora = `${dataHora.getFullYear().toString()}-${(dataHora.getMonth() + 1).toString().padStart(2, '0')}-${dataHora.getDate().toString().padStart(2, '0')} ${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
-        // dataHora = `${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
         labels.unshift(dataHora);
+        // dataHora = `${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
     }
     var options = {
         series: [{
@@ -377,44 +376,23 @@ function graficoTotem(json) {
         activeEl.target.classList.add('active')
     }
 
-    document
-        .querySelector('#one_month')
-        .addEventListener('click', function (e) {
-            resetCssClasses(e)
-
-            chart.zoomX(
-                new Date('28 Jan 2013').getTime(),
-                new Date('27 Feb 2013').getTime()
-            )
-        })
-
-    document
-        .querySelector('#six_months')
-        .addEventListener('click', function (e) {
-            resetCssClasses(e)
-
-            chart.zoomX(
-                new Date('27 Sep 2012').getTime(),
-                new Date('27 Feb 2013').getTime()
-            )
-        })
-
-    document
-        .querySelector('#one_year')
-        .addEventListener('click', function (e) {
-            resetCssClasses(e)
-            chart.zoomX(
-                new Date('27 Feb 2012').getTime(),
-                new Date('27 Feb 2013').getTime()
-            )
-        })
-
-    document.querySelector('#ytd').addEventListener('click', function (e) {
+    document.querySelector('#day').addEventListener('click', function (e) {
         resetCssClasses(e)
 
+        let labelsDiario = [];
+        let dataAtual = new Date()
+        for (let i = 0; i < labels.length; i++) {
+            let dataLabel = new Date(labels[i]);
+            if (dataLabel.getDay() == dataAtual.getDay()) {
+                let data = new Date(labels[i]);
+                labelsDiario.push(`${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`);
+            }
+        }
+        console.log(labelsDiario)
+
         chart.zoomX(
-            new Date('01 Jan 2013').getTime(),
-            new Date('27 Feb 2013').getTime()
+            labelsDiario[0],
+            labelsDiario[labelsDiario.length-1]
         )
     })
 
