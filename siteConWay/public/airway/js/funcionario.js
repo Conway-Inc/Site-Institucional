@@ -17,7 +17,6 @@ function cadastrarFuncionario() {
     else{
         cargoFuncVar = 1;
     }
-    alert(cargoFuncVar)
 
     if (nomeFuncVar == undefined) {
         alert("O nome está undefined")
@@ -404,4 +403,108 @@ function calcularIdade(dataFormatada) {
     }
 
     return idade;
+}
+
+
+function eliminarMascaras() {
+    var cpfFormatado;
+    var celularFormatado;
+
+    var cpfMascarado = iptCPF.value
+    var celularMascarado = iptCelular.value
+
+    // Retirando a máscara do CPF
+
+    cpfFormatado = cpfMascarado.replaceAll("-", "")
+    cpfFormatado = cpfFormatado.replaceAll(".", "")
+
+    // Retirando a máscara do telefone
+
+    celularFormatado = celularMascarado.replaceAll("-", "")
+    celularFormatado = celularFormatado.replaceAll("(", "")
+    celularFormatado = celularFormatado.replaceAll(")", "")
+
+    return { cpfFormatado, celularFormatado }
+}
+
+function eliminarNumeros(id) {
+    const input = document.getElementById(id)
+    var listaLetras = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+    for (var i = 0; i <= 9; i++) {
+        if (input.value[input.value.length - 1] == Number(listaLetras[i]) && input.value[input.value.length - 1] != ' ') {
+            msg_alertas.style.display = "block"
+            Erro = document.getElementById("mensagemErro")
+            Erro.classList.add("erro")
+            mensagemErro.innerHTML = `Este campo não pode ter Números`
+            input.value = ''
+            setTimeout(desaparecerCard, 5000);
+        }
+    }
+    for (var letra = 0; letra <= input.value.length - 1; letra++) {
+        if (isNaN(input.value[letra]) == false && input.value[letra] != ' ') {
+            msg_alertas.style.display = "block"
+            Erro = document.getElementById("mensagemErro")
+            Erro.classList.add("erro")
+            mensagemErro.innerHTML = `Este campo não pode ter Números`
+            input.value = ''
+            setTimeout(desaparecerCard, 5000);
+        }
+    }
+}
+
+function eliminarLetras(id) {
+    const input = document.getElementById(id)
+    var listaLetras = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@;,?|{}[]~^'
+
+    for (var i = 0; i <= 62; i++) {
+        if (input.value[input.value.length - 1] == listaLetras[i]) {
+            msg_alertas.style.display = "block"
+            Erro = document.getElementById("mensagemErro")
+            Erro.classList.add("erro")
+            mensagemErro.innerHTML = `Este campo não pode ter Letras`
+            input.value = ''
+            setTimeout(desaparecerCard, 5000);
+        }
+        for (var letra = 0; letra <= input.value.length - 1; letra++) {
+            if (input.value[letra] == listaLetras[i]) {
+                msg_alertas.style.display = "block"
+                Erro = document.getElementById("mensagemErro")
+                Erro.classList.add("erro")
+                mensagemErro.innerHTML = `Este campo não pode ter Letras`
+                input.value = ''
+                setTimeout(desaparecerCard, 5000);
+            }
+        }
+    }
+
+}
+
+function mascaraCPF() {
+    var tamanhoCpf = ipt_cpfFunc.value.length
+
+    if (tamanhoCpf == 3) {
+        ipt_cpfFunc.value += "."
+    }
+    if (tamanhoCpf == 7) {
+        ipt_cpfFunc.value += "."
+    }
+    if (tamanhoCpf == 11) {
+        ipt_cpfFunc.value += "-"
+    }
+}
+
+
+function mascaraTelefone() {
+    var tamanhoTelefone = ipt_telefoneFunc.value.length
+
+    if (tamanhoTelefone == 0) {
+        ipt_telefoneFunc.value += "("
+    }
+    if (tamanhoTelefone == 3) {
+        ipt_telefoneFunc.value += ")"
+    }
+    if (tamanhoTelefone == 9) {
+        ipt_telefoneFunc.value += "-"
+    }
 }

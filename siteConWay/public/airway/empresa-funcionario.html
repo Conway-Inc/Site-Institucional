@@ -15,7 +15,7 @@
     <title>AirWay</title>
 </head>
 
-<body id="page-top" onload = "exibirInfosEmpresa(), desativarInputsEmpresa(), exibirFuncionarios(), exibirInfosFunc()">
+<body id="page-top" onload="exibirInfosEmpresa(), desativarInputsEmpresa(), exibirFuncionarios(), exibirInfosFunc()">
     <div id="wrapper">
         <div id="cardMsg"></div>
 
@@ -117,8 +117,8 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                        <div class="small text-gray-500"></div>
+                                        <span class="font-weight-bold"></span>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -128,8 +128,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
+                                        <div class="small text-gray-500"></div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -139,8 +138,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
+                                        <div class="small text-gray-500"></div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Marcar todos como
@@ -233,6 +231,13 @@
                     </ul>
 
                 </nav>
+                
+                <div id="msg_alertas" class="msg_alertas">
+                    <span class="ms" id="mensagemErro"></span>
+                  </div>
+                  <div id="msg_alertas2" class="msg_alertas2">
+                    <span class="ms" id="mensagemErro2"></span>
+                </div>
 
                 <div class="container-fluid">
                     <h1 class="h3 mb-2 text-gray-800">Funcionário</h1>
@@ -286,19 +291,24 @@
                                         <div class="row mb-3">
                                             <label class="col-md-4 col-lg-3 col-form-label">Nome Completo</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="text" id="ipt_nomeFunc" class="form-control">
+                                                <input type="text" id="ipt_nomeFunc" class="form-control"
+                                                    onkeyup="eliminarNumeros('ipt_nomeFunc')">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label class="col-md-4 col-lg-3 col-form-label" >CPF</label>
+                                            <label class="col-md-4 col-lg-3 col-form-label">CPF</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="text" id="ipt_cpfFunc" class="form-control" onkeypress="mascaraCPF()">
+                                                <input type="text" id="ipt_cpfFunc" class="form-control"
+                                                    onkeypress="mascaraCPF()" maxlength="14"
+                                                    onkeyup="eliminarLetras('ipt_cpfFunc')">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label class="col-md-4 col-lg-3 col-form-label">Telefone</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="text" id="ipt_telefoneFunc" class="form-control" onkeypress="mascaraTelefone()">
+                                                <input type="text" id="ipt_telefoneFunc" class="form-control"
+                                                    onkeypress="mascaraTelefone()" maxlength="14"
+                                                    onkeyup="eliminarLetras('ipt_telefoneFunc')">
                                             </div>
                                         </div>
 
@@ -312,7 +322,8 @@
                                         <div class="row mb-3">
                                             <label class="col-md-4 col-lg-3 col-form-label">Email</label>
                                             <div class="col-md-8 col-lg-9">
-                                                   <input type="text" id="ipt_emailFunc" class="form-control" onkeyup="obterLogin()">
+                                                <input type="text" id="ipt_emailFunc" class="form-control"
+                                                    onkeyup="obterLogin(), eliminarNumeros('ipt_emailFunc')">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -344,7 +355,7 @@
                                 <div class="card-body">
                                     <div class="container-fluid">
                                         <div class="row mb-3">
-                                            <label class="col-lg-3 col-form-label">CNJP</label>
+                                            <label class="col-lg-3 col-form-label">CNPJ</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input type="text" id="ipt_cnpjEmpresa" class="form-control">
                                             </div>
@@ -401,19 +412,22 @@
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-3 col-form-label">Login</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_loginFunc" class="form-control">
+                                        <input type="text" id="ipt_loginFunc" class="form-control"
+                                            onkeyup="eliminarNumeros('ipt_loginFunc')">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-3 col-form-label">Senha</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_senhaFunc" class="form-control">
+                                        <input type="text" id="ipt_senhaFunc" class="form-control"
+                                            onkeyup="eliminarNumeros('ipt_senhaFunc')">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-md-4 col-lg-3 col-form-label">Repetir Senha</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_repetirSenhaFunc" class="form-control">
+                                        <input type="text" id="ipt_repetirSenhaFunc" class="form-control"
+                                            onkeyup="eliminarNumeros('ipt_repetirSenhaFunc')">
                                     </div>
                                 </div>
 
