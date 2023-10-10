@@ -246,7 +246,7 @@ function atualizarInformacoes() {
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
 
     if (dataFuncVar == '') {
-        dataFuncVar = 'undefined'
+        dataFuncVar = 'NULL'
     }
 
     if (nomeFuncVar == undefined) {
