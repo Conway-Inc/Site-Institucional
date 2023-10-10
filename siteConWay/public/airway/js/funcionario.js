@@ -11,6 +11,12 @@ function cadastrarFuncionario() {
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
+    if(cargoFuncVar == "Analista"){
+        cargoFuncVar = idFuncionarioVar
+    }
+    else{
+        cargoFuncVar = 1;
+    }
     alert(cargoFuncVar)
 
     if (nomeFuncVar == undefined) {
