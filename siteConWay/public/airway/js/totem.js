@@ -175,7 +175,7 @@ function cadastrarComponente() {
 
 }
 
-function ExibirTabelaTotem(){
+function exibirTabelaTotem(){
     var lista = document.getElementById("tabela-totens");
     var trColunas = document.createElement("tr");
     var thead = document.createElement("thead");
@@ -187,16 +187,8 @@ function ExibirTabelaTotem(){
     thAeroporto.setAttribute("scope", "row");
     var thEmpresa = document.createElement("th");
     thEmpresa.setAttribute("scope", "row");
-    
 
-    trColunas.appendChild(thId);
-    trColunas.appendChild(thNome);
-    trColunas.appendChild(thAeroporto);
-    trColunas.appendChild(thEmpresa);
-    thead.appendChild(trColunas);
-    lista.appendChild(thead);
-
-    fetch(`/totem/exibirTabelaTotem/${sessionStorage.ID_FUNCIONARIO}`).then(function (resposta) {
+    fetch(`/totem/exibirTabelaTotem/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 var lista = document.getElementById("tabela-totens");
@@ -213,17 +205,26 @@ function ExibirTabelaTotem(){
                     console.log(publicacao)
                     var lista = document.getElementById("tabela-totens");
                     var publicacao = resposta[i];
+                    
 
                     var thNumero = document.createElement("th");
                     thNumero.innerHTML = contId + 1;
                     thNumero.setAttribute("scope", "row");
                     var tdNome = document.createElement("td");
                     tdNome.innerHTML = publicacao.nome;
+                    var tdAeroporto = document.createElement("td");
+                    tdAeroporto.innerHTML = publicacao.aeroportoTotem;
+                    var tdEmpresa =  document.createElement("td");
+                    tdEmpresa.innerHTML = publicacao.empresaTotem;
+
+
                     var tr = document.createElement("tr");
                     var tbody = document.createElement("tbody");
 
                     tr.appendChild(thNumero);
                     tr.appendChild(tdNome);
+                    tr.appendChild(tdAeroporto);
+                    tr.appendChild(tdEmpresa);
                     tbody.appendChild(tr);
                     lista.appendChild(tbody);
 
