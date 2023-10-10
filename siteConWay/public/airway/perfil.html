@@ -30,7 +30,7 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -50,6 +50,8 @@
             </li>
 
             <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">EMPRESA</div>
 
             <li class="nav-item">
                 <a class="nav-link active" href="empresa-funcionario.html">
@@ -72,6 +74,7 @@
                 <a class="nav-link" href="perfil.html">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Perfil</span>
+                </a>
             </li>
             </a>
 
@@ -239,7 +242,7 @@
 
                         <div class="col-xl-8 col-lg-7">
 
-                            <div class="card shadow mb-4" >
+                            <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Informações</h6>
                                 </div>
@@ -304,7 +307,8 @@
                                         <div class="row mb-3">
                                             <label class="col-lg-3 col-form-label">CNJP</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="text" id="ipt_cnpjEmpresa" class="form-control" onfocusout="obterDadosEmpresa()">
+                                                <input type="text" id="ipt_cnpjEmpresa" class="form-control"
+                                                    onfocusout="obterDadosEmpresa()">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -374,8 +378,8 @@
                         </div>
 
                     </div>
-                    <button class="btn btn-primary" id="botao-cadastrar"
-                        onclick="trocarBotaoPerfil()">Alterar Informações de entrada</button>
+                    <button class="btn btn-primary" id="botao-cadastrar" onclick="trocarBotaoPerfil()">Alterar
+                        Informações de entrada</button>
                 </div>
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
