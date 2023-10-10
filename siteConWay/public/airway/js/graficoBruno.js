@@ -39,7 +39,7 @@ function pegarMetricasGerais(tipo) {
             tipo = 'nomeAero';
             texto = `WHERE municipio = '${municipio}'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
-            exibirTotensMunicipio();
+            exibirAeroportosComTotens();
         }
     }
 
@@ -432,7 +432,6 @@ function exibirEstadosComTotens() {
 function exibirMunicipiosComTotens() {
     var estado = document.getElementById("select-estado");
     if (estado.value == 0) {
-        exibirTotensTodos();
         var municipio = document.getElementById("select-municipio");
         municipio.setAttribute("disabled", "");
 
@@ -440,7 +439,6 @@ function exibirMunicipiosComTotens() {
         fetch(`/graficoBruno/exibirMunicipiosComTotens/${estado.value}`)
             .then(function (resposta) {
                 if (resposta.ok) {
-                    exibirTotensEstado(estado.value);
 
                     resposta.json().then(json => {
 
@@ -488,7 +486,6 @@ function exibirAeroportosComTotens(municipio) {
     var estado = document.getElementById("select-estado");
     var municipio = document.getElementById("select-municipio");
     if (municipio.value == 0) {
-        exibirTotensEstado(estado.value);
         var aeroporto = document.getElementById("select-aeroporto");
         aeroporto.removeAttribute("disabled");
         aeroporto.innerHTML = "";
@@ -503,7 +500,6 @@ function exibirAeroportosComTotens(municipio) {
         fetch(`/graficoBruno/exibirAeroportosComTotens/${municipio.value}`)
             .then(function (resposta) {
                 if (resposta.ok) {
-                    exibirTotensMunicipio();
                     resposta.json().then(json => {
 
                         var aeroporto = document.getElementById("select-aeroporto");
@@ -540,288 +536,288 @@ function exibirAeroportosComTotens(municipio) {
 
 //  EXIBIR TOTENS DE ACORDO COM O TODOS, ESTADO E MUNICIPIO
 
-function exibirTotensTodos() {
-    exibirEstadosComTotens()
-    fetch(`/graficoBruno/exibirTotensTodos`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
+// function exibirTotensTodos() {
+//     exibirEstadosComTotens()
+//     fetch(`/graficoBruno/exibirTotensTodos`)
+//         .then(function (resposta) {
+//             if (resposta.ok) {
+//                 resposta.json().then(json => {
 
-                    if (json.length == 1) {
-                        document.getElementById("qtd-totens").innerHTML = `Geral - ${json.length} Totem`
-                    } else {
-                        document.getElementById("qtd-totens").innerHTML = `Geral - ${json.length} Totens`
-                    }
-                    var divTotens = document.getElementById("div-totens");
-                    divTotens.innerHTML = "";
-                    for (let i = 0; i < json.length; i++) {
-                        var publi = json[i];
-                        var divCamporTotem = document.createElement("div");
-                        divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
-                        var divInfos = document.createElement("div");
-                        divInfos.setAttribute("class", "column mb-3");
-                        var imgTotem = document.createElement("img");
-                        imgTotem.setAttribute("class", "img-totem");
-                        imgTotem.setAttribute("src", "../img/totem.png");
-                        imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
-                        var aImg = document.createElement("a");
-                        aImg.setAttribute("href", "#grafico-totem");
-
-
-                        var pNome = document.createElement("p");
-                        pNome.setAttribute("id", `nome-maquina-${i + 1}`);
-                        pNome.innerHTML = publi.nomeTotem
-                        var pCpu = document.createElement("p");
-                        pCpu.innerHTML = "CPU:"
-                        var spanCpu = document.createElement("span");
-                        spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
-                        var pMemoria = document.createElement("p");
-                        pMemoria.innerHTML = "Memória:"
-                        var spanMemoria = document.createElement("span");
-                        spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
-                        var pDisco = document.createElement("p");
-                        pDisco.innerHTML = "Disco:"
-                        var spanDisco = document.createElement("span");
-                        spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
-
-                        pCpu.appendChild(spanCpu);
-                        pMemoria.appendChild(spanMemoria);
-                        pDisco.appendChild(spanDisco);
-
-                        divInfos.appendChild(pNome)
-                        divInfos.appendChild(pCpu)
-                        divInfos.appendChild(pMemoria)
-                        divInfos.appendChild(pDisco)
-
-                        aImg.appendChild(imgTotem)
-                        divCamporTotem.appendChild(aImg)
-                        divCamporTotem.appendChild(divInfos)
-
-                        divTotens.append(divCamporTotem);
-                    }
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
-
-function exibirTotensEstado(estado) {
-    fetch(`/graficoBruno/exibirTotensEstado/${estado}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-
-                    if (json.length == 1) {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
-                    } else {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totens`
-                    }
-                    var divTotens = document.getElementById("div-totens");
-                    divTotens.innerHTML = "";
-                    for (let i = 0; i < json.length; i++) {
-                        var publi = json[i];
-                        var divCamporTotem = document.createElement("div");
-                        divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
-                        var divInfos = document.createElement("div");
-                        divInfos.setAttribute("class", "column mb-3");
-                        var imgTotem = document.createElement("img");
-                        imgTotem.setAttribute("class", "img-totem");
-                        imgTotem.setAttribute("src", "../img/totem.png");
-                        imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
-                        var aImg = document.createElement("a");
-                        aImg.setAttribute("href", "#grafico-totem");
+//                     if (json.length == 1) {
+//                         document.getElementById("qtd-totens").innerHTML = `Geral - ${json.length} Totem`
+//                     } else {
+//                         document.getElementById("qtd-totens").innerHTML = `Geral - ${json.length} Totens`
+//                     }
+//                     var divTotens = document.getElementById("div-totens");
+//                     divTotens.innerHTML = "";
+//                     for (let i = 0; i < json.length; i++) {
+//                         var publi = json[i];
+//                         var divCamporTotem = document.createElement("div");
+//                         divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
+//                         var divInfos = document.createElement("div");
+//                         divInfos.setAttribute("class", "column mb-3");
+//                         var imgTotem = document.createElement("img");
+//                         imgTotem.setAttribute("class", "img-totem");
+//                         imgTotem.setAttribute("src", "../img/totem.png");
+//                         imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
+//                         var aImg = document.createElement("a");
+//                         aImg.setAttribute("href", "#grafico-totem");
 
 
-                        var pNome = document.createElement("p");
-                        pNome.setAttribute("id", `nome-maquina-${i + 1}`);
-                        pNome.innerHTML = publi.nomeTotem
-                        var pCpu = document.createElement("p");
-                        pCpu.innerHTML = "CPU:"
-                        var spanCpu = document.createElement("span");
-                        spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
-                        var pMemoria = document.createElement("p");
-                        pMemoria.innerHTML = "Memória:"
-                        var spanMemoria = document.createElement("span");
-                        spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
-                        var pDisco = document.createElement("p");
-                        pDisco.innerHTML = "Disco:"
-                        var spanDisco = document.createElement("span");
-                        spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
+//                         var pNome = document.createElement("p");
+//                         pNome.setAttribute("id", `nome-maquina-${i + 1}`);
+//                         pNome.innerHTML = publi.nomeTotem
+//                         var pCpu = document.createElement("p");
+//                         pCpu.innerHTML = "CPU:"
+//                         var spanCpu = document.createElement("span");
+//                         spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
+//                         var pMemoria = document.createElement("p");
+//                         pMemoria.innerHTML = "Memória:"
+//                         var spanMemoria = document.createElement("span");
+//                         spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
+//                         var pDisco = document.createElement("p");
+//                         pDisco.innerHTML = "Disco:"
+//                         var spanDisco = document.createElement("span");
+//                         spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
 
-                        pCpu.appendChild(spanCpu);
-                        pMemoria.appendChild(spanMemoria);
-                        pDisco.appendChild(spanDisco);
+//                         pCpu.appendChild(spanCpu);
+//                         pMemoria.appendChild(spanMemoria);
+//                         pDisco.appendChild(spanDisco);
 
-                        divInfos.appendChild(pNome)
-                        divInfos.appendChild(pCpu)
-                        divInfos.appendChild(pMemoria)
-                        divInfos.appendChild(pDisco)
+//                         divInfos.appendChild(pNome)
+//                         divInfos.appendChild(pCpu)
+//                         divInfos.appendChild(pMemoria)
+//                         divInfos.appendChild(pDisco)
 
-                        aImg.appendChild(imgTotem)
-                        divCamporTotem.appendChild(aImg)
-                        divCamporTotem.appendChild(divInfos)
+//                         aImg.appendChild(imgTotem)
+//                         divCamporTotem.appendChild(aImg)
+//                         divCamporTotem.appendChild(divInfos)
 
-                        divTotens.append(divCamporTotem);
-                    }
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
+//                         divTotens.append(divCamporTotem);
+//                     }
+//                 });
+//             } else {
+//                 resposta.text().then(texto => {
+//                     console.error(texto);
+//                 });
+//             }
+//         }).catch(function (erro) {
+//             console.log(erro);
+//         });
+//     return false;
+// }
 
-function exibirTotensMunicipio() {
-    let municipio = document.getElementById("select-municipio").value
-    fetch(`/graficoBruno/exibirTotensMunicipio/${municipio}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
+// function exibirTotensEstado(estado) {
+//     fetch(`/graficoBruno/exibirTotensEstado/${estado}`)
+//         .then(function (resposta) {
+//             if (resposta.ok) {
+//                 resposta.json().then(json => {
 
-                    if (json.length == 1) {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-municipio").value} - ${json.length} Totem`
-                    } else {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-municipio").value} - ${json.length} Totens`
-                    }
+//                     if (json.length == 1) {
+//                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totem`
+//                     } else {
+//                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-estado").value} - ${json.length} Totens`
+//                     }
+//                     var divTotens = document.getElementById("div-totens");
+//                     divTotens.innerHTML = "";
+//                     for (let i = 0; i < json.length; i++) {
+//                         var publi = json[i];
+//                         var divCamporTotem = document.createElement("div");
+//                         divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
+//                         var divInfos = document.createElement("div");
+//                         divInfos.setAttribute("class", "column mb-3");
+//                         var imgTotem = document.createElement("img");
+//                         imgTotem.setAttribute("class", "img-totem");
+//                         imgTotem.setAttribute("src", "../img/totem.png");
+//                         imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
+//                         var aImg = document.createElement("a");
+//                         aImg.setAttribute("href", "#grafico-totem");
 
-                    var divTotens = document.getElementById("div-totens");
-                    divTotens.innerHTML = "";
-                    for (let i = 0; i < json.length; i++) {
-                        var publi = json[i];
-                        var divCamporTotem = document.createElement("div");
-                        divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
-                        var divInfos = document.createElement("div");
-                        divInfos.setAttribute("class", "column mb-3");
-                        var imgTotem = document.createElement("img");
-                        imgTotem.setAttribute("class", "img-totem");
-                        imgTotem.setAttribute("src", "../img/totem.png");
-                        imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
-                        var aImg = document.createElement("a");
-                        aImg.setAttribute("href", "#grafico-totem");
 
-                        var pNome = document.createElement("p");
-                        pNome.setAttribute("id", `nome-maquina-${i + 1}`);
-                        pNome.innerHTML = publi.nomeTotem
-                        var pCpu = document.createElement("p");
-                        pCpu.innerHTML = "CPU:"
-                        var spanCpu = document.createElement("span");
-                        spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
-                        var pMemoria = document.createElement("p");
-                        pMemoria.innerHTML = "Memória:"
-                        var spanMemoria = document.createElement("span");
-                        spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
-                        var pDisco = document.createElement("p");
-                        pDisco.innerHTML = "Disco:"
-                        var spanDisco = document.createElement("span");
-                        spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
+//                         var pNome = document.createElement("p");
+//                         pNome.setAttribute("id", `nome-maquina-${i + 1}`);
+//                         pNome.innerHTML = publi.nomeTotem
+//                         var pCpu = document.createElement("p");
+//                         pCpu.innerHTML = "CPU:"
+//                         var spanCpu = document.createElement("span");
+//                         spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
+//                         var pMemoria = document.createElement("p");
+//                         pMemoria.innerHTML = "Memória:"
+//                         var spanMemoria = document.createElement("span");
+//                         spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
+//                         var pDisco = document.createElement("p");
+//                         pDisco.innerHTML = "Disco:"
+//                         var spanDisco = document.createElement("span");
+//                         spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
 
-                        pCpu.appendChild(spanCpu);
-                        pMemoria.appendChild(spanMemoria);
-                        pDisco.appendChild(spanDisco);
+//                         pCpu.appendChild(spanCpu);
+//                         pMemoria.appendChild(spanMemoria);
+//                         pDisco.appendChild(spanDisco);
 
-                        divInfos.appendChild(pNome)
-                        divInfos.appendChild(pCpu)
-                        divInfos.appendChild(pMemoria)
-                        divInfos.appendChild(pDisco)
+//                         divInfos.appendChild(pNome)
+//                         divInfos.appendChild(pCpu)
+//                         divInfos.appendChild(pMemoria)
+//                         divInfos.appendChild(pDisco)
 
-                        aImg.appendChild(imgTotem)
-                        divCamporTotem.appendChild(aImg)
-                        divCamporTotem.appendChild(divInfos)
+//                         aImg.appendChild(imgTotem)
+//                         divCamporTotem.appendChild(aImg)
+//                         divCamporTotem.appendChild(divInfos)
 
-                        divTotens.append(divCamporTotem);
-                    }
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
+//                         divTotens.append(divCamporTotem);
+//                     }
+//                 });
+//             } else {
+//                 resposta.text().then(texto => {
+//                     console.error(texto);
+//                 });
+//             }
+//         }).catch(function (erro) {
+//             console.log(erro);
+//         });
+//     return false;
+// }
 
-function exibirTotensAeroportos() {
-    let aeroporto = document.getElementById("select-aeroporto").value
-    // if (aeroporto == 0) {
-    //     exibirMunicipiosComTotens()
-    // }
-    fetch(`/graficoBruno/exibirTotensAeroportos/${aeroporto}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
+// function exibirTotensMunicipio() {
+//     let municipio = document.getElementById("select-municipio").value
+//     fetch(`/graficoBruno/exibirTotensMunicipio/${municipio}`)
+//         .then(function (resposta) {
+//             if (resposta.ok) {
+//                 resposta.json().then(json => {
 
-                    if (json.length == 1) {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-aeroporto").value} - ${json.length} Totem`
-                    } else {
-                        document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-aeroporto").value} - ${json.length} Totens`
-                    }
+//                     if (json.length == 1) {
+//                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-municipio").value} - ${json.length} Totem`
+//                     } else {
+//                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-municipio").value} - ${json.length} Totens`
+//                     }
 
-                    var divTotens = document.getElementById("div-totens");
-                    divTotens.innerHTML = "";
-                    for (let i = 0; i < json.length; i++) {
-                        var publi = json[i];
-                        var divCamporTotem = document.createElement("div");
-                        divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
-                        var divInfos = document.createElement("div");
-                        divInfos.setAttribute("class", "column mb-3");
-                        var imgTotem = document.createElement("img");
-                        imgTotem.setAttribute("class", "img-totem");
-                        imgTotem.setAttribute("src", "../img/totem.png");
-                        imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
-                        var aImg = document.createElement("a");
-                        aImg.setAttribute("href", "#grafico-totem");
+//                     var divTotens = document.getElementById("div-totens");
+//                     divTotens.innerHTML = "";
+//                     for (let i = 0; i < json.length; i++) {
+//                         var publi = json[i];
+//                         var divCamporTotem = document.createElement("div");
+//                         divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
+//                         var divInfos = document.createElement("div");
+//                         divInfos.setAttribute("class", "column mb-3");
+//                         var imgTotem = document.createElement("img");
+//                         imgTotem.setAttribute("class", "img-totem");
+//                         imgTotem.setAttribute("src", "../img/totem.png");
+//                         imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
+//                         var aImg = document.createElement("a");
+//                         aImg.setAttribute("href", "#grafico-totem");
 
-                        var pNome = document.createElement("p");
-                        pNome.setAttribute("id", `nome-maquina-${i + 1}`);
-                        pNome.innerHTML = publi.nomeTotem
-                        var pCpu = document.createElement("p");
-                        pCpu.innerHTML = "CPU:"
-                        var spanCpu = document.createElement("span");
-                        spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
-                        var pMemoria = document.createElement("p");
-                        pMemoria.innerHTML = "Memória:"
-                        var spanMemoria = document.createElement("span");
-                        spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
-                        var pDisco = document.createElement("p");
-                        pDisco.innerHTML = "Disco:"
-                        var spanDisco = document.createElement("span");
-                        spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
+//                         var pNome = document.createElement("p");
+//                         pNome.setAttribute("id", `nome-maquina-${i + 1}`);
+//                         pNome.innerHTML = publi.nomeTotem
+//                         var pCpu = document.createElement("p");
+//                         pCpu.innerHTML = "CPU:"
+//                         var spanCpu = document.createElement("span");
+//                         spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
+//                         var pMemoria = document.createElement("p");
+//                         pMemoria.innerHTML = "Memória:"
+//                         var spanMemoria = document.createElement("span");
+//                         spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
+//                         var pDisco = document.createElement("p");
+//                         pDisco.innerHTML = "Disco:"
+//                         var spanDisco = document.createElement("span");
+//                         spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
 
-                        pCpu.appendChild(spanCpu);
-                        pMemoria.appendChild(spanMemoria);
-                        pDisco.appendChild(spanDisco);
+//                         pCpu.appendChild(spanCpu);
+//                         pMemoria.appendChild(spanMemoria);
+//                         pDisco.appendChild(spanDisco);
 
-                        divInfos.appendChild(pNome)
-                        divInfos.appendChild(pCpu)
-                        divInfos.appendChild(pMemoria)
-                        divInfos.appendChild(pDisco)
+//                         divInfos.appendChild(pNome)
+//                         divInfos.appendChild(pCpu)
+//                         divInfos.appendChild(pMemoria)
+//                         divInfos.appendChild(pDisco)
 
-                        aImg.appendChild(imgTotem)
-                        divCamporTotem.appendChild(aImg)
-                        divCamporTotem.appendChild(divInfos)
+//                         aImg.appendChild(imgTotem)
+//                         divCamporTotem.appendChild(aImg)
+//                         divCamporTotem.appendChild(divInfos)
 
-                        divTotens.append(divCamporTotem);
-                    }
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
+//                         divTotens.append(divCamporTotem);
+//                     }
+//                 });
+//             } else {
+//                 resposta.text().then(texto => {
+//                     console.error(texto);
+//                 });
+//             }
+//         }).catch(function (erro) {
+//             console.log(erro);
+//         });
+//     return false;
+// }
+
+// function exibirTotensAeroportos() {
+//     let aeroporto = document.getElementById("select-aeroporto").value
+//     // if (aeroporto == 0) {
+//     //     exibirMunicipiosComTotens()
+//     // }
+//     fetch(`/graficoBruno/exibirTotensAeroportos/${aeroporto}`)
+//         .then(function (resposta) {
+//             if (resposta.ok) {
+//                 resposta.json().then(json => {
+
+//                     if (json.length == 1) {
+//                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-aeroporto").value} - ${json.length} Totem`
+//                     } else {
+//                         document.getElementById("qtd-totens").innerHTML = `${document.getElementById("select-aeroporto").value} - ${json.length} Totens`
+//                     }
+
+//                     var divTotens = document.getElementById("div-totens");
+//                     divTotens.innerHTML = "";
+//                     for (let i = 0; i < json.length; i++) {
+//                         var publi = json[i];
+//                         var divCamporTotem = document.createElement("div");
+//                         divCamporTotem.setAttribute("class", "row mb-3 campo-totem");
+//                         var divInfos = document.createElement("div");
+//                         divInfos.setAttribute("class", "column mb-3");
+//                         var imgTotem = document.createElement("img");
+//                         imgTotem.setAttribute("class", "img-totem");
+//                         imgTotem.setAttribute("src", "../img/totem.png");
+//                         imgTotem.setAttribute("onclick", `pegarValorDisco(${publi.idTotem}), pegarValorTotem(${publi.idTotem})`);
+//                         var aImg = document.createElement("a");
+//                         aImg.setAttribute("href", "#grafico-totem");
+
+//                         var pNome = document.createElement("p");
+//                         pNome.setAttribute("id", `nome-maquina-${i + 1}`);
+//                         pNome.innerHTML = publi.nomeTotem
+//                         var pCpu = document.createElement("p");
+//                         pCpu.innerHTML = "CPU:"
+//                         var spanCpu = document.createElement("span");
+//                         spanCpu.setAttribute("id", `cpu-maquina-${i + 1}`);
+//                         var pMemoria = document.createElement("p");
+//                         pMemoria.innerHTML = "Memória:"
+//                         var spanMemoria = document.createElement("span");
+//                         spanMemoria.setAttribute("id", `memoria-maquina-${i + 1}`);
+//                         var pDisco = document.createElement("p");
+//                         pDisco.innerHTML = "Disco:"
+//                         var spanDisco = document.createElement("span");
+//                         spanDisco.setAttribute("id", `disco-maquina-${i + 1}`);
+
+//                         pCpu.appendChild(spanCpu);
+//                         pMemoria.appendChild(spanMemoria);
+//                         pDisco.appendChild(spanDisco);
+
+//                         divInfos.appendChild(pNome)
+//                         divInfos.appendChild(pCpu)
+//                         divInfos.appendChild(pMemoria)
+//                         divInfos.appendChild(pDisco)
+
+//                         aImg.appendChild(imgTotem)
+//                         divCamporTotem.appendChild(aImg)
+//                         divCamporTotem.appendChild(divInfos)
+
+//                         divTotens.append(divCamporTotem);
+//                     }
+//                 });
+//             } else {
+//                 resposta.text().then(texto => {
+//                     console.error(texto);
+//                 });
+//             }
+//         }).catch(function (erro) {
+//             console.log(erro);
+//         });
+//     return false;
+// }
