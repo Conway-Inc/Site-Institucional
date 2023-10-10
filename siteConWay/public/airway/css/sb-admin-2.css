@@ -9909,11 +9909,11 @@ a:focus {
 }
 
 .msg_alertas2 {
-  padding: 10px 20px;
+  padding: 8.5px 17.5px;
   border-radius: 1vh;
   position: fixed;
   display: none;
-  top: 120px;
+  top: 130px;
   right: 10px;
   z-index: 10000;
 }
