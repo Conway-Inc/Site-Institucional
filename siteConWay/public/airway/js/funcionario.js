@@ -1,9 +1,12 @@
 const { json } = require("express");
+var temErro = false;
 
 function cadastrarFuncionario() {
+    const retorno = eliminarMascaras();
+
     var nomeFuncVar = ipt_nomeFunc.value;
-    var cpfFuncVar = ipt_cpfFunc.value;
-    var telFuncVar = ipt_telefoneFunc.value;
+    var cpfFuncVar = retorno.cpfFormatado;
+    var telFuncVar = retorno.telefoneFormatado;
     var dataFuncVar = ipt_dataFunc.value;
     var emailFuncVar = ipt_emailFunc.value;
     var cargoFuncVar = select_cargo.value;
@@ -11,79 +14,73 @@ function cadastrarFuncionario() {
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
-    if(cargoFuncVar == "Analista"){
+    if (cargoFuncVar == "Analista") {
         cargoFuncVar = idFuncionarioVar
     }
-    else{
+    else {
         cargoFuncVar = 1;
     }
 
-    if (nomeFuncVar == undefined) {
-        alert("O nome está undefined")
-    } else if (emailFuncVar == undefined) {
-        alert("O e-mail está undefined")
-    } else if (senhaFuncVar == undefined) {
-        alert("A senha está undefined")
-    } else if (cpfFuncVar == undefined) {
-        alert("O CPF está undefined")
-    } else if (telFuncVar == undefined) {
-        alert("O telefone está undefined")
-    } else if (dataFuncVar == undefined) {
-        alert("A data está undefined")
-    } else if (fkEmpresaVar == undefined) {
-        alert("A FkEmpresa está undefined")
-    } else if (cargoFuncVar == undefined) {
-        alert("O cargo do funcionário está como undefined")
-    } else if (idFuncionarioVar == undefined) {
-        alert("O idFuncionário está como undefined")
+    validar()
+
+    if (!temErro) {
+
+
+        fetch(`/funcionario/cadastrarFuncionario`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeFuncVarServer: nomeFuncVar,
+                emailFuncVarServer: emailFuncVar,
+                senhaFuncVarServer: senhaFuncVar,
+                cpfFuncVarServer: cpfFuncVar,
+                telFuncVarServer: telFuncVar,
+                dataFuncVarServer: dataFuncVar,
+                cargoFuncVarServer: cargoFuncVar,
+                idFuncionarioVarServer: idFuncionarioVar,
+                fkEmpresaServer: fkEmpresaVar
+            })
+        }).then(function (resposta) {
+            // console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                cardMsg.style.display = "block"
+                cardMsg.style.border = "2px solid greenyellow"
+                cardMsg.style.boxShadow = "0px 0px 12px black"
+                cardMsg.style.color = "greenyellow"
+                cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
+                setTimeout(function () {
+                    cardMsg.style.display = "none";
+                }, 3000);
+
+                linhaFuncionario.innerHTML = ``
+                exibirFuncionarios();
+
+            } else {
+                cardMsg.style.display = "block"
+                cardMsg.style.border = "2px solid red"
+                cardMsg.style.color = "red"
+                cardMsg.innerHTML = "❌Erro ao cadastrar totem! Tente novamente...❌";
+                setTimeout(function () {
+                    cardMsg.style.display = "none";
+                }, 3000);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`)
+        });
+        return false
     }
-
-    // validar()
-
-    fetch(`/funcionario/cadastrarFuncionario`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nomeFuncVarServer: nomeFuncVar,
-            emailFuncVarServer: emailFuncVar,
-            senhaFuncVarServer: senhaFuncVar,
-            cpfFuncVarServer: cpfFuncVar,
-            telFuncVarServer: telFuncVar,
-            dataFuncVarServer: dataFuncVar,
-            cargoFuncVarServer: cargoFuncVar,
-            idFuncionarioVarServer: idFuncionarioVar,
-            fkEmpresaServer: fkEmpresaVar
-        })
-    }).then(function (resposta) {
-        // console.log("resposta: ", resposta);
-        if (resposta.ok) {
-            cardMsg.style.display = "block"
-            cardMsg.style.border = "2px solid greenyellow"
-            cardMsg.style.boxShadow = "0px 0px 12px black"
-            cardMsg.style.color = "greenyellow"
-            cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
-            setTimeout(function () {
-                cardMsg.style.display = "none";
-            }, 3000);
-
-            linhaFuncionario.innerHTML = ``
-            exibirFuncionarios();
-
-        } else {
-            cardMsg.style.display = "block"
-            cardMsg.style.border = "2px solid red"
-            cardMsg.style.color = "red"
-            cardMsg.innerHTML = "❌Erro ao cadastrar totem! Tente novamente...❌";
-            setTimeout(function () {
-                cardMsg.style.display = "none";
-            }, 3000);
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`)
-    });
-    return false
+    else {
+        msg_alertas2.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("erro")
+        mensagemErro.innerHTML = `Corrija seus erros para prosseguir`
+        input.value = ''
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
 }
 
 function exibirInfosFunc() {
@@ -408,10 +405,10 @@ function calcularIdade(dataFormatada) {
 
 function eliminarMascaras() {
     var cpfFormatado;
-    var celularFormatado;
+    var telefoneFormatado;
 
-    var cpfMascarado = iptCPF.value
-    var celularMascarado = iptCelular.value
+    var cpfMascarado = ipt_cpfFunc.value
+    var telefoneMascarado = ipt_telefoneFunc.value
 
     // Retirando a máscara do CPF
 
@@ -420,11 +417,11 @@ function eliminarMascaras() {
 
     // Retirando a máscara do telefone
 
-    celularFormatado = celularMascarado.replaceAll("-", "")
-    celularFormatado = celularFormatado.replaceAll("(", "")
-    celularFormatado = celularFormatado.replaceAll(")", "")
+    telefoneFormatado = telefoneMascarado.replaceAll("-", "")
+    telefoneFormatado = telefoneFormatado.replaceAll("(", "")
+    telefoneFormatado = telefoneFormatado.replaceAll(")", "")
 
-    return { cpfFormatado, celularFormatado }
+    return { cpfFormatado, telefoneFormatado }
 }
 
 function eliminarNumeros(id) {
@@ -438,7 +435,9 @@ function eliminarNumeros(id) {
             Erro.classList.add("erro")
             mensagemErro.innerHTML = `Este campo não pode ter Números`
             input.value = ''
-            setTimeout(desaparecerCard, 5000);
+            setTimeout(function () {
+                msg_alertas.style.display = "none";
+            }, 3000);
         }
     }
     for (var letra = 0; letra <= input.value.length - 1; letra++) {
@@ -448,7 +447,9 @@ function eliminarNumeros(id) {
             Erro.classList.add("erro")
             mensagemErro.innerHTML = `Este campo não pode ter Números`
             input.value = ''
-            setTimeout(desaparecerCard, 5000);
+            setTimeout(function () {
+                msg_alertas.style.display = "none";
+            }, 3000);
         }
     }
 }
@@ -464,7 +465,9 @@ function eliminarLetras(id) {
             Erro.classList.add("erro")
             mensagemErro.innerHTML = `Este campo não pode ter Letras`
             input.value = ''
-            setTimeout(desaparecerCard, 5000);
+            setTimeout(function () {
+                msg_alertas.style.display = "none";
+            }, 3000);
         }
         for (var letra = 0; letra <= input.value.length - 1; letra++) {
             if (input.value[letra] == listaLetras[i]) {
@@ -473,7 +476,9 @@ function eliminarLetras(id) {
                 Erro.classList.add("erro")
                 mensagemErro.innerHTML = `Este campo não pode ter Letras`
                 input.value = ''
-                setTimeout(desaparecerCard, 5000);
+                setTimeout(function () {
+                    msg_alertas.style.display = "none";
+                }, 3000);
             }
         }
     }
@@ -507,4 +512,8 @@ function mascaraTelefone() {
     if (tamanhoTelefone == 9) {
         ipt_telefoneFunc.value += "-"
     }
+}
+
+function validar() {
+
 }
