@@ -6,10 +6,12 @@ function cadastrarFuncionario() {
     var telFuncVar = ipt_telefoneFunc.value;
     var dataFuncVar = ipt_dataFunc.value;
     var emailFuncVar = ipt_emailFunc.value;
-    var cargoFuncVar = ipt_cargoFunc.value;
+    var cargoFuncVar = select_cargo.value;
     var senhaFuncVar = ipt_senhaFunc.value;
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
+
+    alert(cargoFuncVar)
 
     if (nomeFuncVar == undefined) {
         alert("O nome está undefined")
@@ -61,7 +63,9 @@ function cadastrarFuncionario() {
                 cardMsg.style.display = "none";
             }, 3000);
 
+            linhaFuncionario.innerHTML = ``
             exibirFuncionarios();
+
         } else {
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid red"
@@ -127,7 +131,6 @@ function exibirInfosEmpresa(fkEmpresaVar) {
                     var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
                     infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
                     infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/, "$1-$2");
-
 
                     obterInfosEmpresa()
 
@@ -299,13 +302,13 @@ function exibirFuncionarios(fkEmpresaVar) {
             if (resposta.ok) {
                 console.log(resposta);
 
-                resposta    .json().then(json => {
+                resposta.json().then(json => {
                     console.log(json);
 
                     for (let i = 0; i < json.length; i++) {
                         var telefone = json[i].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
                         telefone = telefone.replace(/(\d)(\d{4})$/, "$1-$2");
-                        
+
                         var cpf = json[i].cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
                         // Formatação de data 
@@ -316,11 +319,21 @@ function exibirFuncionarios(fkEmpresaVar) {
                             timeZone: 'UTC',
                         });
 
+                        var cargo = json[i].fkGerente
+
+                        if (cargo == "null") {
+                            cargo = "Admin"
+                        } else if (cargo == 1) {
+                            cargo = "Gerente"
+                        } else {
+                            cargo = "Analista"
+                        }
+
 
                         linhaFuncionario.innerHTML += `
                             <tr class="odd">
                                 <td class="sorting_1">${json[i].nome}</td>
-                                <td>${json[i].fkGerente}</td>
+                                <td>${cargo}</td>
                                 <td>${telefone}</td>
                                 <td>${cpf}</td>
                                 <td>${`${calcularIdade(dataFormatada)} anos`}</td>
