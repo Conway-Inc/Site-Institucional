@@ -83,8 +83,8 @@ CREATE TABLE TotemComponente (
 );
 
 CREATE TABLE Alerta (
-    idAlerta INT,
-    tipo VARCHAR(45),
+    idAlerta INT AUTO_INCREMENT,
+    tipo INT,
     descricao TEXT,
     fkRegistro INT,
     FOREIGN KEY (fkRegistro) REFERENCES Registro(idRegistro) ON DELETE CASCADE,

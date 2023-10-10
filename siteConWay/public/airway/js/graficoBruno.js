@@ -1,3 +1,4 @@
+let infosTotem;
 
 // GRAFICO GERAL
 function pegarMetricasGerais(tipo) {
@@ -278,7 +279,8 @@ function pegarValorTotem(idTotem) {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(json => {
-                    graficoTotem(json);
+                    infosTotem = json;
+                    graficoTotem(infosTotem);
                 });
             } else {
                 resposta.text().then(texto => {
@@ -290,16 +292,17 @@ function pegarValorTotem(idTotem) {
         });
     return false;
 }
-function graficoTotem(json) {
+function graficoTotem(infosTotem) {
     document.getElementById("toolbar").style.display = 'block';
     document.getElementById("grafico-totem").innerHTML = "";
     let dataCpu = [];
     let dataMemoria = [];
     let labels = [];
-    for (let i = 0; i < json.length; i++) {
-        dataCpu.unshift(json[i].cpu);
-        dataMemoria.unshift(json[i].memoria);
-        let dataHora = new Date(json[i].data);
+    
+    for (let i = 0; i < infosTotem.length; i++) {
+        dataCpu.unshift(infosTotem[i].cpu);
+        dataMemoria.unshift(infosTotem[i].memoria);
+        let dataHora = new Date(infosTotem[i].data);
         dataHora = `${dataHora.getFullYear().toString()}-${(dataHora.getMonth() + 1).toString().padStart(2, '0')}-${dataHora.getDate().toString().padStart(2, '0')} ${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
         labels.unshift(dataHora);
         // dataHora = `${dataHora.getHours()}:${dataHora.getMinutes()}:${dataHora.getSeconds()}`
@@ -364,46 +367,7 @@ function graficoTotem(json) {
     };
 
     var chart = new ApexCharts(document.getElementById("grafico-totem"), options);
-    chart.render();
-
-
-    var resetCssClasses = function (activeEl) {
-        var els = document.querySelectorAll('button')
-        Array.prototype.forEach.call(els, function (el) {
-            el.classList.remove('active')
-        })
-
-        activeEl.target.classList.add('active')
-    }
-
-    document.querySelector('#day').addEventListener('click', function (e) {
-        resetCssClasses(e)
-
-        let labelsDiario = [];
-        let dataAtual = new Date()
-        for (let i = 0; i < labels.length; i++) {
-            let dataLabel = new Date(labels[i]);
-            if (dataLabel.getDay() == dataAtual.getDay()) {
-                let data = new Date(labels[i]);
-                labelsDiario.push(`${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`);
-            }
-        }
-        console.log(labelsDiario)
-
-        chart.zoomX(
-            labelsDiario[0],
-            labelsDiario[labelsDiario.length-1]
-        )
-    })
-
-    document.querySelector('#all').addEventListener('click', function (e) {
-        resetCssClasses(e)
-
-        chart.zoomX(
-            labels[0],
-            labels[labels.length-1]
-        )
-    })
+    chart.render();    
 }
 
 // EXIBIR OPTIONS DE ESTADO, MUNICIPIO E AEROPORTO
