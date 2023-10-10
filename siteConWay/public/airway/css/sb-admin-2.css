@@ -90,6 +90,11 @@ abbr[data-original-title] {
   text-decoration-skip-ink: none;
 }
 
+.div-botao{
+  display: flex;
+  justify-content: center;
+}
+
 address {
   margin-bottom: 1rem;
   font-style: normal;
