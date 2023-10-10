@@ -515,5 +515,119 @@ function mascaraTelefone() {
 }
 
 function validar() {
+    var nomeFunc = ipt_nomeFunc.value
+    var cpfFunc = ipt_cpfFunc.value
+    var telefoneFunc = ipt_telefoneFunc.value
+    var dataFunc = ipt_dataFunc.value
+    var emailFunc = ipt_emailFunc.value
+    var cargoFunc = select_cargo.value
+    var loginFunc = ipt_loginFunc.value
+    var senhaFunc = ipt_senhaFunc.value
+    var repetirSenhaFunc = ipt_repetirSenhaFunc.value
+
+    if (nomeFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O Nome não pode ser vazio`
+        temErro = true;
+    }
+    else if (cpfFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O CPF não pode ser vazio`
+        temErro = true;
+    }
+    else if (telefoneFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O telefone não pode ser vazio`
+        temErro = true;
+    }
+    else if (dataFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `A data de nascimento não pode ser vazio`
+        temErro = true;
+    }
+    else if (emailFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+        
+    }
+    else if(cargoFunc == ""){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+    }
+    else if (loginFunc == ""){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+    }
+    else if(senhaFunc == ""){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+    }
+    else if(repetirSenhaFunc  == ""){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+    }
+    
+    if(cpf.length < 14){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um CPF válido`
+        temErro = true;
+    }
+
+    if(telefoneFunc.length < 14){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um telefone válido`
+        temErro = true;
+    }
+
+    if(emailFunc.indexOf('@') == -1){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um e-mail válido`
+        temErro = true;
+    }
+
+    if(nome.length < 2){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um nome válido`
+        temErro = true;
+    }
+
+    if(emailFunc.length < 2){
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um CPF válido`
+        temErro = true;
+    }
 
 }
