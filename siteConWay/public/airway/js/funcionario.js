@@ -1,4 +1,3 @@
-const { json } = require("express");
 var temErro = false;
 
 function cadastrarFuncionario() {

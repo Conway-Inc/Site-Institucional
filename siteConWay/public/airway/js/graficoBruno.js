@@ -9,36 +9,43 @@ function pegarMetricasGerais(tipo) {
     if (tipo == 1) {
         tipo = 'estado';
         document.getElementById("info-aeroporto-nome").innerHTML = "todos os estados do Brasil";
+        document.getElementById("info-relatorio-nome").innerHTML = "todos os estados do Brasil";
         texto = "estado LIKE '%%'";
     } else if (tipo == 2) {
         tipo = 'municipio';
         texto = `estado LIKE '%${estado}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
+        document.getElementById("info-relatorio-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os estados
         if (estado == "0") {
             tipo = 'estado';
             texto = "estado LIKE '%%'";
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os estados do Brasil`;
+            document.getElementById("info-relatorio-nome").innerHTML = `todos os estados do Brasil`;
         }
     } else if (tipo == 3) {
         tipo = 'aeroporto';
         texto = `municipio LIKE '%${municipio}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
+        document.getElementById("info-relatorio-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (municipio == "0") {
             tipo = 'municipio';
             texto = `estado = '${estado}'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
+            document.getElementById("info-relatorio-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         }
     } else if (tipo == 4) {
         tipo = 'idTotem';
         texto = `aeroporto LIKE '%${aeroporto}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
+        document.getElementById("info-relatorio-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (aeroporto == "0") {
             tipo = 'aeroporto';
             texto = `municipio LIKE '%${municipio}%'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
+            document.getElementById("info-relatorio-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
             exibirAeroportosComTotens();
         }
     }
@@ -70,7 +77,6 @@ function pegarMetricasGerais(tipo) {
 
 function graficoEstados(json) {
     document.getElementById("grafico-geral").innerHTML = "";
-    console.log(json)
 
     let alerta = [];
     let critico = [];
@@ -161,7 +167,7 @@ function graficoEstados(json) {
             labels: {
                 show: false,
                 formatter: function (val) {
-                    return val + "%";
+                    return val + "";
                 }
             }
 
@@ -174,116 +180,113 @@ function graficoEstados(json) {
             style: {
                 colors: ["#304758"]
             }
-        },
-        // fill: {
-        //     colors: ['#F44336', '#E91E63']
-        //   }
+        }
     };
 
     var chart = new ApexCharts(document.getElementById("grafico-geral"), options);
     chart.render();
 }
 
-// GRAFICO DISCO
+// // GRAFICO DISCO
 
-function pegarValorDisco(idTotem) {
-    fetch(`/graficoBruno/valorDisco/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    graficoDisco(json);
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
+// function pegarValorDisco(idTotem) {
+//     fetch(`/graficoBruno/valorDisco/${idTotem}`)
+//         .then(function (resposta) {
+//             if (resposta.ok) {
+//                 resposta.json().then(json => {
+//                     graficoDisco(json);
+//                 });
+//             } else {
+//                 resposta.text().then(texto => {
+//                     console.error(texto);
+//                 });
+//             }
+//         }).catch(function (erro) {
+//             console.log(erro);
+//         });
+//     return false;
+// }
 
-function graficoDisco(json) {
-    document.getElementById("grafico-disco").innerHTML = "";
-    var valorAtual = Math.round((((json[0].porcent) * (json[0].valor)) / 100), 1);
-    var options = {
-        series: [
-            {
-                name: 'GB Usado',
-                data: [
-                    {
-                        x: '',
-                        y: valorAtual,
-                        goals: [
-                            {
-                                name: 'GB Total',
-                                value: json[0].valor,
-                                strokeWidth: 5,
-                                strokeHeight: 20,
-                                strokeColor: '#775DD0'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        xaxis: {
-            max: json[0].valor,
-            axisBorder: {
-                show: false
-            },
-            axisTicks: {
-                show: false,
-            },
-            labels: {
-                show: false,
-                formatter: function (val) {
-                    return val + "%";
-                }
-            }
-        },
-        chart: {
-            height: 110,
-            type: 'bar',
-            toolbar: {
-                show: false
-            }
-        },
-        plotOptions: {
-            bar: {
-                horizontal: true
-            }
-        },
-        colors: ['#00E396'],
-        dataLabels: {
-            formatter: function (val, opt) {
-                const goals =
-                    opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
-                        .goals
-                if (goals && goals.length) {
-                    return `${val} / ${goals[0].value}`
-                }
-                return val
-            }
-        },
-        title: {
-            text: 'Disco',
-            floating: true,
-            offsetY: 10,
-            align: 'center',
-            style: {
-                color: '#444'
-            }
-        },
-        grid: {
-            show: false
-        }
-    };
+// function graficoDisco(json) {
+//     document.getElementById("grafico-disco").innerHTML = "";
+//     var valorAtual = Math.round((((json[0].porcent) * (json[0].valor)) / 100), 1);
+//     var options = {
+//         series: [
+//             {
+//                 name: 'GB Usado',
+//                 data: [
+//                     {
+//                         x: '',
+//                         y: valorAtual,
+//                         goals: [
+//                             {
+//                                 name: 'GB Total',
+//                                 value: json[0].valor,
+//                                 strokeWidth: 5,
+//                                 strokeHeight: 20,
+//                                 strokeColor: '#775DD0'
+//                             }
+//                         ]
+//                     }
+//                 ]
+//             }
+//         ],
+//         xaxis: {
+//             max: json[0].valor,
+//             axisBorder: {
+//                 show: false
+//             },
+//             axisTicks: {
+//                 show: false,
+//             },
+//             labels: {
+//                 show: false,
+//                 formatter: function (val) {
+//                     return val + "%";
+//                 }
+//             }
+//         },
+//         chart: {
+//             height: 110,
+//             type: 'bar',
+//             toolbar: {
+//                 show: false
+//             }
+//         },
+//         plotOptions: {
+//             bar: {
+//                 horizontal: true
+//             }
+//         },
+//         colors: ['#00E396'],
+//         dataLabels: {
+//             formatter: function (val, opt) {
+//                 const goals =
+//                     opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
+//                         .goals
+//                 if (goals && goals.length) {
+//                     return `${val} / ${goals[0].value}`
+//                 }
+//                 return val
+//             }
+//         },
+//         title: {
+//             text: 'Disco',
+//             floating: true,
+//             offsetY: 10,
+//             align: 'center',
+//             style: {
+//                 color: '#444'
+//             }
+//         },
+//         grid: {
+//             show: false
+//         }
+//     };
 
-    var chart = new ApexCharts(document.querySelector("#grafico-disco"), options);
-    chart.render();
-}
+//     var chart = new ApexCharts(document.querySelector("#grafico-disco"), options);
+//     chart.render();
+// }
 
 // EXIBIR OPTIONS DE ESTADO, MUNICIPIO E AEROPORTO
 
