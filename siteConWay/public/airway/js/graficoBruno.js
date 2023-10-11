@@ -1,4 +1,12 @@
-let infosTotem;
+function gerarRelatorio() {
+    var doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'cm',
+        format: 'letter'
+    })
+    doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`,1,1)
+    doc.save("teste.pdf");
+}
 
 // GRAFICO GERAL
 function pegarMetricasGerais(tipo) {

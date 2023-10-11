@@ -241,30 +241,43 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Aeroporto</h6>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" style="display: flex; flex-direction: row;">
                                     <div class="container-fluid select-airport">
-                                        <label >Informe os
-                                            dados do aeroporto que deseja monitorar: </label>
-                                        <select id="select-estado" class="form-control" onchange="exibirMunicipiosComTotens(), pegarMetricasGerais(2)">
+                                        <label>Informe os dados do aeroporto: </label>
+                                        <select id="select-estado" class="form-control"
+                                            onchange="exibirMunicipiosComTotens(), pegarMetricasGerais(2)">
                                             <option>Selecione um estado...</option>
                                         </select>
-            
-                                        <select id="select-municipio" class="form-control" onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3)" disabled>
+
+                                        <select id="select-municipio" class="form-control"
+                                            onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3)" disabled>
                                             <option>Selecione um município...</option>
                                         </select>
-            
-                                        <select id="select-aeroporto" class="form-control" onchange="pegarMetricasGerais(4)" disabled>
+
+                                        <select id="select-aeroporto" class="form-control"
+                                            onchange="pegarMetricasGerais(4)" disabled>
                                             <option>Selecione um aeroporto...</option>
                                         </select>
                                     </div>
+                                    <div class="container-fluid select-airport">
+                                        <label>Informe um mês:</label>
+                                        <select id="select-mes" class="form-control" onchange="">
+                                            <option>Outubro</option>
+                                        </select>
+                                        <select id="select-ano" class="form-control" onchange="">
+                                            <option>2023</option>
+                                        </select>
+                                    </div>
+
 
                                 </div>
 
                             </div>
-                            
+
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Ocorrências de <span id="info-aeroporto-nome"></span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Ocorrências de <span
+                                            id="info-aeroporto-nome"></span></h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="container-fluid">
@@ -275,8 +288,8 @@
                                                 <button id="one_year" class="">1Y</button>
                                                 <button id="ytd" class="">YTD</button>
                                                 <button id="all" class="">ALL</button>
-                                              </div>
-                                              <div id="grafico-totem"></div>
+                                            </div>
+                                            <div id="grafico-totem"></div>
                                         </div>
                                         <div id="grafico-geral"></div>
                                     </div>
@@ -284,26 +297,27 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-xl-4 col-lg-5">
 
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary" id="qtd-totens">Relatório de <span id="info-relatorio-nome"></span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary" id="qtd-totens">Relatório de <span
+                                            id="info-relatorio-nome"></span></h6>
                                 </div>
-                                <div class="card-body">
-                                    <div class="container-fluid" id="div-totens">
-
+                                <div class="card-body card-relatorio">
+                                    <div class="container-fluid" id="div-relatorio">
                                     </div>
+                                    <button onclick="gerarRelatorio()" class="btn btn-primary btn-relatorio">Gerar Relatório</button>
                                 </div>
 
                             </div>
 
                         </div>
-                        
+
                     </div>
-                    
-                    
+
+
                 </div>
 
             </div>
@@ -353,9 +367,12 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="js/graficoBruno.js"></script>
 <script src="js/funcionario.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"
+    integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs"
+    crossorigin="anonymous"></script>
 <script>
     // Exibindo informações dos estados
     exibirEstadosComTotens();
     pegarMetricasGerais(1);
-    
+
 </script>
