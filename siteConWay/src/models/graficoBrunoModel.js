@@ -52,7 +52,7 @@ function exibirEstadosComTotens() {
     "Acessei o graficoBrunoModel e executei a função exibirEstadosComTotens(): ",
   );
   var instrucao = `
-    SELECT estado FROM vw_alertas GROUP BY estado ORDER BY estado;
+    SELECT estado FROM vw_totem_estado GROUP BY estado ORDER BY estado;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -63,7 +63,7 @@ function exibirMunicipiosComTotens(estado) {
     "Acessei o graficoBrunoModel e executei a função exibirMunicipiosComTotens(): ",estado
   );
   var instrucao = `
-    SELECT municipio FROM vw_alertas WHERE estado = '${estado}' GROUP BY municipio ORDER BY municipio;
+    SELECT municipio FROM vw_totem_estado WHERE estado = '${estado}' GROUP BY municipio ORDER BY municipio;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -74,7 +74,7 @@ function exibirAeroportosComTotens(municipio) {
     "Acessei o graficoBrunoModel e executei a função exibirAeroportosComTotens(): ",municipio
   );
   var instrucao = `
-    SELECT idAero, aeroporto FROM vw_alertas WHERE municipio = '${municipio}' GROUP BY idAero ORDER BY aeroporto;
+    SELECT idAeroporto, nomeAeroporto FROM vw_totem_estado WHERE municipio = '${municipio}' GROUP BY idAeroporto ORDER BY nomeAeroporto;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

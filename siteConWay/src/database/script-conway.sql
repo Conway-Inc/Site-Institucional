@@ -176,7 +176,7 @@ SELECT r.fkTotem as "id", t.nome as "nome", r.dataHora as "data",
 MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
 MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
 MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
-a.nome as nomeAero, a.municipio, a.estado
+a.nome as nomeAero, a.municipio, a.estado, t.fkEmpresa
 FROM Registro as r JOIN Totem as t ON r.fkTotem = t.idTotem
 JOIN Aeroporto as a ON t.fkAeroporto = a.idAeroporto
 GROUP BY r.fkTotem, r.dataHora

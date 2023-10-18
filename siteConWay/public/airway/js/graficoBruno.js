@@ -441,8 +441,8 @@ function exibirAeroportosComTotens(municipio) {
                         for (let i = 0; i < json.length; i++) {
                             let publicacao = json[i];
                             let option = document.createElement("option");
-                            option.innerHTML = publicacao.aeroporto;
-                            option.setAttribute("value", publicacao.aeroporto);
+                            option.innerHTML = publicacao.nomeAeroporto;
+                            option.setAttribute("value", publicacao.nomeAeroporto);
                             aeroporto.appendChild(option);
                         }
 
