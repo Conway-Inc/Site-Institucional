@@ -262,10 +262,10 @@
                                     <div class="container-fluid select-airport">
                                         <label>Informe um mês:</label>
                                         <select id="select-mes" class="form-control" onchange="">
-                                            <option>Outubro</option>
+                                            <option value="Outubro">Outubro</option>
                                         </select>
                                         <select id="select-ano" class="form-control" onchange="">
-                                            <option>2023</option>
+                                            <option value="2023">2023</option>
                                         </select>
                                     </div>
 
@@ -307,6 +307,9 @@
                                 </div>
                                 <div class="card-body card-relatorio">
                                     <div class="container-fluid" id="div-relatorio">
+                                        <!-- <h1 id="titulo-relatorio">xpto</h1> -->
+                                        <p>Qtd. Alertas: <span></span></p>
+                                        <p>Qtd. Críticos: <span></span></p>
                                     </div>
                                     <button onclick="gerarRelatorio()" class="btn btn-primary btn-relatorio">Gerar Relatório</button>
                                 </div>
