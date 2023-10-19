@@ -20,4 +20,8 @@ router.post("/cadastrarComponente", function(req,res){
     totemController.cadastrarComponente(req,res)
 });
 
+router.post("/criarViewTotem", function(req,res){
+    totemController.criarViewTotem(req,res)
+});
+
 module.exports = router;

@@ -100,6 +100,17 @@ BEGIN
 END//
 DELIMITER ;
 
+CREATE PROCEDURE cadastrarTotem(
+	nomeTotem VARCHAR(45),
+    fKAeroporto INT,
+    fkEmpresa INT
+)
+BEGIN 
+	INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES(nomeTotem, fkAeroporto, fkEmpresa);
+    SELECT MAX(idTotem) AS idTotem FROM Totem;
+END//
+DELIMITER ;
+
 -- CREATE PROCEDURE inserirDadosTotem(IN 
 --     nomeTotem VARCHAR(45),
 --     co1_nome VARCHAR(45),
@@ -156,8 +167,14 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (15.5, '2023-09-30 12:00:00', 1, 1),
 																	 (27.8, '2023-09-30 12:00:00', 2, 1),
                                                                      (63.0, '2023-09-30 12:00:00', 3, 1),
-                                                                     (48.0, '2023-09-30 12:00:00', 3, 2),
-                                                                     (16.0, '2023-09-30 12:00:00', 3, 3);
+                                                                     (11.0, '2023-09-30 12:00:00', 1, 2),
+                                                                     (32.5, '2023-09-30 12:00:00', 2, 2),
+                                                                     (52.5, '2023-09-30 12:00:00', 3, 2),
+                                                                     (16.0, '2023-09-30 12:00:00', 1, 3),
+                                                                     (58.0, '2023-09-30 12:00:00', 2, 3),
+                                                                     (50.0, '2023-09-30 12:00:00', 3, 3);
+
+
 
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
@@ -172,7 +189,7 @@ SELECT * FROM Aeroporto;
 
 DROP VIEW IF EXISTS vw_RegistroEstruturado;
 CREATE OR REPLACE VIEW vw_RegistroEstruturado AS 
-SELECT r.fkTotem as "id", t.nome as "nome", r.dataHora as "data",
+SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
 MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
 MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
 MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
@@ -192,3 +209,4 @@ SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.
 		FROM Totem as t JOIN TotemComponente as tc ON fkTotem = idTotem 
 			JOIN Componente as c ON fkComponente = idComponente
 				JOIN Registro as r ON r.fkTotem = idTotem AND r.fkComponente = 3 ORDER BY dataHora DESC;
+

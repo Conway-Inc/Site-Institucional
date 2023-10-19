@@ -1,3 +1,5 @@
+const { join } = require("path");
+
 const select = document.querySelector("select");
 const valorPadrao = select.options[0].value;
 select.value = valorPadrao;
@@ -30,7 +32,7 @@ function exibirOptionMunicipio() {
                     option2.innerHTML = "Selecione um aeroporto...";
                     option2.setAttribute("default", "");
                     aeroporto.appendChild(option2);
-                    aeroporto.setAttribute("disabled",'')
+                    aeroporto.setAttribute("disabled", '')
 
                     for (let i = 0; i < json.length; i++) {
                         let publicacao = json[i];
@@ -93,7 +95,7 @@ function cadastrarTotem() {
     var nomeTotemVar = ipt_nomeTotem.value;
     var fkAeroportoVar = document.getElementById("select-aeroporto").value;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
-   
+
     fetch(`/totem/cadastrarTotem`, {
         method: "POST",
         headers: {
@@ -101,27 +103,32 @@ function cadastrarTotem() {
         },
         body: JSON.stringify({
             nomeTotemServer: nomeTotemVar,
-            fkAeroportoServer : fkAeroportoVar,
-            fkEmpresaServer : fkEmpresaVar
+            fkAeroportoServer: fkAeroportoVar,
+            fkEmpresaServer: fkEmpresaVar
         })
     }).then(function (resposta) {
         console.log("resposta: ", resposta);
         if (resposta.ok) {
-          cadastrarComponente()
-           // criarViewMaquina(nomeMaquinaVar)
-           cardMsg.style.display = "block"
-           cardMsg.style.border = "2px solid greenyellow"
-           cardMsg.style.boxShadow = "0px 0px 12px black"
-           cardMsg.style.color = "greenyellow"
-           cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
-            setTimeout(function () {
-                //location.reload();
-                ipt_nomeTotem.value = "";
-                document.getElementById("select-estado").selectedIndex = 0;
-                document.getElementById("select-municipio").selectedIndex = 0;
-                document.getElementById("select-aeroporto").selectedIndex = 0;
-                cardMsg.style.display = "none";
-            }, 3000);
+            resposta.json().then(json => {
+
+                var idMaquina = json[0][0].idTotem;
+                console.log(idMaquina)
+                cadastrarComponente()
+                criarViewTotem(idMaquina)
+                cardMsg.style.display = "block"
+                cardMsg.style.border = "2px solid greenyellow"
+                cardMsg.style.boxShadow = "0px 0px 12px black"
+                cardMsg.style.color = "greenyellow"
+                cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
+                setTimeout(function () {
+                    //location.reload();
+                    ipt_nomeTotem.value = "";
+                    document.getElementById("select-estado").selectedIndex = 0;
+                    document.getElementById("select-municipio").selectedIndex = 0;
+                    document.getElementById("select-aeroporto").selectedIndex = 0;
+                    cardMsg.style.display = "none";
+                }, 3000);
+            })
         } else {
             cardMsg.style.display = "block"
             cardMsg.style.border = "2px solid red"
@@ -132,10 +139,34 @@ function cadastrarTotem() {
                 cardMsg.style.display = "none";
             }, 3000);
         }
+
     }).catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`)
     });
     return false
+}
+
+function criarViewTotem(idTotem){
+    alert(idTotem)
+    fetch(`/totem/criarViewTotem`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idTotemServer: idTotem
+        })
+    }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+
+
+        } else {
+            throw ("Houve um erro ao criar a view do totem!")
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`)
+    });
 }
 
 function cadastrarComponente() {
@@ -161,6 +192,7 @@ function cadastrarComponente() {
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
+
                 setTimeout(function () {
                     valorCheckBox[i].checked = false;
                 }, 3000);
@@ -175,7 +207,7 @@ function cadastrarComponente() {
 
 }
 
-function ExibirTabelaTotem(){
+function ExibirTabelaTotem() {
     var lista = document.getElementById("tabela-totens");
     var trColunas = document.createElement("tr");
     var thead = document.createElement("thead");
@@ -187,7 +219,7 @@ function ExibirTabelaTotem(){
     thAeroporto.setAttribute("scope", "row");
     var thEmpresa = document.createElement("th");
     thEmpresa.setAttribute("scope", "row");
-    
+
 
     trColunas.appendChild(thId);
     trColunas.appendChild(thNome);
