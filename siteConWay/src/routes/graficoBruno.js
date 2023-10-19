@@ -3,22 +3,6 @@ var router = express.Router();
 
 var graficoBrunoController = require("../controllers/graficoBrunoController");
 
-router.get("/exibirTotensTodos", function (req, res) {
-    graficoBrunoController.exibirTotensTodos(req, res);
-});
-
-router.get("/exibirTotensEstado/:estado", function (req, res) {
-    graficoBrunoController.exibirTotensEstado(req, res);
-});
-
-router.get("/exibirTotensMunicipio/:municipio", function (req, res) {
-    graficoBrunoController.exibirTotensMunicipio(req, res);
-});
-
-router.get("/exibirTotensAeroportos/:aeroporto", function (req, res) {
-    graficoBrunoController.exibirTotensAeroportos(req, res);
-});
-
 router.get("/exibirEstadosComTotens", function (req, res) {
     graficoBrunoController.exibirEstadosComTotens(req, res);
 });

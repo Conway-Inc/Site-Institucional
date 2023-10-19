@@ -1,51 +1,51 @@
 var database = require("../database/config");
 
-function exibirTotensTodos() {
-  console.log(
-    "Acessei o graficoBrunoModel e executei a função exibirTotensTodos(): "
-  );
-  var instrucao = `
-    SELECT * FROM vw_totem_estado;
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
+// function exibirTotensTodos() {
+//   console.log(
+//     "Acessei o graficoBrunoModel e executei a função exibirTotensTodos(): "
+//   );
+//   var instrucao = `
+//     SELECT * FROM vw_totem_estado;
+//     `;
+//   console.log("Executando a instrução SQL: \n" + instrucao);
+//   return database.executar(instrucao);
+// }
 
-function exibirTotensEstado(estado) {
-  console.log(
-    "Acessei o graficoBrunoModel e executei a função exibirTotensEstado(): ",
-    estado
-  );
-  var instrucao = `
-    SELECT * FROM vw_totem_estado WHERE estado = '${estado}';
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
+// function exibirTotensEstado(estado) {
+//   console.log(
+//     "Acessei o graficoBrunoModel e executei a função exibirTotensEstado(): ",
+//     estado
+//   );
+//   var instrucao = `
+//     SELECT * FROM vw_totem_estado WHERE estado = '${estado}';
+//     `;
+//   console.log("Executando a instrução SQL: \n" + instrucao);
+//   return database.executar(instrucao);
+// }
 
-function exibirTotensMunicipio(municipio) {
-  console.log(
-    "Acessei o graficoBrunoModel e executei a função exibirTotensMunicipio(): ",
-    municipio
-  );
-  var instrucao = `
-    SELECT * FROM vw_totem_estado WHERE municipio = '${municipio}';
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
+// function exibirTotensMunicipio(municipio) {
+//   console.log(
+//     "Acessei o graficoBrunoModel e executei a função exibirTotensMunicipio(): ",
+//     municipio
+//   );
+//   var instrucao = `
+//     SELECT * FROM vw_totem_estado WHERE municipio = '${municipio}';
+//     `;
+//   console.log("Executando a instrução SQL: \n" + instrucao);
+//   return database.executar(instrucao);
+// }
 
-function exibirTotensAeroportos(aeroporto) {
-  console.log(
-    "Acessei o graficoBrunoModel e executei a função exibirTotensAeroportos(): ",
-    aeroporto
-  );
-  var instrucao = `
-    SELECT * FROM vw_totem_estado WHERE nomeAeroporto = '${aeroporto}';
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
+// function exibirTotensAeroportos(aeroporto) {
+//   console.log(
+//     "Acessei o graficoBrunoModel e executei a função exibirTotensAeroportos(): ",
+//     aeroporto
+//   );
+//   var instrucao = `
+//     SELECT * FROM vw_totem_estado WHERE nomeAeroporto = '${aeroporto}';
+//     `;
+//   console.log("Executando a instrução SQL: \n" + instrucao);
+//   return database.executar(instrucao);
+// }
 
 function exibirEstadosComTotens() {
   console.log(
@@ -107,18 +107,15 @@ function metricasGerais(tipo,texto) {
     "Acessei o graficoBrunoModel e executei a função metricasGerais(): ",tipo,texto
   );
   var instrucao = `
-    SELECT ${tipo} as tipo, avg(cpu) as mediaCpu, avg(memoria) as mediaMem, max(cpu) as maxCpu, min(cpu) as minCpu, max(memoria) as maxMem, min(memoria) as minMen FROM vw_RegistroEstruturado ${texto} group by ${tipo};
-
+    SELECT ${tipo} as tipo, (SELECT count(idAlerta) FROM vw_alertas WHERE ${texto} AND comp = 2 AND valor >= 80 AND valor <= 89) as memAlerta,
+						  (SELECT count(idAlerta) FROM vw_alertas WHERE ${texto} AND comp = 2 AND valor >= 90) as memCritico
+								FROM vw_alertas WHERE ${texto} group by ${tipo};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
 module.exports = {
-  exibirTotensTodos,
-  exibirTotensEstado,
-  exibirTotensMunicipio,
-  exibirTotensAeroportos,
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,

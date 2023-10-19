@@ -1,68 +1,5 @@
 var graficoBrunoModel = require("../models/graficoBrunoModel");
 
-function exibirTotensTodos(req, res) {
-
-  graficoBrunoModel.exibirTotensTodos().then(function (resultado) {
-    if (resultado.length > 0) {
-      res.status(200).json(resultado);
-    } else {
-      res.status(204).send("Nenhum resultado encontrado!")
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
-  });
-}
-
-function exibirTotensEstado(req, res) {
-  var estado = req.params.estado;
-
-  graficoBrunoModel.exibirTotensEstado(estado).then(function (resultado) {
-    if (resultado.length > 0) {
-      res.status(200).json(resultado);
-    } else {
-      res.status(204).send("Nenhum resultado encontrado!")
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
-  });
-}
-
-function exibirTotensMunicipio(req, res) {
-  var municipio = req.params.municipio;
-
-  graficoBrunoModel.exibirTotensMunicipio(municipio).then(function (resultado) {
-    if (resultado.length > 0) {
-      res.status(200).json(resultado);
-    } else {
-      res.status(204).send("Nenhum municipio encontrado!")
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
-  });
-}
-
-function exibirTotensAeroportos(req, res) {
-  var aeroporto = req.params.aeroporto;
-
-  graficoBrunoModel.exibirTotensAeroportos(aeroporto).then(function (resultado) {
-    if (resultado.length > 0) {
-      res.status(200).json(resultado);
-    } else {
-      res.status(204).send("Nenhum municipio encontrado!")
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
-  });
-}
-
 function exibirEstadosComTotens(req, res) {
   graficoBrunoModel.exibirEstadosComTotens().then(function (resultado) {
     if (resultado.length > 0) {
@@ -159,10 +96,6 @@ function metricasGerais(req, res) {
 }
 
 module.exports = {
-  exibirTotensTodos,
-  exibirTotensEstado,
-  exibirTotensMunicipio,
-  exibirTotensAeroportos,
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,

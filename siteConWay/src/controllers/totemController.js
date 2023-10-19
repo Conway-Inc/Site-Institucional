@@ -1,9 +1,9 @@
 var totemModel = require("../models/totemModel");
 
-function ExibirTabelaTotem(req, res) {
-  var idUsuario = req.params.idUsuario;
+function exibirTabelaTotem(req, res) {
+  var idEmpresa = req.params.idEmpresa;
 
-  usuariosModel.exibirTabelaTotem(idUsuario).then(function (resultado) {
+  totemModel.exibirTabelaTotem(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -128,7 +128,7 @@ function cadastrarComponente(req, res){
 }
 
 module.exports = {
-  ExibirTabelaTotem,
+  exibirTabelaTotem,
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,

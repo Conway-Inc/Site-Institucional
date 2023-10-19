@@ -90,6 +90,11 @@ abbr[data-original-title] {
   text-decoration-skip-ink: none;
 }
 
+.div-botao{
+  display: flex;
+  justify-content: center;
+}
+
 address {
   margin-bottom: 1rem;
   font-style: normal;
@@ -9891,6 +9896,66 @@ a:focus {
   border-radius: 10px;
   z-index: 10000;
   box-shadow: 0px 4px 8px black;
+}
+
+.msg_alertas {
+  padding: 8.5px 17.5px;
+  border-radius: 1vh;
+  position: fixed;
+  display: none;
+  top: 65px;
+  right: 10px;
+  z-index: 10000;
+}
+
+.msg_alertas2 {
+  padding: 8.5px 17.5px;
+  border-radius: 1vh;
+  position: fixed;
+  display: none;
+  top: 130px;
+  right: 10px;
+  z-index: 10000;
+}
+
+.ms {
+  width: 100%;
+  margin: auto;
+  padding: 0.9em;
+  float: left;
+  display: block;
+  margin-bottom: 10px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 16px;
+}
+
+.erro {
+  background-color: #FFCACA;
+  border: 2px #a60202 solid;
+  color: #a60202;
+  border-radius: 5px;
+}
+
+.ok {
+  background-color: #A6FFBC;
+  border: 2px #00bd00 solid;
+  color: #00bd00;
+  border-radius: 5px;
+}
+
+.alerta {
+  background-color: #FFFBBF;
+  border: 2px #2b2b2b solid;
+  color: #2b2b2b;
+  border-radius: 5px;
+}
+
+.info {
+  background-color: #B3E7FF;
+  border: 2px #018ace solid;
+  color: #018ace;
+  border-radius: 5px;
 }
 
 

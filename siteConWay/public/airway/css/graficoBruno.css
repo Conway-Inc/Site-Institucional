@@ -24,3 +24,17 @@ html {
 #toolbar {
     display: none;
 }
+
+#div-relatorio {
+    width: 100%;
+    text-align: start;
+}
+.btn-relatorio{
+    width: 50%;
+    margin: auto;
+}
+
+.card-relatorio{
+    width: 100%;
+    text-align: center;
+}

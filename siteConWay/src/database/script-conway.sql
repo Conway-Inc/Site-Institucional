@@ -1,4 +1,4 @@
--- Active: 1695823604597@@127.0.0.1@3306@ConWay
+
 DROP DATABASE IF EXISTS ConWay ;
 CREATE DATABASE ConWay;
 USE ConWay; 
@@ -83,8 +83,8 @@ CREATE TABLE TotemComponente (
 );
 
 CREATE TABLE Alerta (
-    idAlerta INT,
-    tipo VARCHAR(45),
+    idAlerta INT AUTO_INCREMENT,
+    tipo INT,
     descricao TEXT,
     fkRegistro INT,
     FOREIGN KEY (fkRegistro) REFERENCES Registro(idRegistro) ON DELETE CASCADE,
@@ -193,20 +193,27 @@ SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
 MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
 MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
 MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
-a.nome as nomeAero, a.municipio, a.estado
+a.nome as nomeAero, a.municipio, a.estado, t.fkEmpresa
 FROM Registro as r JOIN Totem as t ON r.fkTotem = t.idTotem
 JOIN Aeroporto as a ON t.fkAeroporto = a.idAeroporto
 GROUP BY r.fkTotem, r.dataHora
 ORDER BY r.fkTotem, r.dataHora ASC;
 
+DROP VIEW IF EXISTS vw_totem_estado;
 CREATE VIEW vw_totem_estado AS
 SELECT idTotem, t.nome as nomeTotem, fkEmpresa, idAeroporto, a.nome as nomeAeroporto, estado, municipio
 		FROM Totem as t JOIN Aeroporto as a ON fkAeroporto = idAeroporto;
         
 -- View para coletar os ultimos dados do disco de todas as máquinas, para filtrar por idTotem na rota do webdataviz
+DROP VIEW IF EXISTS vw_disco_atual;
 CREATE VIEW vw_disco_atual AS
 SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.valor, c.unidadeMedida as medida, r.valor as porcent, r.dataHora
 		FROM Totem as t JOIN TotemComponente as tc ON fkTotem = idTotem 
 			JOIN Componente as c ON fkComponente = idComponente
 				JOIN Registro as r ON r.fkTotem = idTotem AND r.fkComponente = 3 ORDER BY dataHora DESC;
+
+DROP VIEW IF EXISTS vw_alertas;
+CREATE VIEW vw_alertas AS
+SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio
+		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;                
 

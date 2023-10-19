@@ -1,80 +1,83 @@
-const { json } = require("express");
+var temErro = false;
 
 function cadastrarFuncionario() {
+    const retorno = eliminarMascaras();
+
     var nomeFuncVar = ipt_nomeFunc.value;
-    var cpfFuncVar = ipt_cpfFunc.value;
-    var telFuncVar = ipt_telefoneFunc.value;
+    var cpfFuncVar = retorno.cpfFormatado;
+    var telFuncVar = retorno.telefoneFormatado;
     var dataFuncVar = ipt_dataFunc.value;
     var emailFuncVar = ipt_emailFunc.value;
-    var cargoFuncVar = ipt_cargoFunc.value;
+    var cargoFuncVar = select_cargo.value;
     var senhaFuncVar = ipt_senhaFunc.value;
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
-    if (nomeFuncVar == undefined) {
-        alert("O nome está undefined")
-    } else if (emailFuncVar == undefined) {
-        alert("O e-mail está undefined")
-    } else if (senhaFuncVar == undefined) {
-        alert("A senha está undefined")
-    } else if (cpfFuncVar == undefined) {
-        alert("O CPF está undefined")
-    } else if (telFuncVar == undefined) {
-        alert("O telefone está undefined")
-    } else if (dataFuncVar == undefined) {
-        alert("A data está undefined")
-    } else if (fkEmpresaVar == undefined) {
-        alert("A FkEmpresa está undefined")
-    } else if (cargoFuncVar == undefined) {
-        alert("O cargo do funcionário está como undefined")
-    } else if (idFuncionarioVar == undefined) {
-        alert("O idFuncionário está como undefined")
+    if (cargoFuncVar == "Analista") {
+        cargoFuncVar = idFuncionarioVar
+    }
+    else {
+        cargoFuncVar = 1;
     }
 
-    // validar()
+    validar()
 
-    fetch(`/funcionario/cadastrarFuncionario`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            nomeFuncVarServer: nomeFuncVar,
-            emailFuncVarServer: emailFuncVar,
-            senhaFuncVarServer: senhaFuncVar,
-            cpfFuncVarServer: cpfFuncVar,
-            telFuncVarServer: telFuncVar,
-            dataFuncVarServer: dataFuncVar,
-            cargoFuncVarServer: cargoFuncVar,
-            idFuncionarioVarServer: idFuncionarioVar,
-            fkEmpresaServer: fkEmpresaVar
-        })
-    }).then(function (resposta) {
-        // console.log("resposta: ", resposta);
-        if (resposta.ok) {
-            cardMsg.style.display = "block"
-            cardMsg.style.border = "2px solid greenyellow"
-            cardMsg.style.boxShadow = "0px 0px 12px black"
-            cardMsg.style.color = "greenyellow"
-            cardMsg.innerHTML = "✅Cadastro realizado com sucesso!✅";
-            setTimeout(function () {
-                cardMsg.style.display = "none";
-            }, 3000);
+    if (!temErro) {
 
-            exibirFuncionarios();
-        } else {
-            cardMsg.style.display = "block"
-            cardMsg.style.border = "2px solid red"
-            cardMsg.style.color = "red"
-            cardMsg.innerHTML = "❌Erro ao cadastrar totem! Tente novamente...❌";
-            setTimeout(function () {
-                cardMsg.style.display = "none";
-            }, 3000);
-        }
-    }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`)
-    });
-    return false
+
+        fetch(`/funcionario/cadastrarFuncionario`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeFuncVarServer: nomeFuncVar,
+                emailFuncVarServer: emailFuncVar,
+                senhaFuncVarServer: senhaFuncVar,
+                cpfFuncVarServer: cpfFuncVar,
+                telFuncVarServer: telFuncVar,
+                dataFuncVarServer: dataFuncVar,
+                cargoFuncVarServer: cargoFuncVar,
+                idFuncionarioVarServer: idFuncionarioVar,
+                fkEmpresaServer: fkEmpresaVar
+            })
+        }).then(function (resposta) {
+            // console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                msg_alertas2.style.display = "block"
+                Erro = document.getElementById("mensagemErro2")
+                Erro.classList.add("ok")
+                mensagemErro2.innerHTML = `Cadastro realizado com sucesso!`
+                setTimeout(function () {
+                    msg_alertas2.style.display = "none";
+                }, 3000);
+
+                linhaFuncionario.innerHTML = ``
+                exibirFuncionarios();
+
+            } else {
+                msg_alertas2.style.display = "block"
+                Erro = document.getElementById("mensagemErro2")
+                Erro.classList.add("erro")
+                mensagemErro2.innerHTML = `Erro ao cadastrar`
+                setTimeout(function () {
+                    msg_alertas2.style.display = "none";
+                }, 3000);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`)
+        });
+        return false
+    }
+    else {
+        msg_alertas2.style.display = "block"
+        Erro = document.getElementById("mensagemErro2")
+        Erro.classList.add("erro")
+        mensagemErro2.innerHTML = `Corrija seus erros para prosseguir`
+        setTimeout(function () {
+            msg_alertas2.style.display = "none";
+        }, 3000);
+    }
 }
 
 function exibirInfosFunc() {
@@ -127,7 +130,6 @@ function exibirInfosEmpresa(fkEmpresaVar) {
                     var infosTelefoneEmpresa = document.getElementById("ipt_telefoneEmpresa")
                     infosTelefoneEmpresa.value = json[0].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
                     infosTelefoneEmpresa.value = infosTelefoneEmpresa.value.replace(/(\d)(\d{4})$/, "$1-$2");
-
 
                     obterInfosEmpresa()
 
@@ -299,13 +301,13 @@ function exibirFuncionarios(fkEmpresaVar) {
             if (resposta.ok) {
                 console.log(resposta);
 
-                resposta    .json().then(json => {
+                resposta.json().then(json => {
                     console.log(json);
 
                     for (let i = 0; i < json.length; i++) {
                         var telefone = json[i].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
                         telefone = telefone.replace(/(\d)(\d{4})$/, "$1-$2");
-                        
+
                         var cpf = json[i].cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
                         // Formatação de data 
@@ -316,11 +318,21 @@ function exibirFuncionarios(fkEmpresaVar) {
                             timeZone: 'UTC',
                         });
 
+                        var cargo = json[i].fkGerente
+
+                        if (cargo == "null") {
+                            cargo = "Admin"
+                        } else if (cargo == 1) {
+                            cargo = "Gerente"
+                        } else {
+                            cargo = "Analista"
+                        }
+
 
                         linhaFuncionario.innerHTML += `
                             <tr class="odd">
                                 <td class="sorting_1">${json[i].nome}</td>
-                                <td>${json[i].fkGerente}</td>
+                                <td>${cargo}</td>
                                 <td>${telefone}</td>
                                 <td>${cpf}</td>
                                 <td>${`${calcularIdade(dataFormatada)} anos`}</td>
@@ -385,4 +397,282 @@ function calcularIdade(dataFormatada) {
     }
 
     return idade;
+}
+
+
+function eliminarMascaras() {
+    var cpfFormatado;
+    var telefoneFormatado;
+
+    var cpfMascarado = ipt_cpfFunc.value
+    var telefoneMascarado = ipt_telefoneFunc.value
+
+    // Retirando a máscara do CPF
+
+    cpfFormatado = cpfMascarado.replaceAll("-", "")
+    cpfFormatado = cpfFormatado.replaceAll(".", "")
+
+    // Retirando a máscara do telefone
+
+    telefoneFormatado = telefoneMascarado.replaceAll("-", "")
+    telefoneFormatado = telefoneFormatado.replaceAll("(", "")
+    telefoneFormatado = telefoneFormatado.replaceAll(")", "")
+
+    return { cpfFormatado, telefoneFormatado }
+}
+
+function eliminarNumeros(id) {
+    const input = document.getElementById(id)
+    var listaLetras = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+    for (var i = 0; i <= 9; i++) {
+        if (input.value[input.value.length - 1] == Number(listaLetras[i]) && input.value[input.value.length - 1] != ' ') {
+            msg_alertas.style.display = "block"
+            Erro = document.getElementById("mensagemErro")
+            Erro.classList.add("erro")
+            mensagemErro.innerHTML = `Este campo não pode ter Números`
+            input.value = ''
+            setTimeout(function () {
+                msg_alertas.style.display = "none";
+            }, 3000);
+        }
+    }
+    for (var letra = 0; letra <= input.value.length - 1; letra++) {
+        if (isNaN(input.value[letra]) == false && input.value[letra] != ' ') {
+            msg_alertas.style.display = "block"
+            Erro = document.getElementById("mensagemErro")
+            Erro.classList.add("erro")
+            mensagemErro.innerHTML = `Este campo não pode ter Números`
+            input.value = ''
+            setTimeout(function () {
+                msg_alertas.style.display = "none";
+            }, 3000);
+        }
+    }
+}
+
+function eliminarLetras(id) {
+    const input = document.getElementById(id)
+    var listaLetras = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@;,?|{}[]~^'
+
+    for (var i = 0; i <= 62; i++) {
+        if (input.value[input.value.length - 1] == listaLetras[i]) {
+            msg_alertas.style.display = "block"
+            Erro = document.getElementById("mensagemErro")
+            Erro.classList.add("erro")
+            mensagemErro.innerHTML = `Este campo não pode ter Letras`
+            input.value = ''
+            setTimeout(function () {
+                msg_alertas.style.display = "none";
+            }, 3000);
+        }
+        for (var letra = 0; letra <= input.value.length - 1; letra++) {
+            if (input.value[letra] == listaLetras[i]) {
+                msg_alertas.style.display = "block"
+                Erro.classList.add("erro")
+                Erro = document.getElementById("mensagemErro")
+                mensagemErro.innerHTML = `Este campo não pode ter Letras`
+                input.value = ''
+                setTimeout(function () {
+                    msg_alertas.style.display = "none";
+                }, 3000);
+            }
+        }
+    }
+
+}
+
+function mascaraCPF() {
+    var tamanhoCpf = ipt_cpfFunc.value.length
+
+    if (tamanhoCpf == 3) {
+        ipt_cpfFunc.value += "."
+    }
+    if (tamanhoCpf == 7) {
+        ipt_cpfFunc.value += "."
+    }
+    if (tamanhoCpf == 11) {
+        ipt_cpfFunc.value += "-"
+    }
+}
+
+
+function mascaraTelefone() {
+    var tamanhoTelefone = ipt_telefoneFunc.value.length
+
+    if (tamanhoTelefone == 0) {
+        ipt_telefoneFunc.value += "("
+    }
+    if (tamanhoTelefone == 3) {
+        ipt_telefoneFunc.value += ")"
+    }
+    if (tamanhoTelefone == 9) {
+        ipt_telefoneFunc.value += "-"
+    }
+}
+
+function validar() {
+    var nomeFunc = ipt_nomeFunc.value
+    var cpfFunc = ipt_cpfFunc.value
+    var telefoneFunc = ipt_telefoneFunc.value
+    var dataFunc = ipt_dataFunc.value
+    var emailFunc = ipt_emailFunc.value
+    var cargoFunc = select_cargo.value
+    var loginFunc = ipt_loginFunc.value
+    var senhaFunc = ipt_senhaFunc.value
+    var repetirSenhaFunc = ipt_repetirSenhaFunc.value
+
+    if (nomeFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O Nome não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (cpfFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O CPF não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (cpfFunc.length < 14) {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `Insira um CPF válido`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (telefoneFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O telefone não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (telefoneFunc.length < 14) {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `Insira um telefone válido`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (dataFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `A data de nascimento não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (emailFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (emailFunc.indexOf('@') == -1) {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `Insira um e-mail válido`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (cargoFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O cargo não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (loginFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (senhaFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (repetirSenhaFunc == "") {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("alerta")
+        mensagemErro.innerHTML = `O email não pode ser vazio`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+
+    else if (telefoneFunc.length < 14) {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um telefone válido`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+    else if (nomeFunc.length < 2) {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um nome válido`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+
+    else if (emailFunc.length < 2) {
+        msg_alertas.style.display = "block"
+        Erro = document.getElementById("mensagemErro")
+        Erro.classList.add("error")
+        mensagemErro.innerHTML = `Insira um CPF válido`
+        temErro = true;
+        setTimeout(function () {
+            msg_alertas.style.display = "none";
+        }, 3000);
+    }
+
 }
