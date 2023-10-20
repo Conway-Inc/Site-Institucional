@@ -100,13 +100,14 @@ BEGIN
 END//
 DELIMITER ;
 
+DELIMITER //
 CREATE PROCEDURE cadastrarTotem(
 	nomeTotem VARCHAR(45),
     fKAeroporto INT,
     fkEmpresa INT
 )
 BEGIN 
-	INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES(nomeTotem, fkAeroporto, fkEmpresa);
+	INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES(nomeTotem, fkAeroporto, fkEmpresa) ;
     SELECT MAX(idTotem) AS idTotem FROM Totem;
 END//
 DELIMITER ;
