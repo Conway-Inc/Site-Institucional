@@ -169,16 +169,32 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
-INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (15.5, '2023-09-30 12:00:00', 1, 1),
-																	 (27.8, '2023-09-30 12:00:00', 2, 1),
-                                                                     (63.0, '2023-09-30 12:00:00', 3, 1),
-                                                                     (11.0, '2023-09-30 12:00:00', 1, 2),
-                                                                     (32.5, '2023-09-30 12:00:00', 2, 2),
-                                                                     (52.5, '2023-09-30 12:00:00', 3, 2),
-                                                                     (16.0, '2023-09-30 12:00:00', 1, 3),
-                                                                     (58.0, '2023-09-30 12:00:00', 2, 3),
-                                                                     (50.0, '2023-09-30 12:00:00', 3, 3);
-
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (0.0, NOW(), 1,1),
+																	 (0.0, NOW(), 2,1),
+																	 (0.0, NOW(), 1,2),
+																	 (0.0, NOW(), 2,2),
+																	 (0.0, NOW(), 1,3),
+																	 (0.0, NOW(), 2,3),
+																	 (0.0, NOW(), 1,4),
+																	 (0.0, NOW(), 2,4),
+																	 (0.0, NOW(), 1,5),
+																	 (0.0, NOW(), 2,5),
+																	 (0.0, NOW(), 1,6),
+																	 (0.0, NOW(), 2,6);
+                                                                     
+                                                                   
+INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1));
 
 
 -- USUÁRIO
