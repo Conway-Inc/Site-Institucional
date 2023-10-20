@@ -42,9 +42,9 @@ function validar_entrada() {
 
         resposta.json().then(json => {
           cardMsg.style.display = "block"
-          cardMsg.style.border = "2px solid greenyellow"
-          cardMsg.style.boxShadow = "0px 0px 12px black"
-          cardMsg.style.color = "greenyellow"
+          cardMsg.style.border = "2px solid #00B802"
+          cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+          cardMsg.style.color = "#00B802"
           cardMsg.innerHTML = "✅Entrando! Aguarde...✅";
 
           sessionStorage.ID_FUNCIONARIO = json.idFuncionario;
@@ -71,6 +71,7 @@ function validar_entrada() {
         cardMsg.style.display = "block"
         cardMsg.style.border = "2px solid red"
         cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
         cardMsg.innerHTML = "❌Conta não cadastrada❌";
 
         resposta.text().then(texto => {

@@ -44,24 +44,26 @@ function cadastrarFuncionario() {
         }).then(function (resposta) {
             // console.log("resposta: ", resposta);
             if (resposta.ok) {
-                msg_alertas2.style.display = "block"
-                Erro = document.getElementById("mensagemErro2")
-                Erro.classList.add("ok")
-                mensagemErro2.innerHTML = `Cadastro realizado com sucesso!`
+                cardMsg.style.display = "block"
+                cardMsg.style.border = "2px solid #00B802"
+                cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+                cardMsg.style.color = "#00B802"
+                cardMsg.innerHTML = "✅ Conta cadastrada com sucesso! ✅";
                 setTimeout(function () {
-                    msg_alertas2.style.display = "none";
+                    cardMsg.style.display = "none";
                 }, 3000);
 
                 linhaFuncionario.innerHTML = ``
                 exibirFuncionarios();
 
             } else {
-                msg_alertas2.style.display = "block"
-                Erro = document.getElementById("mensagemErro2")
-                Erro.classList.add("erro")
-                mensagemErro2.innerHTML = `Erro ao cadastrar`
+                cardMsg.style.display = "block"
+                cardMsg.style.border = "2px solid red"
+                cardMsg.style.color = "red"
+                cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+                cardMsg.innerHTML = "❌Conta não cadastrada❌";
                 setTimeout(function () {
-                    msg_alertas2.style.display = "none";
+                    cardMsg.style.display = "none";
                 }, 3000);
             }
         }).catch(function (resposta) {
@@ -70,12 +72,13 @@ function cadastrarFuncionario() {
         return false
     }
     else {
-        msg_alertas2.style.display = "block"
-        Erro = document.getElementById("mensagemErro2")
-        Erro.classList.add("erro")
-        mensagemErro2.innerHTML = `Corrija seus erros para prosseguir`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Corrija os erros para prosseguir❌";
         setTimeout(function () {
-            msg_alertas2.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
 }
@@ -427,26 +430,28 @@ function eliminarNumeros(id) {
 
     for (var i = 0; i <= 9; i++) {
         if (input.value[input.value.length - 1] == Number(listaLetras[i]) && input.value[input.value.length - 1] != ' ') {
-            msg_alertas.style.display = "block"
-            Erro = document.getElementById("mensagemErro")
-            Erro.classList.add("erro")
-            mensagemErro.innerHTML = `Este campo não pode ter Números`
-            input.value = ''
+            cardMsg.style.display = "block"
+            cardMsg.style.border = "2px solid red"
+            cardMsg.style.color = "red"
+            cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+            cardMsg.innerHTML = "❌Este campo não pode ter Números❌";
             setTimeout(function () {
-                msg_alertas.style.display = "none";
+                cardMsg.style.display = "none";
             }, 3000);
+            input.value = ''
         }
     }
     for (var letra = 0; letra <= input.value.length - 1; letra++) {
         if (isNaN(input.value[letra]) == false && input.value[letra] != ' ') {
-            msg_alertas.style.display = "block"
-            Erro = document.getElementById("mensagemErro")
-            Erro.classList.add("erro")
-            mensagemErro.innerHTML = `Este campo não pode ter Números`
-            input.value = ''
+            cardMsg.style.display = "block"
+            cardMsg.style.border = "2px solid red"
+            cardMsg.style.color = "red"
+            cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+            cardMsg.innerHTML = "❌Este campo não pode ter Números❌";
             setTimeout(function () {
-                msg_alertas.style.display = "none";
+                cardMsg.style.display = "none";
             }, 3000);
+            input.value = ''
         }
     }
 }
@@ -457,25 +462,27 @@ function eliminarLetras(id) {
 
     for (var i = 0; i <= 62; i++) {
         if (input.value[input.value.length - 1] == listaLetras[i]) {
-            msg_alertas.style.display = "block"
-            Erro = document.getElementById("mensagemErro")
-            Erro.classList.add("erro")
-            mensagemErro.innerHTML = `Este campo não pode ter Letras`
-            input.value = ''
+            cardMsg.style.display = "block"
+            cardMsg.style.border = "2px solid red"
+            cardMsg.style.color = "red"
+            cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+            cardMsg.innerHTML = "❌Este campo não pode ter letras❌";
             setTimeout(function () {
-                msg_alertas.style.display = "none";
+                cardMsg.style.display = "none";
             }, 3000);
+            input.value = ''
         }
         for (var letra = 0; letra <= input.value.length - 1; letra++) {
             if (input.value[letra] == listaLetras[i]) {
-                msg_alertas.style.display = "block"
-                Erro.classList.add("erro")
-                Erro = document.getElementById("mensagemErro")
-                mensagemErro.innerHTML = `Este campo não pode ter Letras`
-                input.value = ''
+                cardMsg.style.display = "block"
+                cardMsg.style.border = "2px solid red"
+                cardMsg.style.color = "red"
+                cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+                cardMsg.innerHTML = "❌Este campo não pode ter letras❌";
                 setTimeout(function () {
-                    msg_alertas.style.display = "none";
+                    cardMsg.style.display = "none";
                 }, 3000);
+                input.value = ''
             }
         }
     }
@@ -523,155 +530,170 @@ function validar() {
     var repetirSenhaFunc = ipt_repetirSenhaFunc.value
 
     if (nomeFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O Nome não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O Nome não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (cpfFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O CPF não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O CPF não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (cpfFunc.length < 14) {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `Insira um CPF válido`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Insira um CPF válido❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (telefoneFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O telefone não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O telefone não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (telefoneFunc.length < 14) {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `Insira um telefone válido`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Insira um telefone válido❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (dataFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `A data de nascimento não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌A data de nascimento não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (emailFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O email não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O email não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (emailFunc.indexOf('@') == -1) {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `Insira um e-mail válido`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Insira um e-mail válido❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (cargoFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O cargo não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O cargo não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (loginFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O email não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O email não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (senhaFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O email não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌A senha não pode ser vazia❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (repetirSenhaFunc == "") {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("alerta")
-        mensagemErro.innerHTML = `O email não pode ser vazio`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌O repetir senha não pode ser vazio❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
 
     else if (telefoneFunc.length < 14) {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("error")
-        mensagemErro.innerHTML = `Insira um telefone válido`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Insira um telefone válido❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
     else if (nomeFunc.length < 2) {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("error")
-        mensagemErro.innerHTML = `Insira um nome válido`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Insira um nome válido❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
 
     else if (emailFunc.length < 2) {
-        msg_alertas.style.display = "block"
-        Erro = document.getElementById("mensagemErro")
-        Erro.classList.add("error")
-        mensagemErro.innerHTML = `Insira um CPF válido`
+        cardMsg.style.display = "block"
+        cardMsg.style.border = "2px solid red"
+        cardMsg.style.color = "red"
+        cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
+        cardMsg.innerHTML = "❌Insira um CPF válid❌";
         temErro = true;
         setTimeout(function () {
-            msg_alertas.style.display = "none";
+            cardMsg.style.display = "none";
         }, 3000);
     }
 
