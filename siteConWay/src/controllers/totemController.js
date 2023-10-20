@@ -81,9 +81,8 @@ function cadastrarTotem(req, res){
 function criarViewTotem(req, res){
     
   var idTotem = req.body.idTotemServer
-  console.log("IDDDDDDDDDDDDDDDD" + idTotem)
 
-  if (componente == undefined) {
+  if (idTotem == undefined) {
       res.status(400).send("O idTotem está vazio.")
   }else {
       totemModel.criarViewTotem(idTotem)
