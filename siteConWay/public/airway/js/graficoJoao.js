@@ -1,6 +1,6 @@
 function exibirRegistrosTotens() {
 
-    fetch(`/graficoJoao/exibirRegistrosTotens`).then(function (resposta) {
+    fetch(`/graficoJoao/exibirRegistrosTotens/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
@@ -13,6 +13,23 @@ function exibirRegistrosTotens() {
         }
     }).catch(function (resposta) {
         console.error(resposta);
-        // finalizarAguardar();
+    });
+}
+
+function exibirRegistrosTotemID(idTotem) {
+
+    fetch(`/graficoJoao/exibirRegistrosTotemID/${idTotem}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum resultado encontrado!!");
+            }
+            resposta.json().then(function (resposta) {
+                console.log(resposta)
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
     });
 }
