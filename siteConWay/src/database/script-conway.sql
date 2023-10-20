@@ -155,7 +155,7 @@ INSERT INTO Funcionario VALUES (NULL, 'gerentelatam@gmail.com', '12345', 'Fernan
 INSERT INTO Funcionario VALUES (NULL, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
-													   ('Brasíloa', 'DF', 'Brasília'),
+													   ('Brasília', 'DF', 'Brasília'),
 													   ('Confins', 'BH', 'Confins');
 						
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
@@ -235,6 +235,6 @@ SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.
 
 DROP VIEW IF EXISTS vw_alertas;
 CREATE VIEW vw_alertas AS
-SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio
+SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio
 		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;                
 

@@ -51,7 +51,7 @@ function pegarMetricasGerais(tipo) {
             document.getElementById("info-relatorio-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         }
     } else if (tipo == 4) {
-        tipo = 'idTotem';
+        tipo = 'nome';
         texto = `aeroporto LIKE '%${aeroporto}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
         document.getElementById("info-relatorio-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
