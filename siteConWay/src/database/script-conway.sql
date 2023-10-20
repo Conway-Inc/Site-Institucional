@@ -85,7 +85,7 @@ CREATE TABLE TotemComponente (
 CREATE TABLE Alerta (
     idAlerta INT AUTO_INCREMENT,
     tipo INT,
-    descricao TEXT,
+    descricao VARCHAR(20),
     fkRegistro INT,
     FOREIGN KEY (fkRegistro) REFERENCES Registro(idRegistro) ON DELETE CASCADE,
     PRIMARY KEY (idAlerta, fkRegistro)
@@ -143,11 +143,15 @@ INSERT INTO Funcionario VALUES (NULL, 'gerentelatam@gmail.com', '12345', 'Fernan
 INSERT INTO Funcionario VALUES (NULL, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
-													   ('Viracopos', 'SP', 'Campinas');
+													   ('Brasíloa', 'DF', 'Brasília'),
+													   ('Confins', 'BH', 'Confins');
 						
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
-                                                        ('TLT-3', 1, 2);
+													    ('TLT-3', 1, 2),
+													    ('JDK-1', 2, 2),
+													    ('JDK-2', 2, 2),
+                                                        ('PYR-1', 3, 2);
 
 INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
