@@ -246,17 +246,14 @@
                         <!-- Area Chart -->
                         <div class="alertasAeroporto">
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Totens</h6>
-
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                        <img src="../img/totem.png" style="width: 10%;">
+                                        <h1>TL-0129</h1>
                                 </div>
                             </div>
                         </div>
@@ -269,17 +266,17 @@
                                     <label>Informe os
                                         dados do aeroporto que deseja monitorar: </label>
                                     <select id="select-estado" class="form-control"
-                                        onchange="exibirMunicipiosComTotens(), pegarMetricasGerais(2)">
+                                        onchange="exibirMunicipiosComTotens()">
                                         <option>Selecione um estado...</option>
                                     </select>
 
                                     <select id="select-municipio" class="form-control"
-                                        onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3)" disabled>
+                                        onchange="exibirAeroportosComTotens()" disabled>
                                         <option>Selecione um município...</option>
                                     </select>
 
                                     <select id="select-aeroporto" class="form-control"
-                                        onchange="exibirTotensAeroportos(), pegarMetricasGerais(4)" disabled>
+                                        onchange="exibirTotensAeroportos()" disabled>
                                         <option>Selecione um aeroporto...</option>
                                     </select>
                                 </div>
@@ -334,3 +331,4 @@
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/funcionario.js"></script>
+<script src="js/graficoKauan.js"></script>
