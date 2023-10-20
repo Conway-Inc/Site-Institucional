@@ -78,6 +78,31 @@ function cadastrarTotem(req, res){
   }
 }
 
+function criarViewTotem(req, res){
+    
+  var idTotem = req.body.idTotemServer
+  console.log("IDDDDDDDDDDDDDDDD" + idTotem)
+
+  if (componente == undefined) {
+      res.status(400).send("O idTotem está vazio.")
+  }else {
+      totemModel.criarViewTotem(idTotem)
+          .then(
+              function(resultado){
+                  res.json(resultado);
+              }
+          ).catch(
+                  function(erro){
+                  console.log(erro);
+                  console.log("\nHouver um erro ao criar a view do totem!Erro: ",
+                  erro.sqlMessage
+                  );
+                  res.status(500).send(erro.sqlMessage);
+              }
+          )
+  }
+}
+
 function cadastrarComponente(req, res){
     
   var componente = req.body.componenteServer
@@ -107,5 +132,6 @@ module.exports = {
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
-  cadastrarComponente
+  cadastrarComponente,
+  criarViewTotem
 };
