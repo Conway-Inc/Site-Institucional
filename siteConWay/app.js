@@ -10,6 +10,7 @@ var app = express();
 
 var totemRouter = require("./src/routes/totem");
 var graficoBrunoRouter = require("./src/routes/graficoBruno");
+var graficoJoaoRouter = require("./src/routes/graficoJoao");
 // var graficoKauanRouter = require("./src/routes/graficoKauan");
 var loginRouter = require("./src/routes/login");
 var funcionarioRouter = require("./src/routes/funcionario")
@@ -26,6 +27,7 @@ app.use(cors());
 app.use("/funcionario", funcionarioRouter)
 app.use("/totem", totemRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
+app.use("/graficoJoao", graficoJoaoRouter);
 // app.use("/graficoKauan", graficoKauanRouter);
 app.use("/login", loginRouter);
 app.use("/empresa", empresaRouter);
