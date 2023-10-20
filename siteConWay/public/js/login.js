@@ -63,7 +63,7 @@ function validar_entrada() {
             }, 2000);
           } else {
             setTimeout(function () {
-              window.location = "../airway/index.html";
+              window.location = "../airway/dashJoao.html";
             }, 2000);
           }
         });
