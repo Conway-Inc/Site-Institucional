@@ -1,6 +1,5 @@
 // RELATORIOS
 
-
 function gerarRelatorio() {
     var dataAtual = new Date();
     dataAtual = `${dataAtual.getDate().toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear().toString()} ${dataAtual.getHours().toString().padStart(2, '0')}:${dataAtual.getMinutes().toString().padStart(2, '0')}:${dataAtual.getSeconds().toString().padStart(2, '0')} `;
@@ -9,21 +8,44 @@ function gerarRelatorio() {
         unit: 'cm',
         format: 'letter'
     })
-    doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`,1,1)
-    doc.text(`Data: ${dataAtual}`,19,1)
-    doc.text(`Ocorrências`,4,5)
-    doc.text(`Qtd. Alertas: 2`,2,7)
-    doc.text(`Qtd. Críticos: 4`,2,8)
+    doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`, 1, 1)
+    doc.text(`Data: ${dataAtual}`, 19, 1)
+    doc.text(`Ocorrências`, 4, 5)
+    doc.text(`Qtd. Alertas: 2`, 2, 7)
+    doc.text(`Qtd. Críticos: 4`, 2, 8)
     doc.save("teste.pdf");
 }
 
+function exibirRelatorios(json) {
+    let metricas = [
+        { max: "", valor: -1 },
+        { min: "", valor: 1000000 },
+        { qtdAlertas: 0, qtdCriticos: 0, qtdTotal: 0}
+    ];
 
+    for (let i = 0; i < json.length; i++) {
+        let resp = json[i];
+        let dadoAlerta = Math.round((resp.memAlerta) * 100) / 100;
+        let dadoCritico = Math.round((resp.memCritico) * 100) / 100;
+        metricas[2].qtdTotal += (dadoAlerta+dadoCritico);
+        metricas[2].qtdAlertas += dadoAlerta;
+        metricas[2].qtdCriticos += dadoCritico;
+        
+        if (dadoAlerta >= metricas[0].valor) {
+            metricas[0].max = resp.tipo;
+            metricas[0].valor = dadoAlerta;
+        }
+        if (dadoCritico <= metricas[1].valor) {
+            metricas[1].min = resp.tipo;
+            metricas[1].valor = dadoAlerta;
+        }
+    }
+    console.log(metricas)
 
-
-
-
-
-
+    document.getElementById("qtd-total").innerHTML = metricas[2].qtdTotal;
+    (document.getElementById("qtd-alertas")).innerHTML = metricas[2].qtdAlertas;
+    (document.getElementById("qtd-criticos")).innerHTML = metricas[2].qtdCriticos;
+}
 
 
 
@@ -90,6 +112,7 @@ function pegarMetricasGerais(tipo) {
         if (resposta.ok) {
             resposta.json().then(json => {
                 graficoEstados(json);
+                exibirRelatorios(json);
             });
         } else {
             resposta.text().then(textoErro => {
