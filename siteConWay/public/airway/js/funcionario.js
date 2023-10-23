@@ -300,7 +300,6 @@ function exibirFuncionarios(fkEmpresaVar) {
 
     fetch(`/empresa/exibirFuncionarios/${fkEmpresaVar}`)
         .then(function (resposta) {
-            // console.log("ESTOU NO THEN DO exibirFuncionarios()!");
             if (resposta.ok) {
                 console.log(resposta);
 
@@ -308,20 +307,22 @@ function exibirFuncionarios(fkEmpresaVar) {
                     console.log(json);
 
                     for (let i = 0; i < json.length; i++) {
-                        var telefone = json[i].telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
+                        var lista = document.getElementById("dataTable");
+                        var publicacao = json[i];
+
+                        var telefone = publicacao.telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
                         telefone = telefone.replace(/(\d)(\d{4})$/, "$1-$2");
 
                         var cpf = json[i].cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
                         // Formatação de data 
-                        const anoAtual = new Date().getFullYear
                         const dataNascimento = json[i].dataNascimento
                         const dataNasc = new Date(dataNascimento)
                         const dataFormatada = dataNasc.toLocaleDateString('pt-BR', {
                             timeZone: 'UTC',
                         });
 
-                        var cargo = json[i].fkGerente
+                        var cargo = publicacao.fkGerente
 
                         if (cargo == "null") {
                             cargo = "Admin"
@@ -331,18 +332,38 @@ function exibirFuncionarios(fkEmpresaVar) {
                             cargo = "Analista"
                         }
 
+                        var tdNome = document.createElement("td");
+                        tdNome.setAttribute("scope", "row");
+                        tdNome.innerHTML = publicacao.nome;
+                        var tdCargo = document.createElement("td");
+                        tdCargo.innerHTML = cargo;
+                        var tdTelefone = document.createElement("td");
+                        tdTelefone.innerHTML = telefone;
+                        var tdCpf = document.createElement("td");
+                        tdCpf.innerHTML = cpf;
+                        var tdAnos = document.createElement("td");
+                        tdAnos.innerHTML = `${calcularIdade(dataFormatada)} anos`;
+                        var tdEmail = document.createElement("td");
+                        tdEmail.innerHTML = publicacao.email;
 
-                        linhaFuncionario.innerHTML += `
-                            <tr class="odd">
-                                <td class="sorting_1">${json[i].nome}</td>
-                                <td>${cargo}</td>
-                                <td>${telefone}</td>
-                                <td>${cpf}</td>
-                                <td>${`${calcularIdade(dataFormatada)} anos`}</td>
-                                <td>${json[i].email}</td>
-                            </tr>`
+
+                        var tr = document.createElement("tr");
+                        var tbody = document.getElementById("tbodyTable");
+
+                        tr.appendChild(tdNome);
+                        tr.appendChild(tdCargo);
+                        tr.appendChild(tdTelefone);
+                        tr.appendChild(tdCpf);
+                        tr.appendChild(tdAnos);
+                        tr.appendChild(tdEmail);
+                        tbody.appendChild(tr);
+                        lista.appendChild(tbody);
                     }
+                    $(document).ready(function () {
+                        $('#dataTable').DataTable();
+                    });
                 });
+                
             } else {
                 resposta.text().then(texto => {
                     console.error(texto);

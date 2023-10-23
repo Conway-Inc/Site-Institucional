@@ -13,7 +13,7 @@
     <title>AirWay</title>
 </head>
 
-<body id="page-top" onload="exibirInfosEmpresa(), desativarInputsEmpresa(), exibirFuncionarios(), exibirInfosFunc()">
+<body id="page-top" onload=" exibirInfosEmpresa(), desativarInputsEmpresa(),exibirFuncionarios()">
     <div id="wrapper">
         <div id="cardMsg"></div>
 
@@ -252,15 +252,8 @@
                                             <th>E-mail</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="linhaFuncionario">
-                                        <tr>
-                                            <span id="nomeFunc"></span>
-                                            <span id="cargoFunc"></span>
-                                            <span id="telefoneFunc"></span>
-                                            <span id="cpfFunc"></span>
-                                            <span id="idadeFunc"></span>
-                                            <span id="emailFunc"></span>
-                                        </tr>
+                                    <tbody id="tbodyTable">
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -480,7 +473,5 @@
 <script src="js/funcionario.js"></script>
 <script>
     // Chamar o plugin JQuery do dataTables 
-    $(document).ready(function () {
-        $('#dataTable').DataTable();
-    });
+   
 </script>

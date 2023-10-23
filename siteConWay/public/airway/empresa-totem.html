@@ -246,7 +246,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="tabela-totens" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>IdTotem</th>
@@ -255,6 +255,9 @@
                                             <th>Empresa</th>
                                         </tr>
                                     </thead>
+                                    <tbody id="tbodyTable">
+
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -411,10 +414,3 @@
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="js/totem.js"></script>
-<script src="js/funcionario.js"></script>
-<script>
-    // Chamar o plugin JQuery do dataTables 
-    $(document).ready(function () {
-        $('#dataTable').DataTable();
-    });
-</script>
