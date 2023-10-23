@@ -147,7 +147,6 @@ function cadastrarTotem() {
 }
 
 function criarViewTotem(idTotem){
-    alert(idTotem)
     fetch(`/totem/criarViewTotem`, {
         method: "POST",
         headers: {
