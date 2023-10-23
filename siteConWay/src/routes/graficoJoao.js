@@ -11,4 +11,8 @@ router.get("/exibirRegistrosTotemID/:idTotem", function (req, res) {
     graficoJoaoController.exibirRegistrosTotemID(req, res);
 });
 
+router.get("/exibirUltimosAlertas/:idEmpresa", function (req, res) {
+    graficoJoaoController.exibirUltimosAlertas(req, res);
+});
+
 module.exports = router;
