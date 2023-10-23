@@ -146,7 +146,7 @@ function cadastrarTotem() {
     return false
 }
 
-function criarViewTotem(idTotem){
+function criarViewTotem(idTotem) {
     fetch(`/totem/criarViewTotem`, {
         method: "POST",
         headers: {
@@ -206,23 +206,11 @@ function cadastrarComponente() {
 
 }
 
-function exibirTabelaTotem(){
-    var lista = document.getElementById("tabela-totens");
-    var trColunas = document.createElement("tr");
-    var thead = document.createElement("thead");
-    var thId = document.createElement("th");
-    thId.setAttribute("scope", "row");
-    var thNome = document.createElement("th");
-    thNome.setAttribute("scope", "row");
-    var thAeroporto = document.createElement("th");
-    thAeroporto.setAttribute("scope", "row");
-    var thEmpresa = document.createElement("th");
-    thEmpresa.setAttribute("scope", "row");
-
+function exibirTabelaTotem() {
     fetch(`/totem/exibirTabelaTotem/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                var lista = document.getElementById("tabela-totens");
+                var lista = document.getElementById("dataTable");
                 var mensagem = document.createElement("p");
                 mensagem.innerHTML = "Nenhum resultado encontrado."
                 lista.innerHTML = "";
@@ -234,23 +222,21 @@ function exibirTabelaTotem(){
                 for (let i = resposta.length - 1; i >= 0; i--) {
                     console.log(i)
                     console.log(publicacao)
-                    var lista = document.getElementById("tabela-totens");
+                    var lista = document.getElementById("dataTable");
                     var publicacao = resposta[i];
-                    
 
                     var thNumero = document.createElement("th");
-                    thNumero.innerHTML = contId + 1;
+                    thNumero.innerHTML = publicacao.idTotem;
                     thNumero.setAttribute("scope", "row");
                     var tdNome = document.createElement("td");
                     tdNome.innerHTML = publicacao.nome;
                     var tdAeroporto = document.createElement("td");
                     tdAeroporto.innerHTML = publicacao.aeroportoTotem;
-                    var tdEmpresa =  document.createElement("td");
+                    var tdEmpresa = document.createElement("td");
                     tdEmpresa.innerHTML = publicacao.empresaTotem;
 
-
                     var tr = document.createElement("tr");
-                    var tbody = document.createElement("tbody");
+                    var tbody = document.getElementById("tbodyTable");
 
                     tr.appendChild(thNumero);
                     tr.appendChild(tdNome);
@@ -261,6 +247,10 @@ function exibirTabelaTotem(){
 
                     contId++;
                 }
+                // Chamar o plugin JQuery do dataTables 
+                $(document).ready(function () {
+                    $('#dataTable').DataTable();
+                });
             });
         } else {
             throw ('Houve um erro na API!');

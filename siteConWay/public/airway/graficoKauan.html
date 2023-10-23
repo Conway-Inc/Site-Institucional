@@ -244,27 +244,13 @@
                     <!-- Content Row -->
                     <div class="content">
                         <!-- Area Chart -->
-                        <div class="alertasAeroporto">
-                            <div class="card shadow mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Totens</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                        <img src="../img/totem.png" style="width: 10%;">
-                                        <h1>TL-0129</h1>
-                                </div>
-                            </div>
-                        </div>
                         <div class="escolhaAeroporto card shadow mb-4">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Aeroporto</h6>
                             </div>
                             <div class="card-body">
                                 <div class="container-fluid select-airport">
-                                    <label>Informe os
-                                        dados do aeroporto que deseja monitorar: </label>
+                                    <label>Selecione o aeroporto desejado: </label>
                                     <select id="select-estado" class="form-control"
                                         onchange="exibirMunicipiosComTotens()">
                                         <option>Selecione um estado...</option>
@@ -283,6 +269,20 @@
 
                             </div>
 
+                        </div>
+                        <div class="alertasAeroporto">
+                            
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Totens</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                        <img src="../img/totem.png" style="width: 10%;">
+                                        <h1>TL-0129</h1>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -332,3 +332,6 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/funcionario.js"></script>
 <script src="js/graficoKauan.js"></script>
+<script>
+     exibirEstadosComTotens()
+</script>
