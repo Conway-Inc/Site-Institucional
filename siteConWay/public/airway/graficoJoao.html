@@ -12,7 +12,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="exibirRegistrosTotens(), exibirUltimosAlertas()">
+<body id="page-top" onload="buscarInformacoes()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -248,7 +248,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
                                                 Totens em estado de atenção</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totensAtencao">5</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensAtencao">-</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -265,8 +265,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
-                                                Totens em estado crítico</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totensCritico"></div>
+                                                Componentes em estado crítico</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensCritico">-</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -282,16 +282,16 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Percentual de Efetividade
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Percentual de Efetividade (totens)
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">70%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="divEfetividade">-</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                        <div id="progressoEfetividade" class="progress-bar bg-info" role="progressbar"
+                                                            aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
@@ -313,7 +313,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Totem mais problemático</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">TLT-3</div>
+                                            <div id="divTotemProblematico" class="h5 mb-0 font-weight-bold text-gray-800">-</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -334,7 +334,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Totens em alerta</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Componentes em alerta</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -399,18 +399,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Estável
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-warning"></i> Alerta
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-danger"></i> Crítico
-                                        </span>
+                                        <div id="graficoEstadoTotens"></div>
                                     </div>
                                 </div>
                             </div>
@@ -623,22 +612,5 @@
     $(document).ready(function () {
         $('#dataTable').DataTable();
     });
-
-    var options = {
-  chart: {
-    type: 'line'
-  },
-  series: [{
-    name: 'sales',
-    data: [30,40,35,50,49,60,70,91,125]
-  }],
-  xaxis: {
-    categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-  }
-}
-
-var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-chart.render();
 
 </script>

@@ -34,11 +34,62 @@ function exibirRegistrosTotemID(req, res) {
   });
 }
 
-function exibirUltimosAlertas(req, res) {
+function buscarTotalTotensEmpresa(req, res) {
 
   idEmpresa = req.params.idEmpresa
 
-  graficoJoaoModel.exibirUltimosAlertas(idEmpresa).then(function (resultado) {
+  graficoJoaoModel.buscarTotalTotensEmpresa(idEmpresa).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum estado encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+function buscarUltimosAlertasComponentes(req, res) {
+
+  idEmpresa = req.params.idEmpresa
+
+  graficoJoaoModel.buscarUltimosAlertasComponentes(idEmpresa).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum estado encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+function buscarTotensEmAlerta(req, res) {
+
+  idEmpresa = req.params.idEmpresa
+
+  graficoJoaoModel.buscarTotensEmAlerta(idEmpresa).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum estado encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+function buscarTotemMaisProblematico(req, res) {
+
+  idEmpresa = req.params.idEmpresa
+
+  graficoJoaoModel.buscarTotemMaisProblematico(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -54,5 +105,8 @@ function exibirUltimosAlertas(req, res) {
 module.exports = {
   exibirRegistrosTotens,
   exibirRegistrosTotemID,
-  exibirUltimosAlertas
+  buscarUltimosAlertasComponentes,
+  buscarTotalTotensEmpresa,
+  buscarTotensEmAlerta,
+  buscarTotemMaisProblematico
 };
