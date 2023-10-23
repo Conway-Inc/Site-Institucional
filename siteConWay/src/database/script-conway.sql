@@ -1,4 +1,4 @@
--- Active: 1692322487627@@127.0.0.1@3306@ConWay
+-- Active: 1695823604597@@127.0.0.1@3306@ConWay
 
 DROP DATABASE IF EXISTS ConWay ;
 CREATE DATABASE ConWay;
@@ -113,25 +113,27 @@ BEGIN
 END//
 DELIMITER ;
 
--- CREATE PROCEDURE inserirDadosTotem(IN 
---     nomeTotem VARCHAR(45),
---     co1_nome VARCHAR(45),
---     re1_valor DECIMAL(8, 2),
---     co2_nome VARCHAR(45),
---     re2_valor DECIMAL(8, 2),
---     co3_nome VARCHAR(45),
---     re3_valor DECIMAL(8, 2),
---     re_data DATETIME
--- )
--- BEGIN
--- 	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
--- 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
---     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
--- 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
---     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
--- 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
--- END//
--- DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE inserirDadosTotem(IN 
+    nomeTotem VARCHAR(45),
+    co1_nome VARCHAR(45),
+    re1_valor DECIMAL(8, 2),
+    co2_nome VARCHAR(45),
+    re2_valor DECIMAL(8, 2),
+    co3_nome VARCHAR(45),
+    re3_valor DECIMAL(8, 2),
+    re_data DATETIME
+)
+BEGIN
+	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re3_valor, re_data);
+END//
+DELIMITER ;
 
 -- SCRIPTs GERAIS
 INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
@@ -170,32 +172,32 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
-INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (0.0, NOW(), 1,1),
-																	 (0.0, NOW(), 2,1),
-																	 (0.0, NOW(), 1,2),
-																	 (0.0, NOW(), 2,2),
-																	 (0.0, NOW(), 1,3),
-																	 (0.0, NOW(), 2,3),
-																	 (0.0, NOW(), 1,4),
-																	 (0.0, NOW(), 2,4),
-																	 (0.0, NOW(), 1,5),
-																	 (0.0, NOW(), 2,5),
-																	 (0.0, NOW(), 1,6),
-																	 (0.0, NOW(), 2,6);
+-- INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (87.0, NOW(), 1,1),
+-- 																	 (96.0, NOW(), 2,1),
+-- 																	 (50.0, NOW(), 3,1),
+-- 																	 (60.0, NOW(), 1,2),
+-- 																	 (70.0, NOW(), 2,2),
+-- 																	 (90.0, NOW(), 3,2),
+-- 																	 (50.0, NOW(), 1,3),
+-- 																	 (90.0, NOW(), 2,3),
+-- 																	 (70.0, NOW(), 3,3),
+-- 																	 (50.0, NOW(), 1,4),
+-- 																	 (50.0, NOW(), 2,4),
+-- 																	 (50.0, NOW(), 3,4);
                                                                      
                                                                    
-INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
-														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1));
+-- INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+-- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1));
 
 
 -- USUÁRIO
