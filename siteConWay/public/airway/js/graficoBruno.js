@@ -1,6 +1,6 @@
 // RELATORIOS
 
-function gerarRelatorio() {
+function gerarRelatorio(alerta,critico,total) {
     var dataAtual = new Date();
     dataAtual = `${dataAtual.getDate().toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear().toString()} ${dataAtual.getHours().toString().padStart(2, '0')}:${dataAtual.getMinutes().toString().padStart(2, '0')}:${dataAtual.getSeconds().toString().padStart(2, '0')} `;
     var doc = new jsPDF({
@@ -11,8 +11,12 @@ function gerarRelatorio() {
     doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`, 1, 1)
     doc.text(`Data: ${dataAtual}`, 19, 1)
     doc.text(`Ocorrências`, 4, 5)
-    doc.text(`Qtd. Alertas: 2`, 2, 7)
-    doc.text(`Qtd. Críticos: 4`, 2, 8)
+    doc.text(`Qtd. Alertas: ${alerta}`, 2, 7)
+    doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
+    doc.text(`Qtd. Ocorrências: ${total}`, 2, 9)
+    doc.text(`% em relação ao mês anterior: ${alerta}%`, 10, 7)
+    doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
+    doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
     doc.save("teste.pdf");
 }
 
@@ -45,6 +49,16 @@ function exibirRelatorios(json) {
     document.getElementById("qtd-total").innerHTML = metricas[2].qtdTotal;
     (document.getElementById("qtd-alertas")).innerHTML = metricas[2].qtdAlertas;
     (document.getElementById("qtd-criticos")).innerHTML = metricas[2].qtdCriticos;
+
+    var lista = document.getElementById("card-relatorio");
+    var botao = document.createElement("button");
+    botao.setAttribute('onclick',`gerarRelatorio(${metricas[2].qtdAlertas},${metricas[2].qtdCriticos},${metricas[2].qtdTotal})`);
+    botao.setAttribute('class','btn btn-primary btn-relatorio');
+    botao.innerHTML = 'Gerar Relatório';
+
+    lista.appendChild(botao)
+    lista.appendChild(botao);
+
 }
 
 
