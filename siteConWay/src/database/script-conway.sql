@@ -172,32 +172,32 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
--- INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (87.0, NOW(), 1,1),
--- 																	 (96.0, NOW(), 2,1),
--- 																	 (50.0, NOW(), 3,1),
--- 																	 (60.0, NOW(), 1,2),
--- 																	 (70.0, NOW(), 2,2),
--- 																	 (90.0, NOW(), 3,2),
--- 																	 (50.0, NOW(), 1,3),
--- 																	 (90.0, NOW(), 2,3),
--- 																	 (70.0, NOW(), 3,3),
--- 																	 (50.0, NOW(), 1,4),
--- 																	 (50.0, NOW(), 2,4),
--- 																	 (50.0, NOW(), 3,4);
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (0.0, NOW(), 1,1),
+																	 (0.0, NOW(), 2,1),
+																	 (0.0, NOW(), 1,2),
+																	 (0.0, NOW(), 2,2),
+																	 (0.0, NOW(), 1,3),
+																	 (0.0, NOW(), 2,3),
+																	 (0.0, NOW(), 1,4),
+																	 (0.0, NOW(), 2,4),
+																	 (0.0, NOW(), 1,5),
+																	 (0.0, NOW(), 2,5),
+																	 (0.0, NOW(), 1,6),
+																	 (0.0, NOW(), 2,6);
                                                                      
                                                                    
--- INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
--- 														(1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1));
+INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 1 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 2 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 3 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+                                             (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 4 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+ 											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 5 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1)),
+											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 1 ORDER BY dataHora DESC LIMIT 1)),
+											 (1,(SELECT idRegistro FROM Registro WHERE fkTotem = 6 AND fkComponente = 2 ORDER BY dataHora DESC LIMIT 1));
 
 
 -- USUÁRIO

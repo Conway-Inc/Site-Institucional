@@ -306,15 +306,17 @@
                                     <h6 class="m-0 font-weight-bold text-primary" id="qtd-totens">Relatório de <span
                                             id="info-relatorio-nome"></span></h6>
                                 </div>
-                                <div class="card-body card-relatorio">
+                                <div class="card-body card-relatorio" id="card-relatorio">
                                     <div class="container-fluid" id="div-relatorio">
-                                        <!-- <h1 id="titulo-relatorio">xpto</h1> -->
-                                        <p>Qtd. Alertas: <span></span></p>
-                                        <p>%: <span></span> em relação ao mês anterior</p>
-                                        <p>Qtd. Críticos: <span></span></p>
-                                        <p>%: <span></span> em relação ao mês anterior</p>
+                                        <p>Qtd. Ocorrências: <span id="qtd-total"></span></p>
+                                        <p>Aumento de <span></span>%</p>
+                                        <br>
+                                        <p>Qtd. Alertas: <span id="qtd-alertas"></span></p>
+                                        <p>Aumento de <span></span>%</p>
+                                        <p>Qtd. Críticos: <span id="qtd-criticos"></span></p>
+                                        <p>Aumento de <span></span>%</p>
                                     </div>
-                                    <button onclick="gerarRelatorio()" class="btn btn-primary btn-relatorio">Gerar Relatório</button>
+                                    <!-- <button onclick="gerarRelatorio()" class="btn btn-primary btn-relatorio">Gerar Relatório</button> -->
                                 </div>
 
                             </div>
@@ -372,7 +374,6 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="js/graficoBruno.js"></script>
-<script src="js/funcionario.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"
     integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs"
     crossorigin="anonymous"></script>
