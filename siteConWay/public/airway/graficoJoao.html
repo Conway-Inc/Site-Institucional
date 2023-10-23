@@ -12,7 +12,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="exibirRegistrosTotens()">
+<body id="page-top" onload="exibirRegistrosTotens(), exibirUltimosAlertas()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -357,26 +357,14 @@
                                             <!-- Aqui ficará os funcionários e suas informações -->
                                             <thead>
                                                 <tr>
-                                                    <th>Nome</th>
-                                                    <th>Total de alertas</th>
-                                                    <th>Ultimo alerta</th>
-                                                    <th>Estado atual</th>
+                                                    <th>Aeroporto</th>
+                                                    <th>Totem</th>
+                                                    <th>Componente</th>
+                                                    <th>Uso (%)</th>
+                                                    <th>Indicador</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Congonhas</td>
-                                                    <td>3</td>
-                                                    <td>15/09/2023</td>
-                                                    <td> <i class="fas fa-circle text-success"></i> </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Viracopos</td>
-                                                    <td>8</td>
-                                                    <td>03/10/2023</td>
-                                                    <td> <i class="fas fa-circle text-warning"></i> </td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody id="tbodyTable"> <tr></tr></tbody>
                                         </table>
                                     </div>
                                     <!-- <div class="chart-area">
@@ -652,4 +640,5 @@
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 
 chart.render();
+
 </script>
