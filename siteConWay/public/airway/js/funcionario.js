@@ -307,7 +307,7 @@ function exibirFuncionarios(fkEmpresaVar) {
                     console.log(json);
 
                     for (let i = 0; i < json.length; i++) {
-                        var lista = document.getElementById("dataTable");
+                        var lista = document.getElementById("funcionariosTabela");
                         var publicacao = json[i];
 
                         var telefone = publicacao.telefone.replace(/^(\d{2})(\d)/g, "($1) $2");
