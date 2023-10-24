@@ -235,7 +235,6 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,1),
 											 (1,17),
                                              (2,18),
                                              (1, 19),
-                                             (1, 23),
                                              (2, 24);
 
 

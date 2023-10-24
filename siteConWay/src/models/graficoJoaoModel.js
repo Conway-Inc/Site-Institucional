@@ -33,18 +33,41 @@ function buscarTotalTotensEmpresa(idEmpresa) {
   return database.executar(instrucao);
 }
 
-function buscarUltimosAlertasComponentes(idEmpresa) {
+function buscarAlertasTotensCritico(idEmpresa) {
   console.log(
-    "Acessei o graficoJoaoModel e executei a função buscarUltimosAlertas(): ",
+    "Acessei o graficoJoaoModel e executei a função buscarAlertasTotensCritico(): ",
   );
   var instrucao = `
-    SELECT C.nome AS nomeComponente, T.nome AS nomeTotem, R.valor, AR.nome AS nomeAeroporto, R.dataHora, A.tipo AS tipoAlerta FROM Alerta AS A 
-    JOIN Registro AS R ON A.fkRegistro = R.idRegistro 
-    JOIN Componente AS C ON R.fkComponente = C.idComponente 
-    JOIN Totem AS T ON R.fkTotem = T.idTotem 
-    JOIN Aeroporto AS AR ON T.fkAeroporto = AR.idAeroporto 
-    WHERE dataHora = (SELECT MAX(dataHora) FROM Registro) AND fkEmpresa = ${idEmpresa}
-    ORDER BY tipoAlerta;
+    SELECT t.nome AS nomeTotem, ar.nome AS nomeAeroporto
+    FROM Totem AS t
+    INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
+    INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
+    INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
+    WHERE a.tipo = 1 AND dataHora = (SELECT MAX(dataHora) FROM Registro) AND t.fkEmpresa = ${idEmpresa}
+    GROUP BY t.nome, ar.nome;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function buscarAlertasTotensAtencao(idEmpresa) {
+  console.log(
+    "Acessei o graficoJoaoModel e executei a função buscarAlertasTotensAtencao(): ",
+  );
+  var instrucao = `
+    SELECT t.nome AS nomeTotem, ar.nome AS nomeAeroporto
+    FROM Totem AS t
+    INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
+    INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
+    INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
+    WHERE a.tipo = 2 AND dataHora = (SELECT MAX(dataHora) FROM Registro) AND t.fkEmpresa = ${idEmpresa} 
+    AND NOT EXISTS (
+        SELECT 1
+        FROM Registro AS r2
+        INNER JOIN Alerta AS a2 ON r2.idRegistro = a2.fkRegistro
+        WHERE r2.fkTotem = t.idTotem AND a2.tipo = 1 AND dataHora = (SELECT MAX(dataHora) FROM Registro) AND t.fkEmpresa = ${idEmpresa}
+    )
+    GROUP BY t.nome, ar.nome;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -87,7 +110,8 @@ function buscarTotemMaisProblematico(idEmpresa) {
 module.exports = {
   exibirRegistrosTotens,
   exibirRegistrosTotemID,
-  buscarUltimosAlertasComponentes,
+  buscarAlertasTotensCritico,
+  buscarAlertasTotensAtencao,
   buscarTotalTotensEmpresa,
   buscarTotensEmAlerta,
   buscarTotemMaisProblematico

@@ -11,8 +11,12 @@ router.get("/exibirRegistrosTotemID/:idTotem", function (req, res) {
     graficoJoaoController.exibirRegistrosTotemID(req, res);
 });
 
-router.get("/buscarUltimosAlertasComponentes/:idEmpresa", function (req, res) {
-    graficoJoaoController.buscarUltimosAlertasComponentes(req, res);
+router.get("/buscarAlertasTotensCritico/:idEmpresa", function (req, res) {
+    graficoJoaoController.buscarAlertasTotensCritico(req, res);
+});
+
+router.get("/buscarAlertasTotensAtencao/:idEmpresa", function (req, res) {
+    graficoJoaoController.buscarAlertasTotensAtencao(req, res);
 });
 
 router.get("/buscarTotalTotensEmpresa/:idEmpresa", function (req, res) {
