@@ -56,7 +56,7 @@ function plotarTabelaAlertas() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
-                dadosGrafico.push(totensCritico)
+                dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
 
@@ -112,7 +112,7 @@ function plotarTabelaAlertas() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
-                dadosGrafico.push(totensAtencao)
+                dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
 
@@ -170,7 +170,7 @@ function plotarKPIs() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
-                dadosGrafico.push(totensEstaveis)
+                dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
 
