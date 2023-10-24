@@ -210,7 +210,7 @@ function exibirTabelaTotem() {
     fetch(`/totem/exibirTabelaTotem/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                var lista = document.getElementById("dataTable");
+                var lista = document.getElementById("dataTotem");
                 var mensagem = document.createElement("p");
                 mensagem.innerHTML = "Nenhum resultado encontrado."
                 lista.innerHTML = "";
@@ -222,7 +222,7 @@ function exibirTabelaTotem() {
                 for (let i = resposta.length - 1; i >= 0; i--) {
                     console.log(i)
                     console.log(publicacao)
-                    var lista = document.getElementById("dataTable");
+                    var lista = document.getElementById("dataTotem");
                     var publicacao = resposta[i];
 
                     var thNumero = document.createElement("th");
