@@ -53,6 +53,7 @@ CREATE TABLE temperaturaAeroporto(
 	idTempAeroporto INT PRIMARY KEY AUTO_INCREMENT,
     temperatura DECIMAL(4,2),
     graus VARCHAR(15),
+    dataHora DATETIME,
     fkAeroporto INT,
     FOREIGN KEY(fkAeroporto) REFERENCES Aeroporto(idAeroporto)
 );
