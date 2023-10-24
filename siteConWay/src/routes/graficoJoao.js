@@ -23,10 +23,6 @@ router.get("/buscarTotalTotensEmpresa/:idEmpresa", function (req, res) {
     graficoJoaoController.buscarTotalTotensEmpresa(req, res);
 });
 
-router.get("/buscarTotensEmAlerta/:idEmpresa", function (req, res) {
-    graficoJoaoController.buscarTotensEmAlerta(req, res);
-});
-
 router.get("/buscarTotemMaisProblematico/:idEmpresa", function (req, res) {
     graficoJoaoController.buscarTotemMaisProblematico(req, res);
 });

@@ -73,21 +73,6 @@ function buscarAlertasTotensAtencao(idEmpresa) {
   return database.executar(instrucao);
 }
 
-function buscarTotensEmAlerta(idEmpresa) {
-  console.log(
-    "Acessei o graficoJoaoModel e executei a função buscarTotensEmAlerta(): ",
-  );
-  var instrucao = `
-    SELECT T.* FROM Totem AS T 
-    RIGHT JOIN Registro AS R ON T.idTotem = R.fkTotem 
-    RIGHT JOIN Alerta AS A ON A.fkRegistro = R.idRegistro 
-    WHERE dataHora = (SELECT MAX(dataHora) FROM Registro) AND fkEmpresa = ${idEmpresa}
-    GROUP BY T.idTotem;   
-  `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
-
 function buscarTotemMaisProblematico(idEmpresa) {
   console.log(
     "Acessei o graficoJoaoModel e executei a função buscarTotemMaisProblematico(): ",
@@ -113,6 +98,5 @@ module.exports = {
   buscarAlertasTotensCritico,
   buscarAlertasTotensAtencao,
   buscarTotalTotensEmpresa,
-  buscarTotensEmAlerta,
   buscarTotemMaisProblematico
 };

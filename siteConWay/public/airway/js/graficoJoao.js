@@ -5,11 +5,13 @@ var totensEstaveis = 0;
 var totensAtencao = 0;
 var totensCritico = 0;
 
+var dadosGrafico = []
+
 function buscarInformacoes() {
     plotarTabelaAlertas()
-    // buscarTotensEmAlerta()
     plotarKPIs()
-    // plotarGraficoEstadoTotens()
+    
+    
 }
 
 function exibirRegistrosTotens() {
@@ -48,26 +50,6 @@ function exibirRegistrosTotemID(idTotem) {
     });
 }
 
-// function buscarTotensEmAlerta() {
-
-//     fetch(`/graficoJoao/buscarTotensEmAlerta/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
-//         if (resposta.ok) {
-//             if (resposta.status == 204) {
-//                 console.log("Nenhum resultado encontrado!!");
-//             }
-//             resposta.json().then(function (resposta) {
-
-//                 totensAlerta =  resposta.length
-
-//             });
-//         } else {
-//             throw ('Houve um erro na API!');
-//         }
-//     }).catch(function (resposta) {
-//         console.error(resposta);
-//     });
-// }
-
 function plotarTabelaAlertas() {
 
     fetch(`/graficoJoao/buscarAlertasTotensCritico/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
@@ -77,8 +59,9 @@ function plotarTabelaAlertas() {
             }
             resposta.json().then(function (resposta) {
 
-                totensCritico = resposta.length
+                totensCritico = Number(resposta.length)
                 divTotensCritico.innerHTML = totensCritico
+                dadosGrafico.push(totensCritico)
 
                 for (let i = 0; i < resposta.length; i++) {
 
@@ -131,8 +114,9 @@ function plotarTabelaAlertas() {
             }
             resposta.json().then(function (resposta) {
 
-                totensAtencao = resposta.length
+                totensAtencao = Number(resposta.length)
                 divTotensAtencao.innerHTML = totensAtencao
+                dadosGrafico.push(totensAtencao)
 
                 for (let i = 0; i < resposta.length; i++) {
 
@@ -169,7 +153,6 @@ function plotarTabelaAlertas() {
                     $('#dataTable').DataTable();
                 });
 
-
             });
         } else {
             throw ('Houve um erro na API!');
@@ -192,7 +175,7 @@ function plotarKPIs() {
 
                 totensEmAlerta = totensAtencao+totensCritico
 
-                totensEstaveis = totalTotensEmpresa - totensEmAlerta
+                totensEstaveis = Number(totalTotensEmpresa - totensEmAlerta)
 
                 taxaAlerta = (totensEmAlerta * 100) / totalTotensEmpresa
                 taxaEfetividade = 100 - taxaAlerta
@@ -201,6 +184,9 @@ function plotarKPIs() {
 
                 var progressoEfetividade = document.querySelector('#progressoEfetividade');
                 progressoEfetividade.setAttribute("style", `width: ${taxaEfetividade}%`)
+
+                dadosGrafico.push(totensEstaveis)
+                plotarGraficoEstadoTotens(dadosGrafico)
 
             });
         } else {
@@ -226,22 +212,19 @@ function plotarKPIs() {
         console.error(resposta);
     });
 
-
-
-
-
 }
 
 
-function plotarGraficoEstadoTotens() {
+function plotarGraficoEstadoTotens(dadosGrafico) {
 
     var options = {
-        series: [componentesAtencao, componentesCritico],
+        series: dadosGrafico,
         chart: {
             width: 380,
             type: 'pie',
         },
-        labels: ['Estável', 'Atencão', 'Crítico'],
+        labels: ['Crítico', 'Atencão', 'Estável'],
+        colors: ['#e74a3b', '#f6c23e', '#3ebd47'],
         responsive: [{
             breakpoint: 480,
             options: {
