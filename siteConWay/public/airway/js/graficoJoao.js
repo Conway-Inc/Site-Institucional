@@ -59,7 +59,7 @@ function plotarTabelaAlertas() {
                 dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
-
+                totensCritico = 0;
                 totensCritico = Number(resposta.length)
                 divTotensCritico.innerHTML = totensCritico
                 dadosGrafico.push(totensCritico)
@@ -115,7 +115,7 @@ function plotarTabelaAlertas() {
                 dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
-
+                totensAtencao = 0;
                 totensAtencao = Number(resposta.length)
                 divTotensAtencao.innerHTML = totensAtencao
                 dadosGrafico.push(totensAtencao)
@@ -173,7 +173,8 @@ function plotarKPIs() {
                 dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
-
+                
+                totalTotensEmpresa = 0;
                 totalTotensEmpresa = Number(resposta[0].qtdTotens)
 
                 totensEmAlerta = totensAtencao+totensCritico
