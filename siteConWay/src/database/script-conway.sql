@@ -49,6 +49,14 @@ CREATE TABLE Aeroporto (
     municipio VARCHAR(60)
 );
 
+CREATE TABLE temperaturaAeroporto(
+	idTempAeroporto INT PRIMARY KEY AUTO_INCREMENT,
+    temperatura DECIMAL(4,2),
+    graus VARCHAR(15),
+    fkAeroporto INT,
+    FOREIGN KEY(fkAeroporto) REFERENCES Aeroporto(idAeroporto)
+);
+
 CREATE TABLE Totem (
 idTotem INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(45) UNIQUE,
