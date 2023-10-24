@@ -60,12 +60,12 @@ function buscarAlertasTotensAtencao(idEmpresa) {
     INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE a.tipo = 2 AND dataHora = (SELECT MAX(dataHora) FROM Registro) AND t.fkEmpresa = ${idEmpresa} 
+    WHERE a.tipo = 2 AND dataHora = (SELECT MAX(dataHora) FROM Registro)
     AND NOT EXISTS (
         SELECT 1
         FROM Registro AS r2
         INNER JOIN Alerta AS a2 ON r2.idRegistro = a2.fkRegistro
-        WHERE r2.fkTotem = t.idTotem AND a2.tipo = 1 AND dataHora = (SELECT MAX(dataHora) FROM Registro) AND t.fkEmpresa = ${idEmpresa}
+        WHERE r2.fkTotem = t.idTotem AND a2.tipo = 1 AND dataHora = (SELECT MAX(dataHora) FROM Registro)
     )
     GROUP BY t.nome, ar.nome;
   `;
