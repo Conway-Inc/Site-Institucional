@@ -1,3 +1,7 @@
+    setTimeout(function() {
+      location.reload();
+    }, 3000);
+
 var totalTotensEmpresa = 0;
 
 var totensEstaveis = 0;

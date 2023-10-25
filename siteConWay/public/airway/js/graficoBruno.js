@@ -158,7 +158,7 @@ function graficoEstados(json) {
         }
         if (dadoCritico >= max) {
             max = dadoCritico;
-        }
+        }z
     }
 
     var options = {
