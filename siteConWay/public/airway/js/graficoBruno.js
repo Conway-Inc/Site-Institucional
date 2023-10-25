@@ -29,8 +29,8 @@ function exibirRelatorios(json) {
 
     for (let i = 0; i < json.length; i++) {
         let resp = json[i];
-        let dadoAlerta = Math.round((resp.memAlerta) * 100) / 100;
-        let dadoCritico = Math.round((resp.memCritico) * 100) / 100;
+        let dadoAlerta = Math.round((resp.alerta) * 100) / 100;
+        let dadoCritico = Math.round((resp.critico) * 100) / 100;
         metricas[2].qtdTotal += (dadoAlerta+dadoCritico);
         metricas[2].qtdAlertas += dadoAlerta;
         metricas[2].qtdCriticos += dadoCritico;
@@ -148,17 +148,19 @@ function graficoEstados(json) {
     let labels = [];
     let max = -1;
     for (let i = 0; i < json.length; i++) {
-        var dadoAlerta = Math.round((json[i].memAlerta) * 100) / 100;
-        var dadoCritico = Math.round((json[i].memCritico) * 100) / 100;
+        var dadoAlerta = Math.round((json[i].alerta) * 100) / 100;
+        var dadoCritico = Math.round((json[i].critico) * 100) / 100;
+
         alerta.push(dadoAlerta)
         critico.push(dadoCritico)
         labels.push(json[i].tipo)
+
         if (dadoAlerta >= max) {
             max = dadoAlerta;
         }
         if (dadoCritico >= max) {
             max = dadoCritico;
-        }z
+        }
     }
 
     var options = {
