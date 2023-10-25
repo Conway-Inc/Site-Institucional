@@ -6,20 +6,19 @@ function gerarRelatorio(alerta,critico,total) {
     var doc = new jsPDF({
         orientation: 'landscape',
         unit: 'cm',
-        format: 'letter',
-        setPageSize: (210, 297),
+        format: 'a4',
     })
 
     
     // titulo
     doc.setLineWidth(0.05);
-    doc.line(1, 1, 27, 1);
-    doc.line(1.025, 20.5, 1.025, 1);
+    doc.line(1, 1, 28.7, 1);
+    doc.line(1.025, 20, 1.025, 1);
     doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`, 2, 2)
-    doc.text(`Data: ${dataAtual}`, 18, 2)
-    doc.line(26.975, 20.5, 26.975, 1);
-    doc.line(1, 2.5, 27, 2.5);
-    doc.line(1, 20.5, 27, 20.5);
+    doc.text(`Data: ${dataAtual}`, 19, 2)
+    doc.line(28.7, 20, 28.7, 1);
+    doc.line(1, 2.5, 28.7, 2.5);
+    doc.line(1, 20, 28.7, 20);
 
     doc.text(`Ocorrências`, 4, 5)
     doc.text(`Qtd. Alertas: ${alerta}`, 2, 7)
@@ -29,20 +28,7 @@ function gerarRelatorio(alerta,critico,total) {
     doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
     doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
 
-    // const table = doc.createTable([
-    //     ['Estado', 'Alertas', 'Críticos'],
-    // ]);
-
-    // for (let i = 0; i < json.length; i++) {
-    //     table.addRow([
-    //       json.estado,
-    //       json.alerta,
-    //       json.critico,
-    //     ]);
-    // }
-    // doc.addPage();
-    // doc.table(table);
-    doc.save("teste.pdf");
+    doc.save(`${document.getElementById("select-mes").value}${document.getElementById("select-ano").value}.pdf`);
 }
 
 function exibirRelatorios(json) {
