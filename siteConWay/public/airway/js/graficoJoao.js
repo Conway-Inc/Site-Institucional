@@ -1,6 +1,6 @@
-    setTimeout(function() {
-      location.reload();
-    }, 3000);
+    // setTimeout(function() {
+    //   location.reload();
+    // }, 3000);
 
 var totalTotensEmpresa = 0;
 
@@ -14,8 +14,6 @@ var dadosGrafico = []
 function buscarInformacoes() {
     plotarTabelaAlertas()
     plotarKPIs()
-    
-    
 }
 
 function exibirRegistrosTotens() {
