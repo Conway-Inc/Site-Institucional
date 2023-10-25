@@ -1,3 +1,7 @@
+    setTimeout(function() {
+      location.reload();
+    }, 3000);
+
 var totalTotensEmpresa = 0;
 
 var totensEstaveis = 0;
@@ -5,13 +9,11 @@ var totensEstaveis = 0;
 var totensAtencao = 0;
 var totensCritico = 0;
 
-var dadosGrafico = []
+var dadosGrafico = [totensCritico, totensAtencao, totensEstaveis]
 
 function buscarInformacoes() {
     plotarTabelaAlertas()
     plotarKPIs()
-    
-    
 }
 
 function exibirRegistrosTotens() {
@@ -56,13 +58,12 @@ function plotarTabelaAlertas() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
-                dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
                 totensCritico = 0;
                 totensCritico = Number(resposta.length)
                 divTotensCritico.innerHTML = totensCritico
-                dadosGrafico.push(totensCritico)
+                dadosGrafico[0] = totensCritico
 
                 for (let i = 0; i < resposta.length; i++) {
 
@@ -112,13 +113,12 @@ function plotarTabelaAlertas() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
-                dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
                 totensAtencao = 0;
                 totensAtencao = Number(resposta.length)
                 divTotensAtencao.innerHTML = totensAtencao
-                dadosGrafico.push(totensAtencao)
+                dadosGrafico[1] = totensAtencao
 
                 for (let i = 0; i < resposta.length; i++) {
 
@@ -170,7 +170,6 @@ function plotarKPIs() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum resultado encontrado!!");
-                dadosGrafico.push(0)
             }
             resposta.json().then(function (resposta) {
                 
@@ -189,7 +188,7 @@ function plotarKPIs() {
                 var progressoEfetividade = document.querySelector('#progressoEfetividade');
                 progressoEfetividade.setAttribute("style", `width: ${taxaEfetividade}%`)
 
-                dadosGrafico.push(totensEstaveis)
+                dadosGrafico[2] = totensEstaveis
                 plotarGraficoEstadoTotens(dadosGrafico)
 
             });
