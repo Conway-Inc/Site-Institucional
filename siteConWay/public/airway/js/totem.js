@@ -1,5 +1,3 @@
-const { join } = require("path");
-
 const select = document.querySelector("select");
 const valorPadrao = select.options[0].value;
 select.value = valorPadrao;
