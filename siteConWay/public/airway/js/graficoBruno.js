@@ -50,7 +50,8 @@ function exibirRelatorios(json) {
     (document.getElementById("qtd-alertas")).innerHTML = metricas[2].qtdAlertas;
     (document.getElementById("qtd-criticos")).innerHTML = metricas[2].qtdCriticos;
 
-    var lista = document.getElementById("card-relatorio");
+    var lista = document.getElementById("button-relatorio");
+    lista.innerHTML = "";
     var botao = document.createElement("button");
     botao.setAttribute('onclick',`gerarRelatorio(${metricas[2].qtdAlertas},${metricas[2].qtdCriticos},${metricas[2].qtdTotal})`);
     botao.setAttribute('class','btn btn-primary btn-relatorio');
