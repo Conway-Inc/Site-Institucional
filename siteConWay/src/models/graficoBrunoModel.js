@@ -120,11 +120,31 @@ function metricasGerais(tipo,texto) {
   return database.executar(instrucao);
 }
 
+function dadosRelatorio(comp,mes,ano,fkEmpresa) {
+  console.log(
+    "Acessei o graficoBrunoModel e executei a função dadosRelatorio(): ",comp,ano,mes,fkEmpresa
+  );
+  var instrucao = `
+    SELECT
+      DAY(dataHora) AS dia,
+      COUNT(CASE WHEN valor BETWEEN 85 AND 94 THEN 1 ELSE NULL END) AS alerta,
+      COUNT(CASE WHEN valor >= 95 THEN 1 ELSE NULL END) AS critico,
+      COUNT(CASE WHEN valor >= 85 THEN 1 ELSE NULL END) AS total
+        FROM vw_alertas
+          WHERE MONTH(dataHora) = ${mes} AND YEAR(dataHora) = ${ano} AND comp = ${comp} AND fkEmpresa = ${fkEmpresa}
+            GROUP BY MONTH(dataHora), DAY(dataHora) 
+              ORDER BY dia ASC;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,
   valorDisco,
   valorTotem,
-  metricasGerais
+  metricasGerais,
+  dadosRelatorio
 };

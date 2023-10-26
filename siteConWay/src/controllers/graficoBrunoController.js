@@ -95,11 +95,31 @@ function metricasGerais(req, res) {
   });
 }
 
+function dadosRelatorio(req, res) {
+  var comp = req.body.compServer;
+  var mes = req.body.mesServer;
+  var ano = req.body.anoServer;
+  var fkEmpresa = req.body.fkEmpresaServer;
+
+  graficoBrunoModel.dadosRelatorio(comp,mes,ano,fkEmpresa).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum tipo encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 module.exports = {
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
   exibirAeroportosComTotens,
   valorDisco,
   valorTotem,
-  metricasGerais
+  metricasGerais,
+  dadosRelatorio
 };

@@ -2,38 +2,59 @@
 
 
 function gerarRelatorio(alerta, critico, total) {
-    var dataAtual = new Date();
-    dataAtual = `${dataAtual.getDate().toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear().toString()} ${dataAtual.getHours().toString().padStart(2, '0')}:${dataAtual.getMinutes().toString().padStart(2, '0')}:${dataAtual.getSeconds().toString().padStart(2, '0')} `;
-    var doc = new jsPDF({
-        orientation: 'landscape',
-        unit: 'cm',
-        format: 'a4',
-    })
+    fetch("/graficoBruno/dadosRelatorio", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            compServer: 2,
+            mesServer: document.getElementById("select-mes").value,
+            anoServer: document.getElementById("select-ano").value,
+            fkEmpresaServer: sessionStorage.FK_EMPRESA,
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
 
-    doc.addImage("img/logoairwaynovo.png", "png", 12.5, 1.3, 5, 1);
+                var dataAtual = new Date();
+                dataAtual = `${dataAtual.getDate().toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear().toString()} ${dataAtual.getHours().toString().padStart(2, '0')}:${dataAtual.getMinutes().toString().padStart(2, '0')}:${dataAtual.getSeconds().toString().padStart(2, '0')} `;
+                var doc = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'cm',
+                    format: 'a4',
+                })
+                doc.addImage("img/logoairwaynovo.png", "png", 12.5, 1.3, 5, 1);
 
+                // titulo
+                doc.setLineWidth(0.05);
+                doc.line(1, 1, 28.7, 1);
+                doc.line(1.025, 20, 1.025, 1);
+                doc.text(`Relatório - Mês de ${retornarMes()}`, 2, 2)
+                doc.text(`${dataAtual}`, 22.5, 2)
+                doc.line(28.7, 20, 28.7, 1);
+                doc.line(1, 2.5, 28.7, 2.5);
+                doc.line(1, 20, 28.7, 20);
 
-    // titulo
-    doc.setLineWidth(0.05);
-    doc.line(1, 1, 28.7, 1);
-    doc.line(1.025, 20, 1.025, 1);
-    doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`, 2, 2)
-    doc.text(`${dataAtual}`, 22.5, 2)
-    doc.line(28.7, 20, 28.7, 1);
-    doc.line(1, 2.5, 28.7, 2.5);
-    doc.line(1, 20, 28.7, 20);
+                doc.text(`Ocorrências`, 4, 5)
+                doc.text(`Qtd. Alertas: ${alerta}`, 2, 7)
+                doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
+                doc.text(`Qtd. Ocorrências: ${total}`, 2, 9)
+                doc.text(`% em relação ao mês anterior: ${alerta}%`, 10, 7)
+                doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
+                doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
 
-    doc.text(`Ocorrências`, 4, 5)
-    doc.text(`Qtd. Alertas: ${alerta}`, 2, 7)
-    doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
-    doc.text(`Qtd. Ocorrências: ${total}`, 2, 9)
-    doc.text(`% em relação ao mês anterior: ${alerta}%`, 10, 7)
-    doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
-    doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
-
-    doc.save(`${document.getElementById("select-mes").value}${document.getElementById("select-ano").value}.pdf`);
-
-
+                doc.save(`${retornarMes()}${document.getElementById("select-ano").value}.pdf`);
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+    return false;
 }
 
 function exibirRelatorios(json) {
@@ -442,5 +463,35 @@ function exibirAeroportosComTotens(municipio) {
             });
         return false;
 
+    }
+}
+
+function retornarMes() {
+    let mes = document.getElementById("select-mes").value;
+
+    if (mes == 1) {
+        return "Janeiro"
+    } else if (mes == 2) {
+        return "Fevereiro"
+    } else if (mes == 3) {
+        return "Março"
+    } else if (mes == 4) {
+        return "Abril"
+    } else if (mes == 5) {
+        return "Maio"
+    } else if (mes == 6) {
+        return "Junho"
+    } else if (mes == 7) {
+        return "Julho"
+    } else if (mes == 8) {
+        return "Agosto"
+    } else if (mes == 9) {
+        return "Setemebro"
+    } else if (mes == 10) {
+        return "Outrubro"
+    } else if (mes == 11) {
+        return "Novembro"
+    } else if (mes == 12) {
+        return "Dezembro"
     }
 }

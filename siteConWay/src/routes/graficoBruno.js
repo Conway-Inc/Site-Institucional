@@ -27,5 +27,9 @@ router.post("/metricasGerais", function (req, res) {
     graficoBrunoController.metricasGerais(req, res);
 });
 
+router.post("/dadosRelatorio", function (req, res) {
+    graficoBrunoController.dadosRelatorio(req, res);
+});
+
 
 module.exports = router;
