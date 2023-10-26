@@ -1,6 +1,7 @@
 // RELATORIOS
 
-function gerarRelatorio(alerta,critico,total) {
+
+function gerarRelatorio(alerta, critico, total) {
     var dataAtual = new Date();
     dataAtual = `${dataAtual.getDate().toString().padStart(2, '0')}/${(dataAtual.getMonth() + 1).toString().padStart(2, '0')}/${dataAtual.getFullYear().toString()} ${dataAtual.getHours().toString().padStart(2, '0')}:${dataAtual.getMinutes().toString().padStart(2, '0')}:${dataAtual.getSeconds().toString().padStart(2, '0')} `;
     var doc = new jsPDF({
@@ -9,13 +10,15 @@ function gerarRelatorio(alerta,critico,total) {
         format: 'a4',
     })
 
-    
+    doc.addImage("img/logoairwaynovo.png", "png", 12.5, 1.3, 5, 1);
+
+
     // titulo
     doc.setLineWidth(0.05);
     doc.line(1, 1, 28.7, 1);
     doc.line(1.025, 20, 1.025, 1);
     doc.text(`Relatório - Mês de ${document.getElementById("select-mes").value}`, 2, 2)
-    doc.text(`Data: ${dataAtual}`, 19, 2)
+    doc.text(`${dataAtual}`, 22.5, 2)
     doc.line(28.7, 20, 28.7, 1);
     doc.line(1, 2.5, 28.7, 2.5);
     doc.line(1, 20, 28.7, 20);
@@ -29,23 +32,25 @@ function gerarRelatorio(alerta,critico,total) {
     doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
 
     doc.save(`${document.getElementById("select-mes").value}${document.getElementById("select-ano").value}.pdf`);
+
+
 }
 
 function exibirRelatorios(json) {
     let metricas = [
         { max: "", valor: -1 },
         { min: "", valor: 1000000 },
-        { qtdAlertas: 0, qtdCriticos: 0, qtdTotal: 0}
+        { qtdAlertas: 0, qtdCriticos: 0, qtdTotal: 0 }
     ];
 
     for (let i = 0; i < json.length; i++) {
         let resp = json[i];
         let dadoAlerta = Math.round((resp.alerta) * 100) / 100;
         let dadoCritico = Math.round((resp.critico) * 100) / 100;
-        metricas[2].qtdTotal += (dadoAlerta+dadoCritico);
+        metricas[2].qtdTotal += (dadoAlerta + dadoCritico);
         metricas[2].qtdAlertas += dadoAlerta;
         metricas[2].qtdCriticos += dadoCritico;
-        
+
         if (dadoAlerta >= metricas[0].valor) {
             metricas[0].max = resp.tipo;
             metricas[0].valor = dadoAlerta;
@@ -64,8 +69,8 @@ function exibirRelatorios(json) {
     var lista = document.getElementById("button-relatorio");
     lista.innerHTML = "";
     var botao = document.createElement("button");
-    botao.setAttribute('onclick',`gerarRelatorio(${metricas[2].qtdAlertas},${metricas[2].qtdCriticos},${metricas[2].qtdTotal})`);
-    botao.setAttribute('class','btn btn-primary btn-relatorio');
+    botao.setAttribute('onclick', `gerarRelatorio(${metricas[2].qtdAlertas},${metricas[2].qtdCriticos},${metricas[2].qtdTotal})`);
+    botao.setAttribute('class', 'btn btn-primary btn-relatorio');
     botao.innerHTML = 'Gerar Relatório';
 
     lista.appendChild(botao)
