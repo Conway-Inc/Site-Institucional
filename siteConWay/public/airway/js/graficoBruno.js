@@ -36,13 +36,23 @@ function gerarRelatorio(alerta, critico, total) {
                 doc.line(1, 2.5, 28.7, 2.5);
                 doc.line(1, 20, 28.7, 20);
 
-                doc.text(`Ocorrências`, 4, 5)
-                doc.text(`Qtd. Alertas: ${alerta}`, 2, 7)
-                doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
-                doc.text(`Qtd. Ocorrências: ${total}`, 2, 9)
-                doc.text(`% em relação ao mês anterior: ${alerta}%`, 10, 7)
-                doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
-                doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
+                let info = [];
+                json.forEach((element, index, array) => {
+                    info.push([element.dia, element.alerta, element.critico,element.total])
+                });
+
+                doc.autoTable({
+                    head: [['Dia', 'Alerta', 'Crítico', 'Total']],
+                    body: info,
+                    margin: [3.4,17,0, 2],
+                    
+                })
+
+                // doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
+                // doc.text(`Qtd. Ocorrências: ${total}`, 2, 9)
+                // doc.text(`% em relação ao mês anterior: ${alerta}%`, 10, 7)
+                // doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
+                // doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
 
                 doc.save(`${retornarMes()}${document.getElementById("select-ano").value}.pdf`);
             });

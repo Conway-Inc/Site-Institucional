@@ -33,10 +33,24 @@
     height: 100vh;
     overflow: hidden;
 }
+
 #divBoxLogin{
-    width: 40%;
+    width: 50%;
     height: 72vh;
 }
+@media screen and (max-width: 768px) {
+    #divBoxLogin{
+        width: 90%;
+        height: auto;
+    }
+    #ipt_email{
+        width: 90%;
+    }
+    #ipt_senha{
+        width: 90%;
+    }
+}
+
 .inputLogin{
     width: 70%;
 }
