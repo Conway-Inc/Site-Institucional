@@ -23,8 +23,6 @@ function cadastrarFuncionario() {
     validar()
 
     if (!temErro) {
-
-
         fetch(`/funcionario/cadastrarFuncionario`, {
             method: "POST",
             headers: {
@@ -101,9 +99,28 @@ function exibirInfosFunc() {
     var infosTelefone = document.getElementById("ipt_telefoneFunc")
     infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO.replace(/^(\d{2})(\d)/g, "($1) $2");
     infosTelefone.value = infosTelefone.value.replace(/(\d)(\d{4})$/, "$1-$2");
+    
+    // Váriaveis abaixo para formatar a data para o formato yyyy-MM-dd
+
+    var data = new Date(sessionStorage.DATA_NASCIMENTO)
     var dataNasc = document.getElementById("ipt_dataFunc")
-    dataNasc.type = "text"
-    dataNasc.value = sessionStorage.DATA_NASCIMENTO;
+    var dia = data.getDate()
+
+    if(dia < 10){
+        dia = `0${dia}`
+    }
+
+
+    var mes = data.getMonth()
+    if(mes == 0){
+        mes = `01`
+    }
+    else if(mes < 10){
+        mes = `0${mes}`
+    }
+
+    var ano = data.getFullYear()
+    dataNasc.value = `${ano}-${mes}-${dia}`;
 
     var infosCargo = document.getElementById("ipt_cargoFunc")
     if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
@@ -242,11 +259,13 @@ function trocarBotaoPerfil() {
 }
 
 function atualizarInformacoes() {
+    const retorno = eliminarMascaras()
+
     var nomeFuncVar = ipt_nomeFunc.value;
     var emailFuncVar = ipt_loginFunc.value;
     var senhaFuncVar = ipt_senhaFunc.value;
-    var cpfFuncVar = ipt_cpfFunc.value;
-    var telFuncVar = ipt_telefoneFunc.value;
+    var cpfFuncVar = retorno.cpfFormatado;
+    var telFuncVar = retorno.telefoneFormatado;
     var dataFuncVar = ipt_dataFunc.value
     var idFuncionarioVar = sessionStorage.ID_FUNCIONARIO;
 
@@ -449,6 +468,7 @@ function eliminarMascaras() {
     telefoneFormatado = telefoneMascarado.replaceAll("-", "")
     telefoneFormatado = telefoneFormatado.replaceAll("(", "")
     telefoneFormatado = telefoneFormatado.replaceAll(")", "")
+    telefoneFormatado = telefoneFormatado.replaceAll(" ", "")
 
     return { cpfFormatado, telefoneFormatado }
 }
@@ -540,7 +560,7 @@ function mascaraTelefone() {
         ipt_telefoneFunc.value += "("
     }
     if (tamanhoTelefone == 3) {
-        ipt_telefoneFunc.value += ")"
+        ipt_telefoneFunc.value += ") "
     }
     if (tamanhoTelefone == 9) {
         ipt_telefoneFunc.value += "-"
