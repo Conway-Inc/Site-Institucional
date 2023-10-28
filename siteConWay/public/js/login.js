@@ -51,6 +51,13 @@ function validar_entrada() {
           sessionStorage.EMAIL_FUNCIONARIO = json.email;
           sessionStorage.SENHA_FUNCIONARIO = json.senha;
           sessionStorage.NOME_FUNCIONARIO = json.nomeFuncionario;
+          sessionStorage.TELEFONE_FUNCIONARIO = json.telefoneFuncionario;
+          const dataNascimento = json.dataNascimento
+          const dataNasc = new Date(dataNascimento)
+          const dataFormatada = dataNasc.toLocaleDateString('pt-BR', {
+          timeZone: 'UTC',
+          });
+          sessionStorage.DATA_NASCIMENTO = dataFormatada;
           sessionStorage.CPF = json.cpf;
           sessionStorage.FK_EMPRESA = json.idEmpresa;
           sessionStorage.NOME_EMPRESA = json.nomeEmpresa;

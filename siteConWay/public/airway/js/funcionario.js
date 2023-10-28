@@ -48,7 +48,7 @@ function cadastrarFuncionario() {
                 cardMsg.style.border = "2px solid #00B802"
                 cardMsg.style.boxShadow = "0px 0px 8px rgba(0, 0, 0, 0.7)"
                 cardMsg.style.color = "#00B802"
-                cardMsg.innerHTML = "✅ Conta cadastrada com sucesso! ✅";
+                cardMsg.innerHTML = "Conta cadastrada com sucesso!";
                 setTimeout(function () {
                     cardMsg.style.display = "none";
                 }, 3000);
@@ -84,8 +84,12 @@ function cadastrarFuncionario() {
 }
 
 function exibirInfosFunc() {
+    
+    // Deixar exibir o seu nome em todas as páginas
+
     var infosNomeNavBar = document.getElementById("navbarNome")
     infosNomeNavBar.innerHTML = sessionStorage.NOME_FUNCIONARIO
+    
     var tituloNome = document.getElementById("tituloNomeFunc");
     tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
     var infosNome = document.getElementById("ipt_nomeFunc")
@@ -93,9 +97,13 @@ function exibirInfosFunc() {
     var infosEmail = document.getElementById("ipt_emailFunc")
     infosEmail.value = sessionStorage.EMAIL_FUNCIONARIO
     var infosCpf = document.getElementById("ipt_cpfFunc")
-    infosCpf.value = sessionStorage.CPF
+    infosCpf.value = sessionStorage.CPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     var infosTelefone = document.getElementById("ipt_telefoneFunc")
-    infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO
+    infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO.replace(/^(\d{2})(\d)/g, "($1) $2");
+    infosTelefone.value = infosTelefone.value.replace(/(\d)(\d{4})$/, "$1-$2");
+    var dataNasc = document.getElementById("ipt_dataFunc")
+    dataNasc.type = "text"
+    dataNasc.value = sessionStorage.DATA_NASCIMENTO;
 
     var infosCargo = document.getElementById("ipt_cargoFunc")
     if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
