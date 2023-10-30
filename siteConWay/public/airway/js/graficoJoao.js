@@ -1,11 +1,8 @@
-    setTimeout(function() {
-      location.reload();
-    }, 3000);
+
+var intervalId = setInterval(buscarInformacoes, 3000);
 
 var totalTotensEmpresa = 0;
-
 var totensEstaveis = 0;
-
 var totensAtencao = 0;
 var totensCritico = 0;
 
@@ -54,22 +51,50 @@ function exibirRegistrosTotemID(idTotem) {
 
 function plotarTabelaAlertas() {
 
+    var tabela = document.getElementById("dataTable");
+    
+    tabela.innerHTML = ""
+
+    var tr = document.createElement("tr");
+
+    var thAeroporto = document.createElement("th");
+    thAeroporto.innerHTML = "Aeroporto"
+
+    var thTotem = document.createElement("th");
+    thTotem.innerHTML = "Totem"
+    
+    
+    var thIndicador = document.createElement("th");
+    thIndicador.innerHTML = "Indicador"
+
+    tr.appendChild(thAeroporto)
+    tr.appendChild(thTotem)
+    tr.appendChild(thIndicador)
+    tabela.appendChild(tr)
+
+
+
+    
+
     fetch(`/graficoJoao/buscarAlertasTotensCritico/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                console.log("Nenhum resultado encontrado!!");
+                console.log("Nenhum alerta crítico encontrado!!");
+                dadosGrafico[0] = 0
+                divTotensCritico.innerHTML = 0
+
             }
             resposta.json().then(function (resposta) {
-                totensCritico = 0;
                 totensCritico = Number(resposta.length)
                 divTotensCritico.innerHTML = totensCritico
                 dadosGrafico[0] = totensCritico
 
+                var tbodyCritico = document.createElement("tbody");
+                tbodyCritico.setAttribute("id", "tbodyTableCritico")
+                
                 for (let i = 0; i < resposta.length; i++) {
-
+                    
                     var dados = resposta[i];
-
-                    var tabela = document.getElementById("dataTable");
 
                     var tdAeroporto = document.createElement("td");
                     tdAeroporto.setAttribute("scope", "row");
@@ -93,8 +118,8 @@ function plotarTabelaAlertas() {
                     tr.appendChild(tdTotem);
                     tdIndicador.appendChild(iIndicador)
                     tr.appendChild(tdIndicador);
-                    tbody.appendChild(tr)
-                    tabela.appendChild(tbody)
+                    tbodyCritico.appendChild(tr)
+                    tabela.appendChild(tbodyCritico)
                 }
                 $(document).ready(function () {
                     $('#dataTable').DataTable();
@@ -112,19 +137,22 @@ function plotarTabelaAlertas() {
     fetch(`/graficoJoao/buscarAlertasTotensAtencao/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                console.log("Nenhum resultado encontrado!!");
+                console.log("Nenhum alerta de atenção encontrado!!");
+                dadosGrafico[1] = 0
+                divTotensAtencao.innerHTML = 0
+
             }
             resposta.json().then(function (resposta) {
-                totensAtencao = 0;
                 totensAtencao = Number(resposta.length)
                 divTotensAtencao.innerHTML = totensAtencao
                 dadosGrafico[1] = totensAtencao
 
+                var tbodyAtencao = document.createElement("tbody");
+                tbodyAtencao.setAttribute("id", "tbodyTableAtencao")
+
                 for (let i = 0; i < resposta.length; i++) {
 
                     var dados = resposta[i];
-
-                    var tabela = document.getElementById("dataTable");
 
                     var tdAeroporto = document.createElement("td");
                     tdAeroporto.setAttribute("scope", "row");
@@ -141,15 +169,13 @@ function plotarTabelaAlertas() {
 
 
                     var tr = document.createElement("tr");
-                    var tbody = document.createElement("tbody");
-                    tbody.setAttribute("id", "tbodyTable")
 
                     tr.appendChild(tdAeroporto);
                     tr.appendChild(tdTotem);
                     tdIndicador.appendChild(iIndicador)
                     tr.appendChild(tdIndicador);
-                    tbody.appendChild(tr)
-                    tabela.appendChild(tbody)
+                    tbodyAtencao.appendChild(tr)
+                    tabela.appendChild(tbodyAtencao)
                 }
                 $(document).ready(function () {
                     $('#dataTable').DataTable();
@@ -176,7 +202,7 @@ function plotarKPIs() {
                 totalTotensEmpresa = 0;
                 totalTotensEmpresa = Number(resposta[0].qtdTotens)
 
-                totensEmAlerta = totensAtencao+totensCritico
+                totensEmAlerta = dadosGrafico[1]+dadosGrafico[0]
 
                 totensEstaveis = Number(totalTotensEmpresa - totensEmAlerta)
 
@@ -219,6 +245,9 @@ function plotarKPIs() {
 
 
 function plotarGraficoEstadoTotens(dadosGrafico) {
+
+    var divGrafico = document.getElementById("graficoEstadoTotens");
+    divGrafico.innerHTML = ""
 
     var options = {
         series: dadosGrafico,
