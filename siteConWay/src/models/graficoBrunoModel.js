@@ -128,8 +128,7 @@ function dadosRelatorio(comp,mes,ano,fkEmpresa,texto) {
     SELECT
       DAY(dataHora) AS dia,
       COUNT(CASE WHEN valor BETWEEN 85 AND 94 THEN 1 ELSE NULL END) AS alerta,
-      COUNT(CASE WHEN valor >= 95 THEN 1 ELSE NULL END) AS critico,
-      COUNT(CASE WHEN valor >= 85 THEN 1 ELSE NULL END) AS total
+      COUNT(CASE WHEN valor >= 95 THEN 1 ELSE NULL END) AS critico
         FROM vw_alertas
           WHERE MONTH(dataHora) = ${mes} AND YEAR(dataHora) = ${ano} AND comp = ${comp} AND fkEmpresa = ${fkEmpresa} AND ${texto}
             GROUP BY MONTH(dataHora), DAY(dataHora) 

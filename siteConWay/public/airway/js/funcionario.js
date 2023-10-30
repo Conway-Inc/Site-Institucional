@@ -1,3 +1,4 @@
+
 var temErro = false;
 
 function cadastrarFuncionario() {
@@ -324,9 +325,15 @@ function atualizarInformacoes() {
 }
 
 function exibirFuncionarios(fkEmpresaVar) {
-    var fkEmpresaVar = sessionStorage.FK_EMPRESA
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA;
+    var fkGerente = sessionStorage.GERENTE_FUNCIONARIO;
+    if (fkGerente == "null") {
+        rota = `/empresa/exibirGerentes`
+    } else if (fkGerente = 1) {
+        rota = `/empresa/exibirFuncionarios/${fkEmpresaVar}${fkGerente}`
+    }
 
-    fetch(`/empresa/exibirFuncionarios/${fkEmpresaVar}`)
+    fetch(rota)
         .then(function (resposta) {
             if (resposta.ok) {
                 console.log(resposta);

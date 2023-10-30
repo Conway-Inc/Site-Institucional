@@ -1,6 +1,6 @@
 function validarGerenteAnalista() {
     let menu = document.getElementById("accordionSidebar");
-    if (sessionStorage.GERENTE_FUNCIONARIO == null) {
+    if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
         inserirGerenteOcorrencias(menu);
         inserirAnalistaKauan(menu);
         inserirAnalistaJoao(menu);

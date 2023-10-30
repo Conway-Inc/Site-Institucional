@@ -163,8 +163,8 @@ INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
 ('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 
-INSERT INTO Funcionario VALUES (NULL, 'gerente@latam.com', '12345', 'Fernando Brandão', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
-INSERT INTO Funcionario VALUES (NULL, 'analista@latam.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
+INSERT INTO Funcionario VALUES (NULL, 'gerente@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
+INSERT INTO Funcionario VALUES (NULL, 'analista@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
 													   ('Brasília', 'DF', 'Brasília'),
