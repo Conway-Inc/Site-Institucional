@@ -53,6 +53,7 @@ function cadastrarFuncionario() {
 
                 tbodyTable.innerHTML = ``
                 exibirFuncionarios();
+                limparInputs();
 
             } else {
                 cardMsg.style.display = "block"
@@ -82,12 +83,12 @@ function cadastrarFuncionario() {
 }
 
 function exibirInfosFunc() {
-    
+
     // Deixar exibir o seu nome em todas as páginas
 
     var infosNomeNavBar = document.getElementById("navbarNome")
     infosNomeNavBar.innerHTML = sessionStorage.NOME_FUNCIONARIO
-    
+
     var tituloNome = document.getElementById("tituloNomeFunc");
     tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
     var infosNome = document.getElementById("ipt_nomeFunc")
@@ -99,23 +100,23 @@ function exibirInfosFunc() {
     var infosTelefone = document.getElementById("ipt_telefoneFunc")
     infosTelefone.value = sessionStorage.TELEFONE_FUNCIONARIO.replace(/^(\d{2})(\d)/g, "($1) $2");
     infosTelefone.value = infosTelefone.value.replace(/(\d)(\d{4})$/, "$1-$2");
-    
+
     // Váriaveis abaixo para formatar a data para o formato yyyy-MM-dd
 
     var data = new Date(sessionStorage.DATA_NASCIMENTO)
     var dataNasc = document.getElementById("ipt_dataFunc")
     var dia = data.getDate()
 
-    if(dia < 10){
+    if (dia < 10) {
         dia = `0${dia}`
     }
 
 
     var mes = data.getMonth()
-    if(mes == 0){
+    if (mes == 0) {
         mes = `01`
     }
-    else if(mes < 10){
+    else if (mes < 10) {
         mes = `0${mes}`
     }
 
@@ -390,7 +391,7 @@ function exibirFuncionarios(fkEmpresaVar) {
                         $('#dataTable').DataTable();
                     });
                 });
-                
+
             } else {
                 resposta.text().then(texto => {
                     console.error(texto);
@@ -746,4 +747,21 @@ function validar() {
         }, 3000);
     }
 
+}
+
+function exibirNomeFunc() {
+    var infosNomeNavBar = document.getElementById("navbarNome")
+    infosNomeNavBar.innerHTML = sessionStorage.NOME_FUNCIONARIO
+}
+
+function limparInputs() {
+    ipt_nomeFunc.value = "";
+    ipt_cpfFunc.value = "";
+    ipt_telefoneFunc.value = "";
+    ipt_dataFunc.value = "";
+    ipt_emailFunc.value = "";
+    ipt_loginFunc.value = "";
+    ipt_senhaFunc.value = "";
+    ipt_repetirSenhaFunc.value = "";
+    ipt_cargoFunc.value = "";
 }
