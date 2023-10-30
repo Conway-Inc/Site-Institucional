@@ -13,7 +13,7 @@
     <title>AirWay</title>
 </head>
 
-<body id="page-top" onload=" exibirInfosEmpresa(), desativarInputsEmpresa(),exibirFuncionarios()">
+<body id="page-top" onload="validarGerenteAnalista(), exibirInfosEmpresa(), desativarInputsEmpresa(),exibirFuncionarios()">
     <div id="wrapper">
         <div id="cardMsg"></div>
 
@@ -26,66 +26,6 @@
             </div>
 
             <hr class="sidebar-divider my-0">
-
-            <li class="nav-item">
-                <a class="nav-link" href="graficoBruno.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Bruno</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="graficoJoao.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>João</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="graficoKauan.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Kauan</span>
-                </a>
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">EMPRESA</div>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="empresa-funcionario.html">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Funcionário</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="empresa-totem.html">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Totem</span>
-                </a>
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">CONTA</div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="perfil.html">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Perfil</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#logoutModal" style="cursor: pointer;">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Sair</span>
-                </a>
-            </li>
-
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
 
         </ul>
 
@@ -469,6 +409,7 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="js/validarUsuario.js"></script>
 <script src="js/funcionario.js"></script>
 <script>
     // Chamar o plugin JQuery do dataTables 
