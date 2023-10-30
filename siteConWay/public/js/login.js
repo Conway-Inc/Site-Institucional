@@ -70,10 +70,10 @@ function entrar() {
           }, 2000);
         } else {
 
-          if (sessionStorage.GERENTE_FUNCIONARIO == null) {
+          if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
 
             setTimeout(function () {
-              window.location = "../airway/conta-perfil.html";
+              window.location = "../airway/empresa-totem.html";
             }, 2000);
 
           } else if (sessionStorage.GERENTE_FUNCIONARIO == 1) {

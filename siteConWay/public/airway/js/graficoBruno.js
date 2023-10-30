@@ -39,11 +39,11 @@ function gerarRelatorio(alerta, critico, total) {
 
                 let info = [];
                 json.forEach((element, index, array) => {
-                    info.push([element.dia, element.alerta, element.critico,element.total])
+                    info.push([element.dia, element.alerta, element.critico])
                 });
 
                 doc.autoTable({
-                    head: [['Dia', 'Alerta', 'Crítico', 'Total']],
+                    head: [['Dia', 'Alerta', 'Crítico']],
                     body: info,
                     margin: [3.4,17,0, 2],
                     

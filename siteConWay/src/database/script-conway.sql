@@ -166,9 +166,9 @@ INSERT INTO Componente (nome, unidadeMedida) VALUES
 INSERT INTO Funcionario VALUES (NULL, 'gerente@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario VALUES (NULL, 'analista@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
-INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
-													   ('Brasília', 'DF', 'Brasília'),
-													   ('Confins', 'BH', 'Confins');
+INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'São Paulo'),
+													   ('Brasilia International Airport', 'DF', 'Brasília'),
+													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 						
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
