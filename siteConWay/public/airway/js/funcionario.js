@@ -51,7 +51,7 @@ function cadastrarFuncionario() {
                     cardMsg.style.display = "none";
                 }, 3000);
 
-                linhaFuncionario.innerHTML = ``
+                tbodyTable.innerHTML = ``
                 exibirFuncionarios();
 
             } else {
