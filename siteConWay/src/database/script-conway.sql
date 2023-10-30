@@ -152,7 +152,7 @@ INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway')
 INSERT INTO RamoEmpresa VALUES (2,1);
 
 
-INSERT INTO Funcionario VALUES (NULL, 'admairway@gmail.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
+INSERT INTO Funcionario VALUES (NULL, 'adm@airway.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
 
 -- LATAM
 INSERT INTO Empresa VALUES (NULL, '33937681000178', 'LATAM AIRLINES GROUP S/A', '04634042', 'Rua Atica' , 673, '11226872400');
@@ -163,8 +163,8 @@ INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
 ('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 
-INSERT INTO Funcionario VALUES (NULL, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
-INSERT INTO Funcionario VALUES (NULL, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
+INSERT INTO Funcionario VALUES (NULL, 'gerente@latam.com', '12345', 'Fernando Brandão', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
+INSERT INTO Funcionario VALUES (NULL, 'analista@latam.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
 													   ('Brasília', 'DF', 'Brasília'),
