@@ -21,7 +21,7 @@ function validarGerenteAnalista() {
         inserirContaSair(menu);
         inserirSlideFinal(menu);
     } else {
-        inserirAnalistaKauan(menu);
+        // inserirAnalistaKauan(menu);
         inserirAnalistaJoao(menu);
         inserirSlideConta(menu);
         inserirContaPerfil(menu);
@@ -73,7 +73,7 @@ function inserirAnalistaJoao(menu) {
     let iAnalistaJoao = document.createElement("i");
     iAnalistaJoao.className = "fas fa-fw fa-tachometer-alt";
     let spanAnalistaJoao = document.createElement("span");
-    spanAnalistaJoao.innerHTML = "João";
+    spanAnalistaJoao.innerHTML = "Dashboard Geral";
     
     aAnalistaJoao.appendChild(iAnalistaJoao);
     aAnalistaJoao.appendChild(spanAnalistaJoao);
