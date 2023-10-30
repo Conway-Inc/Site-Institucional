@@ -506,7 +506,7 @@ function retornarMes() {
     } else if (mes == 9) {
         return "Setemebro"
     } else if (mes == 10) {
-        return "Outrubro"
+        return "Outubro"
     } else if (mes == 11) {
         return "Novembro"
     } else if (mes == 12) {
