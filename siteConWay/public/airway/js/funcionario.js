@@ -763,5 +763,5 @@ function limparInputs() {
     ipt_loginFunc.value = "";
     ipt_senhaFunc.value = "";
     ipt_repetirSenhaFunc.value = "";
-    ipt_cargoFunc.value = "";
+    select_cargo.selectedIndex = 0;
 }
