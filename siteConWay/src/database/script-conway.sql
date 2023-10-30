@@ -152,7 +152,7 @@ INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway')
 INSERT INTO RamoEmpresa VALUES (2,1);
 
 
-INSERT INTO Funcionario VALUES (NULL, 'admairway@gmail.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
+INSERT INTO Funcionario VALUES (NULL, 'adm@airway.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
 
 -- LATAM
 INSERT INTO Empresa VALUES (NULL, '33937681000178', 'LATAM AIRLINES GROUP S/A', '04634042', 'Rua Atica' , 673, '11226872400');
@@ -163,8 +163,8 @@ INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
 ('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 
-INSERT INTO Funcionario VALUES (NULL, 'gerentelatam@gmail.com', '12345', 'Fernando Brandão', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
-INSERT INTO Funcionario VALUES (NULL, 'analistalatam@gmail.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
+INSERT INTO Funcionario VALUES (NULL, 'gerente@latam.com', '12345', 'Fernando Brandão', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
+INSERT INTO Funcionario VALUES (NULL, 'analista@latam.com', '12345', 'Julia Lima', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas', 'SP', 'São Paulo'),
 													   ('Brasília', 'DF', 'Brasília'),
@@ -181,7 +181,7 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
-INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, NOW(), 1,1),
+INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, NOW(), 1,1),
 																	 (100001,0.0, NOW(), 2,1),
 																	 (100002,0.0, NOW(), 1,2),
 																	 (100003,0.0, NOW(), 2,2),
@@ -206,8 +206,7 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
  											 (1,100008),
  											 (1,100009),
  											 (1,100010),
- 											 (1,100011),
-
+ 											 (1,100011);
 
 
 -- USUÁRIO
@@ -250,4 +249,3 @@ DROP VIEW IF EXISTS vw_alertas;
 CREATE VIEW vw_alertas AS
 SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, Totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio, fkEmpresa
 		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;                
-
