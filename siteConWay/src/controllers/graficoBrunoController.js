@@ -100,8 +100,9 @@ function dadosRelatorio(req, res) {
   var mes = req.body.mesServer;
   var ano = req.body.anoServer;
   var fkEmpresa = req.body.fkEmpresaServer;
+  var texto = req.body.textoServer;
 
-  graficoBrunoModel.dadosRelatorio(comp,mes,ano,fkEmpresa).then(function (resultado) {
+  graficoBrunoModel.dadosRelatorio(comp,mes,ano,fkEmpresa,texto).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

@@ -12,6 +12,7 @@ function gerarRelatorio(alerta, critico, total) {
             mesServer: document.getElementById("select-mes").value,
             anoServer: document.getElementById("select-ano").value,
             fkEmpresaServer: sessionStorage.FK_EMPRESA,
+            textoServer: sessionStorage.TEXTO
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -122,39 +123,46 @@ function pegarMetricasGerais(tipo) {
         document.getElementById("info-aeroporto-nome").innerHTML = "todos os estados do Brasil";
         document.getElementById("info-relatorio-nome").innerHTML = "todos os estados do Brasil";
         texto = "estado LIKE '%%'";
+        sessionStorage.TEXTO = "estado LIKE '%%'";
     } else if (tipo == 2) {
         tipo = 'municipio';
         texto = `estado LIKE '%${estado}%'`;
+        sessionStorage.TEXTO = `estado LIKE '%${estado}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         document.getElementById("info-relatorio-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os estados
         if (estado == "0") {
             tipo = 'estado';
             texto = "estado LIKE '%%'";
+            sessionStorage.TEXTO = "estado LIKE '%%'";
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os estados do Brasil`;
             document.getElementById("info-relatorio-nome").innerHTML = `todos os estados do Brasil`;
         }
     } else if (tipo == 3) {
         tipo = 'aeroporto';
         texto = `municipio LIKE '%${municipio}%'`;
+        sessionStorage.TEXTO = `municipio LIKE '%${municipio}%'`
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
         document.getElementById("info-relatorio-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (municipio == "0") {
             tipo = 'municipio';
             texto = `estado = '${estado}'`;
+            sessionStorage.TEXTO = `estado = '${estado}'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
             document.getElementById("info-relatorio-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
         }
     } else if (tipo == 4) {
         tipo = 'nome';
         texto = `aeroporto LIKE '%${aeroporto}%'`;
+        sessionStorage.TEXTO = `aeroporto LIKE '%${aeroporto}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
         document.getElementById("info-relatorio-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (aeroporto == "0") {
             tipo = 'aeroporto';
             texto = `municipio LIKE '%${municipio}%'`;
+            sessionStorage.TEXTO = `municipio LIKE '%${municipio}%'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
             document.getElementById("info-relatorio-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
             exibirAeroportosComTotens();
