@@ -120,7 +120,7 @@ function metricasGerais(tipo,texto) {
   return database.executar(instrucao);
 }
 
-function dadosRelatorio(comp,mes,ano,fkEmpresa) {
+function dadosRelatorio(comp,mes,ano,fkEmpresa,texto) {
   console.log(
     "Acessei o graficoBrunoModel e executei a função dadosRelatorio(): ",comp,ano,mes,fkEmpresa
   );
@@ -131,7 +131,7 @@ function dadosRelatorio(comp,mes,ano,fkEmpresa) {
       COUNT(CASE WHEN valor >= 95 THEN 1 ELSE NULL END) AS critico,
       COUNT(CASE WHEN valor >= 85 THEN 1 ELSE NULL END) AS total
         FROM vw_alertas
-          WHERE MONTH(dataHora) = ${mes} AND YEAR(dataHora) = ${ano} AND comp = ${comp} AND fkEmpresa = ${fkEmpresa}
+          WHERE MONTH(dataHora) = ${mes} AND YEAR(dataHora) = ${ano} AND comp = ${comp} AND fkEmpresa = ${fkEmpresa} AND ${texto}
             GROUP BY MONTH(dataHora), DAY(dataHora) 
               ORDER BY dia ASC;
   `;
