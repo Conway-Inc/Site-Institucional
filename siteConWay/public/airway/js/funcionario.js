@@ -87,11 +87,6 @@ function exibirInfosFunc() {
 
     // Deixar exibir o seu nome em todas as páginas
 
-    var infosNomeNavBar = document.getElementById("navbarNome")
-    infosNomeNavBar.innerHTML = sessionStorage.NOME_FUNCIONARIO
-
-    var tituloNome = document.getElementById("tituloNomeFunc");
-    tituloNome.innerHTML = sessionStorage.NOME_FUNCIONARIO
     var infosNome = document.getElementById("ipt_nomeFunc")
     infosNome.value = sessionStorage.NOME_FUNCIONARIO
     var infosEmail = document.getElementById("ipt_emailFunc")

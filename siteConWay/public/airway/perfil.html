@@ -175,7 +175,7 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800" id="tituloNomeFunc"></h1>
+                    <h1 class="h3 mb-2 text-gray-800">PERFIL</h1>
                     <div class="row">
                         <div class="col-xl-7 col-lg-4">
                             <div class="card shadow mb-4">
@@ -248,7 +248,7 @@
                                 <div class="card-body">
                                     <div class="container-fluid">
                                         <div class="row mb-3">
-                                            <label class="col-lg-3 col-form-label">CNJP</label>
+                                            <label class="col-lg-3 col-form-label">CNPJ</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input type="text" id="ipt_cnpjEmpresa" class="form-control"
                                                     onfocusout="obterDadosEmpresa()">
@@ -374,4 +374,6 @@
     $(document).ready(function () {
         $('#dataTable').DataTable();
     });
+
+    exibirNomeFunc()
 </script>
