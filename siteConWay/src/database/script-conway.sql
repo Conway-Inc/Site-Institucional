@@ -163,8 +163,8 @@ INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
 ('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 
-INSERT INTO Funcionario VALUES (NULL, 'gerente@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
-INSERT INTO Funcionario VALUES (NULL, 'analista@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
+INSERT INTO Funcionario VALUES (NULL, 'pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
+INSERT INTO Funcionario VALUES (NULL, 'ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'São Paulo'),
 													   ('Brasilia International Airport', 'DF', 'Brasília'),
@@ -181,32 +181,32 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
-INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, NOW(), 1,1),
-																	 (100001,0.0, NOW(), 2,1),
-																	 (100002,0.0, NOW(), 1,2),
-																	 (100003,0.0, NOW(), 2,2),
-																	 (100004,0.0, NOW(), 1,3),
-																	 (100005,0.0, NOW(), 2,3),
-																	 (100006,0.0, NOW(), 1,4),
-																	 (100007,0.0, NOW(), 2,4),
-																	 (100008,0.0, NOW(), 1,5),
-																	 (100009,0.0, NOW(), 2,5),
-																	 (100010,0.0, NOW(), 1,6),
-																	 (100011,0.0, NOW(), 2,6);
+-- INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, NOW(), 1,1),
+-- 																	 (100001,0.0, NOW(), 2,1),
+-- 																	 (100002,0.0, NOW(), 1,2),
+-- 																	 (100003,0.0, NOW(), 2,2),
+-- 																	 (100004,0.0, NOW(), 1,3),
+-- 																	 (100005,0.0, NOW(), 2,3),
+-- 																	 (100006,0.0, NOW(), 1,4),
+-- 																	 (100007,0.0, NOW(), 2,4),
+-- 																	 (100008,0.0, NOW(), 1,5),
+-- 																	 (100009,0.0, NOW(), 2,5),
+-- 																	 (100010,0.0, NOW(), 1,6),
+-- 																	 (100011,0.0, NOW(), 2,6);
                                                                      
                                                                    
-INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
- 											 (1,100001),
- 											 (1,100002),
- 											 (1,100003),
- 											 (1,100004),
- 											 (1,100005),
- 											 (1,100006),
- 											 (1,100007),
- 											 (1,100008),
- 											 (1,100009),
- 											 (1,100010),
- 											 (1,100011);
+-- INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
+--  											 (1,100001),
+--  											 (1,100002),
+--  											 (1,100003),
+--  											 (1,100004),
+--  											 (1,100005),
+--  											 (1,100006),
+--  											 (1,100007),
+--  											 (1,100008),
+--  											 (1,100009),
+--  											 (1,100010),
+--  											 (1,100011);
 
 
 -- USUÁRIO
