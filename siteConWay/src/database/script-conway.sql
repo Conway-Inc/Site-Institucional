@@ -183,32 +183,56 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
--- INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, NOW(), 1,1),
--- 																	 (100001,0.0, NOW(), 2,1),
--- 																	 (100002,0.0, NOW(), 1,2),
--- 																	 (100003,0.0, NOW(), 2,2),
--- 																	 (100004,0.0, NOW(), 1,3),
--- 																	 (100005,0.0, NOW(), 2,3),
--- 																	 (100006,0.0, NOW(), 1,4),
--- 																	 (100007,0.0, NOW(), 2,4),
--- 																	 (100008,0.0, NOW(), 1,5),
--- 																	 (100009,0.0, NOW(), 2,5),
--- 																	 (100010,0.0, NOW(), 1,6),
--- 																	 (100011,0.0, NOW(), 2,6);
+
+INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (1000,0.0, '2023-10-07 12:00:00', 1,1),
+                                                                                (1001,0.0, '2023-10-07 12:00:00', 2,1),
+                                                                                (1002,0.0, '2023-10-07 12:00:00', 1,2),
+                                                                                (1003,0.0, '2023-10-07 12:00:00', 2,2),
+                                                                                (1004,0.0, '2023-10-07 12:00:00', 1,3),
+                                                                                (1005,0.0, '2023-10-07 12:00:00', 2,3),
+                                                                                (1006,0.0, '2023-10-07 12:00:00', 1,4),
+                                                                                (1007,0.0, '2023-10-07 12:00:00', 2,4),
+                                                                                (1008,0.0, '2023-10-07 12:00:00', 1,5),
+                                                                                (1009,0.0, '2023-10-07 12:00:00', 2,5),
+                                                                                (1010,0.0, '2023-10-07 12:00:00', 1,6),
+                                                                                (1011,0.0, '2023-10-07 12:00:00', 2,6),
+                                                                                (1012,0.0, '2023-10-07 12:10:00', 1,1),
+                                                                                (1013,0.0, '2023-10-07 12:10:00', 2,1),
+                                                                                (1014,0.0, '2023-10-07 12:10:00', 1,2),
+                                                                                (1015,0.0, '2023-10-07 12:10:00', 2,2),
+                                                                                (1016,0.0, '2023-10-07 12:10:00', 1,3),
+                                                                                (1017,0.0, '2023-10-07 12:10:00', 2,3),
+                                                                                (1018,0.0, '2023-10-07 12:10:00', 1,4),
+                                                                                (1019,0.0, '2023-10-07 12:10:00', 2,4),
+                                                                                (1020,0.0, '2023-10-07 12:10:00', 1,5),
+                                                                                (1021,0.0, '2023-10-07 12:10:00', 2,5),
+                                                                                (1022,0.0, '2023-10-07 12:10:00', 1,6),
+                                                                                (1023,0.0, '2023-10-07 12:10:00', 2,6);
                                                                      
                                                                    
--- INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
---  											 (1,100001),
---  											 (1,100002),
---  											 (1,100003),
---  											 (1,100004),
---  											 (1,100005),
---  											 (1,100006),
---  											 (1,100007),
---  											 (1,100008),
---  											 (1,100009),
---  											 (1,100010),
---  											 (1,100011);
+INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,1000),
+ 											 (2,1001),
+ 											 (2,1002),
+ 											 (2,1003),
+ 											 (2,1004),
+ 											 (2,1005),
+ 											 (1,1006),
+ 											 (2,1007),
+ 											 (2,1008),
+ 											 (2,1009),
+                                             (1,1010),
+ 											 (2,1011),
+
+ 											 (2,1012), 
+ 											 (2,1013),  
+ 											 (2,1014), 
+ 											 (2,1015), 
+ 											 (1,1016),
+ 											 (2,1017),
+ 											 (2,1018), 
+ 											 (2,1019),
+                                             (2,1020), 
+                                             (2,1021); 
 
 
 -- USUÁRIO
@@ -250,4 +274,12 @@ SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.
 DROP VIEW IF EXISTS vw_alertas;
 CREATE VIEW vw_alertas AS
 SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, Totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio, fkEmpresa
-		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;                
+		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;       
+
+CREATE VIEW vw_totensEmAlerta AS SELECT t.nome AS nomeTotem, ar.nome AS nomeAeroporto, min(a.tipo) as tipo
+    FROM Totem AS t
+    INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
+    INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
+    INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
+    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1)
+    GROUP BY t.nome, ar.nome;         
