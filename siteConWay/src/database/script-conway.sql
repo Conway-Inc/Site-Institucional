@@ -46,7 +46,9 @@ CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(150),
     estado CHAR(2),
-    municipio VARCHAR(60)
+    municipio VARCHAR(60),
+    latitude DOUBLE(20,10),
+    longitude DOUBLE(20,10)
 );
 
 CREATE TABLE temperaturaAeroporto(
