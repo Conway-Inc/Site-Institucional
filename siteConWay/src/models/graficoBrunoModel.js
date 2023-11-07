@@ -102,9 +102,26 @@ function valorTotem(idTotem) {
   return database.executar(instrucao);
 }
 
-function metricasGerais(tipo,texto) {
+function exibirOptionsMesAno(fkEmpresa) {
   console.log(
-    "Acessei o graficoBrunoModel e executei a função metricasGerais(): ",tipo,texto
+    "Acessei o graficoBrunoModel e executei a função dadosRelatorio(): ",fkEmpresa
+  );
+  var instrucao = `
+    SELECT
+      YEAR(dataHora) AS ano,
+      MONTH(dataHora) AS mes
+        FROM vw_alertas
+          WHERE fkEmpresa = ${fkEmpresa}
+            GROUP BY YEAR(dataHora), MONTH(dataHora)
+              ORDER BY ano ASC;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function metricasGerais(tipo,texto,ano,mes) {
+  console.log(
+    "Acessei o graficoBrunoModel e executei a função metricasGerais(): ",tipo,texto,ano,mes
   );
   var instrucao = `
     SELECT
@@ -114,7 +131,7 @@ function metricasGerais(tipo,texto) {
       COUNT(CASE WHEN valor >= 95 AND comp = 1 THEN 1 ELSE NULL END) AS criticoCpu,
       COUNT(CASE WHEN valor >= 95 AND comp = 2 THEN 1 ELSE NULL END) AS criticoMem
         FROM vw_alertas 
-          WHERE ${texto}
+          WHERE ${texto} AND YEAR(dataHora) = ${ano} AND MONTH(dataHora) = ${mes}
             GROUP BY ${tipo}
               ORDER BY ${tipo} ASC;
   `;
@@ -146,6 +163,7 @@ module.exports = {
   exibirAeroportosComTotens,
   valorDisco,
   valorTotem,
+  exibirOptionsMesAno,
   metricasGerais,
   dadosRelatorio
 };

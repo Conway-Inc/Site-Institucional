@@ -37,7 +37,7 @@ function gerarRelatorio(alerta, critico, total) {
                 doc.setLineWidth(0.05);
                 doc.line(1, 1, 28.7, 1);
                 doc.line(1.025, 20, 1.025, 1);
-                doc.text(`Relatório - Mês de ${retornarMes()}`, 2, 2)
+                doc.text(`Relatório - Mês de ${retornarMes(document.getElementById("select-mes").value)}`, 2, 2)
                 doc.text(`${dataAtual}`, 22.5, 2)
                 doc.line(28.7, 20, 28.7, 1);
                 doc.line(1, 2.5, 28.7, 2.5);
@@ -56,13 +56,7 @@ function gerarRelatorio(alerta, critico, total) {
 
                 })
 
-                // doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
-                // doc.text(`Qtd. Ocorrências: ${total}`, 2, 9)
-                // doc.text(`% em relação ao mês anterior: ${alerta}%`, 10, 7)
-                // doc.text(`% em relação ao mês anterior: ${critico}%`, 10, 8)
-                // doc.text(`% em relação ao mês anterior: ${total}%`, 10, 9)
-
-                doc.save(`${retornarMes()}${document.getElementById("select-ano").value}.pdf`);
+                doc.save(`${retornarMes(document.getElementById("select-mes").value)}${document.getElementById("select-ano").value}.pdf`);
             });
         } else {
             resposta.text().then(textoErro => {
@@ -75,7 +69,7 @@ function gerarRelatorio(alerta, critico, total) {
     return false;
 }
 
-function exibirRelatorios(json,componente) {
+function exibirRelatorios(json, componente) {
     let metricasCpu = [
         { max: "", valor: -1 },
         { min: "", valor: 1000000 },
@@ -155,11 +149,11 @@ function exibirRelatorios(json,componente) {
 
 function verCpu() {
     sessionStorage.COMP_ATUAL = 1;
-    pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL);
+    pegarMetricasGerais(sessionStorage.TIPO_ATUAL, sessionStorage.COMP_ATUAL);
 }
 function verMem() {
     sessionStorage.COMP_ATUAL = 2;
-    pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL);
+    pegarMetricasGerais(sessionStorage.TIPO_ATUAL, sessionStorage.COMP_ATUAL);
 }
 // GRAFICO GERAL
 function pegarMetricasGerais(tipo, componente) {
@@ -225,6 +219,7 @@ function pegarMetricasGerais(tipo, componente) {
         }
     }
 
+    console.log(document.getElementById("select-mes").value)
     fetch("/graficoBruno/metricasGerais", {
         method: "POST",
         headers: {
@@ -232,7 +227,9 @@ function pegarMetricasGerais(tipo, componente) {
         },
         body: JSON.stringify({
             tipoServer: tipo,
-            textoServer: texto
+            textoServer: texto,
+            anoServer: document.getElementById("select-ano").value,
+            mesServer: document.getElementById("select-mes").value,
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -270,9 +267,6 @@ function graficoEstados(json, componente) {
         var dadoCriticoCpu = Math.round((json[i].criticoCpu) * 100) / 100;
         var dadoAlertaMem = Math.round((json[i].alertaMem) * 100) / 100;
         var dadoCriticoMem = Math.round((json[i].criticoMem) * 100) / 100;
-
-        console.log(json[i])
-        console.log(json[i].alertaCpu)
 
         alertaCpu.push(dadoAlertaCpu)
         criticoCpu.push(dadoCriticoCpu)
@@ -572,9 +566,68 @@ function exibirAeroportosComTotens(municipio) {
     }
 }
 
-function retornarMes() {
-    let mes = document.getElementById("select-mes").value;
+function exibirOptionsMesAno() {
+    fetch("/graficoBruno/exibirOptionsMesAno", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresaServer: sessionStorage.FK_EMPRESA
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                var ano = document.getElementById("select-ano");
+                var mes = document.getElementById("select-mes");
 
+                for (let i = json.length -1; i >= 0; i--) {
+                    // mes
+                    if (i == json.length -1) {
+                        let option = document.createElement("option");
+                        option.setAttribute("data-default","");
+                        option.setAttribute("value",json[i].mes);
+                        option.innerHTML = retornarMes(json[i].mes);
+                        mes.appendChild(option)
+                    } else {
+                        if (json[i].mes != json[i+1].mes) {
+                            let option = document.createElement("option");
+                        option.setAttribute("value",json[i].mes);
+                        option.innerHTML = retornarMes(json[i].mes);
+                        mes.appendChild(option)
+                        }
+                    }
+                    // ano
+                    if (i == json.length -1) {
+                        let option = document.createElement("option");
+                        option.setAttribute("data-default","");
+                        option.setAttribute("value",json[i].ano);
+                        option.innerHTML = json[i].ano;
+                        ano.appendChild(option)
+                    } else {
+                        if (json[i].ano != json[i+1].ano) {
+                            let option = document.createElement("option");
+                        option.setAttribute("value",json[i].ano);
+                        option.innerHTML = json[i].ano;
+                        ano.appendChild(option);
+                        }
+                    }
+                }
+                pegarMetricasGerais(1,1)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+    return false;
+}
+
+
+function retornarMes(mes) {
     if (mes == 1) {
         return "Janeiro"
     } else if (mes == 2) {
