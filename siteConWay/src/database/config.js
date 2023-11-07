@@ -2,18 +2,10 @@ var mysql = require("mysql2");
 var sql = require('mssql');
 
 var sqlServerConfig = {
-    server: "SEU_SERVIDOR",
+    host: "44.212.3.214",
     database: "ConWay",
-    user: "user_conway",
-    password: "urubu100",
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    },
-    options: {
-        encrypt: true, // for azure
-    }
+    user: "root",
+    password: "urubu100"
 }
 
 var mySqlConfig = {
@@ -26,17 +18,18 @@ var mySqlConfig = {
 function executar(instrucao) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         return new Promise(function (resolve, reject) {
-            sql.connect(sqlServerConfig).then(function () {
-                return sql.query(instrucao);
-            }).then(function (resultados) {
+            var conexao = mysql.createConnection(sqlServerConfig);
+            conexao.connect();
+            conexao.query(instrucao, function (erro, resultados) {
+                conexao.end();
+                if (erro) {
+                    reject(erro);
+                }
                 console.log(resultados);
-                resolve(resultados.recordset);
-            }).catch(function (erro) {
-                reject(erro);
-                console.log('ERRO: ', erro);
+                resolve(resultados);
             });
-            sql.on('error', function (erro) {
-                return ("ERRO NO SQL SERVER (Azure): ", erro);
+            conexao.on('error', function (erro) {
+                return ("ERRO NO MySQL WORKBENCH (AWS): ", erro.sqlMessage);
             });
         });
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {

@@ -109,10 +109,12 @@ function metricasGerais(tipo,texto) {
   var instrucao = `
     SELECT
       ${tipo} as tipo,
-      COUNT(CASE WHEN valor BETWEEN 85 AND 94 THEN 1 ELSE NULL END) AS alerta,
-      COUNT(CASE WHEN valor >= 95 THEN 1 ELSE NULL END) AS critico
+      COUNT(CASE WHEN valor BETWEEN 85 AND 94 AND comp = 1 THEN 1 ELSE NULL END) AS alertaCpu,
+      COUNT(CASE WHEN valor BETWEEN 85 AND 94 AND comp = 2 THEN 1 ELSE NULL END) AS alertaMem,
+      COUNT(CASE WHEN valor >= 95 AND comp = 1 THEN 1 ELSE NULL END) AS criticoCpu,
+      COUNT(CASE WHEN valor >= 95 AND comp = 2 THEN 1 ELSE NULL END) AS criticoMem
         FROM vw_alertas 
-          WHERE ${texto} AND comp = 2
+          WHERE ${texto}
             GROUP BY ${tipo}
               ORDER BY ${tipo} ASC;
   `;

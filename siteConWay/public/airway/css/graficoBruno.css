@@ -38,3 +38,21 @@ html {
     width: 100%;
     text-align: center;
 }
+
+.espaco-porcent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.opcoes-botoes {
+    width: 100%;
+    margin: 0 auto 10px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.opcoes-botoes button {
+    width: 20%;
+}
