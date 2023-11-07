@@ -23,6 +23,10 @@ router.get("/valorTotem/:idTotem", function (req, res) {
     graficoBrunoController.valorTotem(req, res);
 });
 
+router.post("/exibirOptionsMesAno", function (req, res) {
+    graficoBrunoController.exibirOptionsMesAno(req, res);
+});
+
 router.post("/metricasGerais", function (req, res) {
     graficoBrunoController.metricasGerais(req, res);
 });

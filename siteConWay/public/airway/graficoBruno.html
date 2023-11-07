@@ -15,7 +15,8 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="validarGerenteAnalista()">
+<body id="page-top" onload="validarGerenteAnalista(),exibirNomeFunc(),exibirEstadosComTotens(), exibirOptionsMesAno()">
+    <!-- Apos carregar exibirOptionsMesAno, ele roda a funcao "pegarMetricasGerais(1,1)" -->
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -200,11 +201,9 @@
                                     </div>
                                     <div class="container-fluid select-airport">
                                         <label>Informe um mês:</label>
-                                        <select id="select-mes" class="form-control" onchange="">
-                                            <option value="10">Outubro</option>
+                                        <select id="select-mes" class="form-control" onchange="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL)">
                                         </select>
-                                        <select id="select-ano" class="form-control" onchange="">
-                                            <option value="2023">2023</option>
+                                        <select id="select-ano" class="form-control" onchange="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL)">
                                         </select>
                                     </div>
 
@@ -327,8 +326,5 @@
 <script>
     // Exibindo informações dos estados
     sessionStorage.COMP_ATUAL = 1
-    exibirEstadosComTotens();
-    pegarMetricasGerais(1,1);
-    exibirNomeFunc()
 
 </script>

@@ -78,11 +78,29 @@ function valorTotem(req, res) {
   });
 }
 
+function exibirOptionsMesAno(req, res) {
+  var fkEmpresa = req.body.fkEmpresaServer;
+
+  graficoBrunoModel.exibirOptionsMesAno(fkEmpresa).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum tipo encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 function metricasGerais(req, res) {
   var tipo = req.body.tipoServer;
   var texto = req.body.textoServer;
+  var ano = req.body.anoServer;
+  var mes = req.body.mesServer;
 
-  graficoBrunoModel.metricasGerais(tipo,texto).then(function (resultado) {
+  graficoBrunoModel.metricasGerais(tipo,texto,ano,mes).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -121,6 +139,7 @@ module.exports = {
   exibirAeroportosComTotens,
   valorDisco,
   valorTotem,
+  exibirOptionsMesAno,
   metricasGerais,
   dadosRelatorio
 };
