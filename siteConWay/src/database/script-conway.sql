@@ -276,10 +276,9 @@ CREATE VIEW vw_alertas AS
 SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, Totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio, fkEmpresa
 		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;       
 
-CREATE VIEW vw_totensEmAlerta AS SELECT t.nome AS nomeTotem, ar.nome AS nomeAeroporto, min(a.tipo) as tipo
+CREATE VIEW vw_totensEmAlerta AS SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto, ar.nome AS nomeAeroporto, t.fkEmpresa AS idEmpresa
     FROM Totem AS t
     INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1)
-    GROUP BY t.nome, ar.nome;         
+    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;     
