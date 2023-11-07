@@ -111,21 +111,22 @@ function exibirRelatorios(json) {
 }
 
 
-
 // GRAFICO GERAL
-function pegarMetricasGerais(tipo) {
+function pegarMetricasGerais(tipo,componente) {
     let texto;
     let estado = document.getElementById("select-estado").value;
     let municipio = document.getElementById("select-municipio").value;
     let aeroporto = document.getElementById("select-aeroporto").value;
     if (tipo == 1) {
         tipo = 'estado';
+        sessionStorage.TIPO_ATUAL = 1;
         document.getElementById("info-aeroporto-nome").innerHTML = "todos os estados do Brasil";
         document.getElementById("info-relatorio-nome").innerHTML = "todos os estados do Brasil";
         texto = "estado LIKE '%%'";
         sessionStorage.TEXTO = "estado LIKE '%%'";
     } else if (tipo == 2) {
         tipo = 'municipio';
+        sessionStorage.TIPO_ATUAL = 2;
         texto = `estado LIKE '%${estado}%'`;
         sessionStorage.TEXTO = `estado LIKE '%${estado}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
@@ -133,6 +134,7 @@ function pegarMetricasGerais(tipo) {
         // Se o usuario selecionar 0 (todos), ele exibe os estados
         if (estado == "0") {
             tipo = 'estado';
+            sessionStorage.TIPO_ATUAL = 1;
             texto = "estado LIKE '%%'";
             sessionStorage.TEXTO = "estado LIKE '%%'";
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os estados do Brasil`;
@@ -140,6 +142,7 @@ function pegarMetricasGerais(tipo) {
         }
     } else if (tipo == 3) {
         tipo = 'aeroporto';
+        sessionStorage.TIPO_ATUAL = 3;
         texto = `municipio LIKE '%${municipio}%'`;
         sessionStorage.TEXTO = `municipio LIKE '%${municipio}%'`
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
@@ -147,6 +150,7 @@ function pegarMetricasGerais(tipo) {
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (municipio == "0") {
             tipo = 'municipio';
+            sessionStorage.TIPO_ATUAL = 2;
             texto = `estado = '${estado}'`;
             sessionStorage.TEXTO = `estado = '${estado}'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os municípios de ${document.getElementById("select-estado").value}`;
@@ -154,6 +158,7 @@ function pegarMetricasGerais(tipo) {
         }
     } else if (tipo == 4) {
         tipo = 'nome';
+        sessionStorage.TIPO_ATUAL = 4;
         texto = `aeroporto LIKE '%${aeroporto}%'`;
         sessionStorage.TEXTO = `aeroporto LIKE '%${aeroporto}%'`;
         document.getElementById("info-aeroporto-nome").innerHTML = `todos os totens de ${document.getElementById("select-aeroporto").value}`;
@@ -161,6 +166,7 @@ function pegarMetricasGerais(tipo) {
         // Se o usuario selecionar 0 (todos), ele exibe os municipios
         if (aeroporto == "0") {
             tipo = 'aeroporto';
+            sessionStorage.TIPO_ATUAL = 3;
             texto = `municipio LIKE '%${municipio}%'`;
             sessionStorage.TEXTO = `municipio LIKE '%${municipio}%'`;
             document.getElementById("info-aeroporto-nome").innerHTML = `todos os aeroportos de ${document.getElementById("select-municipio").value}`;
@@ -181,7 +187,7 @@ function pegarMetricasGerais(tipo) {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                graficoEstados(json);
+                graficoEstados(json,componente);
                 exibirRelatorios(json);
             });
         } else {
@@ -195,28 +201,58 @@ function pegarMetricasGerais(tipo) {
     return false;
 }
 
-function graficoEstados(json) {
+function graficoEstados(json,componente) {
     document.getElementById("grafico-geral").innerHTML = "";
 
+    let alertaCpu = [];
+    let criticoCpu = [];
+    let alertaMem = [];
+    let criticoMem = [];
     let alerta = [];
     let critico = [];
     let labels = [];
+    let maxCpu = -1;
+    let maxMem = -1;
     let max = -1;
-    for (let i = 0; i < json.length; i++) {
-        var dadoAlerta = Math.round((json[i].alerta) * 100) / 100;
-        var dadoCritico = Math.round((json[i].critico) * 100) / 100;
 
-        alerta.push(dadoAlerta)
-        critico.push(dadoCritico)
+    for (let i = 0; i < json.length; i++) {
+        var dadoAlertaCpu = Math.round((json[i].alertaCpu) * 100) / 100;
+        var dadoCriticoCpu = Math.round((json[i].criticoCpu) * 100) / 100;
+        var dadoAlertaMem = Math.round((json[i].alertaMem) * 100) / 100;
+        var dadoCriticoMem = Math.round((json[i].criticoMem) * 100) / 100;
+
+        console.log(json[i])
+        console.log(json[i].alertaCpu)
+
+        alertaCpu.push(dadoAlertaCpu)
+        criticoCpu.push(dadoCriticoCpu)
+        alertaMem.push(dadoAlertaMem)
+        criticoMem.push(dadoCriticoMem)
         labels.push(json[i].tipo)
 
-        if (dadoAlerta >= max) {
-            max = dadoAlerta;
+        if (dadoAlertaCpu >= maxCpu) {
+            maxCpu = dadoAlertaCpu;
         }
-        if (dadoCritico >= max) {
-            max = dadoCritico;
+        if (dadoCriticoCpu >= maxCpu) {
+            maxCpu = dadoCriticoCpu;
+        }
+        if (dadoAlertaMem >= maxMem) {
+            maxMem = dadoAlertaMem;
+        }
+        if (dadoCriticoMem >= maxMem) {
+            maxMem = dadoCriticoMem;
         }
     }
+
+    if (componente == 1) {
+        alerta = alertaCpu;
+        critico = criticoCpu;
+        max = maxCpu;
+    } else if (componente == 2) {
+        alerta = alertaMem;
+        critico = criticoMem;
+        max = maxMem;
+    } 
 
     var options = {
         series: [{

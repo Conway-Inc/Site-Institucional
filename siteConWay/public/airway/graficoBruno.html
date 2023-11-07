@@ -184,17 +184,17 @@
                                     <div class="container-fluid select-airport">
                                         <label>Informe os dados do aeroporto: </label>
                                         <select id="select-estado" class="form-control"
-                                            onchange="exibirMunicipiosComTotens(), pegarMetricasGerais(2)">
+                                            onchange="exibirMunicipiosComTotens(), pegarMetricasGerais(2,sessionStorage.COMP_ATUAL)">
                                             <option>Selecione um estado...</option>
                                         </select>
 
                                         <select id="select-municipio" class="form-control"
-                                            onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3)" disabled>
+                                            onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3,sessionStorage.COMP_ATUAL)" disabled>
                                             <option>Selecione um município...</option>
                                         </select>
 
                                         <select id="select-aeroporto" class="form-control"
-                                            onchange="pegarMetricasGerais(4)" disabled>
+                                            onchange="pegarMetricasGerais(4,sessionStorage.COMP_ATUAL)" disabled>
                                             <option>Selecione um aeroporto...</option>
                                         </select>
                                     </div>
@@ -221,12 +221,9 @@
                                 <div class="card-body">
                                     <div class="container-fluid">
                                         <div>
-                                            <div id="toolbar">
-                                                <button id="day" class="active">1D</button>
-                                                <button id="six_months" class="">6M</button>
-                                                <button id="one_year" class="">1Y</button>
-                                                <button id="ytd" class="">YTD</button>
-                                                <button id="all" class="">ALL</button>
+                                            <div class="opcoes-botoes">
+                                                <button onclick="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,1)" class="btn btn-primary btn-relatorio">CPU</button>
+                                                <button onclick="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,2)" class="btn btn-primary btn-relatorio">Memória</button>
                                             </div>
                                             <div id="grafico-totem"></div>
                                         </div>
@@ -246,13 +243,20 @@
                                 </div>
                                 <div class="card-body card-relatorio" id="card-relatorio">
                                     <div class="container-fluid" id="div-relatorio">
-                                        <p>Qtd. Ocorrências: <span id="qtd-total"></span></p>
-                                        <p>Aumento de <span></span>%</p>
+                                        <div class="espaco-porcent">
+                                            <p>Qtd. Ocorrências: <span id="qtd-total"></span></p>
+                                            <p><span id="porcent-total">10%</span></p>
+                                        </div>
+                                        <div class="espaco-porcent">
+                                            <p>Qtd. Alertas: <span id="qtd-alertas"></span></p>
+                                            <p><span id="porcent-alertas">10%</span></p>
+                                        </div>
+                                        <div class="espaco-porcent">
+                                            <p>Qtd. Críticos: <span id="qtd-criticos"></span></p>
+                                            <p><span id="porcent-criticos">10%</span></p>
+                                        </div>
                                         <br>
-                                        <p>Qtd. Alertas: <span id="qtd-alertas"></span></p>
-                                        <p>Aumento de <span></span>%</p>
-                                        <p>Qtd. Críticos: <span id="qtd-criticos"></span></p>
-                                        <p>Aumento de <span></span>%</p>
+                                        <p>Observações:</p>
                                     </div>
                                     <div id="button-relatorio">
 
@@ -322,8 +326,9 @@
 
 <script>
     // Exibindo informações dos estados
+    sessionStorage.COMP_ATUAL = 1
     exibirEstadosComTotens();
-    pegarMetricasGerais(1);
+    pegarMetricasGerais(1,1);
     exibirNomeFunc()
 
 </script>
