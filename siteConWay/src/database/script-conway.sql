@@ -46,7 +46,9 @@ CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(150),
     estado CHAR(2),
-    municipio VARCHAR(60)
+    municipio VARCHAR(60),
+    latitude DOUBLE(20,10),
+    longitude DOUBLE(20,10)
 );
 
 CREATE TABLE temperaturaAeroporto(
@@ -181,37 +183,59 @@ INSERT INTO TotemComponente VALUES (4,1,256.4),
 								   (4,2,528.6),
                                    (4,3,128.8);
                                    
-INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, NOW(), 1,1),
- 																	 (100001,0.0, NOW(), 2,1),
- 																	 (100002,0.0, NOW(), 1,2),
- 																	 (100003,0.0, NOW(), 2,2),
- 																	 (100004,0.0, NOW(), 1,3),
- 																	 (100005,0.0, NOW(), 2,3),
- 																	 (100006,0.0, NOW(), 1,4),
- 																	 (100007,0.0, NOW(), 2,4),
- 																	 (100008,0.0, NOW(), 1,5),
- 																	 (100009,0.0, NOW(), 2,5),
- 																	 (100010,0.0, NOW(), 1,6),
- 																	 (100011,0.0, NOW(), 2,6),
- 																	 (100012,0.0, '2023-10-16 00:00:00', 1,6),
- 																	 (100013,0.0, '2023-10-16 00:00:00', 1,6);
-											
+
+INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-10-07 12:00:00', 1,1),
+                                                                                (100001,0.0, '2023-10-07 12:00:00', 2,1),
+                                                                                (100002,0.0, '2023-10-07 12:00:00', 1,2),
+                                                                                (100003,0.0, '2023-10-07 12:00:00', 2,2),
+                                                                                (100004,0.0, '2023-10-07 12:00:00', 1,3),
+                                                                                (100005,0.0, '2023-10-07 12:00:00', 2,3),
+                                                                                (100006,0.0, '2023-10-07 12:00:00', 1,4),
+                                                                                (100007,0.0, '2023-10-07 12:00:00', 2,4),
+                                                                                (100008,0.0, '2023-10-07 12:00:00', 1,5),
+                                                                                (100009,0.0, '2023-10-07 12:00:00', 2,5),
+                                                                                (100010,0.0, '2023-10-07 12:00:00', 1,6),
+                                                                                (100011,0.0, '2023-10-07 12:00:00', 2,6),
+                                                                                (100012,0.0, '2023-10-07 12:10:00', 1,1),
+                                                                                (100013,0.0, '2023-10-07 12:10:00', 2,1),
+                                                                                (100014,0.0, '2023-10-07 12:10:00', 1,2),
+                                                                                (100015,0.0, '2023-10-07 12:10:00', 2,2),
+                                                                                (100016,0.0, '2023-10-07 12:10:00', 1,3),
+                                                                                (100017,0.0, '2023-10-07 12:10:00', 2,3),
+                                                                                (100018,0.0, '2023-10-07 12:10:00', 1,4),
+                                                                                (100019,0.0, '2023-10-07 12:10:00', 2,4),
+                                                                                (100020,0.0, '2023-10-07 12:10:00', 1,5),
+                                                                                (100021,0.0, '2023-10-07 12:10:00', 2,5),
+                                                                                (100022,0.0, '2023-10-07 12:10:00', 1,6),
+                                                                                (100023,0.0, '2023-10-07 12:10:00', 2,6),
+                                                                                (100024,0.0, '2023-10-16 00:00:00', 1,6),
+ 																	            (100025,0.0, '2023-10-16 00:00:00', 1,6);
                                                                      
                                                                    
 INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
-  											 (1,100001),
-  											 (1,100002),
-  											 (1,100003),
-  											 (1,100004),
-  											 (1,100005),
-  											 (1,100006),
-  											 (1,100007),
-  											 (1,100008),
-  											 (1,100009),
-  											 (1,100010),
-  											 (1,100011),
-  											 (1,100012),
-  											 (1,100013);
+ 											 (2,100001),
+ 											 (2,100002),
+ 											 (2,100003),
+ 											 (2,100004),
+ 											 (2,100005),
+ 											 (1,100006),
+ 											 (2,100007),
+ 											 (2,100008),
+ 											 (2,100009),
+                                             (1,100010),
+ 											 (2,100011),
+ 											 (2,100012), 
+ 											 (2,100013),  
+ 											 (2,100014), 
+ 											 (2,100015), 
+ 											 (1,100016),
+ 											 (2,100017),
+ 											 (2,100018), 
+ 											 (2,100019),
+                                             (2,100020), 
+                                             (2,100021),
+                                             (1,100024),
+                                             (1,100025); 
 
 
 -- USUÁRIO
@@ -253,4 +277,11 @@ SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.
 DROP VIEW IF EXISTS vw_alertas;
 CREATE VIEW vw_alertas AS
 SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, Totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio, fkEmpresa
-		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;                
+		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;       
+
+CREATE VIEW vw_totensEmAlerta AS SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto, ar.nome AS nomeAeroporto, t.fkEmpresa AS idEmpresa
+    FROM Totem AS t
+    INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
+    INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
+    INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
+    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;     

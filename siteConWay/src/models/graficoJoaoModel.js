@@ -38,13 +38,7 @@ function buscarAlertasTotensCritico(idEmpresa) {
     "Acessei o graficoJoaoModel e executei a função buscarAlertasTotensCritico(): ",
   );
   var instrucao = `
-    SELECT t.nome AS nomeTotem, ar.nome AS nomeAeroporto
-    FROM Totem AS t
-    INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
-    INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
-    INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE a.tipo = 1 AND dataHora = (SELECT MAX(dataHora) FROM Registro) AND t.fkEmpresa = ${idEmpresa}
-    GROUP BY t.nome, ar.nome;
+    SELECT * FROM vw_totensEmAlerta WHERE tipoAlerta = 1 AND idEmpresa = ${idEmpresa};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -55,19 +49,7 @@ function buscarAlertasTotensAtencao(idEmpresa) {
     "Acessei o graficoJoaoModel e executei a função buscarAlertasTotensAtencao(): ",
   );
   var instrucao = `
-    SELECT t.nome AS nomeTotem, ar.nome AS nomeAeroporto
-    FROM Totem AS t
-    INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
-    INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
-    INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE a.tipo = 2 AND dataHora = (SELECT MAX(dataHora) FROM Registro)
-    AND NOT EXISTS (
-        SELECT 1
-        FROM Registro AS r2
-        INNER JOIN Alerta AS a2 ON r2.idRegistro = a2.fkRegistro
-        WHERE r2.fkTotem = t.idTotem AND a2.tipo = 1 AND dataHora = (SELECT MAX(dataHora) FROM Registro)
-    )
-    GROUP BY t.nome, ar.nome;
+  SELECT * FROM vw_totensEmAlerta WHERE tipoAlerta = 2 AND idEmpresa = ${idEmpresa};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

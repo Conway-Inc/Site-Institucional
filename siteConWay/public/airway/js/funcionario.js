@@ -767,3 +767,12 @@ function limparInputs() {
     ipt_repetirSenhaFunc.value = "";
     select_cargo.selectedIndex = 0;
 }
+
+function eliminarOption(value){
+    const select = document.getElementById("select_cargo");
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].value === value) {
+        select.remove(i);
+      }
+    }
+}
