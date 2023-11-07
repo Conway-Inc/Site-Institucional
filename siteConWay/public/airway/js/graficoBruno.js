@@ -45,8 +45,8 @@ function gerarRelatorio(alerta, critico, total) {
                 doc.autoTable({
                     head: [['Dia', 'Alerta', 'Crítico']],
                     body: info,
-                    margin: [3.4,17,0, 2],
-                    
+                    margin: [3.4, 17, 0, 2],
+
                 })
 
                 // doc.text(`Qtd. Críticos: ${critico}`, 2, 8)
@@ -68,51 +68,94 @@ function gerarRelatorio(alerta, critico, total) {
     return false;
 }
 
-function exibirRelatorios(json) {
-    let metricas = [
+function exibirRelatorios(json,componente) {
+    let metricasCpu = [
+        { max: "", valor: -1 },
+        { min: "", valor: 1000000 },
+        { qtdAlertas: 0, qtdCriticos: 0, qtdTotal: 0 }
+    ];
+    let metricasMem = [
         { max: "", valor: -1 },
         { min: "", valor: 1000000 },
         { qtdAlertas: 0, qtdCriticos: 0, qtdTotal: 0 }
     ];
 
+
     for (let i = 0; i < json.length; i++) {
         let resp = json[i];
-        let dadoAlerta = Math.round((resp.alerta) * 100) / 100;
-        let dadoCritico = Math.round((resp.critico) * 100) / 100;
-        metricas[2].qtdTotal += (dadoAlerta + dadoCritico);
-        metricas[2].qtdAlertas += dadoAlerta;
-        metricas[2].qtdCriticos += dadoCritico;
 
-        if (dadoAlerta >= metricas[0].valor) {
-            metricas[0].max = resp.tipo;
-            metricas[0].valor = dadoAlerta;
+        let dadoAlertaCpu = Math.round((resp.alertaCpu) * 100) / 100;
+        let dadoCriticoCpu = Math.round((resp.criticoCpu) * 100) / 100;
+        metricasCpu[2].qtdTotal += (dadoAlertaCpu + dadoCriticoCpu);
+        metricasCpu[2].qtdAlertas += dadoAlertaCpu;
+        metricasCpu[2].qtdCriticos += dadoCriticoCpu;
+        if (dadoAlertaCpu >= metricasCpu[0].valor) {
+            metricasCpu[0].max = resp.tipo;
+            metricasCpu[0].valor = dadoAlertaCpu;
         }
-        if (dadoCritico <= metricas[1].valor) {
-            metricas[1].min = resp.tipo;
-            metricas[1].valor = dadoAlerta;
+        if (dadoCriticoCpu <= metricasCpu[1].valor) {
+            metricasCpu[1].min = resp.tipo;
+            metricasCpu[1].valor = dadoCriticoCpu;
+        }
+
+        let dadoAlertaMem = Math.round((resp.alertaMem) * 100) / 100;
+        let dadoCriticoMem = Math.round((resp.criticoMem) * 100) / 100;
+        metricasMem[2].qtdTotal += (dadoAlertaMem + dadoCriticoMem);
+        metricasMem[2].qtdAlertas += dadoAlertaMem;
+        metricasMem[2].qtdCriticos += dadoCriticoMem;
+        if (dadoAlertaMem >= metricasMem[0].valor) {
+            metricasMem[0].max = resp.tipo;
+            metricasMem[0].valor = dadoAlertaMem;
+        }
+        if (dadoCriticoMem <= metricasMem[1].valor) {
+            metricasMem[1].min = resp.tipo;
+            metricasMem[1].valor = dadoCriticoMem;
         }
     }
-    console.log(metricas)
 
-    document.getElementById("qtd-total").innerHTML = metricas[2].qtdTotal;
-    (document.getElementById("qtd-alertas")).innerHTML = metricas[2].qtdAlertas;
-    (document.getElementById("qtd-criticos")).innerHTML = metricas[2].qtdCriticos;
+    if (componente == 1) {
+        document.getElementById("qtd-total").innerHTML = metricasCpu[2].qtdTotal;
+        (document.getElementById("qtd-alertas")).innerHTML = metricasCpu[2].qtdAlertas;
+        (document.getElementById("qtd-criticos")).innerHTML = metricasCpu[2].qtdCriticos;
 
-    var lista = document.getElementById("button-relatorio");
-    lista.innerHTML = "";
-    var botao = document.createElement("button");
-    botao.setAttribute('onclick', `gerarRelatorio(${metricas[2].qtdAlertas},${metricas[2].qtdCriticos},${metricas[2].qtdTotal})`);
-    botao.setAttribute('class', 'btn btn-primary btn-relatorio');
-    botao.innerHTML = 'Gerar Relatório';
+        var lista = document.getElementById("button-relatorio");
+        lista.innerHTML = "";
+        var botao = document.createElement("button");
+        botao.setAttribute('onclick', `gerarRelatorio(${metricasCpu[2].qtdAlertas},${metricasCpu[2].qtdCriticos},${metricasCpu[2].qtdTotal})`);
+        botao.setAttribute('class', 'btn btn-primary btn-relatorio');
+        botao.innerHTML = 'Gerar Relatório';
 
-    lista.appendChild(botao)
-    lista.appendChild(botao);
+        lista.appendChild(botao)
+        lista.appendChild(botao);
 
+    } else if (componente == 2) {
+        document.getElementById("qtd-total").innerHTML = metricasMem[2].qtdTotal;
+        (document.getElementById("qtd-alertas")).innerHTML = metricasMem[2].qtdAlertas;
+        (document.getElementById("qtd-criticos")).innerHTML = metricasMem[2].qtdCriticos;
+
+        var lista = document.getElementById("button-relatorio");
+        lista.innerHTML = "";
+        var botao = document.createElement("button");
+        botao.setAttribute('onclick', `gerarRelatorio(${metricasMem[2].qtdAlertas},${metricasMem[2].qtdCriticos},${metricasMem[2].qtdTotal})`);
+        botao.setAttribute('class', 'btn btn-primary btn-relatorio');
+        botao.innerHTML = 'Gerar Relatório';
+
+        lista.appendChild(botao)
+        lista.appendChild(botao);
+
+    }
 }
 
-
+function verCpu() {
+    sessionStorage.COMP_ATUAL = 1;
+    pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL);
+}
+function verMem() {
+    sessionStorage.COMP_ATUAL = 2;
+    pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL);
+}
 // GRAFICO GERAL
-function pegarMetricasGerais(tipo,componente) {
+function pegarMetricasGerais(tipo, componente) {
     let texto;
     let estado = document.getElementById("select-estado").value;
     let municipio = document.getElementById("select-municipio").value;
@@ -187,8 +230,8 @@ function pegarMetricasGerais(tipo,componente) {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                graficoEstados(json,componente);
-                exibirRelatorios(json);
+                graficoEstados(json, componente);
+                exibirRelatorios(json, componente);
             });
         } else {
             resposta.text().then(textoErro => {
@@ -201,7 +244,7 @@ function pegarMetricasGerais(tipo,componente) {
     return false;
 }
 
-function graficoEstados(json,componente) {
+function graficoEstados(json, componente) {
     document.getElementById("grafico-geral").innerHTML = "";
 
     let alertaCpu = [];
@@ -248,11 +291,13 @@ function graficoEstados(json,componente) {
         alerta = alertaCpu;
         critico = criticoCpu;
         max = maxCpu;
+        tipo = "CPU"
     } else if (componente == 2) {
         alerta = alertaMem;
         critico = criticoMem;
         max = maxMem;
-    } 
+        tipo = "Memória"
+    }
 
     var options = {
         series: [{
@@ -331,7 +376,7 @@ function graficoEstados(json,componente) {
 
         },
         title: {
-            text: 'Quantidade de ocorrências',
+            text: `Quantidade de ocorrências ${tipo}`,
             floating: true,
             position: 'top',
             align: 'center',
