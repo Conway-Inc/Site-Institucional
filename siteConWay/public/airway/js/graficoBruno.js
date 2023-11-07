@@ -8,14 +8,20 @@ function gerarRelatorio(alerta, critico, total) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            compServer: 2,
+            compServer: sessionStorage.COMP_ATUAL,
             mesServer: document.getElementById("select-mes").value,
             anoServer: document.getElementById("select-ano").value,
             fkEmpresaServer: sessionStorage.FK_EMPRESA,
-            textoServer: sessionStorage.TEXTO
+            textoServer: sessionStorage.TEXTO,
         })
     }).then(function (resposta) {
         if (resposta.ok) {
+            let comp = ""
+            if (sessionStorage.COMP_ATUAL == 1) {
+                comp = "CPU"
+            } else if (sessionStorage.COMP_ATUAL == 2) {
+                comp = "Memória"
+            }
             resposta.json().then(json => {
 
                 var dataAtual = new Date();
@@ -42,10 +48,11 @@ function gerarRelatorio(alerta, critico, total) {
                     info.push([element.dia, element.alerta, element.critico])
                 });
 
+                doc.text(`Ocorrências de ${comp}`, 2, 3.5)
                 doc.autoTable({
                     head: [['Dia', 'Alerta', 'Crítico']],
                     body: info,
-                    margin: [3.4, 17, 0, 2],
+                    margin: [4, 19, 0, 2],
 
                 })
 
