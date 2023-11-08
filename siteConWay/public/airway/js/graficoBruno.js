@@ -236,6 +236,35 @@ function pegarMetricasGerais(tipo, componente) {
             resposta.json().then(json => {
                 graficoEstados(json, componente);
                 exibirRelatorios(json, componente);
+                dadosMesAnterior(tipo,texto)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+    return false;
+}
+
+function dadosMesAnterior(tipo, texto) {
+    fetch("/graficoBruno/dadosMesAnterior", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            tipoServer: tipo,
+            textoServer: texto,
+            anoServer: document.getElementById("select-ano").value,
+            mesServer: (document.getElementById("select-mes").value),
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json)
             });
         } else {
             resposta.text().then(textoErro => {

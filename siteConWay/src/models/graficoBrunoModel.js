@@ -157,6 +157,31 @@ function dadosRelatorio(comp,mes,ano,fkEmpresa,texto) {
   return database.executar(instrucao);
 }
 
+function dadosMesAnterior(tipo,texto,ano,mes) {
+  console.log(
+    "Acessei o graficoBrunoModel e executei a função dadosMesAnterior(): ",tipo,texto,ano,mes
+  );
+  var instrucao = `
+  SELECT SUM(alertaCpu) as alertaCpuAnt,
+	   SUM(criticoCpu) as criticoCpuAnt,
+	   SUM(alertaMem) as alertaMemAnt,
+	   SUM(criticoMem)  as criticoMemAnt
+			FROM (
+        SELECT
+          ${tipo} as tipo,
+          COUNT(CASE WHEN valor BETWEEN 85 AND 94 AND comp = 1 THEN 1 ELSE NULL END) AS alertaCpu,
+          COUNT(CASE WHEN valor BETWEEN 85 AND 94 AND comp = 2 THEN 1 ELSE NULL END) AS alertaMem,
+          COUNT(CASE WHEN valor >= 95 AND comp = 1 THEN 1 ELSE NULL END) AS criticoCpu,
+          COUNT(CASE WHEN valor >= 95 AND comp = 2 THEN 1 ELSE NULL END) AS criticoMem
+            FROM vw_alertas 
+              WHERE ${texto} AND YEAR(dataHora) = ${ano} AND MONTH(dataHora) = ${mes}
+                GROUP BY ${tipo}
+                  ORDER BY ${tipo} ASC) as xpto;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirEstadosComTotens,
   exibirMunicipiosComTotens,
@@ -165,5 +190,6 @@ module.exports = {
   valorTotem,
   exibirOptionsMesAno,
   metricasGerais,
-  dadosRelatorio
+  dadosRelatorio,
+  dadosMesAnterior
 };

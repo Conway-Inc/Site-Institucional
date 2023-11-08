@@ -35,5 +35,8 @@ router.post("/dadosRelatorio", function (req, res) {
     graficoBrunoController.dadosRelatorio(req, res);
 });
 
+router.post("/dadosMesAnterior", function (req, res) {
+    graficoBrunoController.dadosMesAnterior(req, res);
+});
 
 module.exports = router;
