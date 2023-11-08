@@ -60,12 +60,8 @@ function buscarTotemMaisProblematico(idEmpresa) {
     "Acessei o graficoJoaoModel e executei a função buscarTotemMaisProblematico(): ",
   );
   var instrucao = `
-    SELECT t.nome AS nomeTotem, COUNT(a.idAlerta) AS totalAlertas
-    FROM Totem AS t
-    LEFT JOIN Registro AS r ON t.idTotem = r.fkTotem
-    LEFT JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE t.fkEmpresa = ${idEmpresa}
-    GROUP BY t.idTotem, t.nome
+    SELECT nome AS nomeTotem, COUNT(idAlerta) AS totalAlertas FROM vw_alertas WHERE fkEmpresa = ${idEmpresa}
+    GROUP BY idTotem, nomeTotem
     ORDER BY TotalAlertas DESC
     LIMIT 1; 
   `;
