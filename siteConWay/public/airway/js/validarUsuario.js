@@ -7,7 +7,7 @@ function validarGerenteAnalista() {
         inserirContaPerfil(menu);
         inserirContaSair(menu);
         inserirSlideFinal(menu);
-        eliminarOption("Analista")
+        // eliminarOption("Analista")
     } else if (sessionStorage.GERENTE_FUNCIONARIO == 1) {
         inserirGerenteOcorrencias(menu);
         inserirSlideEmpresa(menu);
@@ -17,7 +17,7 @@ function validarGerenteAnalista() {
         inserirContaPerfil(menu);
         inserirContaSair(menu);
         inserirSlideFinal(menu);
-        eliminarOption("Gerente")
+        // eliminarOption("Gerente")
     } else {
         // inserirAnalistaKauan(menu);
         inserirAnalistaJoao(menu);
