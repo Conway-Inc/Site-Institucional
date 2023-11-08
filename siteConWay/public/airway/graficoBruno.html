@@ -20,7 +20,7 @@
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <div class="sidebar-brand d-flex align-items-center justify-content-center" >
+            <div class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon ">
                     <img src="img/logoairwaynovo.png" style="width: 100%;" alt="">
                 </div>
@@ -190,7 +190,8 @@
                                         </select>
 
                                         <select id="select-municipio" class="form-control"
-                                            onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3,sessionStorage.COMP_ATUAL)" disabled>
+                                            onchange="exibirAeroportosComTotens(), pegarMetricasGerais(3,sessionStorage.COMP_ATUAL)"
+                                            disabled>
                                             <option>Selecione um município...</option>
                                         </select>
 
@@ -201,9 +202,11 @@
                                     </div>
                                     <div class="container-fluid select-airport">
                                         <label>Informe um mês:</label>
-                                        <select id="select-mes" class="form-control" onchange="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL)">
+                                        <select id="select-mes" class="form-control"
+                                            onchange="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL)">
                                         </select>
-                                        <select id="select-ano" class="form-control" onchange="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL)">
+                                        <select id="select-ano" class="form-control"
+                                            onchange="pegarMetricasGerais(sessionStorage.TIPO_ATUAL,sessionStorage.COMP_ATUAL)">
                                         </select>
                                     </div>
 
@@ -221,8 +224,10 @@
                                     <div class="container-fluid">
                                         <div>
                                             <div class="opcoes-botoes">
-                                                <button onclick="verCpu()" class="btn btn-primary btn-relatorio">CPU</button>
-                                                <button onclick="verMem()" class="btn btn-primary btn-relatorio">Memória</button>
+                                                <button onclick="verCpu()"
+                                                    class="btn btn-primary btn-relatorio">CPU</button>
+                                                <button onclick="verMem()"
+                                                    class="btn btn-primary btn-relatorio">Memória</button>
                                             </div>
                                             <div id="grafico-totem"></div>
                                         </div>
@@ -242,18 +247,32 @@
                                 </div>
                                 <div class="card-body card-relatorio" id="card-relatorio">
                                     <div class="container-fluid" id="div-relatorio">
-                                        <div class="espaco-porcent">
-                                            <p>Qtd. Ocorrências: <span id="qtd-total"></span></p>
-                                            <p><span id="porcent-total">10%</span></p>
-                                        </div>
-                                        <div class="espaco-porcent">
-                                            <p>Qtd. Alertas: <span id="qtd-alertas"></span></p>
-                                            <p><span id="porcent-alertas">10%</span></p>
-                                        </div>
-                                        <div class="espaco-porcent">
-                                            <p>Qtd. Críticos: <span id="qtd-criticos"></span></p>
-                                            <p><span id="porcent-criticos">10%</span></p>
-                                        </div>
+                                        <table class="table table-bordered" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Quantidade</th>
+                                                    <th>Mês Anterior</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyTable" style="font-weight: bolder;">
+                                                <tr>
+                                                    <td scope="row">Total</td>
+                                                    <td id="qtd-total"></td>
+                                                    <td id="porcent-total"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">Alerta</td>
+                                                    <td id="qtd-alertas"></td>
+                                                    <td id="porcent-alertas"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td scope="row">Crítico</td>
+                                                    <td id="qtd-criticos"></td>
+                                                    <td id="porcent-criticos"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <br>
                                         <p>Observações:</p>
                                     </div>
@@ -318,7 +337,7 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.3/jspdf.plugin.autotable.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.3/jspdf.plugin.autotable.js"></script>
 <script src="js/validarUsuario.js"></script>
 <script src="js/graficoBruno.js"></script>
 <script src="js/funcionario.js"></script>

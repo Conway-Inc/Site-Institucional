@@ -219,7 +219,6 @@ function pegarMetricasGerais(tipo, componente) {
         }
     }
 
-    console.log(document.getElementById("select-mes").value)
     fetch("/graficoBruno/metricasGerais", {
         method: "POST",
         headers: {
@@ -236,7 +235,7 @@ function pegarMetricasGerais(tipo, componente) {
             resposta.json().then(json => {
                 graficoEstados(json, componente);
                 exibirRelatorios(json, componente);
-                dadosMesAnterior(tipo,texto)
+                dadosMesAnterior(tipo,texto, componente)
             });
         } else {
             resposta.text().then(textoErro => {
@@ -249,7 +248,7 @@ function pegarMetricasGerais(tipo, componente) {
     return false;
 }
 
-function dadosMesAnterior(tipo, texto) {
+function dadosMesAnterior(tipo, texto, componente) {
     fetch("/graficoBruno/dadosMesAnterior", {
         method: "POST",
         headers: {
@@ -264,7 +263,37 @@ function dadosMesAnterior(tipo, texto) {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(json)
+                
+                let total = 0;
+                let alertas = 0;
+                let criticos = 0;
+                let pQtdTotal = document.getElementById("qtd-total");
+                let pPorcentTotal = document.getElementById("porcent-total");
+                let pQtdAlertas = document.getElementById("qtd-alertas");
+                let pPorcentAlertas = document.getElementById("porcent-alertas");
+                let pQtdCriticos = document.getElementById("qtd-criticos");
+                let pPorcentCriticos = document.getElementById("porcent-criticos");
+
+                if (componente == 1) {
+                    total = Number(json[0].alertaCpuAnt) + Number(json[0].criticoCpuAnt) ;
+                    alertas = json[0].alertaCpuAnt;
+                    criticos = json[0].criticoCpuAnt;
+                } else if (componente == 2) {
+                    total = Number(json[0].alertaMemAnt) + Number(json[0].criticoMemAnt) ;
+                    alertas = json[0].alertaMemAnt;
+                    criticos = json[0].criticoMemAnt;
+                }
+                
+                totalPorcent = (total * 100) / (pQtdTotal.innerHTML == 0 ? 1 : pQtdTotal.innerHTML)
+                alertasPorcent = (alertas * 100) / (pQtdAlertas.innerHTML == 0 ? 1 : pQtdAlertas.innerHTML)
+                criticosPorcent = (criticos * 100) / (pQtdCriticos.innerHTML == 0 ? 1 : pQtdCriticos.innerHTML)
+
+                pPorcentTotal.innerHTML = totalPorcent+"%";
+                totalPorcent > 0 ? pPorcentTotal.style.color = "#00E42C" :  pPorcentTotal.style.color = "red"
+                pPorcentAlertas.innerHTML = alertasPorcent+"%";
+                alertasPorcent > 0 ? pPorcentAlertas.style.color = "#00E42C" :  pPorcentAlertas.style.color = "red"
+                pPorcentCriticos.innerHTML = criticosPorcent+"%";
+                criticosPorcent > 0 ? pPorcentCriticos.style.color = "#00E42C" :  pPorcentCriticos.style.color = "red"
             });
         } else {
             resposta.text().then(textoErro => {
