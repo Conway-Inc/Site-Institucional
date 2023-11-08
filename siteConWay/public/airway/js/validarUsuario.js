@@ -19,8 +19,8 @@ function validarGerenteAnalista() {
         inserirSlideFinal(menu);
         eliminarOption("Gerente")
     } else {
-        // inserirAnalistaKauan(menu);
         inserirAnalistaJoao(menu);
+        inserirAnalistaKauan(menu);
         inserirSlideConta(menu);
         inserirContaPerfil(menu);
         inserirContaSair(menu);
@@ -54,8 +54,7 @@ function inserirAnalistaKauan(menu) {
     let iAnalistaKauan = document.createElement("i");
     iAnalistaKauan.className = "fas fa-fw fa-tachometer-alt";
     let spanAnalistaKauan = document.createElement("span");
-    spanAnalistaKauan.innerHTML = "Kauan";
-    
+    spanAnalistaKauan.innerHTML = "Totens";
     aAnalistaKauan.appendChild(iAnalistaKauan);
     aAnalistaKauan.appendChild(spanAnalistaKauan);
     liAnalistaKauan.appendChild(aAnalistaKauan);

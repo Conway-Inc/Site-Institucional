@@ -159,3 +159,34 @@ function exibirAeroportosComTotens(municipio) {
 
     }
 }
+
+function plotarDadosComponente(dadosGrafico){
+
+     var divGraficoComponente = document.getElementById("divGraficoComponente");
+        divGraficoComponente.innerHTML = ""
+    
+        var options = {
+            series: dadosGrafico,
+            chart: {
+                width: 380,
+                type: 'line',
+            },
+            labels: ['CPU', 'MEMÓRIA', 'DISCO'],
+            colors: ['#e74a3b', '#f6c23e', '#3ebd47'],
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+    
+    var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
+    chart.render();
+    
+}

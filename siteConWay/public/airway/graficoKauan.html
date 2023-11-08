@@ -15,7 +15,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="validarGerenteAnalista(), exibirInfosFunc()">
+<body id="page-top" onload="validarGerenteAnalista()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -208,6 +208,7 @@
                             </div>
 
                         </div>
+                        <div id="divGraficoComponente"></div>
                         <div class="alertasAeroporto">
                             
                             <div class="card shadow mb-4">
@@ -220,7 +221,7 @@
                                         <img src="../img/totem.png" style="width: 10%;">
                                         <h1>TL-0129</h1>
                                 </div>
-                            </div>
+                            </div>a
                         </div>
                     </div>
                 </div>
@@ -274,4 +275,69 @@
 <script>
      exibirEstadosComTotens()
      exibirNomeFunc()
+     
+    function grafico(){
+
+        var options = {
+            series: [{
+                data: data.slice()
+            }],
+            chart: {
+                id: 'realtime',
+                height: 350,
+                type: 'line',
+                animations: {
+                    enabled: true,
+                    easing: 'linear',
+                    dynamicAnimation: {
+                        speed: 1000
+                    }
+                },
+                toolbar: {
+                    show: false
+                },
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'smooth'
+        },
+        title: {
+            text: 'Dynamic Updating Chart',
+            align: 'left'
+        },
+        markers: {
+            size: 0
+        },
+        xaxis: {
+            type: 'datetime',
+          range: 30,
+        },
+        yaxis: {
+            max: 100
+        },
+        legend: {
+            show: false
+        },
+    };
+    
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+    
+    
+    window.setInterval(function () {
+        getNewSeries(lastDate, {
+            min: 10,
+            max: 90
+        })
+        
+        chart.updateSeries([{
+            data: data
+        }])
+    }, 1000)
+}
 </script>
