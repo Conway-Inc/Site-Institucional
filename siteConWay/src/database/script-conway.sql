@@ -265,21 +265,14 @@ DROP VIEW IF EXISTS vw_totem_estado;
 CREATE VIEW vw_totem_estado AS
 SELECT idTotem, t.nome as nomeTotem, fkEmpresa, idAeroporto, a.nome as nomeAeroporto, estado, municipio
 		FROM Totem as t JOIN Aeroporto as a ON fkAeroporto = idAeroporto;
-        
--- View para coletar os ultimos dados do disco de todas as máquinas, para filtrar por idTotem na rota do webdataviz
-DROP VIEW IF EXISTS vw_disco_atual;
-CREATE VIEW vw_disco_atual AS
-SELECT t.idTotem, t.nome as totem, c.idComponente as idComp, c.nome as comp, tc.valor, c.unidadeMedida as medida, r.valor as porcent, r.dataHora
-		FROM Totem as t JOIN TotemComponente as tc ON fkTotem = idTotem 
-			JOIN Componente as c ON fkComponente = idComponente
-				JOIN Registro as r ON r.fkTotem = idTotem AND r.fkComponente = 3 ORDER BY dataHora DESC;
 
 DROP VIEW IF EXISTS vw_alertas;
 CREATE VIEW vw_alertas AS
 SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, Totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio, fkEmpresa
 		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;       
 
-CREATE VIEW vw_totensEmAlerta AS SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto, ar.nome AS nomeAeroporto, t.fkEmpresa AS idEmpresa
+CREATE VIEW vw_totensEmAlerta AS 
+SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto, ar.nome AS nomeAeroporto, t.fkEmpresa AS idEmpresa
     FROM Totem AS t
     INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem

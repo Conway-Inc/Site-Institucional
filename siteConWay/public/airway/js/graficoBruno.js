@@ -276,24 +276,27 @@ function dadosMesAnterior(tipo, texto, componente) {
 
                 if (componente == 1) {
                     total = Number(json[0].alertaCpuAnt) + Number(json[0].criticoCpuAnt) ;
-                    alertas = json[0].alertaCpuAnt;
-                    criticos = json[0].criticoCpuAnt;
+                    alertas = Number(json[0].alertaCpuAnt);
+                    criticos = Number(json[0].criticoCpuAnt);
                 } else if (componente == 2) {
                     total = Number(json[0].alertaMemAnt) + Number(json[0].criticoMemAnt) ;
-                    alertas = json[0].alertaMemAnt;
-                    criticos = json[0].criticoMemAnt;
+                    alertas = Number(json[0].alertaMemAnt);
+                    criticos = Number(json[0].criticoMemAnt);
                 }
                 
-                totalPorcent = (total * 100) / (pQtdTotal.innerHTML == 0 ? 1 : pQtdTotal.innerHTML)
-                alertasPorcent = (alertas * 100) / (pQtdAlertas.innerHTML == 0 ? 1 : pQtdAlertas.innerHTML)
-                criticosPorcent = (criticos * 100) / (pQtdCriticos.innerHTML == 0 ? 1 : pQtdCriticos.innerHTML)
+                console.log(pQtdTotal.innerHTML)
+                console.log(total)                
+
+                totalPorcent = Math.round(((pQtdTotal.innerHTML == 0 ? 1 : pQtdTotal.innerHTML)  * 100) / (total == 0 ? 1 : total) - 100)
+                alertasPorcent = Math.round(((pQtdAlertas.innerHTML == 0 ? 1 : pQtdAlertas.innerHTML)  * 100) / (alertas == 0 ? 1 : alertas) - 100)
+                criticosPorcent = Math.round(((pQtdCriticos.innerHTML == 0 ? 1 : pQtdCriticos.innerHTML)  * 100) / (criticos == 0 ? 1 : criticos) - 100)
 
                 pPorcentTotal.innerHTML = totalPorcent+"%";
-                totalPorcent > 0 ? pPorcentTotal.style.color = "#00E42C" :  pPorcentTotal.style.color = "red"
+                totalPorcent < 0 ? pPorcentTotal.style.color = "#00E42C" :  pPorcentTotal.style.color = "red"
                 pPorcentAlertas.innerHTML = alertasPorcent+"%";
-                alertasPorcent > 0 ? pPorcentAlertas.style.color = "#00E42C" :  pPorcentAlertas.style.color = "red"
+                alertasPorcent < 0 ? pPorcentAlertas.style.color = "#00E42C" :  pPorcentAlertas.style.color = "red"
                 pPorcentCriticos.innerHTML = criticosPorcent+"%";
-                criticosPorcent > 0 ? pPorcentCriticos.style.color = "#00E42C" :  pPorcentCriticos.style.color = "red"
+                criticosPorcent < 0 ? pPorcentCriticos.style.color = "#00E42C" :  pPorcentCriticos.style.color = "red"
             });
         } else {
             resposta.text().then(textoErro => {
