@@ -204,6 +204,10 @@ function cadastrarComponente() {
 
 }
 
+function cadastrarMetricas(){
+    
+}
+
 function exibirTabelaTotem() {
     fetch(`/totem/exibirTabelaTotem/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {
