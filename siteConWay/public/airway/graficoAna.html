@@ -19,7 +19,7 @@
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <div class="sidebar-brand d-flex align-items-center justify-content-center" >
+            <div class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon ">
                     <img src="img/logoairwaynovo.png" style="width: 100%;" alt="">
                 </div>
@@ -172,10 +172,183 @@
                 </nav>
 
 
-                 <!-- Begin Page Content -->
-                 <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Temperatura atual dos aeroportos</h1>
                     </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="div_kpi">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <h5>CPU:</h5>
+                            </div>
+                        </div>
+
+                        <div class="div_kpi">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <h5>Memória:</h5>
+                            </div>
+                        </div>
+
+                        <div class="div_kpi">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <h5>Disco:</h5>
+                            </div>
+                        </div>
+
+                        <div class="div_kpi">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <h5>Temperatura:</h5>
+                            </div>
+                        </div>
+
+
+                        <div class="divTudo">
+                            <div class="div-aeroporto">
+
+                                <div class="container-fluid">
+
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Selecionar aeroporto</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container-fluid">
+
+                                                <div class="row mb-3">
+                                                    <div class="div-informar-dados">
+                                                        <label class="label-aeroporto">Informe os
+                                                            dados do aeroporto: </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <select class="form-control" id="select-estado"
+                                                            onchange="exibirOptionMunicipio()">
+                                                            <option>Selecione um estado...</option>
+                                                            <option value="AC">Acre (AC)</option>
+                                                            <option value="AL">Alagoas (AL)</option>
+                                                            <option value="AM">Amazonas (AM)</option>
+                                                            <option value="AP">Amapá (AP)</option>
+                                                            <option value="BA">Bahia (BA)</option>
+                                                            <option value="CE">Ceará (CE)</option>
+                                                            <option value="DF">Distrito Federal (DF)</option>
+                                                            <option value="ES">Espírito Santo (ES)</option>
+                                                            <option value="GO">Goiás (GO)</option>
+                                                            <option value="MA">Maranhão (MA)</option>
+                                                            <option value="MG">Minas Gerais (MG)</option>
+                                                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                                                            <option value="MT">Mato Grosso (MT)</option>
+                                                            <option value="PA">Pará (PA)</option>
+                                                            <option value="PB">Paraíba (PB)</option>
+                                                            <option value="PE">Pernambuco (PE)</option>
+                                                            <option value="PI">Piauí (PI)</option>
+                                                            <option value="PR">Paraná (PR)</option>
+                                                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                                                            <option value="RN">Rio Grande do Norte (RN)</option>
+                                                            <option value="RO">Rondônia (RO)</option>
+                                                            <option value="RR">Roraima (RR)</option>
+                                                            <option value="RS">Rio Grande do Sul (RS)</option>
+                                                            <option value="SC">Santa Catarina (SC)</option>
+                                                            <option value="SE">Sergipe (SE)</option>
+                                                            <option value="SP">São Paulo (SP)</option>
+                                                            <option value="TO">Tocantins (TO)</option>
+                                                        </select>
+                                                        <select class="form-control" id="select-municipio"
+                                                            onchange="exibirOptionAeroporto()" disabled>
+                                                            <option>Selecione um município...</option>
+                                                        </select>
+                                                        <select class="form-control" id="select-aeroporto" disabled>
+                                                            <option>Selecione um aeroporto...</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="container-fluid">
+
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Selecionar totem</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container-fluid">
+
+                                                <div class="row mb-3">
+                                                    <div class="div-informar-dados">
+                                                        <label class="label-aeroporto">Informe os
+                                                            dados do aeroporto: </label>
+                                                    </div>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <select class="form-control" id="select-estado"
+                                                            onchange="exibirOptionMunicipio()">
+                                                            <option>Selecione um estado...</option>
+                                                            <option value="AC">Acre (AC)</option>
+                                                            <option value="AL">Alagoas (AL)</option>
+                                                            <option value="AM">Amazonas (AM)</option>
+                                                            <option value="AP">Amapá (AP)</option>
+                                                            <option value="BA">Bahia (BA)</option>
+                                                            <option value="CE">Ceará (CE)</option>
+                                                            <option value="DF">Distrito Federal (DF)</option>
+                                                            <option value="ES">Espírito Santo (ES)</option>
+                                                            <option value="GO">Goiás (GO)</option>
+                                                            <option value="MA">Maranhão (MA)</option>
+                                                            <option value="MG">Minas Gerais (MG)</option>
+                                                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                                                            <option value="MT">Mato Grosso (MT)</option>
+                                                            <option value="PA">Pará (PA)</option>
+                                                            <option value="PB">Paraíba (PB)</option>
+                                                            <option value="PE">Pernambuco (PE)</option>
+                                                            <option value="PI">Piauí (PI)</option>
+                                                            <option value="PR">Paraná (PR)</option>
+                                                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                                                            <option value="RN">Rio Grande do Norte (RN)</option>
+                                                            <option value="RO">Rondônia (RO)</option>
+                                                            <option value="RR">Roraima (RR)</option>
+                                                            <option value="RS">Rio Grande do Sul (RS)</option>
+                                                            <option value="SC">Santa Catarina (SC)</option>
+                                                            <option value="SE">Sergipe (SE)</option>
+                                                            <option value="SP">São Paulo (SP)</option>
+                                                            <option value="TO">Tocantins (TO)</option>
+                                                        </select>
+                                                        <select class="form-control" id="select-municipio"
+                                                            onchange="exibirOptionAeroporto()" disabled>
+                                                            <option>Selecione um município...</option>
+                                                        </select>
+                                                        <select class="form-control" id="select-aeroporto" disabled>
+                                                            <option>Selecione um aeroporto...</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                                <div id="grafico-crawler"></div>
+                                            </div>
+                                    </div>
+
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+<script src="js/validarUsuario.js"></script>
+<script src="js/funcionario.js"></script>
+<script src="js/graficoAna.js"></script>
+<script>

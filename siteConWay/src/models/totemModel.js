@@ -61,6 +61,8 @@ function cadastrarComponente(componente){
   return database.executar(instrucao);
 }
 
+function cadastrarMetricas(){}
+
 
 module.exports = {
   exibirTabelaTotem,
@@ -68,5 +70,6 @@ module.exports = {
   exibirAeroportos,
   cadastrarTotem,
   cadastrarComponente,
-  criarViewTotem
+  criarViewTotem,
+  cadastrarMetricas
 };

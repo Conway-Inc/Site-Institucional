@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/dashBia.css" rel="stylesheet">
+    <link rel="icon" href="img/AirWayLogo.jpg">
+    <title>AirWay</title>
+</head>
+<body>
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <div class="sidebar-brand d-flex align-items-center justify-content-center" >
+                <div class="sidebar-brand-icon ">
+                    <img src="img/logoairwaynovo.png" style="width: 100%;" alt="">
+                </div>
+            </div>
+
+            <hr class="sidebar-divider my-0">
+        </ul>
+        <div class="container-fluid">
+
+            <h1 class="h3 mb-2 text-gray-800">Totem</h1>
+            <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                For more information about DataTables, please visit the.</p> -->
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Totens Criticos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
+                            <thead>
+                                <tr>
+                                    <th>IdTotem</th>
+                                    <th>Nome</th>
+                                    <th>Componente problemático</th>
+                                    <th>Maior Registro</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyTable">
+                                <tr>
+                                    <th>6</th>
+                                    <td>PYR-1</td>
+                                    <td>CPU</td>
+                                    <td>98%</td>
+                                    <td><button class="btn btn-primary btn-relatorio">Excluir</button> <button class="btn btn-primary btn-relatorio">Trocar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Status dos totens<span
+                            id="info-aeroporto-nome"></span></h6>
+                    <div class="opcoes-botoes">
+                        <button onclick="verCpu()"
+                            class="btn btn-primary btn-relatorio">Manutenção
+                        </button>
+                        <button onclick="verMem()"
+                            class="btn btn-primary btn-relatorio">Excluídos
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div id="#"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

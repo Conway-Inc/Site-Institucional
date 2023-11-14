@@ -89,6 +89,8 @@ CREATE TABLE TotemComponente (
     fkComponente INT,
     fkTotem INT,
     valor DOUBLE,
+    alerta INT,
+    critico INT,
     FOREIGN KEY (fkComponente) REFERENCES Componente(idComponente) ON DELETE CASCADE,
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem) ON DELETE CASCADE,
 	PRIMARY KEY (fkComponente, fkTotem)

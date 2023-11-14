@@ -126,11 +126,16 @@ function cadastrarComponente(req, res){
   }
 }
 
+function cadastrarMetricas(req, res){
+
+}
+
 module.exports = {
   exibirTabelaTotem,
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
   cadastrarComponente,
-  criarViewTotem
+  criarViewTotem,
+  cadastrarMetricas
 };

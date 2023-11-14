@@ -43,6 +43,24 @@ html {
 
 }
 
+.div_kpi{
+  position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 2px solid #e3e6f0;
+    border-radius: 0.35rem;
+    width: 20%;
+}
+
+.div-aeroporto {
+  padding-top: 20px;
+  display: flex;
+}
+
 article,
 aside,
 figcaption,
