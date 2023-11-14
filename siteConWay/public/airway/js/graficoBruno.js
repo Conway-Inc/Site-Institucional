@@ -233,7 +233,7 @@ function pegarMetricasGerais(tipo, componente) {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                graficoEstados(json, componente);
+                graficoEstados(json, componente, tipo);
                 exibirRelatorios(json, componente);
                 dadosMesAnterior(tipo,texto, componente)
             });
@@ -283,20 +283,34 @@ function dadosMesAnterior(tipo, texto, componente) {
                     alertas = Number(json[0].alertaMemAnt);
                     criticos = Number(json[0].criticoMemAnt);
                 }
-                
+
                 console.log(pQtdTotal.innerHTML)
-                console.log(total)                
+                console.log(total)
+                
+                if (pQtdTotal.innerHTML <= total) {
+                    pPorcentTotal.style.color = "#00E42C";
+                    pPorcentTotal.innerHTML = "⇩";
+                } else {
+                    pPorcentTotal.style.color = "red"
+                    pPorcentTotal.innerHTML = "⇧";
+                }
 
-                totalPorcent = Math.round(((pQtdTotal.innerHTML == 0 ? 1 : pQtdTotal.innerHTML)  * 100) / (total == 0 ? 1 : total) - 100)
-                alertasPorcent = Math.round(((pQtdAlertas.innerHTML == 0 ? 1 : pQtdAlertas.innerHTML)  * 100) / (alertas == 0 ? 1 : alertas) - 100)
-                criticosPorcent = Math.round(((pQtdCriticos.innerHTML == 0 ? 1 : pQtdCriticos.innerHTML)  * 100) / (criticos == 0 ? 1 : criticos) - 100)
+                if (pQtdAlertas.innerHTML <= alertas) {
+                    pPorcentAlertas.style.color = "#00E42C";
+                    pPorcentAlertas.innerHTML = "⇩";
+                } else {
+                    pPorcentAlertas.style.color = "red"
+                    pPorcentAlertas.innerHTML = "⇧";
+                }
 
-                pPorcentTotal.innerHTML = totalPorcent+"%";
-                totalPorcent < 0 ? pPorcentTotal.style.color = "#00E42C" :  pPorcentTotal.style.color = "red"
-                pPorcentAlertas.innerHTML = alertasPorcent+"%";
-                alertasPorcent < 0 ? pPorcentAlertas.style.color = "#00E42C" :  pPorcentAlertas.style.color = "red"
-                pPorcentCriticos.innerHTML = criticosPorcent+"%";
-                criticosPorcent < 0 ? pPorcentCriticos.style.color = "#00E42C" :  pPorcentCriticos.style.color = "red"
+                if (pQtdCriticos.innerHTML <= criticos) {
+                    pPorcentCriticos.style.color = "#00E42C";
+                    pPorcentCriticos.innerHTML = "⇩";
+                } else {
+                    pPorcentCriticos.style.color = "red"
+                    pPorcentCriticos.innerHTML = "⇧";
+                }
+
             });
         } else {
             resposta.text().then(textoErro => {
@@ -309,7 +323,11 @@ function dadosMesAnterior(tipo, texto, componente) {
     return false;
 }
 
-function graficoEstados(json, componente) {
+function observacoes(params) {
+    
+}
+
+function graficoEstados(json, componente, tipoNome) {
     document.getElementById("grafico-geral").innerHTML = "";
 
     let alertaCpu = [];
@@ -337,18 +355,24 @@ function graficoEstados(json, componente) {
 
         if (dadoAlertaCpu >= maxCpu) {
             maxCpu = dadoAlertaCpu;
+            tipoMax = json[i].tipo
         }
         if (dadoCriticoCpu >= maxCpu) {
             maxCpu = dadoCriticoCpu;
+            tipoMax = json[i].tipo
         }
         if (dadoAlertaMem >= maxMem) {
             maxMem = dadoAlertaMem;
+            tipoMax = json[i].tipo
         }
         if (dadoCriticoMem >= maxMem) {
             maxMem = dadoCriticoMem;
+            tipoMax = json[i].tipo
         }
     }
-
+    
+    
+    
     if (componente == 1) {
         alerta = alertaCpu;
         critico = criticoCpu;
@@ -360,6 +384,11 @@ function graficoEstados(json, componente) {
         max = maxMem;
         tipo = "Memória"
     }
+    
+    document.getElementById("obs-relatorio").innerHTML =
+    `O ${tipoNome == "nome" ? "totem" : tipoNome} ${tipoMax} possui maior número de ocorrências no componente ${tipo}, verifique a situação a fundo com os analistas. `;
+    
+    observacoes(alerta,critico,labels)
 
     var options = {
         series: [{
