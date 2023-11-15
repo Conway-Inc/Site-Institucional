@@ -21,6 +21,7 @@ function validarGerenteAnalista() {
     } else {
         inserirAnalistaJoao(menu);
         inserirAnalistaKauan(menu);
+        inserirAnalistaAna(menu);
         inserirSlideConta(menu);
         inserirContaPerfil(menu);
         inserirContaSair(menu);
@@ -59,6 +60,22 @@ function inserirAnalistaKauan(menu) {
     aAnalistaKauan.appendChild(spanAnalistaKauan);
     liAnalistaKauan.appendChild(aAnalistaKauan);
     menu.appendChild(liAnalistaKauan);
+}
+
+function inserirAnalistaAna(menu) {
+    let liAnalistaAna = document.createElement("li");
+    liAnalistaAna.setAttribute("class","nav-item");
+    let aAnalistaAna = document.createElement("a");
+    aAnalistaAna.setAttribute("class","nav-link")
+    aAnalistaAna.setAttribute("href","graficoAna.html");
+    let iAnalistaAna = document.createElement("i");
+    iAnalistaAna.className = "fas fa-fw fa-tachometer-alt";
+    let spanAnalistaAna = document.createElement("span");
+    spanAnalistaAna.innerHTML = "Temperatura do Aeroporto";
+    aAnalistaAna.appendChild(iAnalistaAna);
+    aAnalistaAna.appendChild(spanAnalistaAna);
+    liAnalistaAna.appendChild(aAnalistaAna);
+    menu.appendChild(liAnalistaAna);
 }
 
 function inserirAnalistaJoao(menu) {
