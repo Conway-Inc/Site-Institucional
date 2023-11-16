@@ -5,7 +5,9 @@ function exibirTotensDoAeroporto(aeroporto) {
         "Acessei o graficoAnaModel e executei a função exibirTotensDoAeroporto(): ",aeroporto
       );
     var instrucao = `
-    SELECT nomeTotem FROM vw_totem_estado WHERE nomeAeroporto = '${aeroporto}' GROUP BY nomeTotem ORDER BY nomeTotem;
+    SELECT * FROM vw_totem_estado 
+    JOIN aeroporto ON vw_totem_estado.nomeAeroporto = aeroporto.nome 
+    WHERE nomeAeroporto = '${aeroporto}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

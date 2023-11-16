@@ -270,9 +270,9 @@ function exibirTotensDoAeroporto(aeroporto) {
       }).then((res) => res.json())
       .then((res) => {
           if (!res.error) {
-                  document.getElementById('select-totem').innerHTML = `<option></option>`
+                  document.getElementById('select-totem').innerHTML= `<option></option>`
                   for (let i = 0; i < res.length; i++) {
-                    document.getElementById('select-totem').innerHTML += `<option value = '${res[0].nomeTotem}'>${res[0].nomeTotem}</option>`;
+                    document.getElementById('select-totem').innerHTML += `<option value = ${res[0].idTotem}>${res[i].nomeTotem}</option>`;
                   }
               } else {
                   resposta.text().then(texto => {
