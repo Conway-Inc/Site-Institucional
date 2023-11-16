@@ -1,4 +1,3 @@
-plotarGraficoCrawler()
 function plotarGraficoCrawler() {
       
     var options = {
@@ -245,4 +244,9 @@ function exibirAeroportosComTotens(municipio) {
       return false;
 
   }
+}
+
+function selecionarTotemAeroporto () {
+  var aeroporto = document.getElementById("select-aeroporto");
+  var totem = document.getElementById("select-totem");
 }
