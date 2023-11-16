@@ -15,6 +15,7 @@ var graficoJoaoRouter = require("./src/routes/graficoJoao");
 var loginRouter = require("./src/routes/login");
 var funcionarioRouter = require("./src/routes/funcionario")
 var empresaRouter = require("./src/routes/empresa");
+var graficoAnaRouter = require("./src/routes/graficoAna");
 
 
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use(cors());
 app.use("/funcionario", funcionarioRouter)
 app.use("/totem", totemRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
+app.use("/graficoAna", graficoAnaRouter)
 app.use("/graficoJoao", graficoJoaoRouter);
 // app.use("/graficoKauan", graficoKauanRouter);
 app.use("/login", loginRouter);

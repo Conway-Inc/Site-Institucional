@@ -246,7 +246,45 @@ function exibirAeroportosComTotens(municipio) {
   }
 }
 
-function selecionarTotemAeroporto () {
-  var aeroporto = document.getElementById("select-aeroporto");
-  var totem = document.getElementById("select-totem");
+
+  document.getElementById('select-aeroporto').addEventListener('change', function () {
+    alert("oi")
+    var selectedOption = this.options[this.selectedIndex];
+    var nomeAeroporto = selectedOption.value;
+    exibirTotensDoAeroporto(nomeAeroporto);
+});
+
+
+function exibirTotensDoAeroporto(aeroporto) {
+  if (aeroporto == undefined || aeroporto == "") {
+    alert("Parametro falktando")
+
+  } else {
+      fetch(`/graficoAna/exibirTotensDoAeroporto`,  {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "aeroporto": aeroporto
+        })
+      })
+          .then(function (resposta) {
+              if (resposta.ok) {
+
+                  resposta.json().then(json => {
+                  console.log(res)
+
+                  alert("funcionou")
+                  });
+              } else {
+                  resposta.text().then(texto => {
+                      console.error(texto);
+                  });
+              }
+          }).catch(function (erro) {
+              console.log(erro);
+          });
+      return false;
+  }
 }
