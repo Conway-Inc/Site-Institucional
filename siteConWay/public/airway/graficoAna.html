@@ -223,60 +223,34 @@
                                             <div class="container-fluid">
 
                                                 <div class="row mb-3">
-                                                    <div class="div-informar-dados">
-                                                        <label class="label-aeroporto">Informe os
-                                                            dados do aeroporto: </label>
-                                                    </div>
                                                     <div class="col-md-8 col-lg-9">
-                                                        <select class="form-control" id="select-estado"
-                                                            onchange="exibirOptionMunicipio()">
+                                                        <label>Selecione o aeroporto desejado: </label>
+                                                        <select id="select-estado" class="form-control"
+                                                            onchange="exibirMunicipiosComTotens()">
                                                             <option>Selecione um estado...</option>
-                                                            <option value="AC">Acre (AC)</option>
-                                                            <option value="AL">Alagoas (AL)</option>
-                                                            <option value="AM">Amazonas (AM)</option>
-                                                            <option value="AP">Amapá (AP)</option>
-                                                            <option value="BA">Bahia (BA)</option>
-                                                            <option value="CE">Ceará (CE)</option>
-                                                            <option value="DF">Distrito Federal (DF)</option>
-                                                            <option value="ES">Espírito Santo (ES)</option>
-                                                            <option value="GO">Goiás (GO)</option>
-                                                            <option value="MA">Maranhão (MA)</option>
-                                                            <option value="MG">Minas Gerais (MG)</option>
-                                                            <option value="MS">Mato Grosso do Sul (MS)</option>
-                                                            <option value="MT">Mato Grosso (MT)</option>
-                                                            <option value="PA">Pará (PA)</option>
-                                                            <option value="PB">Paraíba (PB)</option>
-                                                            <option value="PE">Pernambuco (PE)</option>
-                                                            <option value="PI">Piauí (PI)</option>
-                                                            <option value="PR">Paraná (PR)</option>
-                                                            <option value="RJ">Rio de Janeiro (RJ)</option>
-                                                            <option value="RN">Rio Grande do Norte (RN)</option>
-                                                            <option value="RO">Rondônia (RO)</option>
-                                                            <option value="RR">Roraima (RR)</option>
-                                                            <option value="RS">Rio Grande do Sul (RS)</option>
-                                                            <option value="SC">Santa Catarina (SC)</option>
-                                                            <option value="SE">Sergipe (SE)</option>
-                                                            <option value="SP">São Paulo (SP)</option>
-                                                            <option value="TO">Tocantins (TO)</option>
                                                         </select>
-                                                        <select class="form-control" id="select-municipio"
-                                                            onchange="exibirOptionAeroporto()" disabled>
+                    
+                                                        <select id="select-municipio" class="form-control"
+                                                            onchange="exibirAeroportosComTotens()" disabled>
                                                             <option>Selecione um município...</option>
                                                         </select>
-                                                        <select class="form-control" id="select-aeroporto" disabled>
+                    
+                                                        <select id="select-aeroporto" class="form-control"
+                                                            onchange="exibirTotensAeroportos()" disabled>
                                                             <option>Selecione um aeroporto...</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-        
+
                                         </div>
                                     </div>
 
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Acompanhamento da temperatura</h6>
+                                            <h6 class="m-0 font-weight-bold text-primary">Acompanhamento da temperatura
+                                            </h6>
                                         </div>
                                         <img src="../img/termometro.png" style="width: 60%;">
                                     </div>
@@ -342,26 +316,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                        
 
-                                        <div class="card shadow mb-4">
-                                            <div class="card-header py-3">
-                                                <h6 class="m-0 font-weight-bold text-primary">Correlação entre os componentes e a temperatura atual</h6>
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">Correlação entre os
+                                                componentes e a temperatura atual</h6>
+                                        </div>
+                                        <div id="grafico-crawler"></div>
+                                    </div>
+                                    <div class="card shadow mb-4">
+                                        <div class="div-botao">
+                                            <div class="btn btn-primary btn-relatorio">
+                                                <p>CPU</p>
                                             </div>
-                                                <div id="grafico-crawler"></div>
+                                            <div class="btn btn-primary btn-relatorio">
+                                                <p>Memória</p>
                                             </div>
-                                            <div class="card shadow mb-4">
-                                                <div class="div-botao">
-                                                    <div class="btn btn-primary btn-relatorio">
-                                                        <p>CPU</p>
-                                                    </div>
-                                                    <div class="btn btn-primary btn-relatorio">
-                                                        <p>Memória</p>
-                                                    </div>
-                                                    <div class="btn btn-primary btn-relatorio">
-                                                        <p>Disco</p>
-                                                    </div>
-                                                </div>
+                                            <div class="btn btn-primary btn-relatorio">
+                                                <p>Disco</p>
+                                            </div>
+                                        </div>
                                     </div>
 
 
@@ -379,3 +354,5 @@
 <script src="js/funcionario.js"></script>
 <script src="js/graficoAna.js"></script>
 <script>
+     exibirEstadosComTotens()
+</script>

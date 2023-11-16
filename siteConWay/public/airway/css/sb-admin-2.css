@@ -43,6 +43,9 @@ html {
 
 }
 
+#grafico-crawler {
+  width: 400px;
+}
 .div_kpi{
   position: relative;
     display: flex;
