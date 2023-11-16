@@ -247,8 +247,7 @@ function exibirAeroportosComTotens(municipio) {
 }
 
 
-  document.getElementById('select-aeroporto').addEventListener('change', function () {
-    alert("oi")
+document.getElementById('select-aeroporto').addEventListener('change', function () {
     var selectedOption = this.options[this.selectedIndex];
     var nomeAeroporto = selectedOption.value;
     exibirTotensDoAeroporto(nomeAeroporto);
@@ -257,7 +256,7 @@ function exibirAeroportosComTotens(municipio) {
 
 function exibirTotensDoAeroporto(aeroporto) {
   if (aeroporto == undefined || aeroporto == "") {
-    alert("Parametro falktando")
+    alert("Parametro faltando")
 
   } else {
       fetch(`/graficoAna/exibirTotensDoAeroporto`,  {
@@ -268,15 +267,13 @@ function exibirTotensDoAeroporto(aeroporto) {
         body: JSON.stringify({
             "aeroporto": aeroporto
         })
-      })
-          .then(function (resposta) {
-              if (resposta.ok) {
-
-                  resposta.json().then(json => {
-                  console.log(res)
-
-                  alert("funcionou")
-                  });
+      }).then((res) => res.json())
+      .then((res) => {
+          if (!res.error) {
+                  document.getElementById('select-totem').innerHTML = `<option></option>`
+                  for (let i = 0; i < res.length; i++) {
+                    document.getElementById('select-totem').innerHTML += `<option value = '${res[0].nomeTotem}'>${res[0].nomeTotem}</option>`;
+                  }
               } else {
                   resposta.text().then(texto => {
                       console.error(texto);
