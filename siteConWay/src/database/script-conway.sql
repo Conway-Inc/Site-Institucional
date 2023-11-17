@@ -47,8 +47,8 @@ CREATE TABLE Aeroporto (
     nome VARCHAR(150),
     estado CHAR(2),
     municipio VARCHAR(60),
-    latitude DOUBLE(20,10),
-    longitude DOUBLE(20,10)
+    latitude FLOAT(6,4),
+    longitude FLOAT (6,4)
 );
 
 CREATE TABLE temperaturaAeroporto(
@@ -173,7 +173,8 @@ INSERT INTO Funcionario VALUES (NULL, 'ana.carolina@latam.com', '12345', 'Ana Ca
 INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'São Paulo'),
 													   ('Brasilia International Airport', 'DF', 'Brasília'),
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
-						
+
+
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
@@ -181,10 +182,27 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('JDK-2', 2, 2),
                                                         ('PYR-1', 3, 2);
 
-INSERT INTO TotemComponente VALUES (4,1,256.4),
-								   (4,2,528.6),
-                                   (4,3,128.8);
-                                   
+UPDATE Aeroporto SET latitude = -23.4378, longitude = -46.4813 where idAeroporto = 1071;
+UPDATE Aeroporto SET latitude =  -23.0061, longitude = -47.1418 where idAeroporto = 1092;
+UPDATE Aeroporto SET latitude =   -23.6274, longitude = -46.6556 where idAeroporto = 1;
+UPDATE Aeroporto SET latitude = -29.9953, longitude = -51.1664 where idAeroporto = 1133;
+UPDATE Aeroporto SET latitude = -28.2834, longitude =  -54.1656 where idAeroporto = 1113;
+UPDATE Aeroporto SET latitude = -29.1971, longitude = -51.1862 where idAeroporto = 1053;
+UPDATE Aeroporto SET latitude = -27.6701, longitude =  -48.5447 where idAeroporto = 1063 ;
+UPDATE Aeroporto SET latitude =  -26.8784, longitude =  -48.6494 where idAeroporto = 1112 ;
+UPDATE Aeroporto SET latitude = -26.2250, longitude = -48.7986 where idAeroporto = 1090;
+UPDATE Aeroporto SET latitude = -25.5328, longitude = -49.1674 where idAeroporto = 1051 ;
+UPDATE Aeroporto SET latitude = -3.0355, longitude = -60.0458 where idAeroporto = 1058;
+UPDATE Aeroporto SET latitude = -23.3319, longitude =  -51.1346 where idAeroporto = 1096;
+UPDATE Aeroporto SET latitude = -7.1489, longitude = -34.950 where idAeroporto = 1087;
+UPDATE Aeroporto SET latitude = -9.5108, longitude = -35.7925 where idAeroporto = 1107;
+UPDATE Aeroporto SET latitude = -22.9104, longitude = -43.1642 where idAeroporto = 1155;
+UPDATE Aeroporto SET latitude = -5.773, longitude =  -35.3621 where idAeroporto = 1160;
+UPDATE Aeroporto SET latitude = -3.7761, longitude = -38.5355 where idAeroporto = 1066;
+UPDATE Aeroporto SET latitude = -12.911, longitude = -38.335 where idAeroporto = 1169;
+UPDATE Aeroporto SET latitude = -1.3799, longitude = -48.4796 where idAeroporto = 1025;
+UPDATE Aeroporto SET latitude = -15.6595, longitude = -56.1094 where idAeroporto = 1054;
+
 
 INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
                                                                                 (100001,0.0, '2023-11-07 12:00:00', 2,1),
@@ -212,7 +230,8 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
                                                                                 (100023,0.0, '2023-11-07 12:10:00', 2,6),
                                                                                 (100024,0.0, '2023-10-16 00:00:00', 1,6),
  																	            (100025,0.0, '2023-10-16 00:00:00', 1,6);
-                                                                     
+ 
+
                                                                    
 INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
  											 (2,100001),
@@ -238,7 +257,6 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
                                              (2,100021),
                                              (1,100024),
                                              (1,100025); 
-
 
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
