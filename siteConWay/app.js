@@ -9,13 +9,15 @@ var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 var app = express();
 
 var totemRouter = require("./src/routes/totem");
+var empresaRouter = require("./src/routes/empresa");
+var metricasRouter = require("./src/routes/metricas");
 var graficoBrunoRouter = require("./src/routes/graficoBruno");
 var graficoJoaoRouter = require("./src/routes/graficoJoao");
 // var graficoKauanRouter = require("./src/routes/graficoKauan");
 var loginRouter = require("./src/routes/login");
 var funcionarioRouter = require("./src/routes/funcionario")
-var empresaRouter = require("./src/routes/empresa");
 var graficoAnaRouter = require("./src/routes/graficoAna");
+
 
 
 app.use(express.json());
@@ -27,6 +29,7 @@ app.use(cors());
 
 app.use("/funcionario", funcionarioRouter)
 app.use("/totem", totemRouter);
+app.use("/metricas", metricasRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
 app.use("/graficoAna", graficoAnaRouter)
 app.use("/graficoJoao", graficoJoaoRouter);

@@ -16,10 +16,6 @@ router.post("/cadastrarTotem", function(req,res){
     totemController.cadastrarTotem(req,res)
 });
 
-router.post("/cadastrarMetricas", function(req,res){
-    totemController.cadastrarMetrica(req,res)
-});
-
 router.post("/cadastrarComponente", function(req,res){
     totemController.cadastrarComponente(req,res)
 });

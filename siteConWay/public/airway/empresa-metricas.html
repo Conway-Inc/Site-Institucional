@@ -311,6 +311,62 @@
                         </div>
 
                     </div>
+                    <div class="card shadow mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Cadastrar Métricas Gerais difinindo o Status do Registro</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em ALERTA? </label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="number" id="ipt_limiteAlertaCpu" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em estado CRÍTICO?</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="number" id="ipt_limiteCriticoCpu" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a memória entra em ALERTA?</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="number" id="ipt_limiteAlertaMemo" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a Memória entra em estado CRÍTICO?</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="NUMBER" id="ipt_limiteCriticoMemo" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em ALERTA?</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="number" id="ipt_limiteAlertaDisco" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em estado CRÍTICO?</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input type="NUMBER" id="ipt_limiteCriticoDisco" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center" id="campo-botao"></div>
+                                    <div class="text-center" id="campo-botao">
+                                        <button class="btn btn-primary" id="botao-cadastrar"
+                                            onclick="cadastrarMetricas()">Cadastrar</button>
+                                    </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <footer class="sticky-footer bg-white">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
