@@ -181,9 +181,9 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('JDK-2', 2, 2),
                                                         ('PYR-1', 3, 2);
 
-INSERT INTO TotemComponente VALUES (4,1,256.4),
-								   (4,2,528.6),
-                                   (4,3,128.8);
+INSERT INTO TotemComponente VALUES (4,1,256.4, 90, 99),
+								   (4,2,528.6, 90, 99),
+                                   (4,3,128.8, 90, 99);
                                    
 
 INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
