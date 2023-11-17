@@ -1,8 +1,8 @@
 var graficoAnaModel = require("../models/graficoAnaModel");
 
-function exibirTotensDoAeroporto(req, res) {
+function getTempAeroporto(req, res) {
     const { aeroporto } = req.body
-    graficoAnaModel.exibirTotensDoAeroporto(aeroporto).then(function (resultado) {
+    graficoAnaModel.getTempAeroporto(aeroporto).then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
       } else {
@@ -16,7 +16,7 @@ function exibirTotensDoAeroporto(req, res) {
   }
 
   module.exports = {
-    exibirTotensDoAeroporto
+    getTempAeroporto
   };
   
   

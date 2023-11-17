@@ -179,37 +179,158 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Temperatura atual dos aeroportos</h1>
                     </div>
-
-                    <!-- Content Row -->
                     <div class="row">
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="div_kpi">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <h5>CPU:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-4">
+                                                <label>Selecione o aeroporto desejado: </label>
+                                                <select id="select-estado" class="form-control"
+                                                    onchange="exibirMunicipiosComTotens()">
+                                                    <option>Selecione um estado...</option>
+                                                </select>
+                                            </div>  
+                                            <div class="col-md-4 col-lg-4">
+                                                <label>Selecione o município desejado: </label>
+                                                <select id="select-municipio" class="form-control"
+                                                onchange="exibirAeroportosComTotens()" disabled>
+                                                <option>Selecione um município...</option>
+                                                </select>
+                                            </div>  
+                                            <div class="col-md-4 col-lg-4">
+                                                <label>Selecione o aeroporto desejado: </label>
+                                                <select id="select-aeroporto" class="form-control">
+                                                    <option>Selecione um aeroporto...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Totens em alerta</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="grafico-crawler"></div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="div_kpi">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <h5>Memória:</h5>
+                        <div class="col-xl-4 col-lg-7">
+                            <div class="col-xl-12 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div
+                                                    class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
+                                                    CPU:</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                    id="divTotensAtencao">0
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="div_kpi">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <h5>Disco:</h5>
+                            <div class="col-xl-12 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div
+                                                    class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
+                                                    Memória:</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                    id="divTotensAtencao">0
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="div_kpi">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <h5>Temperatura:</h5>
+                            <div class="col-xl-12 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div
+                                                    class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
+                                                    Disco:</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                    id="divTotensAtencao">0
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="col-xl-12 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div
+                                                    class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
+                                                    Temperatura:</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                    id="divTotensAtencao">0
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
+                    </div>
 
+                                        <div class="row">
+                        <div class="col-xl-12 col-lg-7">
 
-                        <div class="divTudo">
+                        </div>
+                    </div>
+
+                    <!-- <div class="divTudo">
                             <div class="div-aeroporto">
 
                                 <div class="container-fluid">
@@ -256,30 +377,7 @@
                                 </div>
 
 
-                                <div class="container-fluid">
-
-
-                                    <div class="card shadow mb-4">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Selecionar totem</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="container-fluid">
-
-                                                <div class="row mb-3">
-                                                    <div class="div-informar-dados">
-                                                        <label class="label-aeroporto">Selecione o totem desejado:
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-8 col-lg-9">
-                                                        <select class="form-control" id="select-totem">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                
 
                                     <div class="card shadow mb-4">
                                         <div class="card-header py-3">
@@ -288,19 +386,9 @@
                                         </div>
                                         <div id="grafico-crawler"></div>
                                     </div>
-                                    <div class="card shadow mb-4">
-                                        <div class="div-botao">
-                                            <div class="btn btn-primary btn-relatorio">
-                                                <p>CPU</p>
-                                            </div>
-                                            <div class="btn btn-primary btn-relatorio">
-                                                <p>Memória</p>
-                                            </div>
-                                            <div class="btn btn-primary btn-relatorio">
-                                                <p>Disco</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div> -->
+
 
 
 
@@ -308,6 +396,7 @@
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -316,7 +405,5 @@
 <script src="js/validarUsuario.js"></script>
 <script src="js/funcionario.js"></script>
 <script src="js/graficoAna.js"></script>
-<script>
-    plotarGraficoCrawler()
-    exibirEstadosComTotens()
-</script>
+
+<script></script>

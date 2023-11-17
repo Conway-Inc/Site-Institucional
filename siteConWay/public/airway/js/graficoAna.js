@@ -1,18 +1,22 @@
-function plotarGraficoCrawler() {
-      
+plotarGraficoTemp();
+exibirEstadosComTotens();
+
+document.getElementById('select-aeroporto').addEventListener('change', function () {
+  var selectedOption = this.options[this.selectedIndex];
+  var nomeAeroporto = selectedOption.value;
+  getTempAeroporto(nomeAeroporto);
+});
+
+function plotarGraficoTemp(dados) {     
     var options = {
         series: [{
-          name: "Session Duration",
-          data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
+          name: "Temperatura",
+          data: [45, 52, 38, 24, 33, 26]
         },
         {
           name: "Page Views",
-          data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35]
+          data: [35, 41, 62, 42, 13, 18]
         },
-        {
-          name: 'Total Visits',
-          data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47]
-        }
       ],
         chart: {
         height: 350,
@@ -45,16 +49,14 @@ function plotarGraficoCrawler() {
         }
       },
       xaxis: {
-        categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
-          '10 Jan', '11 Jan', '12 Jan'
-        ],
+        categories: ['4 AM', '8 AM', '12 PM', '4 PM', '8 PM', '12 AM'],
       },
       tooltip: {
         y: [
           {
             title: {
               formatter: function (val) {
-                return val + " (mins)"
+                return val + "(°C)"
               }
             }
           },
@@ -81,7 +83,6 @@ function plotarGraficoCrawler() {
 
       var chart = new ApexCharts(document.querySelector("#grafico-crawler"), options);
       chart.render();
-
 }
 
 function exibirEstadosComTotens() {
@@ -246,42 +247,45 @@ function exibirAeroportosComTotens(municipio) {
   }
 }
 
-
-document.getElementById('select-aeroporto').addEventListener('change', function () {
-    var selectedOption = this.options[this.selectedIndex];
-    var nomeAeroporto = selectedOption.value;
-    exibirTotensDoAeroporto(nomeAeroporto);
-});
-
-
-function exibirTotensDoAeroporto(aeroporto) {
+function getTempAeroporto(aeroporto) {
   if (aeroporto == undefined || aeroporto == "") {
     alert("Parametro faltando")
-
   } else {
-      fetch(`/graficoAna/exibirTotensDoAeroporto`,  {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "aeroporto": aeroporto
+    fetch(`/graficoAna/getTempAeroporto`,  {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          "aeroporto": aeroporto
+      })
+  }).then((res) => {
+      if (!res.ok || res.headers.get('content-type')!='application/json') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Não existem informações de temperatura para esta data',
+          confirmButtonColor: '#4e73df'
         })
-      }).then((res) => res.json())
-      .then((res) => {
-          if (!res.error) {
-                  document.getElementById('select-totem').innerHTML= `<option></option>`
-                  for (let i = 0; i < res.length; i++) {
-                    document.getElementById('select-totem').innerHTML += `<option value = ${res[0].idTotem}>${res[i].nomeTotem}</option>`;
-                  }
-              } else {
-                  resposta.text().then(texto => {
-                      console.error(texto);
-                  });
-              }
-          }).catch(function (erro) {
-              console.log(erro);
+          throw new Error('Network response was not ok');
+      }
+      return res.json();
+  })
+  .then((res) => {
+      if (!res.error) {
+          if (Object.keys(res).length === 0 && res.constructor === Object) {
+
+          } else {
+              alert('foi');
+          }
+      } else {
+          resposta.text().then(texto => {
+              console.error(texto);
           });
-      return false;
+      }
+  }).catch(function (erro) {
+      console.log(erro);
+  });
+  
   }
 }
