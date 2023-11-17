@@ -246,7 +246,42 @@ function exibirAeroportosComTotens(municipio) {
   }
 }
 
-function selecionarTotemAeroporto () {
-  var aeroporto = document.getElementById("select-aeroporto");
-  var totem = document.getElementById("select-totem");
+
+document.getElementById('select-aeroporto').addEventListener('change', function () {
+    var selectedOption = this.options[this.selectedIndex];
+    var nomeAeroporto = selectedOption.value;
+    exibirTotensDoAeroporto(nomeAeroporto);
+});
+
+
+function exibirTotensDoAeroporto(aeroporto) {
+  if (aeroporto == undefined || aeroporto == "") {
+    alert("Parametro faltando")
+
+  } else {
+      fetch(`/graficoAna/exibirTotensDoAeroporto`,  {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "aeroporto": aeroporto
+        })
+      }).then((res) => res.json())
+      .then((res) => {
+          if (!res.error) {
+                  document.getElementById('select-totem').innerHTML= `<option></option>`
+                  for (let i = 0; i < res.length; i++) {
+                    document.getElementById('select-totem').innerHTML += `<option value = ${res[0].idTotem}>${res[i].nomeTotem}</option>`;
+                  }
+              } else {
+                  resposta.text().then(texto => {
+                      console.error(texto);
+                  });
+              }
+          }).catch(function (erro) {
+              console.log(erro);
+          });
+      return false;
+  }
 }
