@@ -71,7 +71,7 @@ function inserirAnalistaAna(menu) {
     let iAnalistaAna = document.createElement("i");
     iAnalistaAna.className = "fas fa-fw fa-tachometer-alt";
     let spanAnalistaAna = document.createElement("span");
-    spanAnalistaAna.innerHTML = "Temperatura do Aeroporto";
+    spanAnalistaAna.innerHTML = "Manutenção dos totens";
     aAnalistaAna.appendChild(iAnalistaAna);
     aAnalistaAna.appendChild(spanAnalistaAna);
     liAnalistaAna.appendChild(aAnalistaAna);
