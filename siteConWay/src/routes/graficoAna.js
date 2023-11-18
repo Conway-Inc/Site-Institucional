@@ -7,4 +7,8 @@ router.post("/getTempAeroporto", function (req, res) {
     graficoAnaController.getTempAeroporto(req, res);
 });
 
+router.post("/exibirTotensDoAeroporto", function (req, res) {
+    graficoAnaController.exibirTotensDoAeroporto(req, res);
+});
+
 module.exports = router

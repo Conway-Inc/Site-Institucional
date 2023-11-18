@@ -4,7 +4,7 @@ exibirEstadosComTotens();
 document.getElementById('select-aeroporto').addEventListener('change', function () {
   var selectedOption = this.options[this.selectedIndex];
   var nomeAeroporto = selectedOption.value;
-  getTempAeroporto(nomeAeroporto);
+  exibirTotensDoAeroporto(nomeAeroporto);
 });
 
 function plotarGraficoTemp(dados) {     
@@ -287,5 +287,62 @@ function getTempAeroporto(aeroporto) {
       console.log(erro);
   });
   
+  }
+}
+
+
+function exibirTotensDoAeroporto(aeroporto) {
+  if (aeroporto == undefined || aeroporto == "") {
+    alert("Parâmetro faltando");
+  } else {
+    fetch(`/graficoAna/exibirTotensDoAeroporto`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "aeroporto": aeroporto,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (!res.error) {
+          const selectTotem = document.getElementById('select-totem');
+          selectTotem.innerHTML = `<option></option>`;
+          for (let i = 0; i < res.length; i++) {
+            selectTotem.innerHTML += `<option value=${res[i].idTotem}>${res[i].nomeTotem}</option>`;
+          }
+
+          // Adiciona um ouvinte de evento para o evento 'change' do select
+          selectTotem.addEventListener('change', function () {
+            const selectedTotem = selectTotem.options[selectTotem.selectedIndex].text;
+
+            // Adicione o código do Swal aqui
+            Swal.fire({
+              icon: 'success',
+              title: 'Totem escolhido com sucesso!',
+              text: 'Você selecionou o totem ' + selectedTotem,
+            });
+          });
+        } else {
+          console.error(res.error);
+          // Adicione o código do Swal para exibir uma mensagem de erro, se desejar
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao carregar totens',
+            text: 'Houve um erro ao carregar os totens. Por favor, tente novamente.',
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        // Adicione o código do Swal para exibir uma mensagem de erro, se desejar
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro inesperado',
+          text: 'Houve um erro inesperado. Por favor, tente novamente.',
+        });
+      });
+    return false;
   }
 }
