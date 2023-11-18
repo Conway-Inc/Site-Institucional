@@ -44,11 +44,9 @@ CREATE TABLE Funcionario (
 
 CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(150),
+    nome VARCHAR(150) UNIQUE,
     estado CHAR(2),
-    municipio VARCHAR(60),
-    latitude FLOAT(6,4),
-    longitude FLOAT (6,4)
+    municipio VARCHAR(60)
 );
 
 CREATE TABLE temperaturaAeroporto(
@@ -182,35 +180,10 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('JDK-2', 2, 2),
                                                         ('PYR-1', 3, 2);
 
-<<<<<<< HEAD
 INSERT INTO TotemComponente VALUES (4,1,256.4, 90, 99),
 								   (4,2,528.6, 90, 99),
                                    (4,3,128.8, 90, 99);
-                                   
-=======
-UPDATE Aeroporto SET latitude = -23.4378, longitude = -46.4813 where idAeroporto = 1071;
-UPDATE Aeroporto SET latitude =  -23.0061, longitude = -47.1418 where idAeroporto = 1092;
-UPDATE Aeroporto SET latitude =   -23.6274, longitude = -46.6556 where idAeroporto = 1;
-UPDATE Aeroporto SET latitude = -29.9953, longitude = -51.1664 where idAeroporto = 1133;
-UPDATE Aeroporto SET latitude = -28.2834, longitude =  -54.1656 where idAeroporto = 1113;
-UPDATE Aeroporto SET latitude = -29.1971, longitude = -51.1862 where idAeroporto = 1053;
-UPDATE Aeroporto SET latitude = -27.6701, longitude =  -48.5447 where idAeroporto = 1063 ;
-UPDATE Aeroporto SET latitude =  -26.8784, longitude =  -48.6494 where idAeroporto = 1112 ;
-UPDATE Aeroporto SET latitude = -26.2250, longitude = -48.7986 where idAeroporto = 1090;
-UPDATE Aeroporto SET latitude = -25.5328, longitude = -49.1674 where idAeroporto = 1051 ;
-UPDATE Aeroporto SET latitude = -3.0355, longitude = -60.0458 where idAeroporto = 1058;
-UPDATE Aeroporto SET latitude = -23.3319, longitude =  -51.1346 where idAeroporto = 1096;
-UPDATE Aeroporto SET latitude = -7.1489, longitude = -34.950 where idAeroporto = 1087;
-UPDATE Aeroporto SET latitude = -9.5108, longitude = -35.7925 where idAeroporto = 1107;
-UPDATE Aeroporto SET latitude = -22.9104, longitude = -43.1642 where idAeroporto = 1155;
-UPDATE Aeroporto SET latitude = -5.773, longitude =  -35.3621 where idAeroporto = 1160;
-UPDATE Aeroporto SET latitude = -3.7761, longitude = -38.5355 where idAeroporto = 1066;
-UPDATE Aeroporto SET latitude = -12.911, longitude = -38.335 where idAeroporto = 1169;
-UPDATE Aeroporto SET latitude = -1.3799, longitude = -48.4796 where idAeroporto = 1025;
-UPDATE Aeroporto SET latitude = -15.6595, longitude = -56.1094 where idAeroporto = 1054;
-
->>>>>>> 95abb55f2480691588ccc5291008f5aecaa1b7ca
-
+         
 INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
                                                                                 (100001,0.0, '2023-11-07 12:00:00', 2,1),
                                                                                 (100002,0.0, '2023-11-07 12:00:00', 1,2),
@@ -238,33 +211,6 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
                                                                                 (100024,0.0, '2023-10-16 00:00:00', 1,6),
  																	            (100025,0.0, '2023-10-16 00:00:00', 1,6);
  
-
-                                                                   
-INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
- 											 (2,100001),
- 											 (2,100002),
- 											 (2,100003),
- 											 (2,100004),
- 											 (2,100005),
- 											 (1,100006),
- 											 (2,100007),
- 											 (2,100008),
- 											 (2,100009),
-                                             (1,100010),
- 											 (2,100011),
- 											 (2,100012), 
- 											 (2,100013),  
- 											 (2,100014), 
- 											 (2,100015), 
- 											 (1,100016),
- 											 (2,100017),
- 											 (2,100018), 
- 											 (2,100019),
-                                             (2,100020), 
-                                             (2,100021),
-                                             (1,100024),
-                                             (1,100025); 
-
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
 CREATE USER 'user_conway'@'localhost' IDENTIFIED WITH mysql_native_password BY 'urubu100';
@@ -305,3 +251,8 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
     WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;     
+    
+
+
+
+   
