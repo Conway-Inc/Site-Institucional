@@ -38,10 +38,10 @@ function getTempAeroporto(aeroporto) {
     return database.executar(instrucao);
     
   }
-  
+
   module.exports = {
     getTempAeroporto,
     exibirTotensDoAeroporto,
-    relatarCausaManutencao
+    relatarCausaManutencao,
   };
   

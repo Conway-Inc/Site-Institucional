@@ -30,6 +30,7 @@ function getTempAeroporto(req, res) {
     });
   }
 
+
   function relatarCausaManutencao(req, res){
     var motivoManutencaoTotem = req.body.motivoManutencaoServer;
     var urgenciaManutencaoTotem = req.body.urgenciaManutencaoServer;

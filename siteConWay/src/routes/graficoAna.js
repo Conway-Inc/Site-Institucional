@@ -15,4 +15,6 @@ router.post("/relatarCausaManutencao", function (req, res) {
     graficoAnaController.relatarCausaManutencao(req, res);
 });
 
+
+
 module.exports = router
