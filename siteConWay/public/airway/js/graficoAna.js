@@ -316,12 +316,10 @@ function exibirTotensDoAeroporto(aeroporto) {
             selectTotem.innerHTML += `<option value=${res[i].idTotem}>${res[i].nomeTotem}</option>`;
           }
 
-          // Adiciona um ouvinte de evento para o evento 'change' do select
           selectTotem.addEventListener('change', function () {
             const selectedTotem = selectTotem.options[selectTotem.selectedIndex].text;
-            selectedTotemId = selectTotem.value; // Armazena o idTotem selecionado
+            selectedTotemId = selectTotem.value;
 
-            // Adicione o código do Swal aqui
             Swal.fire({
               icon: 'success',
               title: 'Totem escolhido com sucesso!',
@@ -330,7 +328,6 @@ function exibirTotensDoAeroporto(aeroporto) {
           });
         } else {
           console.error(res.error);
-          // Adicione o código do Swal para exibir uma mensagem de erro, se desejar
           Swal.fire({
             icon: 'error',
             title: 'Erro ao carregar totens',
@@ -340,7 +337,6 @@ function exibirTotensDoAeroporto(aeroporto) {
       })
       .catch(function (erro) {
         console.log(erro);
-        // Adicione o código do Swal para exibir uma mensagem de erro, se desejar
         Swal.fire({
           icon: 'error',
           title: 'Erro inesperado',
@@ -349,6 +345,16 @@ function exibirTotensDoAeroporto(aeroporto) {
       });
     return false;
   }
+}
+
+function limparFormulario() {
+  document.getElementById("select-aeroporto").value = "";
+  document.getElementById("select-municipio").value = "";
+  document.getElementById("select-estado").value = "";
+  document.getElementById("select-motivo").value = "";
+  document.getElementById("select-urgencia").value = "";
+  document.getElementById("input_descricao").value = "";
+  document.getElementById("select-totem").value = "";
 }
 
 function relatarCausaManutencao() {
@@ -365,7 +371,7 @@ function relatarCausaManutencao() {
       motivoManutencaoServer: motivoManutencao,
       urgenciaManutencaoServer: urgenciaManutencao,
       descricaoServer: descricao,
-      selectTotemServer: selectedTotemId // Usa o idTotem selecionado
+      selectTotemServer: selectedTotemId
     })
   }).then(function (resposta) {
     console.log("resposta: ", resposta);
@@ -375,6 +381,7 @@ function relatarCausaManutencao() {
         title: 'Manutenção registrada com sucesso!',
         text: 'A manutenção foi registrada com sucesso.',
       });
+      limparFormulario();
     } else {
       Swal.fire({
         icon: 'error',
