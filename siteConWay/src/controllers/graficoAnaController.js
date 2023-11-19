@@ -30,9 +30,43 @@ function getTempAeroporto(req, res) {
     });
   }
 
+  function relatarCausaManutencao(req, res){
+    var motivoManutencaoTotem = req.body.motivoManutencaoServer;
+    var urgenciaManutencaoTotem = req.body.urgenciaManutencaoServer;
+    var descricaoTotem = req.body.descricaoServer;
+    var totemSelecionado = req.body.selectTotemServer;
+  
+    if (motivoManutencaoTotem == undefined) {
+        res.status(400).send("O motivo da manutenção do seu Totem está undefined")
+    } else if (urgenciaManutencaoTotem  == undefined){
+        res.status(400).send("A urgencia da manutenção está undefined")
+    } else if (descricaoTotem == undefined){
+      res.status(400).send("A descrição está undefined")
+    } else if (totemSelecionado == undefined) {
+      res.status(400).send("Totem selecionado está undefined")
+    }
+    else{
+        graficoAnaModel.relatarCausaManutencao(motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado)
+            .then(
+                function(resultado){
+                    res.json(resultado);
+                }
+            ).catch(
+                function(erro){
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o cadastro!Erro: ",
+                    erro.sqlMessage
+                    );
+                    res.status(500).send(erro.sqlMessage);
+                }
+            )
+    }
+  }
+
   module.exports = {
     getTempAeroporto,
-    exibirTotensDoAeroporto
+    exibirTotensDoAeroporto,
+    relatarCausaManutencao
   };
   
   

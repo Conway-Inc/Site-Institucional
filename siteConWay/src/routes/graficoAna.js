@@ -11,4 +11,8 @@ router.post("/exibirTotensDoAeroporto", function (req, res) {
     graficoAnaController.exibirTotensDoAeroporto(req, res);
 });
 
+router.post("/relatarCausaManutencao", function (req, res) {
+    graficoAnaController.relatarCausaManutencao(req, res);
+});
+
 module.exports = router

@@ -7,6 +7,9 @@ document.getElementById('select-aeroporto').addEventListener('change', function 
   exibirTotensDoAeroporto(nomeAeroporto);
 });
 
+var selectedTotemId;
+
+
 function plotarGraficoTemp(dados) {     
     var options = {
         series: [{
@@ -316,6 +319,7 @@ function exibirTotensDoAeroporto(aeroporto) {
           // Adiciona um ouvinte de evento para o evento 'change' do select
           selectTotem.addEventListener('change', function () {
             const selectedTotem = selectTotem.options[selectTotem.selectedIndex].text;
+            selectedTotemId = selectTotem.value; // Armazena o idTotem selecionado
 
             // Adicione o código do Swal aqui
             Swal.fire({
@@ -345,4 +349,41 @@ function exibirTotensDoAeroporto(aeroporto) {
       });
     return false;
   }
+}
+
+function relatarCausaManutencao() {
+  var motivoManutencao = document.getElementById("select-motivo").value;
+  var urgenciaManutencao = document.getElementById("select-urgencia").value;
+  var descricao = input_descricao.value;
+ 
+  fetch(`/graficoAna/relatarCausaManutencao`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      motivoManutencaoServer: motivoManutencao,
+      urgenciaManutencaoServer: urgenciaManutencao,
+      descricaoServer: descricao,
+      selectTotemServer: selectedTotemId // Usa o idTotem selecionado
+    })
+  }).then(function (resposta) {
+    console.log("resposta: ", resposta);
+    if (resposta.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Manutenção registrada com sucesso!',
+        text: 'A manutenção foi registrada com sucesso.',
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro ao registrar manutenção',
+        text: 'Houve um erro ao registrar a manutenção. Por favor, tente novamente.',
+      });
+    }
+  }).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`)
+  });
+  return false;
 }

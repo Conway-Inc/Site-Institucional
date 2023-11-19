@@ -26,9 +26,22 @@ function getTempAeroporto(aeroporto) {
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
   }
+
+  function relatarCausaManutencao (motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado) {
+    console.log(
+      "Acessei o graficoAnaModel e executei a função relatarCausaManuntencao: ", motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado
+    );
+    var instrucao = `INSERT INTO Manutencao (dataManutencao, motivoManutencao, urgenciaManutencao, descricaoManutencao, fkTotem) VALUES
+    (NOW(), '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${totemSelecionado})
+  `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+    
+  }
   
   module.exports = {
     getTempAeroporto,
-    exibirTotensDoAeroporto
+    exibirTotensDoAeroporto,
+    relatarCausaManutencao
   };
   

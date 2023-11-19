@@ -103,6 +103,16 @@ CREATE TABLE Alerta (
     PRIMARY KEY (idAlerta, fkRegistro)
 );
 
+CREATE TABLE Manutenção (
+     idManutenção INT PRIMARY KEY AUTO_INCREMENT,
+     dataManutencao DATETIME,
+     motivoManutencao VARCHAR (70),
+     urgenciaManutencao VARCHAR (70),
+     descricaoManutencao VARCHAR (255),
+	 fkTotem INT,
+     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
+);
+
 DELIMITER //
 CREATE PROCEDURE cadastrar_maquinaComponente(
 	maco_fkComponente INT
