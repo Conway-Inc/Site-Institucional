@@ -48,13 +48,17 @@ function gerarRelatorio(alerta, critico, total) {
                     info.push([element.dia, element.alerta, element.critico])
                 });
 
-                doc.text(`Ocorrências de ${comp}`, 2, 3.5)
+                doc.text(`Ocorrências de ${comp}`, 12, 3.5)
                 doc.autoTable({
                     head: [['Dia', 'Alerta', 'Crítico']],
                     body: info,
-                    margin: [4, 19, 0, 2],
+                    margin: [4, 10, 0, 10],
 
                 })
+
+                doc.text(document.getElementById("obs-relatorio").innerHTML, 2, 17.5)
+                doc.text(document.getElementById("alerta-relatorio").innerHTML, 2, 18.5)
+                doc.text(document.getElementById("analista-relatorio").innerHTML, 2, 19.5)
 
                 doc.save(`${retornarMes(document.getElementById("select-mes").value)}${document.getElementById("select-ano").value}.pdf`);
             });
@@ -371,8 +375,6 @@ function graficoEstados(json, componente, tipoNome) {
         }
     }
     
-    
-    
     if (componente == 1) {
         alerta = alertaCpu;
         critico = criticoCpu;
@@ -385,9 +387,27 @@ function graficoEstados(json, componente, tipoNome) {
         tipo = "Memória"
     }
     
-    document.getElementById("obs-relatorio").innerHTML =
-    `O ${tipoNome == "nome" ? "totem" : tipoNome} ${tipoMax} possui maior número de ocorrências no componente ${tipo}, verifique a situação a fundo com os analistas. `;
+    document.getElementById("obs-relatorio").innerHTML = "";
+    document.getElementById("alerta-relatorio").innerHTML = "";
+    document.getElementById("analista-relatorio").innerHTML = "";
+
+    document.getElementById("obs-relatorio").innerHTML +=
+    `O ${tipoNome == "nome" ? "totem" : tipoNome} ${tipoMax} possui maior número de ocorrências no componente ${tipo}. `;
     
+    if (maxCpu > 500 && tipo == "CPU") {
+        document.getElementById("alerta-relatorio").innerHTML +=
+        `O ${tipoNome == "nome" ? "totem" : tipoNome} ${tipoMax} atingiu uma quantidade extrema de ocorrências no componente ${tipo},`;
+        document.getElementById("analista-relatorio").innerHTML +=
+        `verifique a situação a fundo com o seu analista.`;
+
+    } else if (maxMem > 500 && tipo == "Memória") {
+        document.getElementById("alerta-relatorio").innerHTML +=
+        `O ${tipoNome == "nome" ? "totem" : tipoNome} ${tipoMax} atingiu uma quantidade extrema de ocorrências no componente ${tipo},`;
+        document.getElementById("analista-relatorio").innerHTML +=
+        `verifique a situação a fundo com o seu analista.`;
+    }
+
+
     observacoes(alerta,critico,labels)
 
     var options = {
