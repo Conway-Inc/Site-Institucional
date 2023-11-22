@@ -1,19 +1,5 @@
 var database = require("../database/config");
 
-function getTempAeroporto(aeroporto) {
-    console.log(
-        "Acessei o graficoAnaModel e executei a função getTempAeroporto(): ",aeroporto
-      );
-      var instrucao = `
-      SELECT * 
-      FROM temperaturaAeroporto 
-      JOIN aeroporto ON temperaturaAeroporto.fkAeroporto = aeroporto.idAeroporto 
-      WHERE aeroporto.idAeroporto = (SELECT idAeroporto FROM aeroporto WHERE nome = '${aeroporto}');
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-  }
-
   function exibirTotensDoAeroporto(aeroporto) {
     console.log(
         "Acessei o graficoAnaModel e executei a função exibirTotensDoAeroporto(): ",aeroporto
@@ -27,21 +13,35 @@ function getTempAeroporto(aeroporto) {
     return database.executar(instrucao);
   }
 
-  function relatarCausaManutencao (motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado) {
+  function relatarCausaManutencao (motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado, dataInicio, dataLimite, valor) {
     console.log(
       "Acessei o graficoAnaModel e executei a função relatarCausaManuntencao: ", motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado
     );
-    var instrucao = `INSERT INTO Manutencao (dataManutencao, motivoManutencao, urgenciaManutencao, descricaoManutencao, fkTotem) VALUES
-    (NOW(), '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${totemSelecionado})
+    var instrucao = `INSERT INTO Manutencao VALUES
+    (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0)
   `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
     
   }
 
+  function totensEmOperacao (aeroporto) {
+    console.log(
+      "Acessei o graficoAnaModel e executei a função totensEmOperacao: ",
+      aeroporto
+    );
+    var instrucao = `SELECT COUNT(*) AS totensEmOperacao 
+      FROM Totem
+      JOIN Manutencao ON Totem.idTotem = Manutencao.fkTotem
+      JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
+      WHERE Aeroporto.nome = '${aeroporto}' AND Manutencao.urgenciaManutencao = 'Baixa';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+  }
+
   module.exports = {
-    getTempAeroporto,
     exibirTotensDoAeroporto,
-    relatarCausaManutencao,
+    relatarCausaManutencao
   };
   

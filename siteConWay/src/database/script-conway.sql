@@ -103,15 +103,17 @@ CREATE TABLE Alerta (
     PRIMARY KEY (idAlerta, fkRegistro)
 );
 
-CREATE TABLE Manutenção (
+CREATE TABLE Manutencao (
      idManutenção INT PRIMARY KEY AUTO_INCREMENT,
-     dataManutencao DATETIME,
+     dataManutencao DATE,
+     dataLimite DATE,
      motivoManutencao VARCHAR (70),
      urgenciaManutencao VARCHAR (70),
      descricaoManutencao VARCHAR (255),
 	 fkTotem INT,
      FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
 );
+
 
 DELIMITER //
 CREATE PROCEDURE cadastrar_maquinaComponente(
@@ -262,7 +264,4 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
     WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;     
     
-
-
-
    

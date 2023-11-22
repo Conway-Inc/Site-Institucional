@@ -16,5 +16,4 @@ router.post("/relatarCausaManutencao", function (req, res) {
 });
 
 
-
 module.exports = router

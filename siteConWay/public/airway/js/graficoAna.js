@@ -8,17 +8,18 @@ document.getElementById('select-aeroporto').addEventListener('change', function 
 });
 
 var selectedTotemId;
-var totensPendentes = 0;
-var totensEmOperacao = 0;
-var totensEmManutencao = 0;
+var totensPendentes = 5;
+var totensOperacao = 5;
+var totensEmManutencao = 5;
 
+var dados =  [totensPendentes, totensOperacao, totensEmManutencao]
 
 function plotarGrafico(dados) {
   var options = {
     series: [
       {
         name: 'Estado dos Totens',
-        data: [10, 5, 80]
+        data: [1, 2, 5]
       }
     ],
     chart: {
@@ -47,7 +48,6 @@ function plotarGrafico(dados) {
   chart.render();
   
 }
-
 
 function exibirEstadosComTotens() {
   var estado = document.getElementById("select-estado");
@@ -322,6 +322,10 @@ function relatarCausaManutencao() {
   var motivoManutencao = document.getElementById("select-motivo").value;
   var urgenciaManutencao = document.getElementById("select-urgencia").value;
   var descricao = input_descricao.value;
+  var dataInicio = document.getElementById("input-dataInicio").value;
+  var dataLimite = document.getElementById("input-dataLimite").value;
+  var valor = document.getElementById("input-valor").value;
+
 
   fetch(`/graficoAna/relatarCausaManutencao`, {
     method: "POST",
@@ -332,7 +336,10 @@ function relatarCausaManutencao() {
       motivoManutencaoServer: motivoManutencao,
       urgenciaManutencaoServer: urgenciaManutencao,
       descricaoServer: descricao,
-      selectTotemServer: selectedTotemId
+      selectTotemServer: selectedTotemId,
+      dataInicioServer: dataInicio,
+      dataLimiteServer: dataLimite,
+      valorServer: valor
     })
   }).then(function (resposta) {
     console.log("resposta: ", resposta);

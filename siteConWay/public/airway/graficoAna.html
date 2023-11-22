@@ -232,116 +232,117 @@
                             <div class="card shadow mb-4">
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
+                                    <h6 class="m-0 font-weight-bold text-primary">Relatar causas da
+                                        manutenção</h6>
                                 </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-6">
+                                            <label>Insira o motivo da manutenção: </label>
+                                            <select id="select-motivo" class="form-control">
+                                                <option>Selecione o motivo...</option>
+                                                <option>Falha técnica</option>
+                                                <option>Desempenho anormal</option>
+                                                <option>Manutenção preventiva</option>
+                                                <option>Atualização de software</option>
+                                            </select>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-xl-8 col-lg-7">
-                                        <div class="card shadow mb-4">
-                                            <div
-                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                                <h6 class="m-0 font-weight-bold text-primary">Relatar causas da
-                                                    manutenção</h6>
-                                                <div class="dropdown no-arrow">
-                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                        id="dropdownMenuLink" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                        aria-labelledby="dropdownMenuLink">
-                                                        <div class="dropdown-header">Dropdown Header:</div>
-                                                        <a class="dropdown-item" href="#">Action</a>
-                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-4 col-lg-6">
-                                                        <label>Insira o motivo da manutenção: </label>
-                                                        <select id="select-motivo" class="form-control">
-                                                            <option>Selecione o motivo...</option>
-                                                            <option>Falha técnica</option>
-                                                            <option>Desempenho anormal</option>
-                                                            <option>Manutenção preventiva</option>
-                                                            <option>Atualização de software</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-md-8 col-lg-6">
-                                                        <label>Defina a urgência da manutenção: </label>
-                                                        <select id="select-urgencia" class="form-control">
-                                                            <option>Selecione a urgência...</option>
-                                                            <option>Baixa</option>
-                                                            <option>Média</option>
-                                                            <option>Alta</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-8 col-lg-6">
+                                            <label>Defina a urgência da manutenção: </label>
+                                            <select id="select-urgencia" class="form-control">
+                                                <option>Selecione a urgência...</option>
+                                                <option>Baixa</option>
+                                                <option>Média</option>
+                                                <option>Alta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8 col-lg-6">
+                                            <label>Período: </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8 col-lg-6">
+                                            <label>Inicio da manutençâo: </label>
+                                            <input name="" id="input-dataInicio" type="date" class="form-control"></input>
+                                        </div>
+                                        <div class="col-md-8 col-lg-6">
+                                            <label>Data limite: </label>
+                                            <input name="" id="input-dataLimite" type="date" class="form-control"></input>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8 col-lg-6">
+                                            <label>Valor estimado: </label>
+                                            <input name="" id="input-valor" type="number" class="form-control"></input>
                                         </div>
                                     </div>
 
-                                    <div class="col-xl-4 col-lg-7">
-                                        <div class="col-xl-12 col-md-6 mb-4">
-                                            <div class="card border-left-info shadow h-100 py-2">
-                                                <div class="card-body">
-                                                    <div class="row no-gutters align-items-center">
-                                                        <div class="col mr-2">
-                                                            <h6 class="m-0 font-weight-bold text-primary">Descreva a
-                                                                situação:</h6>
-                                                            <br>
-                                                            <input id="input_descricao" class="form-control">
-                                                            <br>
-                                                            <div class="div-botao">
-                                                                <button onclick="relatarCausaManutencao()"
-                                                                    class="btn btn-primary btn-relatorio">Enviar</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                    <footer class="sticky-footer bg-white">
-                                        <div class="container my-auto">
-                                            <div class="copyright text-center my-auto">
-                                                <span>Copyright &copy; ConWay 2023</span>
-                                            </div>
-                                        </div>
-                                    </footer>
                                 </div>
                             </div>
-
-
-                            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja
-                                                sair?</h5>
-                                            <button class="close" type="button" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Descreva a situação:</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-12">
+                                            <label>Descriçâo da análise: </label>
+                                            <textarea class="form-control" id="input_descricao"></textarea>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button"
-                                                data-dismiss="modal">Cancelar</button>
-                                            <a class="btn btn-primary" href="../index.html">Sair</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-12" style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                                                <button onclick="relatarCausaManutencao()"
+                                                    class="btn btn-primary">Enviar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; ConWay 2023</span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja
+                            sair?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="../index.html">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
