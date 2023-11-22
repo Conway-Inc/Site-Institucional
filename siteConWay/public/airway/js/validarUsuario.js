@@ -10,7 +10,8 @@ function validarGerenteAnalista() {
         // eliminarOption("Analista")
     } else if (sessionStorage.GERENTE_FUNCIONARIO == 1) {
         inserirGerenteOcorrencias(menu);
-        inserirManutencaoGerente(menu)
+        inserirManutencaoGerente(menu);
+        inserirGerenteDashBia(menu);
         inserirSlideEmpresa(menu);
         inserirEmpresaFuncionarios(menu);
         inserirEmpresaTotem(menu);
@@ -62,6 +63,23 @@ function inserirManutencaoGerente(menu) {
     aGerenteManutencao.appendChild(spanGerenteManutencao);
     liGerenteManutencao.appendChild(aGerenteManutencao);
     menu.appendChild(liGerenteManutencao);
+}
+
+
+function inserirGerenteDashBia(menu) {
+    let liGerenteDashBia = document.createElement("li");
+    liGerenteDashBia.setAttribute("class","nav-item");
+    let aGerenteDashBia = document.createElement("a");
+    aGerenteDashBia.setAttribute("class","nav-link")
+    aGerenteDashBia.setAttribute("href","graficoBia.html");
+    let iGerenteDashBia = document.createElement("i");
+    iGerenteDashBia.className = "fas fa-fw fa-tachometer-alt";
+    let spanGerenteDashBia = document.createElement("span");
+    spanGerenteDashBia.innerHTML = "Manutenções Finalizadas";
+    aGerenteDashBia.appendChild(iGerenteDashBia);
+    aGerenteDashBia.appendChild(spanGerenteDashBia);
+    liGerenteDashBia.appendChild(aGerenteDashBia);
+    menu.appendChild(liGerenteDashBia);
 }
 
 function inserirAnalistaKauan(menu) {

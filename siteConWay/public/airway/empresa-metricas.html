@@ -41,12 +41,6 @@
 
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a> -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">Alertas</h6>
@@ -88,15 +82,6 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Messages -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <!-- <span class="badge badge-danger badge-counter">7</span>
-                            </a> --> 
-                            <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">Mensagens</h6>
@@ -175,195 +160,87 @@
                 </nav>
 
                 <div class="container-fluid">
-
-                    <h1 class="h3 mb-2 text-gray-800">Totem</h1>
-                    <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the.</p> -->
-
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens Existentes</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
-                                    <thead>
-                                        <tr>
-                                            <th>IdTotem</th>
-                                            <th>Nome</th>
-                                            <th>Aeroporto</th>
-                                            <th>Empresa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyTable">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
+                    <h1 class="h3 mb-2 text-gray-800">Cadastrar Métricas Gerais</h1>
                 </div>
 
                 <div class="container-fluid">
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Cadastrar Totem</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">CPU</h6>
                         </div>
                         <div class="card-body">
                             <div class="container-fluid">
-
                                 <div class="row mb-3">
-                                    <div class="div-informar-dados">
-                                        <label class="label-aeroporto">Informe os
-                                            dados do aeroporto: </label>
-                                    </div>
+                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em ALERTA? </label>
                                     <div class="col-md-8 col-lg-9">
-                                        <select class="form-control" id="select-estado"
-                                            onchange="exibirOptionMunicipio()">
-                                            <option>Selecione um estado...</option>
-                                            <option value="AC">Acre (AC)</option>
-                                            <option value="AL">Alagoas (AL)</option>
-                                            <option value="AM">Amazonas (AM)</option>
-                                            <option value="AP">Amapá (AP)</option>
-                                            <option value="BA">Bahia (BA)</option>
-                                            <option value="CE">Ceará (CE)</option>
-                                            <option value="DF">Distrito Federal (DF)</option>
-                                            <option value="ES">Espírito Santo (ES)</option>
-                                            <option value="GO">Goiás (GO)</option>
-                                            <option value="MA">Maranhão (MA)</option>
-                                            <option value="MG">Minas Gerais (MG)</option>
-                                            <option value="MS">Mato Grosso do Sul (MS)</option>
-                                            <option value="MT">Mato Grosso (MT)</option>
-                                            <option value="PA">Pará (PA)</option>
-                                            <option value="PB">Paraíba (PB)</option>
-                                            <option value="PE">Pernambuco (PE)</option>
-                                            <option value="PI">Piauí (PI)</option>
-                                            <option value="PR">Paraná (PR)</option>
-                                            <option value="RJ">Rio de Janeiro (RJ)</option>
-                                            <option value="RN">Rio Grande do Norte (RN)</option>
-                                            <option value="RO">Rondônia (RO)</option>
-                                            <option value="RR">Roraima (RR)</option>
-                                            <option value="RS">Rio Grande do Sul (RS)</option>
-                                            <option value="SC">Santa Catarina (SC)</option>
-                                            <option value="SE">Sergipe (SE)</option>
-                                            <option value="SP">São Paulo (SP)</option>
-                                            <option value="TO">Tocantins (TO)</option>
-                                        </select>
-                                        <select class="form-control" id="select-municipio"
-                                            onchange="exibirOptionAeroporto()" disabled>
-                                            <option>Selecione um município...</option>
-                                        </select>
-                                        <select class="form-control" id="select-aeroporto" disabled>
-                                            <option>Selecione um aeroporto...</option>
-                                        </select>
+                                        <input type="number" id="ipt_limiteAlertaCpu" class="form-control">
                                     </div>
                                 </div>
-
-
-                                <!-- <div class="row mb-3">
-                                <label class="col-md-4 col-lg-3 col-form-label">Tipo de máquina</label>
-                                <div class="col-md-8 col-lg-9">
-                                  <select id="ipt_fkMaquina" class="form-control">
-                                    <option data-default disabled selected id="opt_tipoMaquina">Selecione um tipo...</option>
-                                    <option value="1">Servidor</option>
-                                    <option value="2">Caixa eletrônico</option>
-                                  </select>
-                                </div>
-                              </div> -->
-
                                 <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Nome do Totem</label>
+                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em estado CRÍTICO?</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input type="text" id="ipt_nomeTotem" class="form-control">
+                                        <input type="number" id="ipt_limiteCriticoCpu" class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">CPU</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="checkbox" class="checkboxTotem" id="ckb_cpu" value="1">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Memória</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="checkbox" class="checkboxTotem" id="ckb_memoria" value="2">
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">Disco</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="checkbox" class="checkboxTotem" id="ckb_disco" value="3">
-                                    </div>
-                                </div>
-
                                 <div class="text-center" id="campo-botao">
                                     <button class="btn btn-primary" id="botao-cadastrar"
-                                        onclick="cadastrarTotem()">Cadastrar</button>
+                                        onclick="cadastrarMetricasCpu()">Cadastrar</button>
                                 </div>
                                 </section>
                             </div>
-
                         </div>
+                    </div>
 
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Memória</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a Memória entra em ALERTA?</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="number" id="ipt_limiteAlertaMemo" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a Memória entra em estado CRÍTICO?</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="NUMBER" id="ipt_limiteCriticoMemo" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="text-center" id="campo-botao">
+                                    <button class="btn btn-primary" id="botao-cadastrar"
+                                        onclick="cadastrarMetricasMemo()">Cadastrar</button>
+                                </div>
+                                </section>
+                            </div>
+                        </div>
                     </div>
                     <div class="card shadow mb-4">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Cadastrar Métricas Gerais difinindo o Status do Registro</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="container-fluid">
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em ALERTA? </label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="number" id="ipt_limiteAlertaCpu" class="form-control">
-                                        </div>
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Disco</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em ALERTA?</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="number" id="ipt_limiteAlertaDisco" class="form-control">
                                     </div>
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em estado CRÍTICO?</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="number" id="ipt_limiteCriticoCpu" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a memória entra em ALERTA?</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="number" id="ipt_limiteAlertaMemo" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a Memória entra em estado CRÍTICO?</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="NUMBER" id="ipt_limiteCriticoMemo" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em ALERTA?</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="number" id="ipt_limiteAlertaDisco" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em estado CRÍTICO?</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input type="NUMBER" id="ipt_limiteCriticoDisco" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="text-center" id="campo-botao"></div>
-                                    <div class="text-center" id="campo-botao">
-                                        <button class="btn btn-primary" id="botao-cadastrar"
-                                            onclick="cadastrarMetricas()">Cadastrar</button>
-                                    </div>
-                                    </section>
                                 </div>
+                                <div class="row mb-3">
+                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em estado CRÍTICO?</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input type="NUMBER" id="ipt_limiteCriticoDisco" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="text-center" id="campo-botao">
+                                    <button class="btn btn-primary" id="botao-cadastrar"
+                                        onclick="cadastrarMetricasDisco()">Cadastrar</button>
+                                </div>
+                                </section>
                             </div>
                         </div>
                     </div>
@@ -410,7 +287,7 @@
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="js/validarUsuario.js"></script>
-<script src="js/totem.js"></script>
+<script src="js/empresa-metricas.js"></script>
 <script src="js/funcionario.js"></script>
 <script>
     exibirNomeFunc()

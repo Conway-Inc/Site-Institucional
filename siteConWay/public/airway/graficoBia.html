@@ -14,7 +14,7 @@
     <link rel="icon" href="img/AirWayLogo.jpg">
     <title>AirWay</title>
 </head>
-<body>
+<body id="page-top" onload="validarGerenteAnalista()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -26,11 +26,11 @@
 
             <hr class="sidebar-divider my-0">
         </ul>
+
         <div class="container-fluid">
 
             <h1 class="h3 mb-2 text-gray-800">Totem</h1>
-            <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                For more information about DataTables, please visit the.</p> -->
+
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -61,19 +61,6 @@
                     </div>
                 </div>
             </div>
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Status dos totens<span
-                            id="info-aeroporto-nome"></span></h6>
-                    <div class="opcoes-botoes">
-                        <button onclick="verCpu()"
-                            class="btn btn-primary btn-relatorio">Manutenção
-                        </button>
-                        <button onclick="verMem()"
-                            class="btn btn-primary btn-relatorio">Excluídos
-                        </button>
-                    </div>
-                </div>
                 <div class="card-body">
                     <div class="container-fluid">
                         <div id="#"></div>
@@ -85,3 +72,16 @@
 </body>
 
 </html>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+<script src="js/validarUsuario.js"></script>
+<script src="js/funcionario.js"></script>
+<script src="js/graficoAna.js"></script>
+
+<script></script>
