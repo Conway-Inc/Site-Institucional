@@ -110,6 +110,7 @@ CREATE TABLE Manutencao (
      motivoManutencao VARCHAR (70),
      urgenciaManutencao VARCHAR (70),
      descricaoManutencao VARCHAR (255),
+     custoComponente DOUBLE,
 	 fkTotem INT,
      FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
 );
