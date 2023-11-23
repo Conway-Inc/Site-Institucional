@@ -160,6 +160,109 @@ function exibirAeroportosComTotens(municipio) {
     }
 }
 
+
+function plotarTabelaAlertas() {
+
+    var tabela = document.getElementById("dataTable");
+    
+    tabela.innerHTML = ""
+
+    var tr = document.createElement("tr");
+
+    var thTotem = document.createElement("th");
+    thTotem.innerHTML = "Totem"
+
+    var thQtdOcorrencia = document.createElement("th");
+    thQtdOcorrencia.innerHTML = "Quantidade de ocorrência"
+
+    var thComponenteProblematico = document.createElement("th");
+    thComponenteProblematico.innerHTML = "Componente mais problemático"
+
+
+    var thMaiorRegistro = document.createElement("th");
+    thMaiorRegistro.innerHTML = "Maior Registro"
+
+    tr.appendChild(thTotem)
+    tr.appendChild(thQtdOcorrencia)
+    tr.appendChild(thComponenteProblematico)
+    tr.appendChild(thMaiorRegistro)
+    tabela.appendChild(tr)
+
+
+
+    
+
+    fetch(`/graficoKauan/buscarTotens/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum alerta crítico encontrado!!");
+                dadosGrafico[0] = 0
+                divTotensCritico.innerHTML = 0
+
+            }
+            resposta.json().then(function (resposta) {
+                totensCritico = Number(resposta.length)
+                divTotensCritico.innerHTML = totensCritico
+                dadosGrafico[0] = totensCritico
+
+                var tbody = document.createElement("tbody");
+                tbody.setAttribute("id", "tbodyTable")
+                
+                for (let i = 0; i < resposta.length; i++) {
+                    
+                    var dados = resposta[i];
+
+                    var tdTotem = document.createElement("td");
+                    tdTotem.setAttribute("scope", "row");
+                    tdTotem.innerHTML = dados.nomeTotem;
+
+                    var tdQtdOcorrenciaCpu = document.createElement("td");
+                    tdQtdOcorrenciaCpu.setAttribute("scope", "row");
+                    tdQtdOcorrenciaCpu.innerHTML = dados.QtdOcorrenciaCpu;
+
+                    var tdQtdOcorrenciaMemoria = document.createElement("td");
+                    tdQtdOcorrenciaMemoria.setAttribute("scope", "row");
+                    tdQtdOcorrenciaMemoria.innerHTML = dados.QtdOcorrenciaMemoria;
+
+                    var tdQtdOcorrenciaDisco = document.createElement("td");
+                    tdQtdOcorrenciaDisco.setAttribute("scope", "row");
+                    tdQtdOcorrenciaDisco.innerHTML = dados.QtdOcorrenciaDisco;
+
+                    var tdComponenteProblematico = document.createElement("td");
+                    tdComponenteProblematico.setAttribute("scope", "row");
+
+                    var tdMaiorRegistro = document.createElement("td");
+                    tdMaiorRegistro.setAttribute("scope", "row");
+
+
+                    var tbody = document.createElement("tbody");
+                    var tr = document.createElement("tr");
+                    tbody.setAttribute("id", "tbodyTable")
+
+                    tr.appendChild(tdTotem);
+                    tr.appendChild(tdQtdOcorrenciaCpu);
+                    tr.appendChild(tdQtdOcorrenciaMemoria);
+                    tr.appendChild(tdQtdOcorrenciaDisco);
+                    tr.appendChild(tdComponenteProblematico);
+                    tr.appendChild(tdMaiorRegistro);
+                    tbody.appendChild(tr)
+                    tabela.appendChild(tbody)
+                }
+                $(document).ready(function () {
+                    $('#dataTable').DataTable();
+                });
+
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+}
+
 function plotarDadosComponente(dadosGrafico){
 
      var divGraficoComponente = document.getElementById("divGraficoComponente");
