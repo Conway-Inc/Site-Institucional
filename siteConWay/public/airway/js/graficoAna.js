@@ -362,3 +362,45 @@ function relatarCausaManutencao() {
   });
   return false;
 }
+
+function exibirListaTotensManutencao(fkGerente) {
+  var fkGerente = sessionStorage.GERENTE_FUNCIONARIO;
+  if (fkGerente == undefined || fkGerente == "") {
+    alert("Parâmetro faltando");
+  } else {
+    fetch(`/graficoAna/exibirListaTotensManutencao`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fkGerenteServer: fkGerente,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (!res.error) {
+          console.log(res);
+
+          // Certifique-se de que o elemento com id 'reqs' exista no seu HTML
+          var reqs = document.getElementById('reqs');
+
+          for (let i = 0; i < res.length; i++) {
+            reqs.innerHTML += `
+              <tr>
+                <td>${res[i].motivo}</td>
+                <td>${res[i].nome}</td>
+                <td>
+                  <a class="a-td" onclick="detalhes(${res[i].idRespostaInspecao}, '${res[i].nome}', '${res[i].resposta}')">Acessar</a>
+                </td>
+              </tr>`;
+          }
+        } else {
+          alert('Erro ao solicitar a inspeção');
+        }
+      })
+      .catch((error) => {
+        console.error('Erro na requisição:', error);
+      });
+  }
+}

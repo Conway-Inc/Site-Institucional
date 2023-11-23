@@ -11,6 +11,7 @@ function validarGerenteAnalista() {
     } else if (sessionStorage.GERENTE_FUNCIONARIO == 1) {
         inserirGerenteOcorrencias(menu);
         inserirManutencaoGerente(menu);
+        inserirGerenteAna2(menu) 
         inserirGerenteDashBia(menu);
         inserirSlideEmpresa(menu);
         inserirEmpresaFuncionarios(menu);
@@ -113,6 +114,23 @@ function inserirAnalistaAna(menu) {
     liAnalistaAna.appendChild(aAnalistaAna);
     menu.appendChild(liAnalistaAna);
 }
+
+function inserirGerenteAna2(menu) {
+    let liGerenteAna = document.createElement("li");
+    liGerenteAna.setAttribute("class","nav-item");
+    let aGerenteAna = document.createElement("a");
+    aGerenteAna.setAttribute("class","nav-link")
+    aGerenteAna.setAttribute("href","graficoAna3.html");
+    let iGerenteAna = document.createElement("i");
+    iGerenteAna.className = "fas fa-fw fa-tachometer-alt";
+    let spanGerenteAna = document.createElement("span");
+    spanGerenteAna.innerHTML = "Aprovação das manutenções";
+    aGerenteAna.appendChild(iGerenteAna);
+    aGerenteAna.appendChild(spanGerenteAna);
+    liGerenteAna.appendChild(aGerenteAna);
+    menu.appendChild(liGerenteAna);
+}
+
 
 function inserirAnalistaJoao(menu) {
     let liAnalistaJoao = document.createElement("li");
