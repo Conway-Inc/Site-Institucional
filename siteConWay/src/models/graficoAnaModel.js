@@ -40,8 +40,27 @@ var database = require("../database/config");
     return database.executar(instrucao);
   }
 
+  function exibirListaTotensManutencao(idEmpresa) {
+    console.log(
+      "Acessei o graficoAnaModel e executei a função exibirListaTotensManutencao: ",
+      idEmpresa
+    );
+    var instrucao = `
+    SELECT tot.idTotem, tot.nome AS nome, aro.nome AS aeroportoTotem, m.dataLimite,totManutencao.nome AS NomeTotemManutencao,
+    aroManutencao.nome AS AeroportoTotemManutencao FROM Totem tot INNER JOIN Aeroporto aro ON tot.fkAeroporto = aro.idAeroporto 
+    INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem INNER JOIN Empresa emp ON tot.fkEmpresa = emp.idEmpresa INNER JOIN
+    Totem totManutencao ON m.fkTotem = totManutencao.idTotem INNER JOIN
+    Aeroporto aroManutencao ON totManutencao.fkAeroporto = aroManutencao.idAeroporto
+    WHERE 
+    tot.fkEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+  }
+
   module.exports = {
     exibirTotensDoAeroporto,
-    relatarCausaManutencao
+    relatarCausaManutencao,
+    exibirListaTotensManutencao
   };
   

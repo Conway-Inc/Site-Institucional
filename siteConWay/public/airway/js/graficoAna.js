@@ -363,44 +363,57 @@ function relatarCausaManutencao() {
   return false;
 }
 
-function exibirListaTotensManutencao(fkGerente) {
-  var fkGerente = sessionStorage.GERENTE_FUNCIONARIO;
-  if (fkGerente == undefined || fkGerente == "") {
-    alert("Parâmetro faltando");
-  } else {
-    fetch(`/graficoAna/exibirListaTotensManutencao`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fkGerenteServer: fkGerente,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.error) {
-          console.log(res);
-
-          // Certifique-se de que o elemento com id 'reqs' exista no seu HTML
-          var reqs = document.getElementById('reqs');
-
-          for (let i = 0; i < res.length; i++) {
-            reqs.innerHTML += `
-              <tr>
-                <td>${res[i].motivo}</td>
-                <td>${res[i].nome}</td>
-                <td>
-                  <a class="a-td" onclick="detalhes(${res[i].idRespostaInspecao}, '${res[i].nome}', '${res[i].resposta}')">Acessar</a>
-                </td>
-              </tr>`;
-          }
-        } else {
-          alert('Erro ao solicitar a inspeção');
+function exibirListaTotensManutencao() {
+  fetch(`/graficoAna/exibirListaTotensManutencao/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
+    if (resposta.ok) {
+        if (resposta.status == 204) {
+            var lista = document.getElementById("pedidosManutencao");
+            var mensagem = document.createElement("p");
+            mensagem.innerHTML = "Nenhum resultado encontrado."
+            lista.innerHTML = "";
+            lista.appendChild(mensagem);
+            throw "Nenhum resultado encontrado!!";
         }
-      })
-      .catch((error) => {
-        console.error('Erro na requisição:', error);
-      });
-  }
+        resposta.json().then(function (resposta) {
+            var contId = 0;
+            for (let i = resposta.length - 1; i >= 0; i--) {
+                console.log(i)
+                console.log(publicacao)
+                var lista = document.getElementById("pedidosManutencao");
+                var publicacao = resposta[i];
+
+                var thNumero = document.createElement("th");
+                thNumero.innerHTML = publicacao.idTotem;
+                thNumero.setAttribute("scope", "row");
+                var tdNome = document.createElement("td");
+                tdNome.innerHTML = publicacao.nome;
+                var tdAeroporto = document.createElement("td");
+                tdAeroporto.innerHTML = publicacao.aeroportoTotem;
+                var tdDataLimite = document.createElement("td");
+                tdDataLimite.innerHTML = publicacao.dataLimite;
+
+                var tr = document.createElement("tr");
+                var tbody = document.getElementById("tbodyTable");
+
+                tr.appendChild(thNumero);
+                tr.appendChild(tdNome);
+                tr.appendChild(tdAeroporto);
+                tr.appendChild(tdDataLimite);
+                tbody.appendChild(tr);
+                lista.appendChild(tbody);
+
+                contId++;
+            }
+            // Chamar o plugin JQuery do dataTables 
+            $(document).ready(function () {
+                $('#dataTable').DataTable();
+            });
+        });
+    } else {
+        throw ('Houve um erro na API!');
+    }
+}).catch(function (resposta) {
+    console.error(resposta);
+    // finalizarAguardar();
+});
 }

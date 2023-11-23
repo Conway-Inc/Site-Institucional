@@ -15,5 +15,9 @@ router.post("/relatarCausaManutencao", function (req, res) {
     graficoAnaController.relatarCausaManutencao(req, res);
 });
 
+router.get("/exibirListaTotensManutencao/:idEmpresa", function (req, res) {
+    graficoAnaController.exibirListaTotensManutencao(req, res);
+});
+
 
 module.exports = router
