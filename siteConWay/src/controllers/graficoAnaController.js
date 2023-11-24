@@ -74,10 +74,28 @@ var graficoAnaModel = require("../models/graficoAnaModel");
     });
   }
 
+  function buscarInformacoes(req, res) {
+    const { nomeAeroportoServer, dataAtualServer } = req.body
+    graficoAnaModel.buscarInformacoes(nomeAeroportoServer, dataAtualServer ).then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum estado encontrado!")
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+
+
   module.exports = {
     exibirTotensDoAeroporto,
     relatarCausaManutencao,
-    exibirListaTotensManutencao
+    exibirListaTotensManutencao,
+    buscarInformacoes
   };
   
   

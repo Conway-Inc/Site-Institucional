@@ -18,26 +18,11 @@ function relatarCausaManutencao(motivoManutencaoTotem, urgenciaManutencaoTotem, 
     "Acessei o graficoAnaModel e executei a função relatarCausaManuntencao: ", motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado
   );
   var instrucao = `INSERT INTO Manutencao VALUES
-    (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0)
+    (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, NOW())
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 
-}
-
-function totensEmOperacao(aeroporto) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função totensEmOperacao: ",
-    aeroporto
-  );
-  var instrucao = `SELECT COUNT(*) AS totensEmOperacao 
-      FROM Totem
-      JOIN Manutencao ON Totem.idTotem = Manutencao.fkTotem
-      JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
-      WHERE Aeroporto.nome = '${aeroporto}' AND Manutencao.urgenciaManutencao = 'Baixa';
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
 }
 
 function exibirListaTotensManutencao(idEmpresa) {
@@ -64,8 +49,46 @@ function exibirListaTotensManutencao(idEmpresa) {
   return database.executar(instrucao);
 }
 
+function buscarInformacoes (nomeAeroportoServer, dataAtualServer) {
+  console.log(
+    "Acessei o graficoAnaModel e executei a função exibirListaTotensManutencao: ",
+    nomeAeroportoServer, dataAtualServer
+  );
+  var instrucao = `
+  SELECT 
+    qtdTotensAguardandoManutencao.qtdTotensAguardandoManutencaoCount,
+    qtdTotensManutencaoFinalizada.qtdTotensManutencaoFinalizadaCount,
+    qtdTotensManutencaoEmAndamento.qtdTotensManutencaoEmAndamentoCount,
+    qtdeTotem.qtdeTotemCount
+FROM
+    (SELECT COUNT(*) as qtdTotensAguardandoManutencaoCount
+     FROM Manutencao 
+     JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
+     JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
+     WHERE '${dataAtualServer}' < dataManutencao AND aprovado = 1 AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensAguardandoManutencao,
+    (SELECT COUNT(*) as qtdTotensManutencaoFinalizadaCount
+     FROM Manutencao 
+     JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
+     JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
+     WHERE '${dataAtualServer}' > dataLimite and aprovado = 1 AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensManutencaoFinalizada,
+    (SELECT COUNT(*) as qtdTotensManutencaoEmAndamentoCount 
+     FROM Manutencao 
+     JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
+     JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
+     WHERE '${dataAtualServer}' > dataManutencao AND '${dataAtualServer}' < dataLimite AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensManutencaoEmAndamento,
+    (SELECT COUNT(*) as qtdeTotemCount 
+     FROM Totem 
+     JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
+     WHERE Aeroporto.nome = '${nomeAeroportoServer}') as qtdeTotem;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+
+}
+
 module.exports = {
   exibirTotensDoAeroporto,
   relatarCausaManutencao,
-  exibirListaTotensManutencao
+  exibirListaTotensManutencao,
+  buscarInformacoes
 };

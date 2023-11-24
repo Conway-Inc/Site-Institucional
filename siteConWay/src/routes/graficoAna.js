@@ -19,5 +19,9 @@ router.get("/exibirListaTotensManutencao/:idEmpresa", function (req, res) {
     graficoAnaController.exibirListaTotensManutencao(req, res);
 });
 
+router.post("/buscarInformacoes", function (req, res) {
+    graficoAnaController.buscarInformacoes(req, res);
+});
+
 
 module.exports = router

@@ -1,4 +1,3 @@
-plotarGrafico();
 exibirEstadosComTotens();
 
 document.getElementById('select-aeroporto').addEventListener('change', function () {
@@ -8,18 +7,19 @@ document.getElementById('select-aeroporto').addEventListener('change', function 
 });
 
 var selectedTotemId;
-var totensPendentes = 5;
-var totensOperacao = 5;
-var totensEmManutencao = 5;
+var totensPendentes;
+var totensFinalizada;
+var totensEmManutencao;
 
-var dados =  [totensPendentes, totensOperacao, totensEmManutencao]
+// DECLARE SUAS VARIAVEIS GLOBAIS QUE O FETCH VAI BUSCAR E SALVAR AQUI
 
-function plotarGrafico(dados) {
+
+function plotarGrafico() {
   var options = {
     series: [
       {
         name: 'Estado dos Totens',
-        data: [1, 2, 5]
+        data: [totensPendentes, totensEmManutencao, totensFinalizada]
       }
     ],
     chart: {
@@ -29,25 +29,61 @@ function plotarGrafico(dados) {
     plotOptions: {
       bar: {
         columnWidth: '60%',
-        distributed: true, 
+        distributed: true,
       }
     },
-    colors: ['#FFC107', '#FF5733', '#00E396'], 
+    colors: ['#FFC107', '#FF5733', '#00E396'],
     dataLabels: {
       enabled: false
     },
     xaxis: {
-      categories: ['Totens Pendentes', 'Totens em Manutenção', 'Totens em Operação'], 
+      categories: ['Totens Pendentes', 'Totens em Manutenção', 'Totens Finalizados'],
     },
     legend: {
       show: false
     }
   };
-  
+
   var chart = new ApexCharts(document.querySelector("#chart"), options);
   chart.render();
-  
+
 }
+buscarInformacoes()
+function buscarInformacoes() {
+  var nomeAeroporto = sessionStorage.NOME_AEROPORTO_SELECIONADO;
+  var dataAtual = new Date().toISOString();
+
+  fetch(`/graficoAna/buscarInformacoes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "nomeAeroportoServer": nomeAeroporto,
+      "dataAtualServer": dataAtual
+    })
+  }).then((res) => {
+    if (res.ok) {
+      alert('aaa')
+      return res.json();
+    } else {
+      throw new Error("Erro na requisição.");
+    }
+  }).then((data) => {
+    alert('passei')
+    console.log(data);
+    
+    totensPendentes = data[0].qtdTotensAguardandoManutencaoCount;
+    totensFinalizada = data[0].qtdTotensManutencaoFinalizadaCount;
+    totensEmManutencao = data[0].qtdTotensManutencaoEmAndamentoCount;
+
+    plotarGrafico();
+  }).catch(function (erro) {
+    console.log(erro);
+  });
+}
+
+
 
 function exibirEstadosComTotens() {
   var estado = document.getElementById("select-estado");
@@ -366,65 +402,77 @@ function relatarCausaManutencao() {
 function exibirListaTotensManutencao() {
   fetch(`/graficoAna/exibirListaTotensManutencao/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
     if (resposta.ok) {
-        if (resposta.status == 204) {
-            var lista = document.getElementById("pedidosManutencao");
-            var mensagem = document.createElement("p");
-            mensagem.innerHTML = "Nenhum resultado encontrado."
-            lista.innerHTML = "";
-            lista.appendChild(mensagem);
-            throw "Nenhum resultado encontrado!!";
+      if (resposta.status == 204) {
+        var lista = document.getElementById("pedidosManutencao");
+        var mensagem = document.createElement("p");
+        mensagem.innerHTML = "Nenhum resultado encontrado."
+        lista.innerHTML = "";
+        lista.appendChild(mensagem);
+        throw "Nenhum resultado encontrado!!";
+      }
+      resposta.json().then(function (resposta) {
+        var contId = 0;
+        for (let i = resposta.length - 1; i >= 0; i--) {
+          console.log(resposta)
+          console.log(i)
+          console.log(publicacao)
+          var lista = document.getElementById("pedidosManutencao");
+          var publicacao = resposta[i];
+
+          var thNumero = document.createElement("th");
+          thNumero.innerHTML = publicacao.idTotem;
+          thNumero.setAttribute("scope", "row");
+          var tdNome = document.createElement("td");
+          tdNome.innerHTML = publicacao.nome;
+          var tdAeroporto = document.createElement("td");
+          tdAeroporto.innerHTML = publicacao.aeroportoTotem;
+          var tdDataLimite = document.createElement("td");
+          tdDataLimite.innerHTML = publicacao.dataLimite;
+          var tdMaisInfos = document.createElement("td");
+
+
+          var tr = document.createElement("tr");
+          var tbody = document.getElementById("tbodyTable");
+
+          var tdMaisInfos = document.createElement("td");
+          var linkConfiraTotens = document.createElement("a");
+          linkConfiraTotens.href = "javascript:void(0)"; // Para evitar que o link atualize a página
+          linkConfiraTotens.innerHTML = "Mais informações";
+
+          linkConfiraTotens.addEventListener("click", function () {
+            selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem);
+          });
+
+          tdMaisInfos.appendChild(linkConfiraTotens);
+
+
+          tr.appendChild(thNumero);
+          tr.appendChild(tdNome);
+          tr.appendChild(tdAeroporto);
+          tr.appendChild(tdDataLimite);
+          tr.appendChild(tdMaisInfos);
+          tbody.appendChild(tr);
+          lista.appendChild(tbody);
+
+          contId++;
         }
-        resposta.json().then(function (resposta) {
-            var contId = 0;
-            for (let i = resposta.length - 1; i >= 0; i--) {
-                console.log(i)
-                console.log(publicacao)
-                var lista = document.getElementById("pedidosManutencao");
-                var publicacao = resposta[i];
-
-                var thNumero = document.createElement("th");
-                thNumero.innerHTML = publicacao.idTotem;
-                thNumero.setAttribute("scope", "row");
-                var tdNome = document.createElement("td");
-                tdNome.innerHTML = publicacao.nome;
-                var tdAeroporto = document.createElement("td");
-                tdAeroporto.innerHTML = publicacao.aeroportoTotem;
-                var tdDataLimite = document.createElement("td");
-                tdDataLimite.innerHTML = publicacao.dataLimite;
-                var tdMaisInfos = document.createElement("td");
-              
-
-                var tr = document.createElement("tr");
-                var tbody = document.getElementById("tbodyTable");
-
-                var tdMaisInfos = document.createElement("td");
-                var linkConfiraTotens = document.createElement("a");
-                linkConfiraTotens.href = `/link-para-totens`;
-                linkConfiraTotens.innerHTML = "Mais informações";
-
-                tdMaisInfos.appendChild(linkConfiraTotens);
-
-
-                tr.appendChild(thNumero);
-                tr.appendChild(tdNome);
-                tr.appendChild(tdAeroporto);
-                tr.appendChild(tdDataLimite);
-                tr.appendChild(tdMaisInfos);
-                tbody.appendChild(tr);
-                lista.appendChild(tbody);
-
-                contId++;
-            }
-            // Chamar o plugin JQuery do dataTables 
-            $(document).ready(function () {
-                $('#dataTable').DataTable();
-            });
+        // Chamar o plugin JQuery do dataTables 
+        $(document).ready(function () {
+          $('#dataTable').DataTable();
         });
+      });
     } else {
-        throw ('Houve um erro na API!');
+      throw ('Houve um erro na API!');
     }
-}).catch(function (resposta) {
+  }).catch(function (resposta) {
     console.error(resposta);
     // finalizarAguardar();
-});
+  });
+}
+
+function selecionarManutencao(idTotem, nomeAeroporto) {
+  sessionStorage.ID_TOTEM_SELECIONADO = idTotem;
+  sessionStorage.NOME_AEROPORTO_SELECIONADO = nomeAeroporto;
+
+  window.location.href = 'graficoAna2.html';
 }
