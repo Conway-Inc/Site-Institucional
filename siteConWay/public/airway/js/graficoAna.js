@@ -391,14 +391,25 @@ function exibirListaTotensManutencao() {
                 tdAeroporto.innerHTML = publicacao.aeroportoTotem;
                 var tdDataLimite = document.createElement("td");
                 tdDataLimite.innerHTML = publicacao.dataLimite;
+                var tdMaisInfos = document.createElement("td");
+              
 
                 var tr = document.createElement("tr");
                 var tbody = document.getElementById("tbodyTable");
+
+                var tdMaisInfos = document.createElement("td");
+                var linkConfiraTotens = document.createElement("a");
+                linkConfiraTotens.href = `/link-para-totens`;
+                linkConfiraTotens.innerHTML = "Mais informações";
+
+                tdMaisInfos.appendChild(linkConfiraTotens);
+
 
                 tr.appendChild(thNumero);
                 tr.appendChild(tdNome);
                 tr.appendChild(tdAeroporto);
                 tr.appendChild(tdDataLimite);
+                tr.appendChild(tdMaisInfos);
                 tbody.appendChild(tr);
                 lista.appendChild(tbody);
 
