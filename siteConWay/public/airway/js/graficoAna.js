@@ -1,10 +1,10 @@
+exibirEstadosComTotens();
 buscarInformacoes();
 
 document.getElementById('select-aeroporto').addEventListener('change', function () {
   var selectedOption = this.options[this.selectedIndex];
   var nomeAeroporto = selectedOption.value;
   exibirTotensDoAeroporto(nomeAeroporto);
-  selecionarManutencao(idTotem, nomeAeroporto)
 });
 
 var selectedTotemId;
@@ -34,12 +34,12 @@ function plotarGrafico() {
         distributed: true,
       }
     },
-    colors: ['#FFC107', '#FF5733', '#00E396'],
+    colors: ['#FF5733', '#36b9cc'],
     dataLabels: {
       enabled: false
     },
     xaxis: {
-      categories: ['Totens em manutenção', 'Total dos totens'],
+      categories: ['Totens em Manutenção', 'Total dos totens'],
     },
     legend: {
       show: false
@@ -66,13 +66,11 @@ function buscarInformacoes() {
     })
   }).then((res) => {
     if (res.ok) {
-      alert('aaa')
       return res.json();
     } else {
       throw new Error("Erro na requisição.");
     }
   }).then((data) => {
-    alert('passei')
     console.log(data);
     
     //totensPendentes = data[0].qtdTotensAguardandoManutencaoCount;
@@ -250,50 +248,6 @@ function exibirAeroportosComTotens(municipio) {
   }
 }
 
-function getTempAeroporto(aeroporto) {
-  if (aeroporto == undefined || aeroporto == "") {
-    alert("Parametro faltando")
-  } else {
-    fetch(`/graficoAna/getTempAeroporto`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        "aeroporto": aeroporto
-      })
-    }).then((res) => {
-      if (!res.ok || res.headers.get('content-type') != 'application/json') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Não existem informações de temperatura para esta data',
-          confirmButtonColor: '#4e73df'
-        })
-        throw new Error('Network response was not ok');
-      }
-      return res.json();
-    })
-      .then((res) => {
-        if (!res.error) {
-          if (Object.keys(res).length === 0 && res.constructor === Object) {
-
-          } else {
-            alert('foi');
-          }
-        } else {
-          resposta.text().then(texto => {
-            console.error(texto);
-          });
-        }
-      }).catch(function (erro) {
-        console.log(erro);
-      });
-
-  }
-}
-
-
 function exibirTotensDoAeroporto(aeroporto) {
   if (aeroporto == undefined || aeroporto == "") {
     alert("Parâmetro faltando");
@@ -408,7 +362,7 @@ function exibirListaTotensManutencao() {
       if (resposta.status == 204) {
         var lista = document.getElementById("pedidosManutencao");
         var mensagem = document.createElement("p");
-        mensagem.innerHTML = "Nenhum resultado encontrado."
+        mensagem.innerHTML = "Nenhum resultado encontrado.";
         lista.innerHTML = "";
         lista.appendChild(mensagem);
         throw "Nenhum resultado encontrado!!";
@@ -416,9 +370,6 @@ function exibirListaTotensManutencao() {
       resposta.json().then(function (resposta) {
         var contId = 0;
         for (let i = resposta.length - 1; i >= 0; i--) {
-          console.log(resposta)
-          console.log(i)
-          console.log(publicacao)
           var lista = document.getElementById("pedidosManutencao");
           var publicacao = resposta[i];
 
@@ -433,21 +384,21 @@ function exibirListaTotensManutencao() {
           tdDataLimite.innerHTML = publicacao.dataLimite;
           var tdMaisInfos = document.createElement("td");
 
-
           var tr = document.createElement("tr");
           var tbody = document.getElementById("tbodyTable");
 
           var tdMaisInfos = document.createElement("td");
           var linkConfiraTotens = document.createElement("a");
-          linkConfiraTotens.href = "javascript:void(0)"; // Para evitar que o link atualize a página
+          linkConfiraTotens.href = "javascript:void(0)";
           linkConfiraTotens.innerHTML = "Mais informações";
 
-          linkConfiraTotens.addEventListener("click", function () {
-            selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem);
-          });
+          linkConfiraTotens.addEventListener("click", (function (publicacao) {
+            return function () {
+              selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem);
+            };
+          })(publicacao));
 
           tdMaisInfos.appendChild(linkConfiraTotens);
-
 
           tr.appendChild(thNumero);
           tr.appendChild(tdNome);
@@ -469,9 +420,9 @@ function exibirListaTotensManutencao() {
     }
   }).catch(function (resposta) {
     console.error(resposta);
-    // finalizarAguardar();
   });
 }
+
 
 function selecionarManutencao(idTotem, nomeAeroporto) {
   sessionStorage.ID_TOTEM_SELECIONADO = idTotem;
