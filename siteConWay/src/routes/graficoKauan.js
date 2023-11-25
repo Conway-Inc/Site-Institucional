@@ -1,8 +1,10 @@
  var express = require("express");
  var router = express.Router();
 
- router.get("/buscarTotens/:idEmpresa", function (req, res) {
-    graficoJoaoController.buscarTotens(req, res);
+ var graficoKauanController = require("../controllers/graficoKauanController");
+
+ router.get("/buscarTotens", function (req, res) {
+    graficoKauanController.buscarTotens(req, res);
 });
 
 module.exports = router;

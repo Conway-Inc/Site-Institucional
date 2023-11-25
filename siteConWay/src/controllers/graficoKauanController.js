@@ -1,14 +1,12 @@
 var graficoKauanModel = require("../models/graficoKauanModel");
 
 function buscarTotens(req, res) {
-
-    idEmpresa = req.params.idEmpresa
   
-    graficoKauanModel.buscarTotalTotensEmpresa(idEmpresa).then(function (resultado) {
+    graficoKauanModel.buscarTotens().then(function (resultado) {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
       } else {
-        res.status(204).send("Nenhum estado encontrado!")
+        res.status(204).send("Nenhum Totem encontrado!")
       }
     }).catch(function (erro) {
       console.log(erro);
