@@ -113,6 +113,7 @@ CREATE TABLE Manutencao (
      valor DECIMAL (6,2),
 	 fkTotem INT,
      aprovado BOOLEAN,
+     dataAtual DATE,
      FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
 );
 
@@ -190,10 +191,36 @@ INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
+                                                        ('TLT-4', 1, 2),
+                                                        ('TLT-5', 1, 2),
+                                                        ('TLT-6', 1, 2),
+                                                        ('TLT-7', 1, 2),
+                                                        ('TLT-8', 1, 2),
+                                                        ('TLT-9', 1, 2),
+                                                        ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
-                                                        ('PYR-1', 3, 2);
+                                                        ('JDK-3', 2, 2),
+                                                        ('JDK-4', 2, 2),
+                                                        ('JDK-5', 2, 2),
+                                                        ('JDK-6', 2, 2),
+                                                        ('JDK-7', 2, 2),
+                                                        ('JDK-8', 2, 2),
+                                                        ('JDK-9', 2, 2),
+                                                        ('JDK-10', 2, 2),
+                                                        ('PYR-1', 3, 2),
+                                                        ('PYR-2', 3, 2),
+                                                        ('PYR-3', 3, 2),
+                                                        ('PYR-4', 3, 2),
+                                                        ('PYR-5', 3, 2),
+                                                        ('PYR-6', 3, 2), 
+                                                        ('PYR-7', 3, 2),
+                                                        ('PYR-8', 3, 2),
+                                                        ('PYR-9', 3, 2),
+                                                        ('PYR-10', 3, 2),
+                                                        ('PYR-11', 3, 2);
 
+								
 INSERT INTO TotemComponente VALUES (4,1,256.4, 90, 99),
 								   (4,2,528.6, 90, 99),
                                    (4,3,128.8, 90, 99);
