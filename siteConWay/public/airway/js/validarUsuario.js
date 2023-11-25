@@ -3,6 +3,7 @@ function validarGerenteAnalista() {
     if (sessionStorage.GERENTE_FUNCIONARIO == "null") {
         inserirSlideEmpresa(menu);
         inserirEmpresaFuncionarios(menu);
+        inserirContaMetricas(menu);
         inserirSlideConta(menu);
         inserirContaPerfil(menu);
         inserirContaSair(menu);
@@ -15,6 +16,7 @@ function validarGerenteAnalista() {
         inserirGerenteDashBia(menu);
         inserirSlideEmpresa(menu);
         inserirEmpresaFuncionarios(menu);
+        inserirContaMetricas(menu);
         inserirEmpresaTotem(menu);
         inserirSlideConta(menu);
         inserirContaPerfil(menu);
@@ -220,6 +222,23 @@ function inserirContaPerfil(menu) {
     aContaPerfil.appendChild(spanContaPerfil);
     liContaPerfil.appendChild(aContaPerfil);
     menu.appendChild(liContaPerfil);
+}
+
+function inserirContaMetricas(menu) {
+    let liContaMetricas = document.createElement("li");
+    liContaMetricas.setAttribute("class","nav-item");
+    let aContaMetricas = document.createElement("a");
+    aContaMetricas.setAttribute("class","nav-link")
+    aContaMetricas.setAttribute("href","empresa-metricas.html");
+    let iContaMetricas = document.createElement("i");
+    iContaMetricas.className = "fas fa-fw fa-user";
+    let spanContaMetricas = document.createElement("span");
+    spanContaMetricas.innerHTML = "Métricas";
+    
+    aContaMetricas.appendChild(iContaMetricas);
+    aContaMetricas.appendChild(spanContaMetricas);
+    liContaMetricas.appendChild(aContaMetricas);
+    menu.appendChild(liContaMetricas);
 }
 
 function inserirContaSair(menu) {
