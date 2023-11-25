@@ -1,15 +1,17 @@
-exibirEstadosComTotens();
+buscarInformacoes();
 
 document.getElementById('select-aeroporto').addEventListener('change', function () {
   var selectedOption = this.options[this.selectedIndex];
   var nomeAeroporto = selectedOption.value;
   exibirTotensDoAeroporto(nomeAeroporto);
+  selecionarManutencao(idTotem, nomeAeroporto)
 });
 
 var selectedTotemId;
 var totensPendentes;
 var totensFinalizada;
 var totensEmManutencao;
+var totalTotens;
 
 // DECLARE SUAS VARIAVEIS GLOBAIS QUE O FETCH VAI BUSCAR E SALVAR AQUI
 
@@ -19,7 +21,7 @@ function plotarGrafico() {
     series: [
       {
         name: 'Estado dos Totens',
-        data: [totensPendentes, totensEmManutencao, totensFinalizada]
+        data: [totensEmManutencao, totalTotens]
       }
     ],
     chart: {
@@ -37,7 +39,7 @@ function plotarGrafico() {
       enabled: false
     },
     xaxis: {
-      categories: ['Totens Pendentes', 'Totens em Manutenção', 'Totens Finalizados'],
+      categories: ['Totens em manutenção', 'Total dos totens'],
     },
     legend: {
       show: false
@@ -48,7 +50,7 @@ function plotarGrafico() {
   chart.render();
 
 }
-buscarInformacoes()
+
 function buscarInformacoes() {
   var nomeAeroporto = sessionStorage.NOME_AEROPORTO_SELECIONADO;
   var dataAtual = new Date().toISOString();
@@ -73,9 +75,10 @@ function buscarInformacoes() {
     alert('passei')
     console.log(data);
     
-    totensPendentes = data[0].qtdTotensAguardandoManutencaoCount;
-    totensFinalizada = data[0].qtdTotensManutencaoFinalizadaCount;
+    //totensPendentes = data[0].qtdTotensAguardandoManutencaoCount;
+    //totensFinalizada = data[0].qtdTotensManutencaoFinalizadaCount;
     totensEmManutencao = data[0].qtdTotensManutencaoEmAndamentoCount;
+    totalTotens = data[0].qtdeTotemCount;
 
     plotarGrafico();
   }).catch(function (erro) {
