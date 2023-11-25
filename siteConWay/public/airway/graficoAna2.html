@@ -198,10 +198,8 @@
                                                    
                                                     
                                                     <script>
-                                                        // Recupere o nome do aeroporto do sessionStorage
                                                         var nomeAeroporto = sessionStorage.getItem('NOME_AEROPORTO_SELECIONADO');
                                                     
-                                                        // Atualize o conteúdo da tag span com o nome do aeroporto
                                                         document.getElementById('nomeAeroporto').innerText = nomeAeroporto;
                                                     </script>
                                                         <div class="dropdown no-arrow">
@@ -237,8 +235,7 @@
                                                                     <div
                                                                         class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
                                                                         Número total de totens por aeroporto:</div>
-                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
+                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalTotens">0
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -298,7 +295,7 @@
                                                                         class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
                                                                         Número de totens em manutenção:</div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
+                                                                        id="totalManutencao">0
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">

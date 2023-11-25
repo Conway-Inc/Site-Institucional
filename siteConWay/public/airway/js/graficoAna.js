@@ -13,6 +13,21 @@ var totensFinalizada;
 var totensEmManutencao;
 var totalTotens;
 
+
+function atualizarKPITotalTotens(valor) {
+  var kpiElement = document.getElementById("totalTotens");
+  if (kpiElement) {
+    kpiElement.innerText = valor;
+  }
+}
+
+function atualizarKPITotalManutencao (valorManutencao) {
+  var kpiManutencao = document.getElementById("totalManutencao");
+  if (kpiManutencao) {
+    kpiManutencao.innerText = valorManutencao
+  }
+}
+
 // DECLARE SUAS VARIAVEIS GLOBAIS QUE O FETCH VAI BUSCAR E SALVAR AQUI
 
 
@@ -79,6 +94,8 @@ function buscarInformacoes() {
     totalTotens = data[0].qtdeTotemCount;
 
     plotarGrafico();
+    atualizarKPITotalTotens(totalTotens);
+    atualizarKPITotalManutencao(totensEmManutencao);
   }).catch(function (erro) {
     console.log(erro);
   });
@@ -373,6 +390,11 @@ function exibirListaTotensManutencao() {
           var lista = document.getElementById("pedidosManutencao");
           var publicacao = resposta[i];
 
+          // Formatar a data
+          var dataLimiteFormatada = new Date(publicacao.dataLimite);
+          var options = { year: 'numeric', month: 'long', day: 'numeric' };
+          var dataLimiteFormatadaString = dataLimiteFormatada.toLocaleDateString('pt-BR', options);
+
           var thNumero = document.createElement("th");
           thNumero.innerHTML = publicacao.idTotem;
           thNumero.setAttribute("scope", "row");
@@ -381,7 +403,7 @@ function exibirListaTotensManutencao() {
           var tdAeroporto = document.createElement("td");
           tdAeroporto.innerHTML = publicacao.aeroportoTotem;
           var tdDataLimite = document.createElement("td");
-          tdDataLimite.innerHTML = publicacao.dataLimite;
+          tdDataLimite.innerHTML = dataLimiteFormatadaString; // Usar a data formatada aqui
           var tdMaisInfos = document.createElement("td");
 
           var tr = document.createElement("tr");
