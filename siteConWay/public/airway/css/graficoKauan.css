@@ -9,3 +9,15 @@
   flex-direction: column;
   align-items: center;
 }
+#divTable{
+  display: flex;
+  flex-direction: row;
+}
+#divTable td{
+  text-align: center;
+  vertical-align: middle;
+}
+#divTable th{
+  text-align: center;
+  vertical-align: middle;
+}

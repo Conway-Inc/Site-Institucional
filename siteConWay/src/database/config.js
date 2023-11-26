@@ -2,8 +2,13 @@ var mysql = require("mysql2");
 var sql = require('mssql');
 
 var sqlServerConfig = {
+<<<<<<< HEAD
         server: "localhost",
 	database: "ConWay",
+=======
+        server: "18.232.10.255",
+        database: "ConWay",
+>>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
         user: "sa",
         password: "urubu100",
         pool: {
@@ -12,10 +17,18 @@ var sqlServerConfig = {
             idleTimeoutMillis: 30000
         },
         options: {
+<<<<<<< HEAD
             encrypt: true, // for azure
 	    trustServerCertificate: true
         }
     }
+=======
+            encrypt: true,
+            trustServerCertificate: true
+        }
+    }
+
+>>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
 var mySqlConfig = {
     host: "localhost",
     database: "ConWay",

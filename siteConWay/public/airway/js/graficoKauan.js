@@ -109,7 +109,6 @@ function exibirMunicipiosComTotens() {
 }
 
 function exibirAeroportosComTotens(municipio) {
-    var estado = document.getElementById("select-estado");
     var municipio = document.getElementById("select-municipio");
     if (municipio.value == 0) {
         var aeroporto = document.getElementById("select-aeroporto");
@@ -160,6 +159,156 @@ function exibirAeroportosComTotens(municipio) {
     }
 }
 
+
+function plotarTabelaAlertas() {
+    var compMaisProblematico = []
+    var maiorRegistro = [];
+
+    var tabela = document.getElementById("dataTable");
+    
+    tabela.innerHTML = ""
+
+    var tr = document.createElement("tr");
+
+    var thTotem = document.createElement("th");
+    thTotem.innerHTML = "Totem"
+
+    var thQtdOcorrenciaCpu = document.createElement("th");
+    thQtdOcorrenciaCpu.innerHTML = "Quantidade de ocorrência CPU"
+
+    var thQtdOcorrenciaMem = document.createElement("th");
+    thQtdOcorrenciaMem.innerHTML = "Quantidade de ocorrência MEM"
+
+    var thQtdOcorrenciaDisco = document.createElement("th");
+    thQtdOcorrenciaDisco.innerHTML = "Quantidade de ocorrência Disco"
+
+    var thComponenteProblematico = document.createElement("th");
+    thComponenteProblematico.innerHTML = "Componente mais problemático"
+
+
+    var thMaiorRegistro = document.createElement("th");
+    thMaiorRegistro.innerHTML = "Maior Registro do componente mais problemático"
+
+    tr.appendChild(thTotem)
+    tr.appendChild(thQtdOcorrenciaCpu)
+    tr.appendChild(thQtdOcorrenciaMem)
+    tr.appendChild(thQtdOcorrenciaDisco)
+    tr.appendChild(thComponenteProblematico)
+    tr.appendChild(thMaiorRegistro)
+    tabela.appendChild(tr)
+
+    fetch(`/graficoKauan/buscarMaiorRegistro`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    maiorRegistro.push(resposta[i].max_valor)
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+
+    fetch(`/graficoKauan/buscarCompProblematico`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum alerta crítico encontrado!!");
+                dadosGrafico[0] = 0
+            }
+            resposta.json().then(function (resposta) {
+                
+                for (let i = 0; i < resposta.length; i++) {
+
+                    if (resposta[i].componente_mais_problematico == 1) {
+                        compMaisProblematico.push("CPU")
+                    } else if (resposta[i].componente_mais_problematico == 2) {
+                        compMaisProblematico.push("Memória")
+                    }else if (resposta[i].componente_mais_problematico == 3) {
+                        compMaisProblematico.push("Disco")
+                    }
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+
+    
+
+    fetch(`/graficoKauan/buscarTotens`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum alerta crítico encontrado!!");
+
+            }
+            resposta.json().then(function (resposta) {
+
+                var tbody = document.createElement("tbody");
+                tbody.setAttribute("id", "tbodyTable")
+                
+                for (let i = 0; i < resposta.length; i++) {
+                    
+                    var dados = resposta[i];
+
+                    var tdTotem = document.createElement("td");
+                    tdTotem.setAttribute("scope", "row");
+                    tdTotem.innerHTML = "<img src=' ../img/totem.png' style='width: 15%';></img>"
+                    tdTotem.innerHTML += dados.nome;
+                    tdTotem.setAttribute("onclick", "plotarGrafico()")
+                    tdTotem.style.cursor = "pointer"
+
+
+                    var tdQtdOcorrenciaCpu = document.createElement("td");
+                    tdQtdOcorrenciaCpu.setAttribute("scope", "row");
+                    tdQtdOcorrenciaCpu.innerHTML = dados.alertaCpu;
+
+                    var tdQtdOcorrenciaMemoria = document.createElement("td");
+                    tdQtdOcorrenciaMemoria.setAttribute("scope", "row");
+                    tdQtdOcorrenciaMemoria.innerHTML = dados.alertaMem;
+
+                    var tdQtdOcorrenciaDisco = document.createElement("td");
+                    tdQtdOcorrenciaDisco.setAttribute("scope", "row");
+                    tdQtdOcorrenciaDisco.innerHTML = dados.alertaDisco;
+
+                    var tdComponenteProblematico = document.createElement("td");
+                    tdComponenteProblematico.setAttribute("scope", "row");
+                    tdComponenteProblematico.innerHTML = compMaisProblematico[i]
+                    
+                    var tdMaiorRegistro = document.createElement("td");
+                    tdMaiorRegistro.setAttribute("scope", "row");
+                    tdMaiorRegistro.innerHTML = maiorRegistro[i]
+
+                    var tbody = document.createElement("tbody");
+                    var tr = document.createElement("tr");
+                    tbody.setAttribute("id", "tbodyTable")
+
+                    tr.appendChild(tdTotem);
+                    tr.appendChild(tdQtdOcorrenciaCpu);
+                    tr.appendChild(tdQtdOcorrenciaMemoria);
+                    tr.appendChild(tdQtdOcorrenciaDisco);
+                    tr.appendChild(tdComponenteProblematico);
+                    tr.appendChild(tdMaiorRegistro);
+                    tbody.appendChild(tr)
+                    tabela.appendChild(tbody)
+                }
+                
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+}
+
 function plotarDadosComponente(dadosGrafico){
 
      var divGraficoComponente = document.getElementById("divGraficoComponente");
@@ -189,4 +338,8 @@ function plotarDadosComponente(dadosGrafico){
     var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
     chart.render();
     
+}
+
+function plotarGrafico(idTotem){
+
 }

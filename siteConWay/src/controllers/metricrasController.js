@@ -11,7 +11,7 @@ function cadastrarMetricasCpu(req, res){
         res.status(400).send("a sua identificação empresarial (fkEmpresa) está undefined")
     } 
     else{
-        metricasModel.cadastrarMetricasMemo(fkEmpresa, alertaCpu, criticoCpu)
+        metricasModel.cadastrarMetricasCpu(fkEmpresa, alertaCpu, criticoCpu)
             .then(
                 function(resultado){
                     res.json(resultado);
@@ -27,6 +27,37 @@ function cadastrarMetricasCpu(req, res){
             )
     }
 }
+
+function cadastrarMetricasMemo(req, res){
+    var fkEmpresa = req.body.fkEmpresaServer;
+    var alertaMemo = req.body.alertaMemoServer;
+    var criticoMemo = req.body.criticoMemoServer;
+
+    if (alertaMemo == undefined) {
+        res.status(400).send("a sua métrica para estado de ALERTA da Memória está undefined")
+    } else if(criticoMemo == undefined){
+        res.status(400).send("a sua métrica para estado de CRÍTICO da Memória está undefined")
+    } else if(fkEmpresa == undefined){
+        res.status(400).send("a sua identificação empresarial (fkEmpresa) está undefined")
+    } 
+    else{
+        metricasModel.cadastrarMetricasMemo(fkEmpresa, alertaMemo, criticoMemo)
+            .then(
+                function(resultado){
+                    res.json(resultado);
+                }
+            ).catch(
+                function(erro){
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o cadastro!Erro: ",
+                    erro.sqlMessage
+                    );
+                    res.status(500).send(erro.sqlMessage);
+                }
+            )
+    }
+}
+
 
 function cadastrarMetricasDisco(req, res){
     var fkEmpresa = req.body.fkEmpresaServer;

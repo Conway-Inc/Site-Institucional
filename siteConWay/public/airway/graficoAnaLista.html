@@ -177,141 +177,42 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Manutenção dos totens</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Análise de manutenções aprovadas e reprovadas</h1>
                     </div>
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                </div>
+                <div class="row">
 
-                                </div>
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Selecione os dados do aeroporto e do
-                                        totem</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
+                </div>
+                <div class="container-fluid">
+                    <h1 class="h5 mb-2 text-gray-800">Aprovação e reprovação das manutenções</h1>
+                    <div class="card shadow mb-4">
+                        <!-- <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Funcionários Existentes</h6>
+                                    </div> -->
 
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Selecione o aeroporto desejado: </label>
-                                                <select id="select-estado" class="form-control"
-                                                    onchange="exibirMunicipiosComTotens()">
-                                                    <option>Selecione um estado...</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Selecione o município desejado: </label>
-                                                <select id="select-municipio" class="form-control"
-                                                    onchange="exibirAeroportosComTotens()" disabled>
-                                                    <option>Selecione um município...</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Selecione o aeroporto desejado: </label>
-                                                <select id="select-aeroporto" class="form-control">
-                                                    <option>Selecione um aeroporto...</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Informe o totem do aeroporto: </label>
-                                                <select id="select-totem" class="form-control">
-                                                    <option>Selecione um totem...</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Relatar causas da
-                                        manutenção</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-6">
-                                            <label>Insira o motivo da manutenção: </label>
-                                            <select id="select-motivo" class="form-control">
-                                                <option>Selecione o motivo...</option>
-                                                <option>Falha técnica</option>
-                                                <option>Desempenho anormal</option>
-                                                <option>Manutenção preventiva</option>
-                                                <option>Atualização de software</option>
-                                            </select>
-                                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="pedidosManutencao" width="100%"
+                                    cellspacing="0">
+                                    <!-- Aqui ficará os funcionários e suas informações -->
+                                    <thead>
+                                        <tr>
+                                            <th>Id do totem</th>
+                                            <th>Totem</th>
+                                            <th>Aeroporto</th>
+                                            <th>Data Limite</th>
+                                            <th>Estado</th>
 
-                                        <div class="col-md-8 col-lg-6">
-                                            <label>Defina a urgência da manutenção: </label>
-                                            <select id="select-urgencia" class="form-control">
-                                                <option>Selecione a urgência...</option>
-                                                <option>Baixa</option>
-                                                <option>Média</option>
-                                                <option>Alta</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8 col-lg-6">
-                                            <label>Período: </label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8 col-lg-6">
-                                            <label>Inicio da manutenção: </label>
-                                            <input name="" id="input-dataInicio" type="date" class="form-control"></input>
-                                        </div>
-                                        <div class="col-md-8 col-lg-6">
-                                            <label>Data limite: </label>
-                                            <input name="" id="input-dataLimite" type="date" class="form-control"></input>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8 col-lg-6">
-                                            <label>Valor estimado: </label>
-                                            <input name="" id="input-valor" type="number" class="form-control"></input>
-                                        </div>
-                                    </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyTable">
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Descreva a situação:</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12">
-                                            <label>Descrição da análise: </label>
-                                            <textarea class="form-control" id="input_descricao"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12" style="display: flex; align-items: flex-end; justify-content: flex-end;">
-                                                <button onclick="relatarCausaManutencao()"
-                                                    class="btn btn-primary">Enviar</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                     </div>
-
-
                 </div>
 
                 <footer class="sticky-footer bg-white">
@@ -343,6 +244,12 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
 
 
 

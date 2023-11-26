@@ -15,6 +15,57 @@ var graficoAnaModel = require("../models/graficoAnaModel");
     });
   }
 
+  function aprovarManutencao(req, res) {
+    const { totemServer } = req.body
+    graficoAnaModel.aprovarManutencao(totemServer).then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum estado encontrado!")
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function reprovarManutencao(req, res) {
+    const { totemServer } = req.body
+    graficoAnaModel.reprovarManutencao(totemServer).then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum estado encontrado!")
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function exibirTotensPendentes(req, res) {
+    const { nomeAeroportoServer, nomeTotemServer } = req.body;
+  
+    graficoAnaModel.exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer)
+      .then(function (resultado) {
+        console.log("Resultado da consulta SQL no servidor:", resultado);
+  
+        if (resultado && resultado[0] && resultado[0].isTotemPendente) {
+          res.status(200).json({ isTotemPendente: true });
+        } else {
+          res.status(200).json({ isTotemPendente: false });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os totens pendentes: ", erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+  }
+
+  
 
   function relatarCausaManutencao(req, res){
     var motivoManutencaoTotem = req.body.motivoManutencaoServer;
@@ -58,9 +109,47 @@ var graficoAnaModel = require("../models/graficoAnaModel");
     }
   }
 
+  function exibirListaTotensManutencao(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+  
+    graficoAnaModel.exibirListaTotensManutencao(idEmpresa).then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum resultado encontrado!")
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os totens cadastrados: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+  function buscarInformacoes(req, res) {
+    const { nomeAeroportoServer, dataAtualServer } = req.body
+    graficoAnaModel.buscarInformacoes(nomeAeroportoServer, dataAtualServer ).then(function (resultado) {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).send("Nenhum estado encontrado!")
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+  }
+
+
+
   module.exports = {
     exibirTotensDoAeroporto,
-    relatarCausaManutencao
+    relatarCausaManutencao,
+    exibirListaTotensManutencao,
+    buscarInformacoes,
+    exibirTotensPendentes,
+    aprovarManutencao,
+    reprovarManutencao
   };
   
   

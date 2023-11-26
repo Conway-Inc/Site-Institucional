@@ -15,7 +15,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="validarGerenteAnalista(),exibirNomeFunc()">
+<body id="page-top" onload="validarGerenteAnalista(),exibirNomeFunc(), exibirTotensPendentes()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -179,6 +179,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Manutenção dos totens</h1>
                     </div>
+
                     <div class="row">
                         <div class="col-xl-12 col-lg-7">
                             <div class="card shadow mb-4">
@@ -186,192 +187,185 @@
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
                                 </div>
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Selecione os dados do aeroporto</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
 
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Selecione o aeroporto desejado: </label>
-                                                <select id="select-estado" class="form-control"
-                                                    onchange="exibirMunicipiosComTotens()">
-                                                    <option>Selecione um estado...</option>
-                                                </select>
+                                <div class="row">
+                                    <div class="col-xl-8 col-lg-7">
+                                        <div class="card shadow mb-4">
+                                            <div
+                                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">
+                                                    Situação atual dos totens do aeroporto de <span
+                                                        id="nomeAeroporto"></span>
+                                                </h6>
+
+
+                                                <script>
+                                                    var nomeAeroporto = sessionStorage.getItem('NOME_AEROPORTO_SELECIONADO');
+
+                                                    document.getElementById('nomeAeroporto').innerText = nomeAeroporto;
+                                                </script>
+                                                <div class="dropdown no-arrow">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                        aria-labelledby="dropdownMenuLink">
+                                                        <div class="dropdown-header">Dropdown Header:</div>
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Something else
+                                                            here</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Selecione o município desejado: </label>
-                                                <select id="select-municipio" class="form-control"
-                                                    onchange="exibirAeroportosComTotens()" disabled>
-                                                    <option>Selecione um município...</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <label>Selecione o aeroporto desejado: </label>
-                                                <select id="select-aeroporto" class="form-control">
-                                                    <option>Selecione um aeroporto...</option>
-                                                </select>
+                                            <div class="card-body">
+                                                <div id="chart"></div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-7">
+                                        <div class="col-xl-12 col-md-6 mb-4">
+                                            <div class="card border-left-info shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div
+                                                                class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
+                                                                Número total de totens por aeroporto:</div>
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                                id="totalTotens">0
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-md-6 mb-4">
+                                            <div class="card border-left-success shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div
+                                                                class="text-xs font-weight-bold text-primary text-uppercase text-success mb-1">
+                                                                Número de totens em operação:</div>
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                                id="totalOperacao">0
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-md-6 mb-4">
+                                            <div class="ccard border-left-warning shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div
+                                                                class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
+                                                                Número de totens pendentes </div>
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                                id="totalPendentes">0
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12 col-md-6 mb-4">
+                                            <div class="card border-left-danger shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div
+                                                                class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
+                                                                Número de totens em manutenção:</div>
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                                id="totalManutencao">0
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="card shadow mb-4" id="divManutencao" style="display: none;">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Confirmação de manutenção do totem
+                                            <span id="nomeTotem"></span>
+                                        </h6>
+                                        <script>
+                                            var nomeTotem = sessionStorage.getItem('NOME_TOTEM');
+                                            document.getElementById('nomeTotem').innerText = nomeTotem;
+                                        </script>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container-fluid">
+                                            <div>
+                                                <div class="opcoes-botoes">
+                                                    <button onclick="aprovarManutencao()" class="btn btn-primary btn-relatorio"
+                                                        id="aprovarBtn" style="display: none;">Aprovar</button>
+                                                    <button onclick="reprovarManutencao()" class="btn btn-primary btn-relatorio"
+                                                        id="recusarBtn" style="display: none;">Recusar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <footer class="sticky-footer bg-white">
+                                    <div class="container my-auto">
+                                        <div class="copyright text-center my-auto">
+                                            <span>Copyright &copy; ConWay 2023</span>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja
+                                            sair?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <a class="btn btn-primary" href="../index.html">Sair</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-7">
-                                    <div class="card shadow mb-4">
-                                        <div
-                                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-xl-8 col-lg-7">
-                                                <div class="card shadow mb-4">
-                                                    <div
-                                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                                        <h6 class="m-0 font-weight-bold text-primary">Totens em alerta
-                                                        </h6>
-                                                        <div class="dropdown no-arrow">
-                                                            <a class="dropdown-toggle" href="#" role="button"
-                                                                id="dropdownMenuLink" data-toggle="dropdown"
-                                                                aria-haspopup="true" aria-expanded="false">
-                                                                <i
-                                                                    class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                aria-labelledby="dropdownMenuLink">
-                                                                <div class="dropdown-header">Dropdown Header:</div>
-                                                                <a class="dropdown-item" href="#">Action</a>
-                                                                <a class="dropdown-item" href="#">Another action</a>
-                                                                <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item" href="#">Something else
-                                                                    here</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div id="chart"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xl-4 col-lg-7">
-                                                <div class="col-xl-12 col-md-6 mb-4">
-                                                    <div class="card border-left-info shadow h-100 py-2">
-                                                        <div class="card-body">
-                                                            <div class="row no-gutters align-items-center">
-                                                                <div class="col mr-2">
-                                                                    <div
-                                                                        class="text-xs font-weight-bold text-primary text-uppercase text-info mb-1">
-                                                                        Número total de totens por aeroporto:</div>
-                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-md-6 mb-4">
-                                                    <div class="card border-left-success shadow h-100 py-2">
-                                                        <div class="card-body">
-                                                            <div class="row no-gutters align-items-center">
-                                                                <div class="col mr-2">
-                                                                    <div
-                                                                        class="text-xs font-weight-bold text-primary text-uppercase text-success mb-1">
-                                                                        Número de totens em operação:</div>
-                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-md-6 mb-4">
-                                                    <div class="ccard border-left-warning shadow h-100 py-2">
-                                                        <div class="card-body">
-                                                            <div class="row no-gutters align-items-center">
-                                                                <div class="col mr-2">
-                                                                    <div
-                                                                        class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
-                                                                        Número de totens pendentes </div>
-                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xl-12 col-md-6 mb-4">
-                                                    <div class="card border-left-danger shadow h-100 py-2">
-                                                        <div class="card-body">
-                                                            <div class="row no-gutters align-items-center">
-                                                                <div class="col mr-2">
-                                                                    <div
-                                                                        class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
-                                                                        Número de totens em manutenção:</div>
-                                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <footer class="sticky-footer bg-white">
-                                            <div class="container my-auto">
-                                                <div class="copyright text-center my-auto">
-                                                    <span>Copyright &copy; ConWay 2023</span>
-                                                </div>
-                                            </div>
-                                        </footer>
-                                    </div>
-                                </div>
-
-
-                                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja
-                                                    sair?</h5>
-                                                <button class="close" type="button" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button"
-                                                    data-dismiss="modal">Cancelar</button>
-                                                <a class="btn btn-primary" href="../index.html">Sair</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
 
 
 
