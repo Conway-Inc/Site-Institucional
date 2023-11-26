@@ -65,7 +65,7 @@ FROM
      FROM Manutencao 
      JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
      JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
-     WHERE '${dataAtualServer}' < dataManutencao AND aprovado = 1 AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensAguardandoManutencao,
+     WHERE '${dataAtualServer}' < dataManutencao AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensAguardandoManutencao,
     (SELECT COUNT(*) as qtdTotensManutencaoFinalizadaCount
      FROM Manutencao 
      JOIN Totem ON Manutencao.fkTotem = Totem.idTotem

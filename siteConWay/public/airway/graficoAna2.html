@@ -255,7 +255,7 @@
                                                                         class="text-xs font-weight-bold text-primary text-uppercase text-success mb-1">
                                                                         Número de totens em operação:</div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
+                                                                        id="totalOperacao">0
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -275,7 +275,7 @@
                                                                         class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
                                                                         Número de totens pendentes </div>
                                                                     <div class="h5 mb-0 font-weight-bold text-gray-800"
-                                                                        id="divTotensAtencao">0
+                                                                        id="totalPendentes">0
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-auto">
@@ -308,6 +308,35 @@
 
                                             </div>
                                         </div>
+
+                                        <div class="card shadow mb-4">
+                                            <div class="card-header py-3">
+                                                <h6 class="m-0 font-weight-bold text-primary">Confirmação de manutenção do totem <span
+                                                        id="nomeTotem"></span></h6>
+                                                        <script>
+                                                            var nomeTotem = sessionStorage.getItem('NOME_TOTEM');
+                                                        
+                                                            document.getElementById('nomeTotem').innerText = nomeTotem;
+                                                        </script>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container-fluid">
+                                                    <div>
+                                                        <div class="opcoes-botoes">
+                                                            <button onclick="verCpu()"
+                                                                class="btn btn-primary btn-relatorio">Aprovar</button>
+                                                            <button onclick="verMem()"
+                                                                class="btn btn-primary btn-relatorio">Recusar</button>
+                                                        </div>
+                                                        <div id="grafico-totem"></div>
+                                                    </div>
+                                                    <div id="grafico-geral"></div>
+                                                </div>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
 
                                         <footer class="sticky-footer bg-white">
                                             <div class="container my-auto">
