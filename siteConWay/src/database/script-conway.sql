@@ -165,6 +165,7 @@ BEGIN
 END//
 DELIMITER ;
 
+DELIMITER //
 CREATE PROCEDURE inserirDadosTotemID(IN 
     idTotem INT,
     co1_nome VARCHAR(45),
