@@ -128,6 +128,34 @@ AS
 	((SELECT idTotem FROM Totem WHERE nome = @nomeTotem), (SELECT idComponente FROM Componente WHERE nome = @co2_nome), @re3_valor, @re_data);
 GO
 
+CREATE PROCEDURE inserirDadosTotemID(@idTotem INT,
+                                  @co1_nome VARCHAR(45),
+                                  @re1_valor DECIMAL(8, 2),
+                                  @co2_nome VARCHAR(45),
+                                  @re2_valor DECIMAL(8, 2),
+                                  @co3_nome VARCHAR(45),
+                                  @re3_valor DECIMAL(8, 2),
+                                  @re_data DATETIME)
+AS
+BEGIN
+    DECLARE @fkComponente1 INT;
+    DECLARE @fkComponente2 INT;
+    DECLARE @fkComponente3 INT;
+
+    SET @fkComponente1 = (SELECT idComponente FROM Componente WHERE nome = @co1_nome);
+    SET @fkComponente2 = (SELECT idComponente FROM Componente WHERE nome = @co2_nome);
+    SET @fkComponente3 = (SELECT idComponente FROM Componente WHERE nome = @co3_nome);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente1, @re1_valor, @re_data);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente2, @re2_valor, @re_data);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente3, @re3_valor, @re_data);
+END
+
 -- SCRIPTs GERAIS
 SET IDENTITY_INSERT Ramo ON;
 INSERT INTO Ramo(idRamo, nome) VALUES (1, 'AirWay'), (2, 'BusWay');
@@ -170,9 +198,129 @@ GO
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
+                                                        ('TLT-4', 1, 2),
+                                                        ('TLT-5', 1, 2),
+                                                        ('TLT-6', 1, 2),
+                                                        ('TLT-7', 1, 2),
+                                                        ('TLT-8', 1, 2),
+                                                        ('TLT-9', 1, 2),
+                                                        ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
-                                                        ('PYR-1', 3, 2);
+                                                        ('JDK-3', 2, 2),
+                                                        ('JDK-4', 2, 2),
+                                                        ('JDK-5', 2, 2),
+                                                        ('JDK-6', 2, 2),
+                                                        ('JDK-7', 2, 2),
+                                                        ('JDK-8', 2, 2),
+                                                        ('JDK-9', 2, 2),
+                                                        ('JDK-10', 2, 2),
+                                                        ('PYR-1', 3, 2),
+                                                        ('PYR-2', 3, 2),
+                                                        ('PYR-3', 3, 2),
+                                                        ('PYR-4', 3, 2),
+                                                        ('PYR-5', 3, 2),
+                                                        ('PYR-6', 3, 2), 
+                                                        ('PYR-7', 3, 2),
+                                                        ('PYR-8', 3, 2),
+                                                        ('PYR-9', 3, 2),
+                                                        ('PYR-10', 3, 2),
+                                                        ('PYR-11', 3, 2);
+GO
+
+INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
+                                   (2, 1, null, 85, 95),
+                                   (3, 1, null, 85, 95),
+                                   (1, 2, null, 85, 95),
+                                   (2, 2, null, 85, 95),
+                                   (3, 2, null, 85, 95),
+                                   (1, 3, null, 85, 95),
+                                   (2, 3, null, 85, 95),
+                                   (3, 3, null, 85, 95),
+                                   (1, 4, null, 85, 95),
+                                   (2, 4, null, 85, 95),
+                                   (3, 4, null, 85, 95),
+                                   (1, 5, null, 85, 95),
+                                   (2, 5, null, 85, 95),
+                                   (3, 5, null, 85, 95),
+                                   (1, 6, null, 85, 95),
+                                   (2, 6, null, 85, 95),
+                                   (3, 6, null, 85, 95),
+                                   (1, 7, null, 85, 95),
+                                   (2, 7, null, 85, 95),
+                                   (3, 7, null, 85, 95),
+                                   (1, 8, null, 85, 95),
+                                   (2, 8, null, 85, 95),
+                                   (3, 8, null, 85, 95),
+                                   (1, 9, null, 85, 95),
+                                   (2, 9, null, 85, 95),
+                                   (3, 9, null, 85, 95),
+                                   (1, 10, null, 85, 95),
+                                   (2, 10, null, 85, 95),
+                                   (3, 10, null, 85, 95),
+                                   (1, 11, null, 85, 95),
+                                   (2, 11, null, 85, 95),
+                                   (3, 11, null, 85, 95),
+                                   (1, 12, null, 85, 95),
+                                   (2, 12, null, 85, 95),
+                                   (3, 12, null, 85, 95),
+                                   (1, 13, null, 85, 95),
+                                   (2, 13, null, 85, 95),
+                                   (3, 13, null, 85, 95),
+                                   (1, 14, null, 85, 95),
+                                   (2, 14, null, 85, 95),
+                                   (3, 14, null, 85, 95),
+                                   (1, 15, null, 85, 95),
+                                   (2, 15, null, 85, 95),
+                                   (3, 15, null, 85, 95),
+                                   (1, 16, null, 85, 95),
+                                   (2, 16, null, 85, 95),
+                                   (3, 16, null, 85, 95),
+                                   (1, 17, null, 85, 95),
+                                   (2, 17, null, 85, 95),
+                                   (3, 17, null, 85, 95),
+                                   (1, 18, null, 85, 95),
+                                   (2, 18, null, 85, 95),
+                                   (3, 18, null, 85, 95),
+                                   (1, 19, null, 85, 95),
+                                   (2, 19, null, 85, 95),
+                                   (3, 19, null, 85, 95),
+                                   (1, 20, null, 85, 95),
+                                   (2, 20, null, 85, 95),
+                                   (3, 20, null, 85, 95),
+                                   (1, 21, null, 85, 95),
+                                   (2, 21, null, 85, 95),
+                                   (3, 21, null, 85, 95),
+                                   (1, 22, null, 85, 95),
+                                   (2, 22, null, 85, 95),
+                                   (3, 22, null, 85, 95),
+                                   (1, 23, null, 85, 95),
+                                   (2, 23, null, 85, 95),
+                                   (3, 23, null, 85, 95),
+                                   (1, 24, null, 85, 95),
+                                   (2, 24, null, 85, 95),
+                                   (3, 24, null, 85, 95),
+                                   (1, 25, null, 85, 95),
+                                   (2, 25, null, 85, 95),
+                                   (3, 25, null, 85, 95),
+                                   (1, 26, null, 85, 95),
+                                   (2, 26, null, 85, 95),
+                                   (3, 26, null, 85, 95),
+                                   (1, 27, null, 85, 95),
+                                   (2, 27, null, 85, 95),
+                                   (3, 27, null, 85, 95),
+                                   (1, 28, null, 85, 95),
+                                   (2, 28, null, 85, 95),
+                                   (3, 28, null, 85, 95),
+                                   (1, 29, null, 85, 95),
+                                   (2, 29, null, 85, 95),
+                                   (3, 29, null, 85, 95),
+                                   (1, 30, null, 85, 95),
+                                   (2, 30, null, 85, 95),
+                                   (3, 30, null, 85, 95),
+                                   (1, 31, null, 85, 95),
+                                   (2, 31, null, 85, 95),
+                                   (3, 31, null, 85, 95);
 GO
 
 UPDATE Aeroporto SET latitude = -23.4378, longitude = -46.4813 where idAeroporto = 1071;
