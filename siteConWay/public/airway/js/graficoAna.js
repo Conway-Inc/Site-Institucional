@@ -85,7 +85,7 @@ function plotarGrafico() {
 function exibirTotensPendentes() {
   var nomeTotem = sessionStorage.NOME_TOTEM;
   var nomeAeroporto = sessionStorage.NOME_AEROPORTO_SELECIONADO;
-  
+
   fetch(`/graficoAna/exibirTotensPendentes`, {
     method: "POST",
     headers: {
@@ -512,6 +512,66 @@ function exibirListaTotensManutencao() {
   });
 }
 
+function listarAprovacoesEReprovacoes() {
+  fetch(`/graficoAna/listarAprovacoesEReprovacoes/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
+    if (resposta.ok) {
+      if (resposta.status == 204) {
+        var lista = document.getElementById("pedidosManutencao");
+        var mensagem = document.createElement("p");
+        mensagem.innerHTML = "Nenhum resultado encontrado.";
+        lista.innerHTML = "";
+        lista.appendChild(mensagem);
+        throw "Nenhum resultado encontrado!!";
+      }
+      resposta.json().then(function (resposta) {
+        var contId = 0;
+        for (let i = resposta.length - 1; i >= 0; i--) {
+          var lista = document.getElementById("pedidosManutencao");
+          var publicacao = resposta[i];
+
+          var dataLimiteFormatada = new Date(publicacao.dataLimite);
+          var options = { year: 'numeric', month: 'long', day: 'numeric' };
+          var dataLimiteFormatadaString = dataLimiteFormatada.toLocaleDateString('pt-BR', options);
+
+          var thNumero = document.createElement("th");
+          thNumero.innerHTML = publicacao.idTotem;
+          thNumero.setAttribute("scope", "row");
+          var tdNome = document.createElement("td");
+          tdNome.innerHTML = publicacao.nome;
+          var tdAeroporto = document.createElement("td");
+          tdAeroporto.innerHTML = publicacao.aeroportoTotem;
+          var tdDataLimite = document.createElement("td");
+          tdDataLimite.innerHTML = dataLimiteFormatadaString;
+          var tdAprovacaoManutencao = document.createElement("td");
+          tdAprovacaoManutencao.innerHTML = publicacao.StatusAprovacao
+
+          var tr = document.createElement("tr");
+          var tbody = document.getElementById("tbodyTable");
+
+          tr.appendChild(thNumero);
+          tr.appendChild(tdNome);
+          tr.appendChild(tdAeroporto);
+          tr.appendChild(tdDataLimite);
+          tr.appendChild(tdAprovacaoManutencao);
+          tbody.appendChild(tr);
+          lista.appendChild(tbody);
+
+          contId++;
+        }
+        // Chamar o plugin JQuery do dataTables 
+        $(document).ready(function () {
+          $('#dataTable').DataTable();
+        });
+      });
+    } else {
+      throw ('Houve um erro na API!');
+    }
+  }).catch(function (resposta) {
+    console.error(resposta);
+  });
+}
+
+
 function aprovarManutencao() {
   var totem = sessionStorage.ID_TOTEM_SELECIONADO;
 
@@ -552,7 +612,7 @@ function aprovarManutencao() {
   return false;
 }
 
-function reprovarManutencao () {
+function reprovarManutencao() {
   var totem = sessionStorage.ID_TOTEM_SELECIONADO;
 
   fetch(`/graficoAna/aprovarManutencao`, {

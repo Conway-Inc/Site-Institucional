@@ -137,6 +137,33 @@ function reprovarManutencao(totemServer) {
   return database.executar(instrucao);
 }
 
+function listarAprovacoesEReprovacoes(idEmpresa) {
+  console.log(
+    "Acessei o graficoAnaModel e executei a função listarAprovacoesEReprovacoes: ",
+    idEmpresa
+  );
+  var instrucao = `
+  SELECT 
+    tot.idTotem,
+    tot.nome AS nome,
+    aro.nome AS aeroportoTotem,
+    m.dataLimite,
+    CASE 
+        WHEN m.aprovado = 1 THEN 'Aprovado'
+        WHEN m.aprovado = 0 THEN 'Reprovado'
+        ELSE 'Não Avaliado'
+    END AS StatusAprovacao
+FROM 
+    Totem tot
+    INNER JOIN Aeroporto aro ON tot.fkAeroporto = aro.idAeroporto
+    INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem
+WHERE 
+    CURRENT_DATE < m.dataManutencao;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirTotensDoAeroporto,
   relatarCausaManutencao,
@@ -144,5 +171,6 @@ module.exports = {
   buscarInformacoes,
   exibirTotensPendentes,
   aprovarManutencao,
-  reprovarManutencao
+  reprovarManutencao,
+  listarAprovacoesEReprovacoes
 };
