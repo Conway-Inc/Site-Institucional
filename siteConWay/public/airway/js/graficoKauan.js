@@ -246,6 +246,8 @@ function plotarTabelaAlertas() {
                     tdTotem.setAttribute("scope", "row");
                     tdTotem.innerHTML = "<img src=' ../img/totem.png' style='width: 15%';></img>"
                     tdTotem.innerHTML += dados.nome;
+                    tdTotem.setAttribute("onclick", "plotarGrafico")
+                    tdTotem.style.cursor = "pointer"
 
 
                     var tdQtdOcorrenciaCpu = document.createElement("td");
