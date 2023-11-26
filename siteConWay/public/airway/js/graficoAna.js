@@ -39,7 +39,7 @@ function atualizarKPITotalOperacao() {
 function atualizarKPITotensPendentes(valorPendente) {
   var kpiPendente = document.getElementById("totalPendentes");
   if (kpiPendente) {
-    kpiPendente.innerText = valorPendente;
+    kpiPendente.innerText = valorPendente + 1;
   }
 }
 
