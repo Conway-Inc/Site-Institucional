@@ -18,6 +18,29 @@ function buscarTotens() {
   return database.executar(instrucao);
 }
 
+function buscarCompProblematico() {
+  console.log(
+    "Acessei o graficoKauanModel e executei a função buscarCompProblematico(): ",
+  );
+  var instrucao = `
+    WITH RankedComponents AS (
+      SELECT
+          idTotem,
+          comp AS componente_mais_problematico,
+          COUNT(comp) AS quantidade_de_ocorrencias,
+          ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
+      FROM vw_alertas
+      GROUP BY idTotem, comp
+    )
+    SELECT idTotem, componente_mais_problematico
+    FROM RankedComponents
+    WHERE rn = 1;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
-    buscarTotens  
+    buscarTotens,
+    buscarCompProblematico
   };

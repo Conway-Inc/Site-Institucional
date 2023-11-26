@@ -162,6 +162,7 @@ function exibirAeroportosComTotens(municipio) {
 
 
 function plotarTabelaAlertas() {
+    var compMaisProblematico = []
 
     var tabela = document.getElementById("dataTable");
     
@@ -197,6 +198,32 @@ function plotarTabelaAlertas() {
     tabela.appendChild(tr)
 
 
+    fetch(`/graficoKauan/buscarCompProblematico`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum alerta crítico encontrado!!");
+                dadosGrafico[0] = 0
+            }
+            resposta.json().then(function (resposta) {
+                
+                for (let i = 0; i < resposta.length; i++) {
+
+                    if (resposta[i].componente_mais_problematico == 1) {
+                        compMaisProblematico.push("CPU")
+                    } else if (resposta[i].componente_mais_problematico == 2) {
+                        compMaisProblematico.push("Memória")
+                    }else if (resposta[i].componente_mais_problematico == 3) {
+                        compMaisProblematico.push("Disco")
+                    }
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
 
     
 
@@ -204,7 +231,6 @@ function plotarTabelaAlertas() {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 console.log("Nenhum alerta crítico encontrado!!");
-                dadosGrafico[0] = 0
 
             }
             resposta.json().then(function (resposta) {
@@ -236,10 +262,10 @@ function plotarTabelaAlertas() {
 
                     var tdComponenteProblematico = document.createElement("td");
                     tdComponenteProblematico.setAttribute("scope", "row");
-
+                    tdComponenteProblematico.innerHTML = compMaisProblematico[i]
+                    
                     var tdMaiorRegistro = document.createElement("td");
                     tdMaiorRegistro.setAttribute("scope", "row");
-
 
                     var tbody = document.createElement("tbody");
                     var tr = document.createElement("tr");
@@ -254,7 +280,7 @@ function plotarTabelaAlertas() {
                     tbody.appendChild(tr)
                     tabela.appendChild(tbody)
                 }
-
+                
 
             });
         } else {
