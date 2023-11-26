@@ -65,7 +65,7 @@ FROM
      FROM Manutencao 
      JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
      JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
-     WHERE '${dataAtualServer}' < dataManutencao AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensAguardandoManutencao,
+     WHERE '${dataAtualServer}' < dataManutencao AND aprovado = 1 AND Aeroporto.nome = '${nomeAeroportoServer}') as qtdTotensAguardandoManutencao,
     (SELECT COUNT(*) as qtdTotensManutencaoFinalizadaCount
      FROM Manutencao 
      JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
@@ -99,7 +99,7 @@ function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
       FROM Manutencao 
       JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
       JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
-      WHERE Manutencao.aprovado = 0  
+      WHERE Manutencao.aprovado = 0 
         AND Aeroporto.nome = '${nomeAeroportoServer}'
         AND dataAtual < Manutencao.dataManutencao 
   ) AS Pendentes ON Totem.idTotem = Pendentes.fkTotem
@@ -158,7 +158,7 @@ FROM
     INNER JOIN Aeroporto aro ON tot.fkAeroporto = aro.idAeroporto
     INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem
 WHERE 
-    CURRENT_DATE < m.dataManutencao;
+    dataAtual < m.dataManutencao;
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
