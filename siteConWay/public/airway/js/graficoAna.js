@@ -512,6 +512,80 @@ function exibirListaTotensManutencao() {
   });
 }
 
+function aprovarManutencao() {
+  var totem = sessionStorage.ID_TOTEM_SELECIONADO;
+
+  fetch(`/graficoAna/aprovarManutencao`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      totemServer: totem,
+    })
+  }).then(function (resposta) {
+    console.log("resposta: ", resposta);
+    if (resposta.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'A aprovação da manutenção foi aprovada!',
+        text: 'A aprovação foi registrada com sucesso.',
+      });
+
+      // Esconder a div após aprovação
+      var divManutencao = document.getElementById('divManutencao');
+      if (divManutencao) {
+        divManutencao.style.display = 'none';
+      }
+
+      limparFormulario();
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro ao aprovar manutenção',
+        text: 'Houve um erro ao aprovar a manutenção. Por favor, tente novamente.',
+      });
+    }
+  }).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`)
+  });
+
+  return false;
+}
+
+function reprovarManutencao () {
+  var totem = sessionStorage.ID_TOTEM_SELECIONADO;
+
+  fetch(`/graficoAna/aprovarManutencao`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      totemServer: totem,
+    })
+  }).then(function (resposta) {
+    console.log("resposta: ", resposta);
+    if (resposta.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'A aprovação da manutenção foi recusada!',
+        text: 'A aprovação foi recusada com sucesso.',
+      });
+      limparFormulario();
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro ao recusar manutenção',
+        text: 'Houve um erro ao recusar a manutenção. Por favor, tente novamente.',
+      });
+    }
+  }).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`)
+  });
+  return false;
+
+}
 
 function selecionarManutencao(idTotem, nomeAeroporto, nome) {
   sessionStorage.ID_TOTEM_SELECIONADO = idTotem;

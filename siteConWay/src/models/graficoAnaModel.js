@@ -109,10 +109,40 @@ function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
   return database.executar(instrucao);
 }
 
+function aprovarManutencao(totemServer) {
+  console.log(
+    "Acessei o graficoAnaModel e executei a função exibirTotensPendentes: ",
+    totemServer
+  );
+  var instrucao = `
+  UPDATE Manutencao
+  SET aprovado = 1
+  WHERE fkTotem = ${totemServer};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function reprovarManutencao(totemServer) {
+  console.log(
+    "Acessei o graficoAnaModel e executei a função exibirTotensPendentes: ",
+    totemServer
+  );
+  var instrucao = `
+  UPDATE Manutencao
+  SET aprovado = 0
+  WHERE fkTotem = ${totemServer};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirTotensDoAeroporto,
   relatarCausaManutencao,
   exibirListaTotensManutencao,
   buscarInformacoes,
-  exibirTotensPendentes
+  exibirTotensPendentes,
+  aprovarManutencao,
+  reprovarManutencao
 };
