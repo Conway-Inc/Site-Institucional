@@ -177,9 +177,51 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Acompanhar temperatura da CPU</h1>
                     </div>
+                    <div class="container-fluid">
+                        <div class="row justify-content-end align-items-center">
+                    
+                            <!-- Totens em estado de ATENÇÃO -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
+                                                    Totens com temperatura em estado de ATENÇÃO</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensAtencao">0</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Totens em estado CRÍTICO -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-left-danger shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
+                                                    Totens com temperatura em estado CRÍTICO</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensCritico">0</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Totens Temperatura em ALERTA</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -189,6 +231,7 @@
                                             <th>IdTotem</th>
                                             <th>Nome</th>
                                             <th>Temperatura</th>
+                                            <th>Monitorar</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbodyTable">
@@ -198,50 +241,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div
-                                                class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
-                                                Totens com temperatura em estado de atenção</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensAtencao">0
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Totens Temperatura em CRÍTICO</h6>
                         </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
+                                    <thead>
+                                        <tr>
+                                            <th>IdTotem</th>
+                                            <th>Nome</th>
+                                            <th>Temperatura</th>
+                                            <th>Monitorar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyTable">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-danger shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div
-                                                class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
-                                                Totens com temperatura em estado crítico</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensCritico">0
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
-                                        </div>
-                                    </div>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
+                
             </div>
             
             <footer class="sticky-footer bg-white">
@@ -268,7 +291,4 @@
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/validarUsuario.js"></script>
-<script src="js/funcionario.js"></script>
-<script src="js/graficoAna.js"></script>
-
-<script></script>
+<script src="js/graficoBia.js"></script>

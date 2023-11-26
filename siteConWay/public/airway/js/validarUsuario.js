@@ -60,7 +60,7 @@ function inserirGerenteDashBia(menu) {
     let iGerenteDashBia = document.createElement("i");
     iGerenteDashBia.className = "fas fa-fw fa-tachometer-alt";
     let spanGerenteDashBia = document.createElement("span");
-    spanGerenteDashBia.innerHTML = "Manutenções Finalizadas";
+    spanGerenteDashBia.innerHTML = "Temperatura";
     aGerenteDashBia.appendChild(iGerenteDashBia);
     aGerenteDashBia.appendChild(spanGerenteDashBia);
     liGerenteDashBia.appendChild(aGerenteDashBia);
