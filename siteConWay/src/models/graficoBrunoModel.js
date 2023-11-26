@@ -74,7 +74,7 @@ function exibirAeroportosComTotens(municipio) {
     "Acessei o graficoBrunoModel e executei a função exibirAeroportosComTotens(): ",municipio
   );
   var instrucao = `
-    SELECT idAeroporto, nomeAeroporto FROM vw_totem_estado WHERE municipio = '${municipio}' GROUP BY idAeroporto ORDER BY nomeAeroporto;
+    SELECT idAeroporto, nomeAeroporto FROM vw_totem_estado WHERE municipio = '${municipio}' GROUP BY idAeroporto, nomeAeroporto ORDER BY nomeAeroporto;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -85,7 +85,7 @@ function valorDisco(idTotem) {
     "Acessei o graficoBrunoModel e executei a função valorDisco(): ",idTotem
   );
   var instrucao = `
-    SELECT * FROM vw_disco_atual WHERE idTotem = ${idTotem} LIMIT 1;
+    SELECT * FROM vw_disco_atual WHERE idTotem = ${idTotem} OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -96,7 +96,7 @@ function valorTotem(idTotem) {
     "Acessei o graficoBrunoModel e executei a função valorDisco(): ",idTotem
   );
   var instrucao = `
-    SELECT * FROM vw_RegistroEstruturado WHERE id = ${idTotem} ORDER BY data DESC;
+    SELECT * FROM vw_RegistroEstruturado WHERE id = ${idTotem} ORDER BY r.fkTotem, r.dataHora, data DESC;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -111,9 +111,9 @@ function exibirOptionsMesAno(fkEmpresa) {
       YEAR(dataHora) AS ano,
       MONTH(dataHora) AS mes
         FROM vw_alertas
-          WHERE fkEmpresa = ${fkEmpresa}
-            GROUP BY YEAR(dataHora), MONTH(dataHora)
-              ORDER BY ano ASC;
+            WHERE fkEmpresa = ${fkEmpresa}
+              GROUP BY YEAR(dataHora), MONTH(dataHora)
+                ORDER BY ano ASC;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -131,9 +131,9 @@ function metricasGerais(tipo,texto,ano,mes) {
       COUNT(CASE WHEN valor >= 95 AND comp = 1 THEN 1 ELSE NULL END) AS criticoCpu,
       COUNT(CASE WHEN valor >= 95 AND comp = 2 THEN 1 ELSE NULL END) AS criticoMem
         FROM vw_alertas 
-          WHERE ${texto} AND YEAR(dataHora) = ${ano} AND MONTH(dataHora) = ${mes}
-            GROUP BY ${tipo}
-              ORDER BY ${tipo} ASC;
+            WHERE ${texto} AND YEAR(dataHora) = ${ano} AND MONTH(dataHora) = ${mes}
+              GROUP BY ${tipo}
+                ORDER BY ${tipo} ASC OFFSET 0 ROWS;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -149,9 +149,9 @@ function dadosRelatorio(comp,mes,ano,fkEmpresa,texto) {
       COUNT(CASE WHEN valor BETWEEN 85 AND 94 THEN 1 ELSE NULL END) AS alerta,
       COUNT(CASE WHEN valor >= 95 THEN 1 ELSE NULL END) AS critico
         FROM vw_alertas
-          WHERE MONTH(dataHora) = ${mes} AND YEAR(dataHora) = ${ano} AND comp = ${comp} AND fkEmpresa = ${fkEmpresa} AND ${texto}
-            GROUP BY MONTH(dataHora), DAY(dataHora) 
-              ORDER BY dia ASC;
+            WHERE MONTH(dataHora) = ${mes} AND YEAR(dataHora) = ${ano} AND comp = ${comp} AND fkEmpresa = ${fkEmpresa} AND ${texto}
+              GROUP BY MONTH(dataHora), DAY(dataHora) 
+                ORDER BY dia ASC OFFSET 0 ROWS;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -174,9 +174,9 @@ function dadosMesAnterior(tipo,texto,ano,mes) {
           COUNT(CASE WHEN valor >= 95 AND comp = 1 THEN 1 ELSE NULL END) AS criticoCpu,
           COUNT(CASE WHEN valor >= 95 AND comp = 2 THEN 1 ELSE NULL END) AS criticoMem
             FROM vw_alertas 
-              WHERE ${texto} AND YEAR(dataHora) = ${ano} AND MONTH(dataHora) = ${mes}
-                GROUP BY ${tipo}
-                  ORDER BY ${tipo} ASC) as xpto;
+              	   WHERE ${texto} AND YEAR(dataHora) = ${ano} AND MONTH(dataHora) = ${mes}
+                      GROUP BY ${tipo}
+                         ORDER BY ${tipo} ASC OFFSET 0 ROWS) as xpto;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

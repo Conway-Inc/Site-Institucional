@@ -36,7 +36,7 @@ function exibirAeroportos(municipio) {
 function cadastrarTotem(nomeTotem, fkAeroporto, fkEmpresa){
   console.log("ACESSEI O HARDWARE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarTotem()");
   var instrucao = `
-  CALL cadastrarTotem('${nomeTotem}', '${fkAeroporto}', '${fkEmpresa}' );
+  EXEC cadastrarTotem('${nomeTotem}', '${fkAeroporto}', '${fkEmpresa}' );
   
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -55,7 +55,7 @@ function criarViewTotem(idTotem){
 function cadastrarComponente(componente){
   console.log("ACESSEI O HARDWARE MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarComponente()");
   var instrucao = `
-  CALL cadastrar_maquinaComponente (${componente})
+  EXEC cadastrar_maquinaComponente (${componente})
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);

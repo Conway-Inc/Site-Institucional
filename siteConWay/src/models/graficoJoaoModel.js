@@ -5,7 +5,7 @@ function exibirRegistrosTotens(idEmpresa) {
     "Acessei o graficoJoaoModel e executei a função exibirRegistrosTotens(): ",
   );
   var instrucao = `
-    SELECT * FROM vw_RegistroEstruturado WHERE fkEmpresa = ${idEmpresa};
+    SELECT * FROM vw_RegistroEstruturado ORDER BY r.fkTotem, r.dataHora ASC OFFSET 0 ROWS WHERE fkEmpresa = ${idEmpresa};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -61,9 +61,10 @@ function buscarTotemMaisProblematico(idEmpresa) {
   );
   var instrucao = `
     SELECT nome AS nomeTotem, COUNT(idAlerta) AS totalAlertas FROM vw_alertas WHERE fkEmpresa = ${idEmpresa}
-    GROUP BY idTotem, nomeTotem
+    GROUP BY idTotem, nome
     ORDER BY TotalAlertas DESC
-    LIMIT 1; 
+    OFFSET 0 ROWS
+    FETCH NEXT 1 ROWS ONLY; 
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
