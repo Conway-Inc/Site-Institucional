@@ -148,6 +148,8 @@ CREATE PROCEDURE inserirDadosTotem(IN
     re2_valor DECIMAL(8, 2),
     co3_nome VARCHAR(45),
     re3_valor DECIMAL(8, 2),
+    co4_nome VARCHAR(45),
+    re4_valor DECIMAL(5,2),
     re_data DATETIME
 )
 BEGIN
@@ -157,6 +159,8 @@ BEGIN
 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
 	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re3_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co4_nome), re4_valor, re_data);
 END//
 DELIMITER ;
 
@@ -177,7 +181,7 @@ INSERT INTO RamoEmpresa VALUES (2,2);
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
+('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB'), ('Temperatura CPU', '°C');
 
 INSERT INTO Funcionario VALUES (NULL, 'pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario VALUES (NULL, 'ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
@@ -242,6 +246,7 @@ SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
 MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
 MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
 MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
+MAX( CASE WHEN r.fkComponente = 5 THEN r.valor END ) "temperatura",
 a.nome as nomeAero, a.municipio, a.estado, t.fkEmpresa
 FROM Registro as r JOIN Totem as t ON r.fkTotem = t.idTotem
 JOIN Aeroporto as a ON t.fkAeroporto = a.idAeroporto
