@@ -21,12 +21,28 @@ function atualizarKPITotalTotens(valor) {
   }
 }
 
-function atualizarKPITotalManutencao (valorManutencao) {
+function atualizarKPITotalManutencao(valorManutencao) {
   var kpiManutencao = document.getElementById("totalManutencao");
   if (kpiManutencao) {
     kpiManutencao.innerText = valorManutencao
   }
 }
+
+function atualizarKPITotalOperacao() {
+  var kpiOperacao = document.getElementById("totalOperacao");
+  if (kpiOperacao) {
+    var subtracaoTotens = totalTotens - totensEmManutencao;
+    kpiOperacao.innerText = subtracaoTotens;
+  }
+}
+
+function atualizarKPITotensPendentes(valorPendente) {
+  var kpiPendente = document.getElementById("totalPendentes");
+  if (kpiPendente) {
+    kpiPendente.innerText = valorPendente;
+  }
+}
+
 
 // DECLARE SUAS VARIAVEIS GLOBAIS QUE O FETCH VAI BUSCAR E SALVAR AQUI
 
@@ -66,6 +82,55 @@ function plotarGrafico() {
 
 }
 
+function exibirTotensPendentes() {
+  var nomeTotem = sessionStorage.NOME_TOTEM;
+  var nomeAeroporto = sessionStorage.NOME_AEROPORTO_SELECIONADO;
+  
+  fetch(`/graficoAna/exibirTotensPendentes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      nomeTotemServer: nomeTotem,
+      nomeAeroportoServer: nomeAeroporto,
+    })
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        return resposta.json();
+      } else {
+        throw new Error("Erro na requisição.");
+      }
+    })
+    .then(function (dados) {
+      console.log("Dados recebidos do servidor:", dados);
+
+      var divManutencao = document.getElementById('divManutencao');
+      var btnAprovar = document.getElementById('aprovarBtn');
+      var btnRecusar = document.getElementById('recusarBtn');
+
+      if (dados && dados.isTotemPendente) {
+        divManutencao.style.display = 'block';
+        btnAprovar.style.display = 'block';
+        btnRecusar.style.display = 'block';
+
+      } else {
+        divManutencao.style.display = 'none';
+        btnAprovar.style.display = 'none';
+        btnRecusar.style.display = 'none';
+      }
+    })
+    .catch(function (erro) {
+      console.log(`#ERRO: ${erro.message}`);
+      alert("Erro na requisição");
+    });
+
+  return false;
+}
+
+
+
 function buscarInformacoes() {
   var nomeAeroporto = sessionStorage.NOME_AEROPORTO_SELECIONADO;
   var dataAtual = new Date().toISOString();
@@ -87,8 +152,8 @@ function buscarInformacoes() {
     }
   }).then((data) => {
     console.log(data);
-    
-    //totensPendentes = data[0].qtdTotensAguardandoManutencaoCount;
+
+    totensPendentes = data[0].qtdTotensAguardandoManutencaoCount;
     //totensFinalizada = data[0].qtdTotensManutencaoFinalizadaCount;
     totensEmManutencao = data[0].qtdTotensManutencaoEmAndamentoCount;
     totalTotens = data[0].qtdeTotemCount;
@@ -96,6 +161,8 @@ function buscarInformacoes() {
     plotarGrafico();
     atualizarKPITotalTotens(totalTotens);
     atualizarKPITotalManutencao(totensEmManutencao);
+    atualizarKPITotalOperacao(totensFinalizada);
+    atualizarKPITotensPendentes(totensPendentes);
   }).catch(function (erro) {
     console.log(erro);
   });
@@ -403,7 +470,7 @@ function exibirListaTotensManutencao() {
           var tdAeroporto = document.createElement("td");
           tdAeroporto.innerHTML = publicacao.aeroportoTotem;
           var tdDataLimite = document.createElement("td");
-          tdDataLimite.innerHTML = dataLimiteFormatadaString; // Usar a data formatada aqui
+          tdDataLimite.innerHTML = dataLimiteFormatadaString;
           var tdMaisInfos = document.createElement("td");
 
           var tr = document.createElement("tr");
@@ -416,7 +483,7 @@ function exibirListaTotensManutencao() {
 
           linkConfiraTotens.addEventListener("click", (function (publicacao) {
             return function () {
-              selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem);
+              selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem, publicacao.nome);
             };
           })(publicacao));
 
@@ -446,9 +513,10 @@ function exibirListaTotensManutencao() {
 }
 
 
-function selecionarManutencao(idTotem, nomeAeroporto) {
+function selecionarManutencao(idTotem, nomeAeroporto, nome) {
   sessionStorage.ID_TOTEM_SELECIONADO = idTotem;
   sessionStorage.NOME_AEROPORTO_SELECIONADO = nomeAeroporto;
+  sessionStorage.NOME_TOTEM = nome;
 
   window.location.href = 'graficoAna2.html';
 }
