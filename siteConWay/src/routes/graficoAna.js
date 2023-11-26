@@ -23,5 +23,9 @@ router.post("/buscarInformacoes", function (req, res) {
     graficoAnaController.buscarInformacoes(req, res);
 });
 
+router.post("/exibirTotensPendentes", function (req, res) {
+    graficoAnaController.exibirTotensPendentes(req, res);
+});
+
 
 module.exports = router

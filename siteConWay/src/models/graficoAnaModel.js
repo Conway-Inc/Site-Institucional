@@ -49,7 +49,7 @@ function exibirListaTotensManutencao(idEmpresa) {
   return database.executar(instrucao);
 }
 
-function buscarInformacoes (nomeAeroportoServer, dataAtualServer) {
+function buscarInformacoes(nomeAeroportoServer, dataAtualServer) {
   console.log(
     "Acessei o graficoAnaModel e executei a função exibirListaTotensManutencao: ",
     nomeAeroportoServer, dataAtualServer
@@ -86,9 +86,33 @@ FROM
 
 }
 
+function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
+  console.log(
+    "Acessei o graficoAnaModel e executei a função exibirTotensPendentes: ",
+    nomeAeroportoServer, nomeTotemServer
+  );
+  var instrucao = `
+  SELECT Totem.*, IF(Pendentes.fkTotem IS NOT NULL, 1, 0) AS isTotemPendente
+  FROM Totem
+  LEFT JOIN (
+      SELECT Manutencao.fkTotem
+      FROM Manutencao 
+      JOIN Totem ON Manutencao.fkTotem = Totem.idTotem
+      JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
+      WHERE Manutencao.aprovado = 0  
+        AND Aeroporto.nome = '${nomeAeroportoServer}'
+        AND dataAtual < Manutencao.dataManutencao 
+  ) AS Pendentes ON Totem.idTotem = Pendentes.fkTotem
+  WHERE Totem.nome = '${nomeTotemServer}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
   exibirTotensDoAeroporto,
   relatarCausaManutencao,
   exibirListaTotensManutencao,
-  buscarInformacoes
+  buscarInformacoes,
+  exibirTotensPendentes
 };

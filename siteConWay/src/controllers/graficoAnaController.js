@@ -15,6 +15,27 @@ var graficoAnaModel = require("../models/graficoAnaModel");
     });
   }
 
+  function exibirTotensPendentes(req, res) {
+    const { nomeAeroportoServer, nomeTotemServer } = req.body;
+  
+    graficoAnaModel.exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer)
+      .then(function (resultado) {
+        console.log("Resultado da consulta SQL no servidor:", resultado);
+  
+        if (resultado && resultado[0] && resultado[0].isTotemPendente) {
+          res.status(200).json({ isTotemPendente: true });
+        } else {
+          res.status(200).json({ isTotemPendente: false });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os totens pendentes: ", erro.sqlMessage);
+        res.status(500).json({ error: erro.sqlMessage });
+      });
+  }
+
+  
 
   function relatarCausaManutencao(req, res){
     var motivoManutencaoTotem = req.body.motivoManutencaoServer;
@@ -95,7 +116,8 @@ var graficoAnaModel = require("../models/graficoAnaModel");
     exibirTotensDoAeroporto,
     relatarCausaManutencao,
     exibirListaTotensManutencao,
-    buscarInformacoes
+    buscarInformacoes,
+    exibirTotensPendentes
   };
   
   
