@@ -109,7 +109,6 @@ function exibirMunicipiosComTotens() {
 }
 
 function exibirAeroportosComTotens(municipio) {
-    var estado = document.getElementById("select-estado");
     var municipio = document.getElementById("select-municipio");
     if (municipio.value == 0) {
         var aeroporto = document.getElementById("select-aeroporto");
@@ -163,6 +162,7 @@ function exibirAeroportosComTotens(municipio) {
 
 function plotarTabelaAlertas() {
     var compMaisProblematico = []
+    var maiorRegistro = [];
 
     var tabela = document.getElementById("dataTable");
     
@@ -187,7 +187,7 @@ function plotarTabelaAlertas() {
 
 
     var thMaiorRegistro = document.createElement("th");
-    thMaiorRegistro.innerHTML = "Maior Registro"
+    thMaiorRegistro.innerHTML = "Maior Registro do componente mais problemático"
 
     tr.appendChild(thTotem)
     tr.appendChild(thQtdOcorrenciaCpu)
@@ -196,6 +196,20 @@ function plotarTabelaAlertas() {
     tr.appendChild(thComponenteProblematico)
     tr.appendChild(thMaiorRegistro)
     tabela.appendChild(tr)
+
+    fetch(`/graficoKauan/buscarMaiorRegistro`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    maiorRegistro.push(resposta[i].max_valor)
+                }
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
 
 
     fetch(`/graficoKauan/buscarCompProblematico`).then(function (resposta) {
@@ -246,7 +260,7 @@ function plotarTabelaAlertas() {
                     tdTotem.setAttribute("scope", "row");
                     tdTotem.innerHTML = "<img src=' ../img/totem.png' style='width: 15%';></img>"
                     tdTotem.innerHTML += dados.nome;
-                    tdTotem.setAttribute("onclick", "plotarGrafico")
+                    tdTotem.setAttribute("onclick", "plotarGrafico()")
                     tdTotem.style.cursor = "pointer"
 
 
@@ -268,6 +282,7 @@ function plotarTabelaAlertas() {
                     
                     var tdMaiorRegistro = document.createElement("td");
                     tdMaiorRegistro.setAttribute("scope", "row");
+                    tdMaiorRegistro.innerHTML = maiorRegistro[i]
 
                     var tbody = document.createElement("tbody");
                     var tr = document.createElement("tr");
@@ -323,4 +338,8 @@ function plotarDadosComponente(dadosGrafico){
     var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
     chart.render();
     
+}
+
+function plotarGrafico(idTotem){
+
 }

@@ -9,5 +9,7 @@
 router.get("/buscarCompProblematico", function (req, res) {
     graficoKauanController.buscarCompProblematico(req, res);
 });
-
+router.get("/buscarMaiorRegistro", function (req, res) {
+    graficoKauanController.buscarMaiorRegistro(req, res);
+});
 module.exports = router;
