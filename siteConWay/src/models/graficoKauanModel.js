@@ -66,8 +66,20 @@ function buscarMaiorRegistro() {
   return database.executar(instrucao);
 }
 
+function plotarGrafico(id) {
+  console.log(
+    "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
+  );
+  var instrucao = `
+  SELECT cpu, memoria, data FROM vw_registroEstruturado WHERE idTotem = ${id};
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 module.exports = {
     buscarTotens,
     buscarCompProblematico,
-    buscarMaiorRegistro
+    buscarMaiorRegistro,
+    plotarGrafico
   };

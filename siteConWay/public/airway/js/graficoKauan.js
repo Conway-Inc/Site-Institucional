@@ -165,7 +165,7 @@ function plotarTabelaAlertas() {
     var maiorRegistro = [];
 
     var tabela = document.getElementById("dataTable");
-    
+
     tabela.innerHTML = ""
 
     var tr = document.createElement("tr");
@@ -215,18 +215,17 @@ function plotarTabelaAlertas() {
     fetch(`/graficoKauan/buscarCompProblematico`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
-                console.log("Nenhum alerta crítico encontrado!!");
-                dadosGrafico[0] = 0
+                console.log("Nenhum componente encontrado!!");
             }
             resposta.json().then(function (resposta) {
-                
+
                 for (let i = 0; i < resposta.length; i++) {
 
                     if (resposta[i].componente_mais_problematico == 1) {
                         compMaisProblematico.push("CPU")
                     } else if (resposta[i].componente_mais_problematico == 2) {
                         compMaisProblematico.push("Memória")
-                    }else if (resposta[i].componente_mais_problematico == 3) {
+                    } else if (resposta[i].componente_mais_problematico == 3) {
                         compMaisProblematico.push("Disco")
                     }
                 }
@@ -239,7 +238,7 @@ function plotarTabelaAlertas() {
     });
 
 
-    
+
 
     fetch(`/graficoKauan/buscarTotens`).then(function (resposta) {
         if (resposta.ok) {
@@ -251,15 +250,16 @@ function plotarTabelaAlertas() {
 
                 var tbody = document.createElement("tbody");
                 tbody.setAttribute("id", "tbodyTable")
-                
+
                 for (let i = 0; i < resposta.length; i++) {
-                    
+
                     var dados = resposta[i];
 
                     var tdTotem = document.createElement("td");
                     tdTotem.setAttribute("scope", "row");
                     tdTotem.innerHTML = "<img src=' ../img/totem.png' style='width: 15%';></img>"
                     tdTotem.innerHTML += dados.nome;
+                    tdTotem.setAttribute("id", `${i+1}`)
                     tdTotem.setAttribute("onclick", "plotarGrafico()")
                     tdTotem.style.cursor = "pointer"
 
@@ -279,7 +279,7 @@ function plotarTabelaAlertas() {
                     var tdComponenteProblematico = document.createElement("td");
                     tdComponenteProblematico.setAttribute("scope", "row");
                     tdComponenteProblematico.innerHTML = compMaisProblematico[i]
-                    
+
                     var tdMaiorRegistro = document.createElement("td");
                     tdMaiorRegistro.setAttribute("scope", "row");
                     tdMaiorRegistro.innerHTML = maiorRegistro[i]
@@ -297,7 +297,7 @@ function plotarTabelaAlertas() {
                     tbody.appendChild(tr)
                     tabela.appendChild(tbody)
                 }
-                
+
 
             });
         } else {
@@ -309,37 +309,74 @@ function plotarTabelaAlertas() {
 
 }
 
-function plotarDadosComponente(dadosGrafico){
+function plotarGrafico() {
 
-     var divGraficoComponente = document.getElementById("divGraficoComponente");
-        divGraficoComponente.innerHTML = ""
-    
-        var options = {
-            series: dadosGrafico,
-            chart: {
-                width: 380,
-                type: 'line',
-            },
-            labels: ['CPU', 'MEMÓRIA', 'DISCO'],
-            colors: ['#e74a3b', '#f6c23e', '#3ebd47'],
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
+    addEventListener('click', function (event) {
+        var id = event.target.id;
+        fetch(`/graficoKauan/plotarGrafico/${id}`).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+                    var dadosCpu = []
+                    var dadosMemoria = []
+                    var data = []
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        dadosCpu.push(resposta[i].cpu);
+                        dadosMemoria.push(resposta[i].memoria);
+                        data.push(resposta[i].data)
                     }
-                }
-            }]
-        };
-    
-    var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
-    chart.render();
-    
-}
 
-function plotarGrafico(idTotem){
+                    var divGraficoComponente = document.getElementById("divGraficoComponente");
+                    divGraficoComponente.innerHTML = ""
 
+                    var options = {
+                        series: [{
+                          name: "CPU",
+                          data: [dadosCpu]
+                      }],
+                      series: [{
+                        name: "Memória",
+                        data: [dadosMemoria]
+                    }],
+                        chart: {
+                        height: 350,
+                        width: 350,
+                        type: 'line',
+                        zoom: {
+                          enabled: false
+                        }
+                      },
+                      dataLabels: {
+                        enabled: true
+                      },
+                      stroke: {
+                        curve: 'straight'
+                      },
+                      title: {
+                        text: 'Registros',
+                        align: 'center'
+                      },
+                      grid: {
+                        row: {
+                          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                          opacity: 0.5
+                        },
+                      },
+                      xaxis: {
+                        name: "Data",
+                        categories: [data],
+                      }
+                      };              
+
+                    var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
+                    chart.render();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    });
 }
