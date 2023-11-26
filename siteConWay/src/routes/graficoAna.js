@@ -31,5 +31,8 @@ router.post("/reprovarManutencao", function (req, res) {
     graficoAnaController.reprovarManutencao(req, res);
 });
 
+router.get("/listarAprovacoesEReprovacoes/:idEmpresa", function (req, res) {
+    graficoAnaController.listarAprovacoesEReprovacoes(req, res);
+});
 
 module.exports = router
