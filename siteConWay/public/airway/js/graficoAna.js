@@ -532,7 +532,6 @@ function aprovarManutencao() {
         text: 'A aprovação foi registrada com sucesso.',
       });
 
-      // Esconder a div após aprovação
       var divManutencao = document.getElementById('divManutencao');
       if (divManutencao) {
         divManutencao.style.display = 'none';
