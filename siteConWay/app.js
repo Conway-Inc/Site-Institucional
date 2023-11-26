@@ -17,6 +17,7 @@ var graficoKauanRouter = require("./src/routes/graficoKauan");
 var loginRouter = require("./src/routes/login");
 var funcionarioRouter = require("./src/routes/funcionario")
 var graficoAnaRouter = require("./src/routes/graficoAna");
+var graficoBiaRouter = require("./src/routes/graficoBia");
 
 
 
@@ -33,6 +34,7 @@ app.use("/metricas", metricasRouter);
 app.use("/graficoBruno", graficoBrunoRouter);
 app.use("/graficoAna", graficoAnaRouter)
 app.use("/graficoJoao", graficoJoaoRouter);
+app.use("/graficoBia", graficoBiaRouter);
 app.use("/graficoKauan", graficoKauanRouter);
 app.use("/login", loginRouter);
 app.use("/empresa", empresaRouter);

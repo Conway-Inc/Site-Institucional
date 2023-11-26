@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/graficoBruno.css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="css/sb-admin-2.css" rel="stylesheet">
-    <link href="css/dashBia.css" rel="stylesheet">
     <link rel="icon" href="img/AirWayLogo.jpg">
     <title>AirWay - Dashboard</title>
 </head>
@@ -19,7 +19,7 @@
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <div class="sidebar-brand d-flex align-items-center justify-content-center" >
+            <div class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon ">
                     <img src="img/logoairwaynovo.png" style="width: 100%;" alt="">
                 </div>
@@ -171,119 +171,91 @@
 
                 </nav>
 
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Acompanhar temperatura da CPU</h1>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row justify-content-end align-items-center">
-                    
-                            <!-- Totens em estado de ATENÇÃO -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
-                                                    Totens com temperatura em estado de ATENÇÃO</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensAtencao">0</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- Totens em estado CRÍTICO -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card border-left-danger shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
-                                                    Totens com temperatura em estado CRÍTICO</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensCritico">0</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                        </div>
-                    </div>
-                    
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens Temperatura em ALERTA</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
-                                    <thead>
-                                        <tr>
-                                            <th>IdTotem</th>
-                                            <th>Nome</th>
-                                            <th>Temperatura</th>
-                                            <th>Monitorar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyTable">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens Temperatura em CRÍTICO</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
-                                    <thead>
-                                        <tr>
-                                            <th>IdTotem</th>
-                                            <th>Nome</th>
-                                            <th>Temperatura</th>
-                                            <th>Monitorar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyTable">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <h1 class="h3 mb-0 text-gray-800">Análise de manutenções aprovadas e reprovadas</h1>
                     </div>
                 </div>
-                
+                <div class="row">
+
+                </div>
+                <div class="container-fluid">
+                    <h1 class="h5 mb-2 text-gray-800">Aprovação e reprovação das manutenções</h1>
+                    <div class="card shadow mb-4">
+                        <!-- <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Funcionários Existentes</h6>
+                                    </div> -->
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="pedidosManutencao" width="100%"
+                                    cellspacing="0">
+                                    <!-- Aqui ficará os funcionários e suas informações -->
+                                    <thead>
+                                        <tr>
+                                            <th>Id do totem</th>
+                                            <th>Totem</th>
+                                            <th>Aeroporto</th>
+                                            <th>Data Limite</th>
+                                            <th>Estado</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyTable">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; ConWay 2023</span>
+                        </div>
+                    </div>
+                </footer>
             </div>
-            
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; ConWay 2023</span>
+        </div>
+
+
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja
+                            sair?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="../index.html">Sair</a>
                     </div>
                 </div>
-            </footer>
-        </div>            
+            </div>
+        </div>
 
- 
-        
-    </div>
+
+
+
+
+
+
+
+
 </body>
 
 </html>
-
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
@@ -291,4 +263,7 @@
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/validarUsuario.js"></script>
-<script src="js/graficoBia.js"></script>
+<script src="js/funcionario.js"></script>
+<script src="js/graficoAna.js"></script>
+
+<script></script>

@@ -27,6 +27,7 @@ function validarGerenteAnalista() {
         inserirAnalistaJoao(menu);
         inserirAnalistaKauan(menu);
         inserirAnalistaAna(menu);
+        inserirAnalistaAna2(menu)
         inserirSlideConta(menu);
         inserirContaPerfil(menu);
         inserirContaSair(menu);
@@ -60,7 +61,7 @@ function inserirGerenteDashBia(menu) {
     let iGerenteDashBia = document.createElement("i");
     iGerenteDashBia.className = "fas fa-fw fa-tachometer-alt";
     let spanGerenteDashBia = document.createElement("span");
-    spanGerenteDashBia.innerHTML = "Manutenções Finalizadas";
+    spanGerenteDashBia.innerHTML = "Temperatura";
     aGerenteDashBia.appendChild(iGerenteDashBia);
     aGerenteDashBia.appendChild(spanGerenteDashBia);
     liGerenteDashBia.appendChild(aGerenteDashBia);
@@ -97,6 +98,22 @@ function inserirAnalistaAna(menu) {
     aAnalistaAna.appendChild(spanAnalistaAna);
     liAnalistaAna.appendChild(aAnalistaAna);
     menu.appendChild(liAnalistaAna);
+}
+
+function inserirAnalistaAna2(menu) {
+    let liAnalistaAna2 = document.createElement("li");
+    liAnalistaAna2.setAttribute("class","nav-item");
+    let aAnalistaAna2 = document.createElement("a");
+    aAnalistaAna2.setAttribute("class","nav-link")
+    aAnalistaAna2.setAttribute("href","graficoAnaLista.html");
+    let iAnalistaAna2 = document.createElement("i");
+    iAnalistaAna2.className = "fas fa-fw fa-tachometer-alt";
+    let spanAnalistaAna2 = document.createElement("span");
+    spanAnalistaAna2.innerHTML = "Aprovação e reprovação das manutenções";
+    aAnalistaAna2.appendChild(iAnalistaAna2);
+    aAnalistaAna2.appendChild(spanAnalistaAna2);
+    liAnalistaAna2.appendChild(aAnalistaAna2);
+    menu.appendChild(liAnalistaAna2);
 }
 
 function inserirGerenteAna2(menu) {
