@@ -15,10 +15,6 @@ router.get("/exibirAeroportosComTotens/:municipio", function (req, res) {
     graficoBrunoController.exibirAeroportosComTotens(req, res);
 });
 
-router.get("/valorDisco/:idTotem", function (req, res) {
-    graficoBrunoController.valorDisco(req, res);
-});
-
 router.get("/valorTotem/:idTotem", function (req, res) {
     graficoBrunoController.valorTotem(req, res);
 });
