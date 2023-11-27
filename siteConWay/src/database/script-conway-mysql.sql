@@ -110,9 +110,10 @@ CREATE TABLE Manutencao (
      motivoManutencao VARCHAR (70),
      urgenciaManutencao VARCHAR (70),
      descricaoManutencao VARCHAR (255),
-     valor DECIMAL (6,2),
+     valor DECIMAL (8,2),
 	 fkTotem INT,
      aprovado BOOLEAN,
+     dataAtual DATE,
      FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
 );
 
@@ -190,9 +191,54 @@ INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
+                                                        ('TLT-4', 1, 2),
+                                                        ('TLT-5', 1, 2),
+                                                        ('TLT-6', 1, 2),
+                                                        ('TLT-7', 1, 2),
+                                                        ('TLT-8', 1, 2),
+                                                        ('TLT-9', 1, 2),
+                                                        ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
                                                         ('PYR-1', 3, 2);
+
+                                                        ('JDK-3', 2, 2),
+                                                        ('JDK-4', 2, 2),
+                                                        ('JDK-5', 2, 2),
+                                                        ('JDK-6', 2, 2),
+                                                        ('JDK-7', 2, 2),
+                                                        ('JDK-8', 2, 2),
+                                                        ('JDK-9', 2, 2),
+                                                        ('JDK-10', 2, 2),
+                                                        ('PYR-1', 3, 2),
+                                                        ('PYR-2', 3, 2),
+                                                        ('PYR-3', 3, 2),
+                                                        ('PYR-4', 3, 2),
+                                                        ('PYR-5', 3, 2),
+                                                        ('PYR-6', 3, 2), 
+                                                        ('PYR-7', 3, 2),
+                                                        ('PYR-8', 3, 2),
+                                                        ('PYR-9', 3, 2),
+                                                        ('PYR-10', 3, 2),
+                                                        ('PYR-11', 3, 2);
+
+INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
+VALUES 
+('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informações que não deveria.', 330.00, 22, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção para que não ocorra erros no período de férias.', 100.00, 23, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Precisará de manutenção preventiva para verificação dos componentes.', 140.00, 24, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualização de software', 'Média', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção preventiva para bom funcionamento dos totens no período de férias.', 300.00, 11, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para época de férias.', 323.00, 12, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualização de software', 'Alta', 'Atualização de software.', 323.00, 13, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Média', 'Está muito demorado, com funções que não deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
+('2023-11-27', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para épocas de férias.', 124.00, 15, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualização de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Falha técnica', 'Alta', 'Falha técnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualização de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
 
 INSERT INTO TotemComponente VALUES (4,1,256.4, 90, 99),
 								   (4,2,528.6, 90, 99),
