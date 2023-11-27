@@ -161,6 +161,27 @@ BEGIN
 END//
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE inserirDadosTotemID(IN 
+    idTotem INT,
+    co1_nome VARCHAR(45),
+    re1_valor DECIMAL(8, 2),
+    co2_nome VARCHAR(45),
+    re2_valor DECIMAL(8, 2),
+    co3_nome VARCHAR(45),
+    re3_valor DECIMAL(8, 2),
+    re_data DATETIME
+)
+BEGIN
+	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
+END//
+DELIMITER ;
+
 -- SCRIPTs GERAIS
 INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
 
@@ -178,7 +199,7 @@ INSERT INTO RamoEmpresa VALUES (2,2);
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
+('CPU', '%'), ('Memória', '%'), ('Disco', '%'), ('Temperatura CPU', '°C');
 
 INSERT INTO Funcionario VALUES (NULL, 'pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario VALUES (NULL, 'ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
@@ -200,8 +221,7 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
                                                         ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
-                                                        ('PYR-1', 3, 2);
-
+                                                        ('PYR-1', 3, 2),
                                                         ('JDK-3', 2, 2),
                                                         ('JDK-4', 2, 2),
                                                         ('JDK-5', 2, 2),
@@ -210,7 +230,6 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
                                                         ('JDK-8', 2, 2),
                                                         ('JDK-9', 2, 2),
                                                         ('JDK-10', 2, 2),
-                                                        ('PYR-1', 3, 2),
                                                         ('PYR-2', 3, 2),
                                                         ('PYR-3', 3, 2),
                                                         ('PYR-4', 3, 2),
@@ -240,9 +259,99 @@ VALUES
 ('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
 ('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
 
-INSERT INTO TotemComponente VALUES (4,1,256.4, 90, 99),
-								   (4,2,528.6, 90, 99),
-                                   (4,3,128.8, 90, 99);
+INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
+                                   (2, 1, null, 85, 95),
+                                   (3, 1, null, 85, 95),
+                                   (1, 2, null, 85, 95),
+                                   (2, 2, null, 85, 95),
+                                   (3, 2, null, 85, 95),
+                                   (1, 3, null, 85, 95),
+                                   (2, 3, null, 85, 95),
+                                   (3, 3, null, 85, 95),
+                                   (1, 4, null, 85, 95),
+                                   (2, 4, null, 85, 95),
+                                   (3, 4, null, 85, 95),
+                                   (1, 5, null, 85, 95),
+                                   (2, 5, null, 85, 95),
+                                   (3, 5, null, 85, 95),
+                                   (1, 6, null, 85, 95),
+                                   (2, 6, null, 85, 95),
+                                   (3, 6, null, 85, 95),
+                                   (1, 7, null, 85, 95),
+                                   (2, 7, null, 85, 95),
+                                   (3, 7, null, 85, 95),
+                                   (1, 8, null, 85, 95),
+                                   (2, 8, null, 85, 95),
+                                   (3, 8, null, 85, 95),
+                                   (1, 9, null, 85, 95),
+                                   (2, 9, null, 85, 95),
+                                   (3, 9, null, 85, 95),
+                                   (1, 10, null, 85, 95),
+                                   (2, 10, null, 85, 95),
+                                   (3, 10, null, 85, 95),
+                                   (1, 11, null, 85, 95),
+                                   (2, 11, null, 85, 95),
+                                   (3, 11, null, 85, 95),
+                                   (1, 12, null, 85, 95),
+                                   (2, 12, null, 85, 95),
+                                   (3, 12, null, 85, 95),
+                                   (1, 13, null, 85, 95),
+                                   (2, 13, null, 85, 95),
+                                   (3, 13, null, 85, 95),
+                                   (1, 14, null, 85, 95),
+                                   (2, 14, null, 85, 95),
+                                   (3, 14, null, 85, 95),
+                                   (1, 15, null, 85, 95),
+                                   (2, 15, null, 85, 95),
+                                   (3, 15, null, 85, 95),
+                                   (1, 16, null, 85, 95),
+                                   (2, 16, null, 85, 95),
+                                   (3, 16, null, 85, 95),
+                                   (1, 17, null, 85, 95),
+                                   (2, 17, null, 85, 95),
+                                   (3, 17, null, 85, 95),
+                                   (1, 18, null, 85, 95),
+                                   (2, 18, null, 85, 95),
+                                   (3, 18, null, 85, 95),
+                                   (1, 19, null, 85, 95),
+                                   (2, 19, null, 85, 95),
+                                   (3, 19, null, 85, 95),
+                                   (1, 20, null, 85, 95),
+                                   (2, 20, null, 85, 95),
+                                   (3, 20, null, 85, 95),
+                                   (1, 21, null, 85, 95),
+                                   (2, 21, null, 85, 95),
+                                   (3, 21, null, 85, 95),
+                                   (1, 22, null, 85, 95),
+                                   (2, 22, null, 85, 95),
+                                   (3, 22, null, 85, 95),
+                                   (1, 23, null, 85, 95),
+                                   (2, 23, null, 85, 95),
+                                   (3, 23, null, 85, 95),
+                                   (1, 24, null, 85, 95),
+                                   (2, 24, null, 85, 95),
+                                   (3, 24, null, 85, 95),
+                                   (1, 25, null, 85, 95),
+                                   (2, 25, null, 85, 95),
+                                   (3, 25, null, 85, 95),
+                                   (1, 26, null, 85, 95),
+                                   (2, 26, null, 85, 95),
+                                   (3, 26, null, 85, 95),
+                                   (1, 27, null, 85, 95),
+                                   (2, 27, null, 85, 95),
+                                   (3, 27, null, 85, 95),
+                                   (1, 28, null, 85, 95),
+                                   (2, 28, null, 85, 95),
+                                   (3, 28, null, 85, 95),
+                                   (1, 29, null, 85, 95),
+                                   (2, 29, null, 85, 95),
+                                   (3, 29, null, 85, 95),
+                                   (1, 30, null, 85, 95),
+                                   (2, 30, null, 85, 95),
+                                   (3, 30, null, 85, 95),
+                                   (1, 31, null, 85, 95),
+                                   (2, 31, null, 85, 95),
+                                   (3, 31, null, 85, 95);
          
 INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
                                                                                 (100001,0.0, '2023-11-07 12:00:00', 2,1),
