@@ -1,0 +1,10 @@
+SET IDENTITY_INSERT Ramo ON;
+INSERT INTO Ramo(idRamo, nome) VALUES (1, 'AirWay'), (2, 'BusWay');
+SET IDENTITY_INSERT Ramo OFF;
+GO
+
+INSERT INTO RamoEmpresa VALUES (2,1);
+GO
+
+INSERT INTO RamoEmpresa VALUES (2,2);
+GO
