@@ -2,6 +2,9 @@ var mysql = require("mysql2");
 var sql = require('mssql');
 
 var sqlServerConfig = {
+        server: "localhost",
+	database: "ConWay",
+
         server: "18.232.10.255",
         database: "ConWay",
         user: "sa",
@@ -12,10 +15,12 @@ var sqlServerConfig = {
             idleTimeoutMillis: 30000
         },
         options: {
-            encrypt: true,
-            trustServerCertificate: true
+
+            encrypt: true, // for azure
+	    trustServerCertificate: true
         }
     }
+
 
 var mySqlConfig = {
     host: "localhost",
