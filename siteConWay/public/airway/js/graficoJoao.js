@@ -81,12 +81,12 @@ function plotarTabelaAlertas() {
             if (resposta.status == 204) {
                 console.log("Nenhum alerta crítico encontrado!!");
                 dadosGrafico[0] = 0
-                divTotensCritico.innerHTML = 0
+                divTotalTotensCritico.innerHTML = 0
 
             }
             resposta.json().then(function (resposta) {
                 totensCritico = Number(resposta.length)
-                divTotensCritico.innerHTML = totensCritico
+                divTotalTotensCritico.innerHTML = totensCritico
                 dadosGrafico[0] = totensCritico
 
                 var tbodyCritico = document.createElement("tbody");
@@ -139,13 +139,15 @@ function plotarTabelaAlertas() {
             if (resposta.status == 204) {
                 console.log("Nenhum alerta de atenção encontrado!!");
                 dadosGrafico[1] = 0
-                divTotensAtencao.innerHTML = 0
+                divTotalTotensAtencao.innerHTML = 0
 
             }
             resposta.json().then(function (resposta) {
                 totensAtencao = Number(resposta.length)
-                divTotensAtencao.innerHTML = totensAtencao
+                divTotalTotensAtencao.innerHTML = totensAtencao
                 dadosGrafico[1] = totensAtencao
+
+                divAtencaoTotalTotens.innerHTML = `/${totalTotensEmpresa}`;
 
                 var tbodyAtencao = document.createElement("tbody");
                 tbodyAtencao.setAttribute("id", "tbodyTableAtencao")
@@ -201,6 +203,9 @@ function plotarKPIs() {
                 
                 totalTotensEmpresa = 0;
                 totalTotensEmpresa = Number(resposta[0].qtdTotens)
+
+                divAtencaoTotalTotens.innerHTML = `/${totalTotensEmpresa}`;
+                divCriticoTotalTotens.innerHTML = `/${totalTotensEmpresa}`;
 
                 totensEmAlerta = dadosGrafico[1]+dadosGrafico[0]
 
