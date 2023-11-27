@@ -95,7 +95,6 @@ CREATE TABLE Alerta (
     FOREIGN KEY (fkRegistro) REFERENCES Registro(idRegistro) ON DELETE CASCADE,
     PRIMARY KEY (idAlerta, fkRegistro)
 );
-<<<<<<< HEAD
 GO
 
 
@@ -106,37 +105,11 @@ CREATE PROCEDURE cadastrarTotem
 AS
 	INSERT INTO Totem (nome, fkAeroporto, fkEmpresa)
 	VALUES (@nomeTotem, @fKAeroporto, @fkEmpresa);
-=======
-
-CREATE TABLE Manutencao (
-     idManutenção INT PRIMARY KEY AUTO_INCREMENT,
-     dataManutencao DATE,
-     dataLimite DATE,
-     motivoManutencao VARCHAR (70),
-     urgenciaManutencao VARCHAR (70),
-     descricaoManutencao VARCHAR (255),
-     valor DECIMAL (8,2),
-	 fkTotem INT,
-     aprovado BOOLEAN,
-     dataAtual DATE,
-     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
-);
-
-DELIMITER //
-CREATE PROCEDURE cadastrar_maquinaComponente(
-	maco_fkComponente INT
-)
-BEGIN 
-	INSERT INTO TotemComponente (fkComponente,fkTotem) VALUES (maco_fkComponente, (SELECT MAX(idTotem) FROM Totem));
-END//
-DELIMITER ;
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
 
 	SELECT MAX(idTotem) AS idTotem FROM Totem;
 GO
 
 
-<<<<<<< HEAD
 CREATE PROCEDURE inserirDadosTotem
     @nomeTotem VARCHAR(45),
     @co1_nome VARCHAR(45),
@@ -147,58 +120,41 @@ CREATE PROCEDURE inserirDadosTotem
     @re3_valor DECIMAL(8, 2),
     @re_data DATETIME
 AS
-=======
-DELIMITER //
-CREATE PROCEDURE inserirDadosTotem(IN 
-    nomeTotem VARCHAR(45),
-    co1_nome VARCHAR(45),
-    re1_valor DECIMAL(8, 2),
-    co2_nome VARCHAR(45),
-    re2_valor DECIMAL(8, 2),
-    co3_nome VARCHAR(45),
-    re3_valor DECIMAL(8, 2),
-    co4_nome VARCHAR(45),
-    re4_valor DECIMAL(5,2),
-    re_data DATETIME
-)
-BEGIN
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
 	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
 	((SELECT idTotem FROM Totem WHERE nome = @nomeTotem), (SELECT idComponente FROM Componente WHERE nome = @co1_nome), @re1_valor, @re_data);
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
 	((SELECT idTotem FROM Totem WHERE nome = @nomeTotem), (SELECT idComponente FROM Componente WHERE nome = @co2_nome), @re2_valor, @re_data);
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-<<<<<<< HEAD
 	((SELECT idTotem FROM Totem WHERE nome = @nomeTotem), (SELECT idComponente FROM Componente WHERE nome = @co2_nome), @re3_valor, @re_data);
 GO
-=======
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co2_nome), re3_valor, re_data);
-    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	((SELECT idTotem FROM Totem WHERE nome = nomeTotem), (SELECT idComponente FROM Componente WHERE nome = co4_nome), re4_valor, re_data);
-END//
-DELIMITER ;
 
-DELIMITER //
-CREATE PROCEDURE inserirDadosTotemID(IN 
-    idTotem INT,
-    co1_nome VARCHAR(45),
-    re1_valor DECIMAL(8, 2),
-    co2_nome VARCHAR(45),
-    re2_valor DECIMAL(8, 2),
-    co3_nome VARCHAR(45),
-    re3_valor DECIMAL(8, 2),
-    re_data DATETIME
-)
+CREATE PROCEDURE inserirDadosTotemID(@idTotem INT,
+                                  @co1_nome VARCHAR(45),
+                                  @re1_valor DECIMAL(8, 2),
+                                  @co2_nome VARCHAR(45),
+                                  @re2_valor DECIMAL(8, 2),
+                                  @co3_nome VARCHAR(45),
+                                  @re3_valor DECIMAL(8, 2),
+                                  @re_data DATETIME)
+AS
 BEGIN
-	INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co1_nome), re1_valor, re_data);
-    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
-    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
-	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
-END//
-DELIMITER ;
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
+    DECLARE @fkComponente1 INT;
+    DECLARE @fkComponente2 INT;
+    DECLARE @fkComponente3 INT;
+
+    SET @fkComponente1 = (SELECT idComponente FROM Componente WHERE nome = @co1_nome);
+    SET @fkComponente2 = (SELECT idComponente FROM Componente WHERE nome = @co2_nome);
+    SET @fkComponente3 = (SELECT idComponente FROM Componente WHERE nome = @co3_nome);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente1, @re1_valor, @re_data);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente2, @re2_valor, @re_data);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente3, @re3_valor, @re_data);
+END
 
 -- SCRIPTs GERAIS
 SET IDENTITY_INSERT Ramo ON;
@@ -227,12 +183,8 @@ GO
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-<<<<<<< HEAD
 ('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
 GO
-=======
-('CPU', '%'), ('Memória', '%'), ('Disco', '%'), ('Temperatura CPU', '°C');
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
 
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
@@ -255,62 +207,6 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
                                                         ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
-<<<<<<< HEAD
-                                                        ('PYR-1', 3, 2);
-GO
-
-UPDATE Aeroporto SET latitude = -23.4378, longitude = -46.4813 where idAeroporto = 1071;
-UPDATE Aeroporto SET latitude =  -23.0061, longitude = -47.1418 where idAeroporto = 1092;
-UPDATE Aeroporto SET latitude =   -23.6274, longitude = -46.6556 where idAeroporto = 1;
-UPDATE Aeroporto SET latitude = -29.9953, longitude = -51.1664 where idAeroporto = 1133;
-UPDATE Aeroporto SET latitude = -28.2834, longitude =  -54.1656 where idAeroporto = 1113;
-UPDATE Aeroporto SET latitude = -29.1971, longitude = -51.1862 where idAeroporto = 1053;
-UPDATE Aeroporto SET latitude = -27.6701, longitude =  -48.5447 where idAeroporto = 1063 ;
-UPDATE Aeroporto SET latitude =  -26.8784, longitude =  -48.6494 where idAeroporto = 1112 ;
-UPDATE Aeroporto SET latitude = -26.2250, longitude = -48.7986 where idAeroporto = 1090;
-UPDATE Aeroporto SET latitude = -25.5328, longitude = -49.1674 where idAeroporto = 1051 ;
-UPDATE Aeroporto SET latitude = -3.0355, longitude = -60.0458 where idAeroporto = 1058;
-UPDATE Aeroporto SET latitude = -23.3319, longitude =  -51.1346 where idAeroporto = 1096;
-UPDATE Aeroporto SET latitude = -7.1489, longitude = -34.950 where idAeroporto = 1087;
-UPDATE Aeroporto SET latitude = -9.5108, longitude = -35.7925 where idAeroporto = 1107;
-UPDATE Aeroporto SET latitude = -22.9104, longitude = -43.1642 where idAeroporto = 1155;
-UPDATE Aeroporto SET latitude = -5.773, longitude =  -35.3621 where idAeroporto = 1160;
-UPDATE Aeroporto SET latitude = -3.7761, longitude = -38.5355 where idAeroporto = 1066;
-UPDATE Aeroporto SET latitude = -12.911, longitude = -38.335 where idAeroporto = 1169;
-UPDATE Aeroporto SET latitude = -1.3799, longitude = -48.4796 where idAeroporto = 1025;
-UPDATE Aeroporto SET latitude = -15.6595, longitude = -56.1094 where idAeroporto = 1054;
-GO
-
-SET IDENTITY_INSERT Registro ON;
-INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
-                                                                                (100001,0.0, '2023-11-07 12:00:00', 2,1),
-                                                                                (100002,0.0, '2023-11-07 12:00:00', 1,2),
-                                                                                (100003,0.0, '2023-11-07 12:00:00', 2,2),
-                                                                                (100004,0.0, '2023-11-07 12:00:00', 1,3),
-                                                                                (100005,0.0, '2023-11-07 12:00:00', 2,3),
-                                                                                (100006,0.0, '2023-11-07 12:00:00', 1,4),
-                                                                                (100007,0.0, '2023-11-07 12:00:00', 2,4),
-                                                                                (100008,0.0, '2023-11-07 12:00:00', 1,5),
-                                                                                (100009,0.0, '2023-11-07 12:00:00', 2,5),
-                                                                                (100010,0.0, '2023-11-07 12:00:00', 1,6),
-                                                                                (100011,0.0, '2023-11-07 12:00:00', 2,6),
-                                                                                (100012,0.0, '2023-11-07 12:10:00', 1,1),
-                                                                                (100013,0.0, '2023-11-07 12:10:00', 2,1),
-                                                                                (100014,0.0, '2023-11-07 12:10:00', 1,2),
-                                                                                (100015,0.0, '2023-11-07 12:10:00', 2,2),
-                                                                                (100016,0.0, '2023-11-07 12:10:00', 1,3),
-                                                                                (100017,0.0, '2023-11-07 12:10:00', 2,3),
-                                                                                (100018,0.0, '2023-11-07 12:10:00', 1,4),
-                                                                                (100019,0.0, '2023-11-07 12:10:00', 2,4),
-                                                                                (100020,0.0, '2023-11-07 12:10:00', 1,5),
-                                                                                (100021,0.0, '2023-11-07 12:10:00', 2,5),
-                                                                                (100022,0.0, '2023-11-07 12:10:00', 1,6),
-                                                                                (100023,0.0, '2023-11-07 12:10:00', 2,6),
-                                                                                (100024,0.0, '2023-10-16 00:00:00', 1,6),
- 																	            (100025,0.0, '2023-10-16 00:00:00', 1,6); 
-SET IDENTITY_INSERT Registro OFF;
-GO
-=======
                                                         ('JDK-3', 2, 2),
                                                         ('JDK-4', 2, 2),
                                                         ('JDK-5', 2, 2),
@@ -330,24 +226,7 @@ GO
                                                         ('PYR-9', 3, 2),
                                                         ('PYR-10', 3, 2),
                                                         ('PYR-11', 3, 2);
-                                                        
-INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
-VALUES 
-('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informações que não deveria.', 330.00, 22, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção para que não ocorra erros no período de férias.', 100.00, 23, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Precisará de manutenção preventiva para verificação dos componentes.', 140.00, 24, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Atualização de software', 'Média', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção preventiva para bom funcionamento dos totens no período de férias.', 300.00, 11, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para época de férias.', 323.00, 12, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Atualização de software', 'Alta', 'Atualização de software.', 323.00, 13, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Média', 'Está muito demorado, com funções que não deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
-('2023-11-27', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para épocas de férias.', 124.00, 15, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Atualização de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Falha técnica', 'Alta', 'Falha técnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Atualização de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
+GO
 
 INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
                                    (2, 1, null, 85, 95),
@@ -442,47 +321,59 @@ INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
                                    (1, 31, null, 85, 95),
                                    (2, 31, null, 85, 95),
                                    (3, 31, null, 85, 95);
-                                   
+GO
 
+UPDATE Aeroporto SET latitude = -23.4378, longitude = -46.4813 where idAeroporto = 1071;
+UPDATE Aeroporto SET latitude =  -23.0061, longitude = -47.1418 where idAeroporto = 1092;
+UPDATE Aeroporto SET latitude =   -23.6274, longitude = -46.6556 where idAeroporto = 1;
+UPDATE Aeroporto SET latitude = -29.9953, longitude = -51.1664 where idAeroporto = 1133;
+UPDATE Aeroporto SET latitude = -28.2834, longitude =  -54.1656 where idAeroporto = 1113;
+UPDATE Aeroporto SET latitude = -29.1971, longitude = -51.1862 where idAeroporto = 1053;
+UPDATE Aeroporto SET latitude = -27.6701, longitude =  -48.5447 where idAeroporto = 1063 ;
+UPDATE Aeroporto SET latitude =  -26.8784, longitude =  -48.6494 where idAeroporto = 1112 ;
+UPDATE Aeroporto SET latitude = -26.2250, longitude = -48.7986 where idAeroporto = 1090;
+UPDATE Aeroporto SET latitude = -25.5328, longitude = -49.1674 where idAeroporto = 1051 ;
+UPDATE Aeroporto SET latitude = -3.0355, longitude = -60.0458 where idAeroporto = 1058;
+UPDATE Aeroporto SET latitude = -23.3319, longitude =  -51.1346 where idAeroporto = 1096;
+UPDATE Aeroporto SET latitude = -7.1489, longitude = -34.950 where idAeroporto = 1087;
+UPDATE Aeroporto SET latitude = -9.5108, longitude = -35.7925 where idAeroporto = 1107;
+UPDATE Aeroporto SET latitude = -22.9104, longitude = -43.1642 where idAeroporto = 1155;
+UPDATE Aeroporto SET latitude = -5.773, longitude =  -35.3621 where idAeroporto = 1160;
+UPDATE Aeroporto SET latitude = -3.7761, longitude = -38.5355 where idAeroporto = 1066;
+UPDATE Aeroporto SET latitude = -12.911, longitude = -38.335 where idAeroporto = 1169;
+UPDATE Aeroporto SET latitude = -1.3799, longitude = -48.4796 where idAeroporto = 1025;
+UPDATE Aeroporto SET latitude = -15.6595, longitude = -56.1094 where idAeroporto = 1054;
+GO
 
-								
--- INSERT INTO TotemComponente VALUES (4,1,256.4, 90, 99),
--- 								   (4,2,528.6, 90, 99),
---                                    (4,3,128.8, 90, 99);
-         
--- INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
---                                                                                 (100001,0.0, '2023-11-07 12:00:00', 2,1),
---                                                                                 (100002,0.0, '2023-11-07 12:00:00', 1,2),
---                                                                                 (100003,0.0, '2023-11-07 12:00:00', 2,2),
---                                                                                 (100004,0.0, '2023-11-07 12:00:00', 1,3),
---                                                                                 (100005,0.0, '2023-11-07 12:00:00', 2,3),
---                                                                                 (100006,0.0, '2023-11-07 12:00:00', 1,4),
---                                                                                 (100007,0.0, '2023-11-07 12:00:00', 2,4),
---                                                                                 (100008,0.0, '2023-11-07 12:00:00', 1,5),
---                                                                                 (100009,0.0, '2023-11-07 12:00:00', 2,5),
---                                                                                 (100010,0.0, '2023-11-07 12:00:00', 1,6),
---                                                                                 (100011,0.0, '2023-11-07 12:00:00', 2,6),
---                                                                                 (100012,0.0, '2023-11-07 12:10:00', 1,1),
---                                                                                 (100013,0.0, '2023-11-07 12:10:00', 2,1),
---                                                                                 (100014,0.0, '2023-11-07 12:10:00', 1,2),
---                                                                                 (100015,0.0, '2023-11-07 12:10:00', 2,2),
---                                                                                 (100016,0.0, '2023-11-07 12:10:00', 1,3),
---                                                                                 (100017,0.0, '2023-11-07 12:10:00', 2,3),
---                                                                                 (100018,0.0, '2023-11-07 12:10:00', 1,4),
---                                                                                 (100019,0.0, '2023-11-07 12:10:00', 2,4),
---                                                                                 (100020,0.0, '2023-11-07 12:10:00', 1,5),
---                                                                                 (100021,0.0, '2023-11-07 12:10:00', 2,5),
---                                                                                 (100022,0.0, '2023-11-07 12:10:00', 1,6),
---                                                                                 (100023,0.0, '2023-11-07 12:10:00', 2,6),
---                                                                                 (100024,0.0, '2023-10-16 00:00:00', 1,6),
---  																	            (100025,0.0, '2023-10-16 00:00:00', 1,6);
- 
--- USUÁRIO
-DROP USER IF EXISTS 'user_conway'@'localhost';
-CREATE USER 'user_conway'@'localhost' IDENTIFIED WITH mysql_native_password BY 'urubu100';
-GRANT ALL ON ConWay.* TO 'user_conway'@'localhost';
-FLUSH PRIVILEGES;
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
+SET IDENTITY_INSERT Registro ON;
+INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
+                                                                                (100001,0.0, '2023-11-07 12:00:00', 2,1),
+                                                                                (100002,0.0, '2023-11-07 12:00:00', 1,2),
+                                                                                (100003,0.0, '2023-11-07 12:00:00', 2,2),
+                                                                                (100004,0.0, '2023-11-07 12:00:00', 1,3),
+                                                                                (100005,0.0, '2023-11-07 12:00:00', 2,3),
+                                                                                (100006,0.0, '2023-11-07 12:00:00', 1,4),
+                                                                                (100007,0.0, '2023-11-07 12:00:00', 2,4),
+                                                                                (100008,0.0, '2023-11-07 12:00:00', 1,5),
+                                                                                (100009,0.0, '2023-11-07 12:00:00', 2,5),
+                                                                                (100010,0.0, '2023-11-07 12:00:00', 1,6),
+                                                                                (100011,0.0, '2023-11-07 12:00:00', 2,6),
+                                                                                (100012,0.0, '2023-11-07 12:10:00', 1,1),
+                                                                                (100013,0.0, '2023-11-07 12:10:00', 2,1),
+                                                                                (100014,0.0, '2023-11-07 12:10:00', 1,2),
+                                                                                (100015,0.0, '2023-11-07 12:10:00', 2,2),
+                                                                                (100016,0.0, '2023-11-07 12:10:00', 1,3),
+                                                                                (100017,0.0, '2023-11-07 12:10:00', 2,3),
+                                                                                (100018,0.0, '2023-11-07 12:10:00', 1,4),
+                                                                                (100019,0.0, '2023-11-07 12:10:00', 2,4),
+                                                                                (100020,0.0, '2023-11-07 12:10:00', 1,5),
+                                                                                (100021,0.0, '2023-11-07 12:10:00', 2,5),
+                                                                                (100022,0.0, '2023-11-07 12:10:00', 1,6),
+                                                                                (100023,0.0, '2023-11-07 12:10:00', 2,6),
+                                                                                (100024,0.0, '2023-10-16 00:00:00', 1,6),
+ 																	            (100025,0.0, '2023-10-16 00:00:00', 1,6); 
+SET IDENTITY_INSERT Registro OFF;
+GO
 
 INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
  											 (2,100001),
@@ -523,7 +414,6 @@ GO
 CREATE OR ALTER VIEW vw_RegistroEstruturado 
 AS 
 SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
-<<<<<<< HEAD
     MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
     MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
     MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
@@ -531,17 +421,9 @@ SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
     a.municipio, 
     a.estado, 
     t.fkEmpresa
-=======
-MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
-MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
-MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
-MAX( CASE WHEN r.fkComponente = 5 THEN r.valor END ) "temperatura",
-a.nome as nomeAero, a.municipio, a.estado, t.fkEmpresa
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
 FROM Registro as r JOIN Totem as t ON r.fkTotem = t.idTotem
 JOIN Aeroporto as a ON t.fkAeroporto = a.idAeroporto
-GROUP BY r.fkTotem, r.dataHora, t.nome,t.fkEmpresa, a.nome, a.municipio, a.estado
-ORDER BY r.fkTotem, r.dataHora ASC OFFSET 0 ROWS;
+GROUP BY r.fkTotem, r.dataHora, t.nome,t.fkEmpresa, a.nome, a.municipio, a.estado;
 
 GO
 
@@ -575,8 +457,7 @@ FROM
 JOIN 
     Registro ON fkRegistro = idRegistro 
 JOIN Totem ON fkTotem = idTotem 
-JOIN Aeroporto as a ON fkAeroporto = idAeroporto 
-    ORDER BY dataHora DESC OFFSET 0 ROWS;       
+JOIN Aeroporto as a ON fkAeroporto = idAeroporto       
 GO
 
 CREATE OR ALTER VIEW vw_totensEmAlerta AS 
@@ -592,16 +473,9 @@ FROM
     INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-<<<<<<< HEAD
 WHERE 
     dataHora = (SELECT TOP 1 dataHora FROM vw_alertas ORDER BY idAlerta DESC)
 GROUP BY 
     idTotem, t.nome, idAeroporto, ar.nome, t.fkAeroporto, t.fkEmpresa;
 GO
 
-=======
-    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;   
-  
-    
-   
->>>>>>> a2b20bbde0f5efcb4ff64092062012fb76a226c4
