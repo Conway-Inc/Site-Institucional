@@ -71,7 +71,7 @@ function plotarGrafico(id) {
     "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
   );
   var instrucao = `
-  SELECT cpu, memoria, data FROM vw_registroEstruturado WHERE idTotem = ${id};
+  SELECT cpu, memoria, date_format(data, "%d de %M, %k:%i") as data FROM vw_registroEstruturado WHERE idTotem = ${id};
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
