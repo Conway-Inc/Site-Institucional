@@ -4,9 +4,6 @@ var sql = require('mssql');
 var sqlServerConfig = {
         server: "localhost",
 	database: "ConWay",
-
-        server: "18.232.10.255",
-        database: "ConWay",
         user: "sa",
         password: "urubu100",
         pool: {
