@@ -15,7 +15,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="validarGerenteAnalista()">
+<body id="page-top" onload="validarGerenteAnalista(), exibirTabelaTotensTemperaturaAlerta(), exibirTabelaTotensTemperaturaCritico()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -225,7 +225,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
+                                <table class="table table-bordered" id="AlertaTemp" width="100%" cellspacing="0">  
                                     <thead>
                                         <tr>
                                             <th>IdTotem</th>
@@ -247,7 +247,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTotem" width="100%" cellspacing="0">  
+                                <table class="table table-bordered" id="CriticoTemp" width="100%" cellspacing="0">  
                                     <thead>
                                         <tr>
                                             <th>IdTotem</th>
@@ -263,9 +263,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Temperatura em tempo real</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="temReal"></div>
+                        </div>
+                    </div>
                 </div>
-                
-            </div>
             
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -284,6 +290,12 @@
 </html>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        inicializarGrafico();
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
