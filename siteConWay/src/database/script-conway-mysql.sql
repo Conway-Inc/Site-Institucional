@@ -213,36 +213,37 @@ INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 
 
-INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
-													    ('TLT-2', 1, 2),
+INSERT INTO Totem (idTotem, nome, fkAeroporto, fkEmpresa) VALUES (1,'TLT-1', 1, 2),
+                                                        (2,'TLT-8', 1, 2),
+                                                        (3,'JDK-3', 2, 2),
+                                                        (4,'JDK-9', 2, 2),
+                                                        (5,'PYR-3', 3, 2),
+                                                        (6,'PYR-10', 3, 2);
+                                                        
+INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
                                                         ('TLT-4', 1, 2),
                                                         ('TLT-5', 1, 2),
                                                         ('TLT-6', 1, 2),
                                                         ('TLT-7', 1, 2),
-                                                        ('TLT-8', 1, 2),
                                                         ('TLT-9', 1, 2),
                                                         ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
-                                                        ('PYR-1', 3, 2),
-                                                        ('JDK-3', 2, 2),
                                                         ('JDK-4', 2, 2),
                                                         ('JDK-5', 2, 2),
                                                         ('JDK-6', 2, 2),
                                                         ('JDK-7', 2, 2),
                                                         ('JDK-8', 2, 2),
-                                                        ('JDK-9', 2, 2),
                                                         ('JDK-10', 2, 2),
+                                                        ('PYR-1', 3, 2),
                                                         ('PYR-2', 3, 2),
-                                                        ('PYR-3', 3, 2),
                                                         ('PYR-4', 3, 2),
                                                         ('PYR-5', 3, 2),
                                                         ('PYR-6', 3, 2), 
                                                         ('PYR-7', 3, 2),
                                                         ('PYR-8', 3, 2),
                                                         ('PYR-9', 3, 2),
-                                                        ('PYR-10', 3, 2),
                                                         ('PYR-11', 3, 2);
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
@@ -387,12 +388,12 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
 -- Inserir registros para Totens com temperatura em Alerta
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
 (78.5, '2023-11-26 10:30:00', 4, 1),
+(77.8, '2023-11-26 10:30:00', 4, 1),
 (76.0, '2023-11-26 11:15:00', 4, 2);
 
 -- Inserir registros para Totens com temperatura Crítica
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
-(80.0, '2023-11-26 13:45:00', 4, 4),
-(81.8, '2023-11-26 15:15:00', 4, 2);
+(80.0, '2023-11-26 13:45:00', 4, 4);
  
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';

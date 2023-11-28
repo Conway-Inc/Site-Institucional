@@ -11,4 +11,9 @@ router.get("/exibirTabelaTotensTemperaturaCritico/:idEmpresa", function (req, re
     graficoBiaController.exibirTabelaTotensTemperaturaCritico(req, res);
 });
 
+router.post("/getValorTotalTotens", function (req, res) {
+    graficoBiaController.getValorTotalTotens(req, res);
+});
+
+
 module.exports = router;

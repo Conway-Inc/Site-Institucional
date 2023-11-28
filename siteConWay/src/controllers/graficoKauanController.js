@@ -61,7 +61,7 @@ function plotarGrafico(req, res) {
       ).catch(
         function (erro) {
           console.log(erro);
-          console.log("\nHouve um erro ao realizar o cadastro!Erro: ",
+          console.log("\nHouve um erro ao plotar o Gráfico!Erro: ",
             erro.sqlMessage
           );
           res.status(500).send(erro.sqlMessage);

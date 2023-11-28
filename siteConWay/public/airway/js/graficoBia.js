@@ -1,3 +1,59 @@
+var qtdTotal_totens;
+var valorTotensAtencao;
+var valorTotensCritico;
+
+function atualizarValorTotalTotens(valor) {
+  var divElement = document.getElementById("qtdTotal_totens");
+  if (divElement) {
+    divElement.innerText = valor;
+  }
+}
+
+function atualizarValorTotensAlerta(valor) {
+  var divElement = document.getElementById("valorTotensAtencao");
+  if (divElement) {
+    divElement.innerText = valor;
+  }
+}
+
+function atualizarValorTotensCritico(valor) {
+  var divElement = document.getElementById("valorTotensCritico");
+  if (divElement) {
+    divElement.innerText = valor;
+  }
+}
+
+function getValorTotalTotens(req, res){
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+  fetch('/graficoBia/getValorTotalTotens',{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "fkEmpresaServer": fkEmpresa
+    })
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error("Erro na requisição.");
+    }
+  }).then((data) => {
+    console.log(data);
+
+    // valorTotensAtencao = data[0].qtd_totens_alerta;
+    // valorTotensCritico = data[0].qtd_totens_critico;
+    qtdTotal_totens = data[0].qtdTotens;
+    // atualizarValorTotensAlerta(valorTotensAtencao);
+    // atualizarValorTotensCritico(valorTotensCritico);
+    atualizarValorTotalTotens(qtdTotal_totens);
+  }).catch(function (erro) {
+    console.log(erro);
+  });
+}
+
 function exibirTabelaTotensTemperaturaAlerta() {
     fetch(`/graficoBia/exibirTabelaTotensTemperaturaAlerta/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
         if (resposta.ok) {

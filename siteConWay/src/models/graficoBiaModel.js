@@ -1,5 +1,19 @@
 var database = require("../database/config");
 
+function getValorTotalTotens(fkEmpresaServer){
+  console.log(
+    "Acessei o graficoBiaModel e executei a função atualizarValorTotens: ",
+    fkEmpresaServer
+  );
+  var instrucao = `
+    SELECT COUNT(*) AS quantidade_totens
+    FROM Totem
+    WHERE fkEmpresa = '${ fkEmpresaServer}'
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function exibirTabelaTotensTemperaturaAlerta(idEmpresa) {
   console.log("ACESSEI O TOTEM  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function exibirTabelaTotensTemperaturaAlerta()");
     var instrucao = `
@@ -23,6 +37,7 @@ function exibirTabelaTotensTemperaturaCritico(idEmpresa) {
 }
 
 module.exports = {
-    exibirTabelaTotensTemperaturaAlerta,
+  getValorTotalTotens,  
+  exibirTabelaTotensTemperaturaAlerta,
     exibirTabelaTotensTemperaturaCritico
 };
