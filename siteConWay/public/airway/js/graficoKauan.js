@@ -311,7 +311,6 @@ function plotarTabelaAlertas() {
 
 function plotarGrafico() {
 
-    addEventListener('click', function (event) {
         var id = event.target.id;
         fetch(`/graficoKauan/plotarGrafico/${id}`).then(function (resposta) {
             if (resposta.ok) {
@@ -373,8 +372,6 @@ function plotarGrafico() {
                         categories: data,
                       }
                       };
-
-
                     var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
                     chart.render();
                 });
@@ -384,5 +381,4 @@ function plotarGrafico() {
         }).catch(function (resposta) {
             console.error(resposta);
         });
-    });
 }
