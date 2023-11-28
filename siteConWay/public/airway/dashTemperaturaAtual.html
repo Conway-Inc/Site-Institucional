@@ -15,7 +15,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="validarGerenteAnalista(), exibirTabelaTotensTemperaturaAlerta(), exibirTabelaTotensTemperaturaCritico()">
+<body id="page-top" onload="validarGerenteAnalista()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -175,92 +175,14 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Acompanhar temperatura da CPU</h1>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row justify-content-end align-items-center">
-                    
-                            <!-- Totens em estado de ATENÇÃO -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
-                                                    Totens com temperatura em estado de ATENÇÃO</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorTotensAtencao">0</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdTotal_totens">0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- Totens em estado CRÍTICO -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card border-left-danger shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
-                                                    Totens com temperatura em estado CRÍTICO</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorTotensCritico">0</div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdTotal_totens">0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                        </div>
-                    </div>
-                    
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens Temperatura em ALERTA</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="AlertaTemp" width="100%" cellspacing="0">  
-                                    <thead>
-                                        <tr>
-                                            <th>IdTotem</th>
-                                            <th>Nome</th>
-                                            <th>Temperatura</th>
-                                            <th>Monitorar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyTable">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <h1 class="h3 mb-0 text-gray-800">Temperatura da CPU do Totem: </h1>
                     </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Totens Temperatura em CRÍTICO</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Temperatura em tempo real</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="CriticoTemp" width="100%" cellspacing="0">  
-                                    <thead>
-                                        <tr>
-                                            <th>IdTotem</th>
-                                            <th>Nome</th>
-                                            <th>Temperatura</th>
-                                            <th>Monitorar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyTable">
-
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div id="temReal"></div>
                         </div>
                     </div>
                 </div>
@@ -281,6 +203,12 @@
 
 </html>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        inicializarGrafico();
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

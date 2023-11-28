@@ -387,12 +387,12 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
 -- Inserir registros para Totens com temperatura em Alerta
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
 (78.5, '2023-11-26 10:30:00', 4, 1),
+(77.8, '2023-11-26 10:30:00', 4, 1),
 (76.0, '2023-11-26 11:15:00', 4, 2);
 
 -- Inserir registros para Totens com temperatura Crítica
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
-(80.0, '2023-11-26 13:45:00', 4, 4),
-(81.8, '2023-11-26 15:15:00', 4, 2);
+(80.0, '2023-11-26 13:45:00', 4, 4);
  
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
