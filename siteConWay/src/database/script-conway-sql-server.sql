@@ -195,7 +195,7 @@ INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 GO
 
-INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
+INSERT INTO Totem (idTotem,nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
 													    ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
                                                         ('TLT-4', 1, 2),
@@ -457,7 +457,8 @@ FROM
 JOIN 
     Registro ON fkRegistro = idRegistro 
 JOIN Totem ON fkTotem = idTotem 
-JOIN Aeroporto as a ON fkAeroporto = idAeroporto       
+JOIN Aeroporto as a ON fkAeroporto = idAeroporto   
+ORDER BY idAeropoerto    
 GO
 
 CREATE OR ALTER VIEW vw_totensEmAlerta AS 
