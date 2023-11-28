@@ -170,6 +170,8 @@ CREATE PROCEDURE inserirDadosTotemID(IN
     re2_valor DECIMAL(8, 2),
     co3_nome VARCHAR(45),
     re3_valor DECIMAL(8, 2),
+    co4_nome VARCHAR(45),
+    re4_valor DECIMAL(8, 2),
     re_data DATETIME
 )
 BEGIN
@@ -179,6 +181,8 @@ BEGIN
 	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co2_nome), re2_valor, re_data);
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
 	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co3_nome), re3_valor, re_data);
+     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora) VALUES 
+	(idTotem, (SELECT idComponente FROM Componente WHERE nome = co4_nome), re4_valor, re_data);
 END//
 DELIMITER ;
 
@@ -379,6 +383,16 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
                                                                                 (100023,0.0, '2023-11-07 12:10:00', 2,6),
                                                                                 (100024,0.0, '2023-10-16 00:00:00', 1,6),
  																	            (100025,0.0, '2023-10-16 00:00:00', 1,6);
+                                                                                
+-- Inserir registros para Totens com temperatura em Alerta
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
+(78.5, '2023-11-26 10:30:00', 4, 1),
+(76.0, '2023-11-26 11:15:00', 4, 2);
+
+-- Inserir registros para Totens com temperatura Crítica
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
+(80.0, '2023-11-26 13:45:00', 4, 4),
+(81.8, '2023-11-26 15:15:00', 4, 2);
  
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';

@@ -1,7 +1,5 @@
 -- Active: 1695823604597@@127.0.0.1@3306@ConWay
 
-DROP DATABASE IF EXISTS ConWay ;
-CREATE DATABASE ConWay;
 USE ConWay; 
 
 CREATE TABLE Empresa (
@@ -167,9 +165,6 @@ INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway')
 SET IDENTITY_INSERT Empresa OFF;
 GO
 
-INSERT INTO RamoEmpresa VALUES (2,1);
-GO
-
 SET IDENTITY_INSERT Funcionario ON;
 INSERT INTO Funcionario(idFuncionario,email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES (1,'adm@airway.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
 SET IDENTITY_INSERT Funcionario OFF;
@@ -177,13 +172,12 @@ GO
 
 -- LATAM
 INSERT INTO Empresa(cnpj,nome,cep,logradouro,num,telefone) VALUES ('33937681000178', 'LATAM AIRLINES GROUP S/A', '04634042', 'Rua Atica' , 673, '11226872400');
-INSERT INTO RamoEmpresa VALUES (2,2);
 GO
 
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memória', '%'), ('Disco', '%'),('Disco','GB');
+('CPU', '%'), ('Memória', '%'), ('Disco', '%');
 GO
 
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
@@ -195,36 +189,40 @@ INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 GO
 
-INSERT INTO Totem (idTotem,nome, fkAeroporto, fkEmpresa) VALUES ('TLT-1', 1, 2),
-													    ('TLT-2', 1, 2),
+SET IDENTITY_INSERT Totem ON;
+INSERT INTO Totem (idTotem, nome, fkAeroporto, fkEmpresa) VALUES (1,'TLT-1', 1, 2),
+                                                        (2,'TLT-8', 1, 2),
+                                                        (3,'JDK-3', 2, 2),
+                                                        (4,'JDK-9', 2, 2),
+                                                        (5,'PYR-3', 3, 2),
+                                                        (6,'PYR-10', 3, 2);
+SET IDENTITY_INSERT Totem OFF;
+GO
+
+INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
                                                         ('TLT-4', 1, 2),
                                                         ('TLT-5', 1, 2),
                                                         ('TLT-6', 1, 2),
                                                         ('TLT-7', 1, 2),
-                                                        ('TLT-8', 1, 2),
                                                         ('TLT-9', 1, 2),
                                                         ('TLT-10', 1, 2),
 													    ('JDK-1', 2, 2),
 													    ('JDK-2', 2, 2),
-                                                        ('JDK-3', 2, 2),
                                                         ('JDK-4', 2, 2),
                                                         ('JDK-5', 2, 2),
                                                         ('JDK-6', 2, 2),
                                                         ('JDK-7', 2, 2),
                                                         ('JDK-8', 2, 2),
-                                                        ('JDK-9', 2, 2),
                                                         ('JDK-10', 2, 2),
                                                         ('PYR-1', 3, 2),
                                                         ('PYR-2', 3, 2),
-                                                        ('PYR-3', 3, 2),
                                                         ('PYR-4', 3, 2),
                                                         ('PYR-5', 3, 2),
                                                         ('PYR-6', 3, 2), 
                                                         ('PYR-7', 3, 2),
                                                         ('PYR-8', 3, 2),
                                                         ('PYR-9', 3, 2),
-                                                        ('PYR-10', 3, 2),
                                                         ('PYR-11', 3, 2);
 GO
 
@@ -480,3 +478,13 @@ GROUP BY
     idTotem, t.nome, idAeroporto, ar.nome, t.fkAeroporto, t.fkEmpresa;
 GO
 
+SET IDENTITY_INSERT Ramo ON;
+INSERT INTO Ramo(idRamo, nome) VALUES (1, 'AirWay'), (2, 'BusWay');
+SET IDENTITY_INSERT Ramo OFF;
+GO
+
+INSERT INTO RamoEmpresa VALUES (2,1);
+GO
+
+INSERT INTO RamoEmpresa VALUES (2,2);
+GO

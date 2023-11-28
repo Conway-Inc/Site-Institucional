@@ -201,7 +201,7 @@ function plotarTabelaAlertas() {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
                 for (let i = 0; i < resposta.length; i++) {
-                    maiorRegistro.push(resposta[i].max_valor)
+                    maiorRegistro[i] = resposta[i].max_valor
                 }
             });
         } else {
@@ -222,11 +222,11 @@ function plotarTabelaAlertas() {
                 for (let i = 0; i < resposta.length; i++) {
 
                     if (resposta[i].componente_mais_problematico == 1) {
-                        compMaisProblematico.push("CPU")
+                        compMaisProblematico[i] = "CPU"
                     } else if (resposta[i].componente_mais_problematico == 2) {
-                        compMaisProblematico.push("Memória")
+                        compMaisProblematico[i] = "Memória"
                     } else if (resposta[i].componente_mais_problematico == 3) {
-                        compMaisProblematico.push("Disco")
+                        compMaisProblematico[i] = "Disco"
                     }
                 }
             });
@@ -259,7 +259,7 @@ function plotarTabelaAlertas() {
                     tdTotem.setAttribute("scope", "row");
                     tdTotem.innerHTML = "<img src=' ../img/totem.png' style='width: 15%';></img>"
                     tdTotem.innerHTML += dados.nome;
-                    tdTotem.setAttribute("id", `${i+1}`)
+                    tdTotem.setAttribute("id", `${i + 1}`)
                     tdTotem.setAttribute("onclick", "plotarGrafico()")
                     tdTotem.style.cursor = "pointer"
 
@@ -322,33 +322,38 @@ function plotarGrafico() {
                     var data = []
 
                     for (let i = 0; i < resposta.length; i++) {
-                        dadosCpu.push(resposta[i].cpu);
-                        dadosMemoria.push(resposta[i].memoria);
-                        data.push(resposta[i].data)
+                        dadosCpu[i] = Number(resposta[i].cpu);
+                        dadosMemoria[i] = Number(resposta[i].memoria);
+                        data[i] = resposta[i].data
                     }
+
+                    console.log(dadosCpu)
+                    console.log(dadosMemoria)
+                    console.log(data)
 
                     var divGraficoComponente = document.getElementById("divGraficoComponente");
                     divGraficoComponente.innerHTML = ""
 
+
                     var options = {
                         series: [{
                           name: "CPU",
-                          data: [dadosCpu]
-                      }],
-                      series: [{
-                        name: "Memória",
-                        data: [dadosMemoria]
+                          data: dadosCpu
+                      },
+                      {
+                        name: "Memoria",
+                        data: dadosMemoria
                     }],
                         chart: {
                         height: 350,
-                        width: 350,
+                        width: 650,
                         type: 'line',
                         zoom: {
                           enabled: false
                         }
                       },
                       dataLabels: {
-                        enabled: true
+                        enabled: false
                       },
                       stroke: {
                         curve: 'straight'
@@ -359,15 +364,16 @@ function plotarGrafico() {
                       },
                       grid: {
                         row: {
-                          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                          colors: ['#f3f3f3', 'transparent'],
                           opacity: 0.5
                         },
                       },
                       xaxis: {
                         name: "Data",
-                        categories: [data],
+                        categories: data,
                       }
-                      };              
+                      };
+
 
                     var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
                     chart.render();
