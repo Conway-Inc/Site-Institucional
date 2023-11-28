@@ -86,11 +86,11 @@ function plotarGrafico(id) {
   );
   if (process.env.AMBIENTE_PROCESSO == "producao"){
     var instrucao = `
-    SELECT cpu, memoria, FORMAT(data, '%d de %M, %k:%i') as data FROM vw_registroEstruturado WHERE idTotem = ${id};
+    SELECT cpu, memoria, FORMAT(data,'D', 'pt-BR') as data FROM vw_registroEstruturado WHERE idTotem = ${id};
     `;
-  }else if (process.env.AMBIENTE_PROCESSO == "producao"){
+  }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     var instrucao = `
-    SELECT cpu, memoria, DATE_FORMAT(data, 'D', 'pt-BR') as data FROM vw_registroEstruturado WHERE idTotem = ${id};
+    SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_registroEstruturado WHERE idTotem = ${id};
     `;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
