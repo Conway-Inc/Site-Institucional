@@ -42,10 +42,11 @@
   background-color: #3498DB;
   color: white;
   padding: 16px;
-  font-size: 12px ;
+  font-size: 16px ;
   border: none;
   cursor: pointer;
   height: 40%;
+  text-align: start;
 }
 
 

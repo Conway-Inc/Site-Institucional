@@ -152,6 +152,11 @@ function plotarTabelaAlertas() {
 
 }
 
+function pegarIdUrl(){
+    const id = URLSearchParams.get('id')
+    plotarGrafico(id)
+}
+
 function plotarGrafico(id) {
 
     sessionStorage.setItem('ID_TOTEM', id)
@@ -217,15 +222,13 @@ function plotarGrafico(id) {
                 var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
                 chart.render();
                 divFiltro.innerHTML = ` 
-                <img src='img/imgFiltroGraficoKauan.png' style='width: 3%; height: 3%'>
-                <div class="dropdown">
+                <img src='img/imgFiltroGraficoKauan.png' style='width: 6%; height: 6%'>
                     <button class="dropbtn">Filtrar por</button>
                     <div id="myDropdown" class="dropdown-content">
                         <a onclick = "plotarGrafico">Última Hora</a>
                         <a onclick = "buscarRegistroUltimoDia">Último Dia</a>
                         <a onclick = "atualizarGrafico">Tempo Real</a>
                     </div>
-                </div> 
                      `
 
             });
