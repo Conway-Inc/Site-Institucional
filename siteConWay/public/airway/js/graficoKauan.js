@@ -1,168 +1,54 @@
-function exibirEstadosComTotens() {
-    var estado = document.getElementById("select-estado");
-    fetch(`/graficoBruno/exibirEstadosComTotens`)
-        .then(function (resposta) {
-            if (resposta.ok) {
+var compMaisProblematico = [];
+var maiorRegistro = [];
 
-                resposta.json().then(json => {
+function buscarMaiorRegistro() {
+    fetch(`/graficoKauan/buscarMaiorRegistro`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    maiorRegistro[i] = resposta[i].max_valor
+                    console.log(maiorRegistro[i])
+                }
+                buscarCompProblematico()
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
 
-                    estado.innerHTML = "";
+function buscarCompProblematico() {
 
-                    let option1 = document.createElement("option");
-                    option1.innerHTML = "Todos os estados";
-                    option1.setAttribute("data-default", "");
-                    option1.setAttribute("value", "0");
-                    option1.setAttribute("selected", "");
-                    estado.appendChild(option1);
-
-                    var municipio = document.getElementById("select-municipio");
-
-                    municipio.innerHTML = "";
-                    let option2 = document.createElement("option");
-                    option2.innerHTML = "Selecione um estado...";
-                    option2.setAttribute("data-default", "");
-                    option2.setAttribute("disabled", "");
-                    option2.setAttribute("selected", "");
-                    municipio.appendChild(option2);
-
-                    var aeroporto = document.getElementById("select-aeroporto");
-                    aeroporto.removeAttribute("disabled");
-                    aeroporto.innerHTML = "";
-                    let option3 = document.createElement("option");
-                    option3.innerHTML = "Selecione um municipio...";
-                    option3.setAttribute("data-default", "");
-                    option3.setAttribute("disabled", "");
-                    option3.setAttribute("selected", "");
-                    aeroporto.appendChild(option3);
-                    aeroporto.setAttribute("disabled", '')
-
-                    for (let i = 0; i < json.length; i++) {
-                        let publicacao = json[i];
-                        let option = document.createElement("option");
-                        option.innerHTML = publicacao.estado;
-                        option.setAttribute("value", publicacao.estado);
-                        estado.appendChild(option);
-                    }
-                });
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
+    fetch(`/graficoKauan/buscarCompProblematico`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                console.log("Nenhum componente encontrado!!");
             }
-        }).catch(function (erro) {
-            console.log(erro);
-        });
-    return false;
-}
+            resposta.json().then(function (resposta) {
 
-function exibirMunicipiosComTotens() {
-    var estado = document.getElementById("select-estado");
-    if (estado.value == 0) {
-        var municipio = document.getElementById("select-municipio");
-        municipio.setAttribute("disabled", "");
+                for (let i = 0; i < resposta.length; i++) {
 
-    } else {
-        fetch(`/graficoBruno/exibirMunicipiosComTotens/${estado.value}`)
-            .then(function (resposta) {
-                if (resposta.ok) {
-
-                    resposta.json().then(json => {
-
-                        var municipio = document.getElementById("select-municipio");
-                        municipio.removeAttribute("disabled");
-                        municipio.innerHTML = "";
-                        let option1 = document.createElement("option");
-                        option1.innerHTML = "Todos os municípios";
-                        option1.setAttribute("data-default", "");
-                        option1.setAttribute("value", "0");
-                        option1.setAttribute("selected", "");
-                        municipio.appendChild(option1);
-
-                        var aeroporto = document.getElementById("select-aeroporto");
-                        aeroporto.setAttribute("disabled", '')
-                        aeroporto.innerHTML = "";
-                        let option2 = document.createElement("option");
-                        option2.innerHTML = "Selecione um município...";
-                        option2.setAttribute("data-default", "");
-                        option2.setAttribute("disabled", "");
-                        option2.setAttribute("selected", "");
-                        aeroporto.appendChild(option2);
-
-                        for (let i = 0; i < json.length; i++) {
-                            let publicacao = json[i];
-                            let option = document.createElement("option");
-                            option.innerHTML = publicacao.municipio;
-                            option.setAttribute("value", publicacao.municipio);
-                            municipio.appendChild(option);
-                        }
-                    });
-                } else {
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                    });
+                    if (resposta[i].componente_mais_problematico == 1) {
+                        compMaisProblematico[i] = "CPU"
+                    } else if (resposta[i].componente_mais_problematico == 2) {
+                        compMaisProblematico[i] = "Memória"
+                    } else if (resposta[i].componente_mais_problematico == 3) {
+                        compMaisProblematico[i] = "Disco"
+                    }
                 }
-            }).catch(function (erro) {
-                console.log(erro);
+                plotarTabelaAlertas()
             });
-        return false;
-    }
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
 }
-
-function exibirAeroportosComTotens(municipio) {
-    var municipio = document.getElementById("select-municipio");
-    if (municipio.value == 0) {
-        var aeroporto = document.getElementById("select-aeroporto");
-        aeroporto.removeAttribute("disabled");
-        aeroporto.innerHTML = "";
-        let option3 = document.createElement("option");
-        option3.innerHTML = "Selecione um municipio...";
-        option3.setAttribute("data-default", "");
-        option3.setAttribute("disabled", "");
-        option3.setAttribute("selected", "");
-        aeroporto.appendChild(option3);
-        aeroporto.setAttribute("disabled", '')
-    } else {
-        fetch(`/graficoBruno/exibirAeroportosComTotens/${municipio.value}`)
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    resposta.json().then(json => {
-
-                        var aeroporto = document.getElementById("select-aeroporto");
-                        aeroporto.removeAttribute("disabled");
-                        aeroporto.innerHTML = "";
-                        let option = document.createElement("option");
-                        option.innerHTML = "Todos os aeroportos";
-                        option.setAttribute("data-default", "");
-                        option.setAttribute("value", "0");
-                        option.setAttribute("selected", "");
-                        aeroporto.appendChild(option);
-
-                        for (let i = 0; i < json.length; i++) {
-                            let publicacao = json[i];
-                            let option = document.createElement("option");
-                            option.innerHTML = publicacao.nomeAeroporto;
-                            option.setAttribute("value", publicacao.nomeAeroporto);
-                            aeroporto.appendChild(option);
-                        }
-
-                    });
-                } else {
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                    });
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-            });
-        return false;
-
-    }
-}
-
 
 function plotarTabelaAlertas() {
-    var compMaisProblematico = []
-    var maiorRegistro = [];
 
     var tabela = document.getElementById("dataTable");
 
@@ -197,49 +83,6 @@ function plotarTabelaAlertas() {
     tr.appendChild(thMaiorRegistro)
     tabela.appendChild(tr)
 
-    fetch(`/graficoKauan/buscarMaiorRegistro`).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(function (resposta) {
-                for (let i = 0; i < resposta.length; i++) {
-                    maiorRegistro[i] = resposta[i].max_valor
-                }
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
-
-
-    fetch(`/graficoKauan/buscarCompProblematico`).then(function (resposta) {
-        if (resposta.ok) {
-            if (resposta.status == 204) {
-                console.log("Nenhum componente encontrado!!");
-            }
-            resposta.json().then(function (resposta) {
-
-                for (let i = 0; i < resposta.length; i++) {
-
-                    if (resposta[i].componente_mais_problematico == 1) {
-                        compMaisProblematico[i] = "CPU"
-                    } else if (resposta[i].componente_mais_problematico == 2) {
-                        compMaisProblematico[i] = "Memória"
-                    } else if (resposta[i].componente_mais_problematico == 3) {
-                        compMaisProblematico[i] = "Disco"
-                    }
-                }
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
-
-
-
-
     fetch(`/graficoKauan/buscarTotens`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
@@ -260,7 +103,7 @@ function plotarTabelaAlertas() {
                     tdTotem.innerHTML = "<img src=' ../img/totem.png' style='width: 15%';></img>"
                     tdTotem.innerHTML += dados.nome;
                     tdTotem.setAttribute("id", `${i + 1}`)
-                    tdTotem.setAttribute("onclick", "plotarGrafico()")
+                    tdTotem.setAttribute("onclick", `plotarGrafico(${i + 1})`)
                     tdTotem.style.cursor = "pointer"
 
 
@@ -309,79 +152,164 @@ function plotarTabelaAlertas() {
 
 }
 
-function plotarGrafico() {
+function plotarGrafico(id) {
 
-        var id = event.target.id;
-        fetch(`/graficoKauan/plotarGrafico/${id}`).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
+    sessionStorage.setItem('ID_TOTEM', id)
+    fetch(`/graficoKauan/plotarGrafico/${id}`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
 
-                    var dadosCpu = []
-                    var dadosMemoria = []
-                    var data = []
+                var dadosCpu = []
+                var dadosMemoria = []
+                var data = []
 
-                    for (let i = 0; i < resposta.length; i++) {
-                        dadosCpu[i] = Number(resposta[i].cpu);
-                        dadosMemoria[i] = Number(resposta[i].memoria);
-                        data[i] = resposta[i].data
-                    }
+                for (let i = 0; i < resposta.length; i++) {
+                    dadosCpu[i] = Number(resposta[i].cpu);
+                    dadosMemoria[i] = Number(resposta[i].memoria);
+                    data[i] = resposta[i].data
+                }
 
-                    console.log(dadosCpu)
-                    console.log(dadosMemoria)
-                    console.log(data)
+                console.log(dadosCpu)
+                console.log(dadosMemoria)
+                console.log(data)
 
-                    var divGraficoComponente = document.getElementById("divGraficoComponente");
-                    divGraficoComponente.innerHTML = ""
+                var divGraficoComponente = document.getElementById("divGraficoComponente");
+                divGraficoComponente.innerHTML = ""
 
-                    var options = {
-                        series: [{
-                          name: "CPU",
-                          data: dadosCpu
-                      },
-                      {
+                var options = {
+                    series: [{
+                        name: "CPU",
+                        data: dadosCpu
+                    },
+                    {
                         name: "Memoria",
                         data: dadosMemoria
                     }],
-                        chart: {
+                    chart: {
                         height: 350,
                         width: 650,
                         type: 'line',
                         zoom: {
-                          enabled: false
+                            enabled: false
                         }
-                      },
-                      dataLabels: {
+                    },
+                    dataLabels: {
                         enabled: false
-                      },
-                      stroke: {
+                    },
+                    stroke: {
                         curve: 'straight'
-                      },
-                      title: {
+                    },
+                    title: {
                         text: 'Registros',
                         align: 'center'
-                      },
-                      grid: {
+                    },
+                    grid: {
                         row: {
-                          colors: ['#f3f3f3', 'transparent'],
-                          opacity: 0.5
+                            colors: ['#f3f3f3', 'transparent'],
+                            opacity: 0.5
                         },
-                      },
-                      xaxis: {
+                    },
+                    xaxis: {
                         name: "Data",
                         categories: data,
-                      }
-                      };
-                    var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
-                    chart.render();
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
+                    }
+                };
+                var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
+                chart.render();
+                divFiltro.innerHTML = ` 
+                <img src='img/imgFiltroGraficoKauan.png' style='width: 3%; height: 3%'>
+                <div class="dropdown">
+                    <button class="dropbtn">Filtrar por</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a onclick = "plotarGrafico">Última Hora</a>
+                        <a onclick = "buscarRegistroUltimoDia">Último Dia</a>
+                        <a onclick = "atualizarGrafico">Tempo Real</a>
+                    </div>
+                </div> 
+                     `
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
 }
 
+function buscarRegistroUltimoDia() {
+    var id = sessionStorage.ID_TOTEM = id;
+
+    fetch(`/graficoKauan/buscarRegistroUltimoDia/${id}`).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+
+                var dadosCpu = []
+                var dadosMemoria = []
+                var data = []
+
+                for (let i = 0; i < resposta.length; i++) {
+                    dadosCpu[i] = Number(resposta[i].cpu);
+                    dadosMemoria[i] = Number(resposta[i].memoria);
+                    data[i] = resposta[i].data
+                }
+
+                console.log(dadosCpu)
+                console.log(dadosMemoria)
+                console.log(data)
+
+                var divGraficoComponente = document.getElementById("divGraficoComponente");
+                divGraficoComponente.innerHTML = ""
+
+                var options = {
+                    series: [{
+                        name: "CPU",
+                        data: dadosCpu
+                    },
+                    {
+                        name: "Memoria",
+                        data: dadosMemoria
+                    }],
+                    chart: {
+                        height: 350,
+                        width: 650,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'straight'
+                    },
+                    title: {
+                        text: 'Registros',
+                        align: 'center'
+                    },
+                    grid: {
+                        row: {
+                            colors: ['#f3f3f3', 'transparent'],
+                            opacity: 0.5
+                        },
+                    },
+                    xaxis: {
+                        name: "Data",
+                        categories: data,
+                    }
+                };
+                var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
+                chart.render();
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+}
 
 let proximaAtualizacao;
 function atualizarGrafico(idTotem, dados, chart) {
@@ -392,7 +320,7 @@ function atualizarGrafico(idTotem, dados, chart) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
                 plotarGrafico(idTotem);
-                // alertar(novoRegistro, idTotem);
+
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                 console.log(`Dados atuais do gráfico:`);
                 console.log(dados);
@@ -401,19 +329,18 @@ function atualizarGrafico(idTotem, dados, chart) {
                 avisoCaptura.innerHTML = ""
 
 
-                if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                if (novoRegistro[0].data == dados.labels[dados.labels.length - 1]) {
                     console.log("---------------------------------------------------------------")
                     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                    avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
                     console.log("Horário do novo dado capturado:")
-                    console.log(novoRegistro[0].momento_grafico)
+                    console.log(novoRegistro[0].data)
                     console.log("Horário do último dado capturado:")
                     console.log(dados.labels[dados.labels.length - 1])
                     console.log("---------------------------------------------------------------")
                 } else {
                     // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+                    dados.xaxis.categories.shift(); // apagar o primeiro
+                    dados.xaxis.categories.push(novoRegistro[0].data); // incluir um novo momento
 
                     dados.series[0].data.shift();  // apagar o primeiro de umidade
                     dados.series[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
