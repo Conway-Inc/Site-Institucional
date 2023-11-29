@@ -4,18 +4,11 @@ function buscarTotens() {
   console.log(
     "Acessei o graficoKauanModel e executei a função buscarTotens(): ",
   );
-  if (process.env.AMBIENTE_PROCESSO == "producao"){
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-    SELECT
-    nome,
-    COUNT(CASE WHEN valor >= 85.00 AND comp = 1 THEN 1 ELSE NULL END) AS alertaCpu,
-    COUNT(CASE WHEN valor >= 85.00 AND comp = 2 THEN 1 ELSE NULL END) AS alertaMem,
-    COUNT(CASE WHEN valor >= 85.00 AND comp = 3 THEN 1 ELSE NULL END) AS alertaDisco
-		FROM vw_alertas 
-            GROUP BY idTotem, nome
-            ORDER BY idTotem ASC;
+            SELECT * FROM infosTotem;
             `
-  }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
     var instrucao = `
     SELECT
@@ -27,7 +20,7 @@ function buscarTotens() {
             GROUP BY idTotem
             ORDER BY idTotem ASC;
             `;
-          }
+  }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
@@ -36,6 +29,12 @@ function buscarCompProblematico() {
   console.log(
     "Acessei o graficoKauanModel e executei a função buscarCompProblematico(): ",
   );
+
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
+    var instrucao = `
+      SELECT * FROM componenteProblematico;
+    `
+  }
   var instrucao = `
     WITH RankedComponents AS (
       SELECT
@@ -58,25 +57,32 @@ function buscarMaiorRegistro() {
   console.log(
     "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
   );
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-    SELECT idTotem, MAX(valor) AS max_valor
-    FROM vw_alertas 
-    WHERE comp IN (
-        SELECT componente_mais_problematico
-        FROM (
-            SELECT
-                idTotem,
-                comp AS componente_mais_problematico,
-                COUNT(comp) AS quantidade_de_ocorrencias,
-                ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
-                FROM vw_alertas
-                GROUP BY idTotem, comp
-        ) RankedComponents
-        WHERE rn = 1
-  )
-  GROUP BY idTotem;
-  `;
-      
+    SELECT * FROM maximoValor;
+    `
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    var instrucao = `
+      SELECT idTotem, MAX(valor) AS max_valor
+      FROM vw_alertas 
+      WHERE comp IN (
+          SELECT componente_mais_problematico
+          FROM (
+              SELECT
+                  idTotem,
+                  comp AS componente_mais_problematico,
+                  COUNT(comp) AS quantidade_de_ocorrencias,
+                  ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
+                  FROM vw_alertas
+                  GROUP BY idTotem, comp
+          ) RankedComponents
+          WHERE rn = 1
+    )
+    GROUP BY idTotem;
+    `;
+    
+  }
+
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
@@ -85,7 +91,7 @@ function plotarGrafico(id) {
   console.log(
     "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
   );
-  if (process.env.AMBIENTE_PROCESSO == "producao"){
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
     SELECT TOP 3600
       cpu,
@@ -95,7 +101,7 @@ function plotarGrafico(id) {
     WHERE idTotem = ${id}
     ORDER BY data DESC
     `;
-  }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
     SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_registroEstruturado WHERE idTotem = ${id} LIMIT 3600;
     `;
@@ -108,7 +114,7 @@ function buscarRegistroUltimoDia(id) {
   console.log(
     "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
   );
-  if (process.env.AMBIENTE_PROCESSO == "producao"){
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
     SELECT TOP 43200
       cpu,
@@ -118,7 +124,7 @@ function buscarRegistroUltimoDia(id) {
     WHERE idTotem = ${id}
     ORDER BY data DESC    
     `;
-  }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
     SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_registroEstruturado WHERE idTotem = ${id} LIMIT 43200;
     `;
@@ -132,7 +138,7 @@ function atualizarGrafico(idTotem) {
   instrucaoSql = ''
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-      instrucaoSql = `
+    instrucaoSql = `
       SELECT 
         cpu, 
         memoria, 
@@ -145,7 +151,7 @@ function atualizarGrafico(idTotem) {
   `;
 
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-      instrucaoSql = `
+    instrucaoSql = `
       SELECT 
         cpu, 
         memoria, 
@@ -154,8 +160,8 @@ function atualizarGrafico(idTotem) {
       ORDER BY data DESC 
       LIMIT 1;`;
   } else {
-      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-      return
+    console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+    return
   }
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -163,10 +169,10 @@ function atualizarGrafico(idTotem) {
 }
 
 module.exports = {
-    buscarTotens,
-    buscarCompProblematico,
-    buscarMaiorRegistro,
-    plotarGrafico,
-    buscarRegistroUltimoDia,
-    atualizarGrafico
-  };
+  buscarTotens,
+  buscarCompProblematico,
+  buscarMaiorRegistro,
+  plotarGrafico,
+  buscarRegistroUltimoDia,
+  atualizarGrafico
+};

@@ -223,14 +223,14 @@ function plotarGrafico(id) {
                 };
                 var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
                 chart.render();
-                divFiltro.innerHTML = ` 
-                <img src='img/imgFiltroGraficoKauan.png' style='width: 3%; height: 3%'>
-                <select name="filtro" id="slct_filtro">
-                    <option onclick = "filtrarPorSelect(1)" value="1">última hora</option>
-                    <option onclick = "filtrarPorSelect(1)" value="2">último dia</option>
-                    <option onclick = "filtrarPorSelect(1)" value="3">Tempo Real</option>
-                </select>
-                `
+                // divFiltro.innerHTML = ` 
+                // <img src='img/imgFiltroGraficoKauan.png' style='width: 3%; height: 3%'>
+                // <select name="filtro" id="slct_filtro">
+                //     <option onclick = "filtrarPorSelect(1)" value="1">última hora</option>
+                //     <option onclick = "filtrarPorSelect(1)" value="2">último dia</option>
+                //     <option onclick = "filtrarPorSelect(1)" value="3">Tempo Real</option>
+                // </select>
+                // `
 
             });
         } else {
