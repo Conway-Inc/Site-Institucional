@@ -2,13 +2,52 @@ var database = require("../database/config");
 
 function getValorTotalTotens(fkEmpresaServer){
   console.log(
-    "Acessei o graficoBiaModel e executei a função atualizarValorTotens: ",
+    "Acessei o graficoBiaModel e executei a função getValorTotalTotens: ",
     fkEmpresaServer
   );
   var instrucao = `
-    SELECT COUNT(*) AS quantidade_totens
+  SELECT 
+    quantidade_totens.quantidadeTotensCount
+  FROM
+    (SELECT COUNT(*) as quantidadeTotensCount
     FROM Totem
-    WHERE fkEmpresa = '${ fkEmpresaServer}'
+    WHERE fkEmpresa = '${ fkEmpresaServer}') as quantidade_totens;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function getValorTotensAlerta(fkEmpresaServer){
+  console.log(
+    "Acessei o graficoBiaModel e executei a função getValorTotensAlerta: ",
+    fkEmpresaServer
+  );
+  var instrucao = `
+  SELECT 
+    quantidade_registrosAlerta.quantidadeRegistrosAlertaCount
+FROM
+    (SELECT COUNT(*) as quantidadeRegistrosAlertaCount
+     FROM Totem tot
+     INNER JOIN Registro reg ON tot.idTotem = reg.fkTotem
+     WHERE reg.fkComponente = 4 AND (reg.valor >= 75 AND reg.valor <= 78.99) AND tot.fkEmpresa = '${fkEmpresaServer}') AS quantidade_registrosAlerta;
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function getValorTotensCritico(fkEmpresaServer){
+  console.log(
+    "Acessei o graficoBiaModel e executei a função getValorTotensCritico: ",
+    fkEmpresaServer
+  );
+  var instrucao = `
+  SELECT 
+    quantidade_registrosCritico.quantidadeRegistrosCriticoCount
+  FROM
+    (SELECT COUNT(*) as quantidadeRegistrosCriticoCount
+    FROM Totem tot
+    INNER JOIN Registro reg ON tot.idTotem = reg.fkTotem
+    WHERE reg.fkComponente = 4 AND (reg.valor >= 79) AND tot.fkEmpresa = '${fkEmpresaServer}') AS quantidade_registrosCritico;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -37,7 +76,9 @@ function exibirTabelaTotensTemperaturaCritico(idEmpresa) {
 }
 
 module.exports = {
-  getValorTotalTotens,  
+  getValorTotalTotens,
+  getValorTotensAlerta,
+  getValorTotensCritico,  
   exibirTabelaTotensTemperaturaAlerta,
-    exibirTabelaTotensTemperaturaCritico
+  exibirTabelaTotensTemperaturaCritico
 };

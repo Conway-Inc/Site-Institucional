@@ -333,7 +333,6 @@ function plotarGrafico() {
                     var divGraficoComponente = document.getElementById("divGraficoComponente");
                     divGraficoComponente.innerHTML = ""
 
-
                     var options = {
                         series: [{
                           name: "CPU",
@@ -381,4 +380,61 @@ function plotarGrafico() {
         }).catch(function (resposta) {
             console.error(resposta);
         });
+}
+
+
+let proximaAtualizacao;
+function atualizarGrafico(idTotem, dados, chart) {
+
+
+
+    fetch(`/graficoKauan/atualizarGrafico/${idTotem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
+                plotarGrafico(idTotem);
+                // alertar(novoRegistro, idTotem);
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                console.log(`Dados atuais do gráfico:`);
+                console.log(dados);
+
+                let avisoCaptura = document.getElementById(`avisoCaptura${idTotem}`)
+                avisoCaptura.innerHTML = ""
+
+
+                if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                    console.log("---------------------------------------------------------------")
+                    console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                    avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                    console.log("Horário do novo dado capturado:")
+                    console.log(novoRegistro[0].momento_grafico)
+                    console.log("Horário do último dado capturado:")
+                    console.log(dados.labels[dados.labels.length - 1])
+                    console.log("---------------------------------------------------------------")
+                } else {
+                    // tirando e colocando valores no gráfico
+                    dados.labels.shift(); // apagar o primeiro
+                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+                    dados.series[0].data.shift();  // apagar o primeiro de umidade
+                    dados.series[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
+
+                    dados.series[1].data.shift();  // apagar o primeiro de temperatura
+                    dados.series[1].data.push(novoRegistro[0].memoria); // incluir uma nova medida de temperatura
+
+                    chart.update();
+                }
+
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados, chart), 2000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados, chart), 2000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
 }

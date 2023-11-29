@@ -15,4 +15,7 @@ router.get("/buscarMaiorRegistro", function (req, res) {
 router.get("/plotarGrafico/:id", function (req, res) {
     graficoKauanController.plotarGrafico(req, res);
 });
+router.get("/atualizarGrafico/:idTotem", function (req, res) {
+    graficoKauanController.atualizarGrafico(req, res);
+});
 module.exports = router;

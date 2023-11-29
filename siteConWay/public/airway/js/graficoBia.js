@@ -1,3 +1,8 @@
+
+getValorTotalTotens();
+getValorTotalTotensAlerta();
+getValorTotalTotensCritico();
+
 var qtdTotal_totens;
 var valorTotensAtencao;
 var valorTotensCritico;
@@ -6,6 +11,7 @@ function atualizarValorTotalTotens(valor) {
   var divElement = document.getElementById("qtdTotal_totens");
   if (divElement) {
     divElement.innerText = valor;
+    console.log("oiiii");
   }
 }
 
@@ -23,9 +29,9 @@ function atualizarValorTotensCritico(valor) {
   }
 }
 
-function getValorTotalTotens(req, res){
+function getValorTotalTotens(){
   var fkEmpresa = sessionStorage.FK_EMPRESA;
-
+  
   fetch('/graficoBia/getValorTotalTotens',{
     method: "POST",
     headers: {
@@ -43,16 +49,73 @@ function getValorTotalTotens(req, res){
   }).then((data) => {
     console.log(data);
 
-    // valorTotensAtencao = data[0].qtd_totens_alerta;
-    // valorTotensCritico = data[0].qtd_totens_critico;
-    qtdTotal_totens = data[0].qtdTotens;
-    // atualizarValorTotensAlerta(valorTotensAtencao);
-    // atualizarValorTotensCritico(valorTotensCritico);
+    qtdTotal_totens = data[0].quantidadeTotensCount;
+    
     atualizarValorTotalTotens(qtdTotal_totens);
+
   }).catch(function (erro) {
-    console.log(erro);
+    console.log("Erro na requisição: ", erro);
   });
 }
+
+function getValorTotalTotensAlerta(){
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
+  
+  fetch('/graficoBia/getValorTotalTotensAlerta',{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "fkEmpresaServer": fkEmpresa
+    })
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error("Erro na requisição.");
+    }
+  }).then((data) => {
+    console.log(data);
+
+    valorTotensAtencao = data[0].quantidadeRegistrosAlertaCount;
+    
+    atualizarValorTotensAlerta(valorTotensAtencao);
+
+  }).catch(function (erro) {
+    console.log("Erro na requisição: ", erro);
+  });
+}
+
+function getValorTotalTotensCritico(){
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
+  
+  fetch('/graficoBia/getValorTotalTotensCritico',{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "fkEmpresaServer": fkEmpresa
+    })
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error("Erro na requisição.");
+    }
+  }).then((data) => {
+    console.log(data);
+
+    valorTotensAtencao = data[0].quantidade_registrosCritico;
+    
+    atualizarValorTotensAlerta(valorTotensCritico);
+
+  }).catch(function (erro) {
+    console.log("Erro na requisição: ", erro);
+  });
+}
+
 
 function exibirTabelaTotensTemperaturaAlerta() {
     fetch(`/graficoBia/exibirTabelaTotensTemperaturaAlerta/${sessionStorage.FK_EMPRESA}`).then(function (resposta) {
@@ -87,11 +150,11 @@ function exibirTabelaTotensTemperaturaAlerta() {
               var tr = document.createElement("tr");
               var tbody = document.getElementById("tbodyTable");
     
-            //   linkConfiraTotens.addEventListener("click", (function (publicacao) {
-            //     return function () {
-            //       selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem, publicacao.nome);
-            //     };
-            //   })(publicacao));
+              tdMonitorar.addEventListener("onclick", (function (publicacao) {
+                return function () {
+                  selecionarTotem(publicacao.idTotem, publicacao.nomeTotem);
+                };
+              })(publicacao));
     
               tdMonitorar.appendChild(button);
     
@@ -149,12 +212,12 @@ function exibirTabelaTotensTemperaturaCritico() {
   
             var tr = document.createElement("tr");
             var tbody = document.getElementById("tbodyTable");
-  
-          //   linkConfiraTotens.addEventListener("click", (function (publicacao) {
-          //     return function () {
-          //       selecionarManutencao(publicacao.idTotem, publicacao.aeroportoTotem, publicacao.nome);
-          //     };
-          //   })(publicacao));
+
+            tdMonitorar.addEventListener("onclick", (function (publicacao) {
+              return function () {
+                selecionarTotem(publicacao.idTotem, publicacao.nomeTotem);
+              };
+            })(publicacao));
   
             tdMonitorar.appendChild(button);
   
@@ -183,7 +246,9 @@ function exibirTabelaTotensTemperaturaCritico() {
 function inicializarGrafico() {
     var options = {
         chart: {
-            type: 'line', // ou outro tipo de gráfico desejado
+            type: 'line', // tipo d0 gráfico 
+            height: '100%', 
+            width: '95%'
         },
         series: [{
             name: 'Exemplo',
@@ -193,4 +258,11 @@ function inicializarGrafico() {
 
     var chart = new ApexCharts(document.querySelector("#temReal"), options);
     chart.render();
+}
+
+function selecionarTotem(idTotem, nomeTotem){
+  sessionStorage.ID_TOTEM_SELECIONADO = idTotem;
+  sessionStorage.NOME_TOTEM = nomeTotem;
+
+  window.location.href = 'dashTemperaturaAtual.html'
 }
