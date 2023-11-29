@@ -153,7 +153,9 @@ function plotarTabelaAlertas() {
 }
 
 function pegarIdUrl(){
-    const id = URLSearchParams.get('id')
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id')
     plotarGrafico(id)
 }
 
@@ -223,13 +225,12 @@ function plotarGrafico(id) {
                 chart.render();
                 divFiltro.innerHTML = ` 
                 <img src='img/imgFiltroGraficoKauan.png' style='width: 6%; height: 6%'>
-                    <button class="dropbtn">Filtrar por</button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a onclick = "plotarGrafico">Última Hora</a>
-                        <a onclick = "buscarRegistroUltimoDia">Último Dia</a>
-                        <a onclick = "atualizarGrafico">Tempo Real</a>
-                    </div>
-                     `
+                <select name="filtro" id="slct_filtro">
+                    <option value="1">última hora</option>
+                    <option value="2">último dia</option>
+                    <option value="3">Tempo Real</option>
+                </select>
+                `
 
             });
         } else {
@@ -317,8 +318,6 @@ function buscarRegistroUltimoDia() {
 let proximaAtualizacao;
 function atualizarGrafico(idTotem, dados, chart) {
 
-
-
     fetch(`/graficoKauan/atualizarGrafico/${idTotem}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
@@ -367,4 +366,19 @@ function atualizarGrafico(idTotem, dados, chart) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
 
+}
+
+function filtrarPorSelect(){
+    var e = document.getElementById("slct_filtro");
+    var value = e.value;
+
+    id = sessionStorage.ID_TOTEM
+
+    if (value == 1) {
+        plotarGrafico(id)
+    } else if (value == 2) {
+        buscarRegistroUltimoDia()
+    } else if (value == 3) {
+        atualizarGrafico()
+    }
 }
