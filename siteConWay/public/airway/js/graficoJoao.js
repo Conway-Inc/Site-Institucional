@@ -172,6 +172,7 @@ function plotarTabelaAlertas() {
 
                     var tdTotem = document.createElement("td");
                     tdTotem.setAttribute("scope", "row");
+                    tdTotem.setAttribute("onclick", `verComponentes(${dados.idTotem})`);
                     tdTotem.innerHTML = dados.nomeTotem;
 
                     var tdIndicador = document.createElement("td");
@@ -293,4 +294,8 @@ function atualizarGraficoEstadoTotens(dadosGrafico) {
 
     chart.updateSeries(dadosGrafico);
 
+}
+
+function verComponentes(idTotem){
+    window.location.href = `graficoKauan.html?idTotem=${idTotem}`;
 }

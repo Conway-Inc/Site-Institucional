@@ -475,7 +475,6 @@ JOIN
     Registro ON fkRegistro = idRegistro 
 JOIN Totem ON fkTotem = idTotem 
 JOIN Aeroporto as a ON fkAeroporto = idAeroporto   
-ORDER BY idAeroporto    
 GO
 
 CREATE OR ALTER VIEW vw_totensEmAlerta AS 
