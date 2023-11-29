@@ -156,7 +156,8 @@ function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
   );
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-  SELECT Totem.*, IF(Pendentes.fkTotem IS NOT NULL, 1, 0) AS isTotemPendente
+    SELECT Totem.*, 
+    CASE WHEN Pendentes.fkTotem IS NOT NULL THEN 1 ELSE 0 END AS isTotemPendente
   FROM Totem
   LEFT JOIN (
       SELECT Manutencao.fkTotem
@@ -172,8 +173,7 @@ function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
   }
   else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
-    SELECT Totem.*, 
-    CASE WHEN Pendentes.fkTotem IS NOT NULL THEN 1 ELSE 0 END AS isTotemPendente
+  SELECT Totem.*, IF(Pendentes.fkTotem IS NOT NULL, 1, 0) AS isTotemPendente
   FROM Totem
   LEFT JOIN (
       SELECT Manutencao.fkTotem
@@ -197,7 +197,7 @@ function aprovarManutencao(totemServer) {
     totemServer
   );
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-  var instrucao = `
+    var instrucao = `
   UPDATE Manutencao
   SET aprovado = 1
   WHERE fkTotem = ${totemServer};
@@ -220,11 +220,12 @@ function reprovarManutencao(totemServer) {
     totemServer
   );
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-  var instrucao = `
+    var instrucao = `
   UPDATE Manutencao
   SET aprovado = 0
   WHERE fkTotem = ${totemServer};
-  `;}
+  `;
+  }
   else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
   UPDATE Manutencao
@@ -242,7 +243,7 @@ function listarAprovacoesEReprovacoes(idEmpresa) {
     idEmpresa
   );
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-  var instrucao = `
+    var instrucao = `
   SELECT 
     tot.idTotem,
     tot.nome AS nome,
@@ -259,9 +260,10 @@ FROM
     INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem
 WHERE 
     dataAtual < m.dataManutencao;
-    `; }
-    else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-      var instrucao = `
+    `;
+  }
+  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    var instrucao = `
       SELECT 
         tot.idTotem,
         tot.nome AS nome,
@@ -278,8 +280,8 @@ WHERE
         INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem
     WHERE 
         dataAtual < m.dataManutencao;
-        `; 
-    }
+        `;
+  }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
