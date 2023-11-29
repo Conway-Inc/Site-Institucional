@@ -70,10 +70,34 @@ function plotarGrafico(req, res) {
   }
 };
 
+function buscarRegistroUltimoDia(req, res) {
+
+  id = req.params.id
+  console.log("O id na controle é" + id)
+
+  if (id == undefined) {
+    res.status(400).send("O id do totem está undefined")
+  } else {
+    graficoKauanModel.buscarRegistroUltimoDia(id)
+      .then(
+        function (resultado) {
+          res.json(resultado);
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log("\nHouve um erro ao plotar o Gráfico!Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).send(erro.sqlMessage);
+        }
+      )
+  }
+};
+
 function atualizarGrafico(req, res) {
 
   var idTotem = req.params.idTotem;
-
   console.log(`Recuperando medidas em tempo real`);
 
   graficoKauanModel.atualizarGráfico(idTotem).then(function (resultado) {
@@ -94,5 +118,6 @@ module.exports = {
   buscarCompProblematico,
   buscarMaiorRegistro,
   plotarGrafico,
+  buscarRegistroUltimoDia,
   atualizarGrafico
 };
