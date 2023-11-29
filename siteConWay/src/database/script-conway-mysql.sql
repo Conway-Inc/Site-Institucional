@@ -434,4 +434,4 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
     INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;     
+    WHERE dataHora >= NOW() - INTERVAL 10 SECOND AND dataHora <= NOW() GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;    

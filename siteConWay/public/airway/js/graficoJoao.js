@@ -1,5 +1,5 @@
 
-// var intervalId = setInterval(buscarInformacoes, 3000);
+var intervalId = setInterval(buscarInformacoes, 3000);
 
 var totalTotensEmpresa = 0;
 var totensEstaveis = 0;
