@@ -11,13 +11,13 @@ function getValorTotalTotens(fkEmpresaServer){
   FROM
     (SELECT COUNT(*) as quantidadeTotensCount
     FROM Totem
-    WHERE fkEmpresa = '${ fkEmpresaServer}') as quantidade_totens;
+    WHERE fkEmpresa = ${fkEmpresaServer}) as quantidade_totens;
   `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
-function getValorTotensAlerta(fkEmpresaServer){
+function getValorTotalTotensAlerta(fkEmpresaServer){
   console.log(
     "Acessei o graficoBiaModel e executei a função getValorTotensAlerta: ",
     fkEmpresaServer
@@ -35,7 +35,7 @@ FROM
   return database.executar(instrucao);
 }
 
-function getValorTotensCritico(fkEmpresaServer){
+function getValorTotalTotensCritico(fkEmpresaServer){
   console.log(
     "Acessei o graficoBiaModel e executei a função getValorTotensCritico: ",
     fkEmpresaServer
@@ -77,8 +77,8 @@ function exibirTabelaTotensTemperaturaCritico(idEmpresa) {
 
 module.exports = {
   getValorTotalTotens,
-  getValorTotensAlerta,
-  getValorTotensCritico,  
+  getValorTotalTotensAlerta,
+  getValorTotalTotensCritico,  
   exibirTabelaTotensTemperaturaAlerta,
   exibirTabelaTotensTemperaturaCritico
 };

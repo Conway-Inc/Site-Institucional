@@ -196,16 +196,16 @@ GO
 
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
--- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memória', '%'), ('Disco', '%');
+-- ('CPU', 'GHZ'), ('MemÃ³ria', 'GB'), ('Disco', 'KB'),
+('cpu', '%'), ('memoria', '%'), ('disco', '%');
 GO
 
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 GO
 
-INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'São Paulo'),
-													   ('Brasilia International Airport', 'DF', 'Brasília'),
+INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'Sao Paulo'),
+													   ('Brasilia International Airport', 'DF', 'Brasilia'),
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 GO
 
@@ -248,21 +248,21 @@ GO
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
 VALUES 
-('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informações que não deveria.', 330.00, 22, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção para que não ocorra erros no período de férias.', 100.00, 23, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Precisará de manutenção preventiva para verificação dos componentes.', 140.00, 24, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Atualização de software', 'Média', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção preventiva para bom funcionamento dos totens no período de férias.', 300.00, 11, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para época de férias.', 323.00, 12, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Atualização de software', 'Alta', 'Atualização de software.', 323.00, 13, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Média', 'Está muito demorado, com funções que não deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
-('2023-11-27', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para épocas de férias.', 124.00, 15, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Atualização de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Falha técnica', 'Alta', 'Falha técnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Atualização de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
+('2023-11-26', '2023-12-01', 'Falha tï¿½cnica', 'Baixa', 'Nï¿½o funciona mais.', 650.00, 21, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informaï¿½ï¿½es que nï¿½o deveria.', 330.00, 22, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Baixa', 'Manutenï¿½ï¿½o para que nï¿½o ocorra erros no perï¿½odo de fï¿½rias.', 100.00, 23, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Baixa', 'Precisarï¿½ de manutenï¿½ï¿½o preventiva para verificaï¿½ï¿½o dos componentes.', 140.00, 24, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualizaï¿½ï¿½o de software', 'Mï¿½dia', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Baixa', 'Manutenï¿½ï¿½o preventiva para bom funcionamento dos totens no perï¿½odo de fï¿½rias.', 300.00, 11, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Alta', 'Manutenï¿½ï¿½o preventiva para ï¿½poca de fï¿½rias.', 323.00, 12, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualizaï¿½ï¿½o de software', 'Alta', 'Atualizaï¿½ï¿½o de software.', 323.00, 13, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Mï¿½dia', 'Estï¿½ muito demorado, com funï¿½ï¿½es que nï¿½o deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
+('2023-11-27', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Alta', 'Manutenï¿½ï¿½o preventiva para ï¿½pocas de fï¿½rias.', 124.00, 15, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualizaï¿½ï¿½o de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Falha tï¿½cnica', 'Alta', 'Falha tï¿½cnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualizaï¿½ï¿½o de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Mï¿½dia', 'Deve ser atualizado para as fï¿½rias.', 128.00, 4, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenï¿½ï¿½o preventiva', 'Alta', 'Deve ser atualizado para as fï¿½rias.', 128.00, 5, 0, '2023-11-26');
 GO
 
 INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
@@ -475,7 +475,6 @@ JOIN
     Registro ON fkRegistro = idRegistro 
 JOIN Totem ON fkTotem = idTotem 
 JOIN Aeroporto as a ON fkAeroporto = idAeroporto   
-ORDER BY idAeroporto    
 GO
 
 CREATE OR ALTER VIEW vw_totensEmAlerta AS 
@@ -507,4 +506,47 @@ INSERT INTO RamoEmpresa VALUES (2,1);
 GO
 
 INSERT INTO RamoEmpresa VALUES (2,2);
+GO
+
+
+CREATE VIEW maximoValor AS
+WITH RankedComponents AS (
+    SELECT
+        idTotem,
+        comp AS componente_mais_problematico,
+        COUNT(comp) AS quantidade_de_ocorrencias,
+        ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
+    FROM vw_alertas
+    GROUP BY idTotem, comp
+)
+SELECT a.idTotem, MAX(a.valor) AS max_valor
+FROM vw_alertas a
+JOIN RankedComponents rc ON a.idTotem = rc.idTotem AND a.comp = rc.componente_mais_problematico
+WHERE rc.rn = 1
+GROUP BY a.idTotem;
+GO
+
+CREATE VIEW componenteProblematico AS
+SELECT idTotem, comp AS componente_mais_problematico
+FROM (
+    SELECT
+        idTotem,
+        comp,
+        ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
+    FROM vw_alertas
+    GROUP BY idTotem, comp
+) AS RankedComponents
+WHERE rn = 1;
+GO
+
+CREATE VIEW infosTotem AS
+SELECT
+    idTotem,
+    nome,
+    SUM(CASE WHEN valor >= 85.00 AND comp = 1 THEN 1 ELSE 0 END) AS alertaCpu,
+    SUM(CASE WHEN valor >= 85.00 AND comp = 2 THEN 1 ELSE 0 END) AS alertaMem,
+    SUM(CASE WHEN valor >= 85.00 AND comp = 3 THEN 1 ELSE 0 END) AS alertaDisco
+FROM vw_alertas 
+GROUP BY idTotem, nome
+ORDER BY idTotem ASC;
 GO

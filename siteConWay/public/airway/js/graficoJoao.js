@@ -1,6 +1,7 @@
 
-var intervalId = setInterval(buscarInformacoes, 3000);
+var intervalId = setInterval(atualizarInformacoes, 5000);
 
+var chart;
 var totalTotensEmpresa = 0;
 var totensEstaveis = 0;
 var totensAtencao = 0;
@@ -11,7 +12,16 @@ var dadosGrafico = [totensCritico, totensAtencao, totensEstaveis]
 function buscarInformacoes() {
     plotarTabelaAlertas()
     plotarKPIs()
+    plotarGraficoEstadoTotens(dadosGrafico)
+    atualizarGraficoEstadoTotens(dadosGrafico)
 }
+
+function atualizarInformacoes() {
+    plotarTabelaAlertas()
+    plotarKPIs()
+    atualizarGraficoEstadoTotens(dadosGrafico)
+}
+
 
 function exibirRegistrosTotens() {
 
@@ -106,8 +116,8 @@ function plotarTabelaAlertas() {
 
                     var tdIndicador = document.createElement("td");
                     tdIndicador.setAttribute("scope", "row");
-                    var iIndicador = document.createElement("td");
-                    iIndicador.setAttribute("class", "fas fa-circle text-danger");
+                    var iIndicador = document.createElement("div");
+                    iIndicador.setAttribute("class", "indicador-alerta-critico");
 
 
                     var tr = document.createElement("tr");
@@ -162,12 +172,13 @@ function plotarTabelaAlertas() {
 
                     var tdTotem = document.createElement("td");
                     tdTotem.setAttribute("scope", "row");
+                    tdTotem.setAttribute("onclick", `verComponentes(${dados.idTotem})`);
                     tdTotem.innerHTML = dados.nomeTotem;
 
                     var tdIndicador = document.createElement("td");
                     tdIndicador.setAttribute("scope", "row");
-                    var iIndicador = document.createElement("td");
-                    iIndicador.setAttribute("class", "fas fa-circle text-warning");
+                    var iIndicador = document.createElement("div");
+                    iIndicador.setAttribute("class", "indicador-alerta-atencao");
 
 
                     var tr = document.createElement("tr");
@@ -220,7 +231,6 @@ function plotarKPIs() {
                 progressoEfetividade.setAttribute("style", `width: ${taxaEfetividade}%`)
 
                 dadosGrafico[2] = totensEstaveis
-                plotarGraficoEstadoTotens(dadosGrafico)
 
             });
         } else {
@@ -275,7 +285,17 @@ function plotarGraficoEstadoTotens(dadosGrafico) {
         }]
     };
 
-    var chart = new ApexCharts(document.getElementById("graficoEstadoTotens"), options);
+    chart = new ApexCharts(document.getElementById("graficoEstadoTotens"), options);
     chart.render();
 
+}
+
+function atualizarGraficoEstadoTotens(dadosGrafico) {
+
+    chart.updateSeries(dadosGrafico);
+
+}
+
+function verComponentes(idTotem){
+    window.location.href = `graficoKauan.html?idTotem=${idTotem}`;
 }

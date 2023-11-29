@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
+var metricasController = require("../controllers/metricasController");
+
 router.post("/cadastrarMetricasCpu", function(req,res){
     metricasController.cadastrarMetricasCpu(req,res)
 });

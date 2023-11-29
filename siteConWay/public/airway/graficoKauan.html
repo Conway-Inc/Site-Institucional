@@ -247,36 +247,11 @@
                         </div>
                     </div>
 
-                    <!-- Content Row -->
                     <div class="content">
-                        <!-- Area Chart -->
-                        <!-- <div class="escolhaAeroporto card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Aeroporto</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="container-fluid select-airport">
-                                    <label>Selecione o aeroporto desejado: </label>
-                                    <select id="select-estado" class="form-control"
-                                        onchange="exibirMunicipiosComTotens(2)">
-                                        <option>Selecione um estado...</option>
-                                    </select>
-
-                                    <select id="select-municipio" class="form-control"
-                                        onchange="exibirAeroportosComTotens()" disabled>
-                                        <option>Selecione um município...</option>
-                                    </select>
-
-                                    <select id="select-aeroporto" class="form-control"
-                                        onchange="exibirTotensAeroportos()" disabled>
-                                        <option>Selecione um aeroporto...</option>
-                                    </select>
-                                </div>
-
-                            </div>
-
-                        </div> -->
-                        <div id="divGraficoComponente"></div>
+                        <div id="divGraficoComponente">
+                            
+                        </div>
+                        <div id="divFiltro"></div>
                         <div class="alertasAeroporto">
 
                             <div class="card shadow mb-4">
@@ -289,6 +264,7 @@
                                     <div id="divTable" class="table-responsive">
                                         <table id="dataTable" class="table table-bordered text-gray-800"
                                             style="width: 100%;" cellspacing="0">
+                                            
                                             <!-- <tr>
                                                 <th>
                                                     Totem
@@ -386,6 +362,7 @@
 <script src="js/funcionario.js"></script>
 <script src="js/graficoKauan.js"></script>
 <script>
-    plotarTabelaAlertas()
+    pegarIdUrl()
+    buscarMaiorRegistro()
     exibirNomeFunc()
 </script>

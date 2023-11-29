@@ -1,7 +1,7 @@
 var graficoBiaModel = require("../models/graficoBiaModel");
 
 function getValorTotalTotens(req, res) {
-  const { fkEmpresaServer } = req.body.fkEmpresa;
+  const { fkEmpresaServer } = req.body;
   graficoBiaModel.getValorTotalTotens( fkEmpresaServer ).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
@@ -16,7 +16,7 @@ function getValorTotalTotens(req, res) {
 }
 
 function getValorTotalTotensCritico(req, res) {
-  const { fkEmpresaServer } = req.body.fkEmpresa;
+  const { fkEmpresaServer } = req.body;
   graficoBiaModel.getValorTotalTotensCritico( fkEmpresaServer ).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
@@ -31,7 +31,7 @@ function getValorTotalTotensCritico(req, res) {
 }
 
 function getValorTotalTotensAlerta(req, res) {
-  const { fkEmpresaServer } = req.body.fkEmpresa;
+  const { fkEmpresaServer } = req.body;
   graficoBiaModel.getValorTotalTotensAlerta( fkEmpresaServer ).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);

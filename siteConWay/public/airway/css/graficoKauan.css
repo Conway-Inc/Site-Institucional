@@ -1,26 +1,98 @@
-.alertasAeroporto{
+.alertasAeroporto {
   width: 100%;
 }
-.escolhaAeroporto{
+
+.escolhaAeroporto {
   width: 80%;
 }
-.content{
+
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#divTable{
+
+#divTable {
   display: flex;
   flex-direction: row;
 }
-#divTable td{
+
+#divTable td {
   text-align: center;
   vertical-align: middle;
 }
-#divTable th{
+
+#divTable th {
   text-align: center;
   vertical-align: middle;
 }
-#divGraficoComponente{
-  border: 50px;
+
+#divGraficoComponente {
+  display: flex;
+  flex-direction: row;
+  margin: 5%;
+}
+
+
+#divFiltro {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+
+#divFiltro select{
+  border-radius: 10px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px ;
+  border: none;
+  cursor: pointer;
+  height: 40%;
+  text-align: start;
+}
+
+
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #2980B9;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
 }

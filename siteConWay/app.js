@@ -18,7 +18,7 @@ var loginRouter = require("./src/routes/login");
 var funcionarioRouter = require("./src/routes/funcionario")
 var graficoAnaRouter = require("./src/routes/graficoAna");
 var graficoBiaRouter = require("./src/routes/graficoBia");
-
+var graficoPresilliRouter = require("./src/routes/graficoPresilli")
 
 
 app.use(express.json());
@@ -38,6 +38,7 @@ app.use("/graficoBia", graficoBiaRouter);
 app.use("/graficoKauan", graficoKauanRouter);
 app.use("/login", loginRouter);
 app.use("/empresa", empresaRouter);
+app.use("/graficoPresilli", graficoPresilliRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
