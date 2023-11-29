@@ -246,6 +246,19 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
                                                         ('PYR-11', 3, 2);
 GO
 
+-- Inserir registros para Totens com temperatura em Alerta
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
+(78.5, '2023-11-26 10:30:00', 4, 1),
+(76.0, '2023-11-26 11:15:00', 4, 2);
+
+
+-- Inserir registros para Totens com temperatura Crítica
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
+(80.0, '2023-11-26 13:45:00', 4, 4),
+(81.8, '2023-11-26 15:15:00', 4, 2);
+
+GO
+
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
 VALUES 
 ('2023-11-26', '2023-12-01', 'Falha t�cnica', 'Baixa', 'N�o funciona mais.', 650.00, 21, 0, '2023-11-26'),
