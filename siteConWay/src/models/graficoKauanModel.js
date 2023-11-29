@@ -59,22 +59,7 @@ function buscarMaiorRegistro() {
     "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
   );
     var instrucao = `
-    SELECT idTotem, MAX(valor) AS max_valor
-    FROM vw_alertas 
-    WHERE comp IN (
-        SELECT componente_mais_problematico
-        FROM (
-            SELECT
-                idTotem,
-                comp AS componente_mais_problematico,
-                COUNT(comp) AS quantidade_de_ocorrencias,
-                ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
-                FROM vw_alertas
-                GROUP BY idTotem, comp
-        ) RankedComponents
-        WHERE rn = 1
-  )
-  GROUP BY idTotem;
+    SELECT * FROM componenteProblematico;
   `;
       
   console.log("Executando a instrução SQL: \n" + instrucao);
