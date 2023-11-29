@@ -1,4 +1,3 @@
-
 getValorTotalTotens();
 getValorTotalTotensAlerta();
 getValorTotalTotensCritico();
@@ -10,28 +9,34 @@ var valorTotensCritico;
 function atualizarValorTotalTotens(valor) {
   var divElement = document.getElementById("qtdTotal_totens");
   if (divElement) {
-    divElement.innerText = valor;
-    console.log("oiiii");
+    divElement.innerHTML = valor;
+  }
+}
+
+function atualizarValorTotalTotensKpi2(valor) {
+  var divElement = document.getElementById("qtdTotal_totens2");
+  if (divElement) {
+    divElement.innerHTML = valor;
   }
 }
 
 function atualizarValorTotensAlerta(valor) {
   var divElement = document.getElementById("valorTotensAtencao");
   if (divElement) {
-    divElement.innerText = valor;
+    divElement.innerHTML = valor;
   }
 }
 
 function atualizarValorTotensCritico(valor) {
   var divElement = document.getElementById("valorTotensCritico");
   if (divElement) {
-    divElement.innerText = valor;
+    divElement.innerHTML = valor;
   }
 }
 
 function getValorTotalTotens(){
   var fkEmpresa = sessionStorage.FK_EMPRESA;
-  
+
   fetch('/graficoBia/getValorTotalTotens',{
     method: "POST",
     headers: {
@@ -41,6 +46,7 @@ function getValorTotalTotens(){
       "fkEmpresaServer": fkEmpresa
     })
   }).then((res) => {
+    console.log(res)
     if (res.ok) {
       return res.json();
     } else {
@@ -48,10 +54,10 @@ function getValorTotalTotens(){
     }
   }).then((data) => {
     console.log(data);
-
     qtdTotal_totens = data[0].quantidadeTotensCount;
     
     atualizarValorTotalTotens(qtdTotal_totens);
+    atualizarValorTotalTotensKpi2(qtdTotal_totens);
 
   }).catch(function (erro) {
     console.log("Erro na requisição: ", erro);
@@ -70,6 +76,7 @@ function getValorTotalTotensAlerta(){
       "fkEmpresaServer": fkEmpresa
     })
   }).then((res) => {
+    console.log(res);
     if (res.ok) {
       return res.json();
     } else {
@@ -107,9 +114,9 @@ function getValorTotalTotensCritico(){
   }).then((data) => {
     console.log(data);
 
-    valorTotensAtencao = data[0].quantidade_registrosCritico;
+    valorTotensCritico = data[0].quantidadeRegistrosCriticoCount;
     
-    atualizarValorTotensAlerta(valorTotensCritico);
+    atualizarValorTotensCritico(valorTotensCritico);
 
   }).catch(function (erro) {
     console.log("Erro na requisição: ", erro);
@@ -150,11 +157,12 @@ function exibirTabelaTotensTemperaturaAlerta() {
               var tr = document.createElement("tr");
               var tbody = document.getElementById("tbodyTable");
     
-              tdMonitorar.addEventListener("onclick", (function (publicacao) {
+              tdMonitorar.addEventListener("click", (function (publicacao) {
                 return function () {
                   selecionarTotem(publicacao.idTotem, publicacao.nomeTotem);
                 };
               })(publicacao));
+              
     
               tdMonitorar.appendChild(button);
     
@@ -215,6 +223,7 @@ function exibirTabelaTotensTemperaturaCritico() {
 
             tdMonitorar.addEventListener("onclick", (function (publicacao) {
               return function () {
+                alert(publicacao.idTotem + " "+ publicacao.nomeTotem);
                 selecionarTotem(publicacao.idTotem, publicacao.nomeTotem);
               };
             })(publicacao));
@@ -385,6 +394,7 @@ function inicializarGrafico2(){
 }
 
 function selecionarTotem(idTotem, nomeTotem){
+  alert('acionei')
   sessionStorage.ID_TOTEM_SELECIONADO = idTotem;
   sessionStorage.NOME_TOTEM = nomeTotem;
 
