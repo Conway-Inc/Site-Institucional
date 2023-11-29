@@ -441,7 +441,7 @@ JOIN
     Registro ON fkRegistro = idRegistro 
 JOIN Totem ON fkTotem = idTotem 
 JOIN Aeroporto as a ON fkAeroporto = idAeroporto   
-ORDER BY idAeropoerto    
+ORDER BY idAeroporto    
 GO
 
 CREATE OR ALTER VIEW vw_totensEmAlerta AS 
@@ -458,7 +458,8 @@ FROM
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
 WHERE 
-    dataHora = (SELECT TOP 1 dataHora FROM vw_alertas ORDER BY idAlerta DESC)
+    dataHora >= DATEADD(SECOND, -10, GETDATE())
+    AND dataHora <= GETDATE()
 GROUP BY 
     idTotem, t.nome, idAeroporto, ar.nome, t.fkAeroporto, t.fkEmpresa;
 GO
