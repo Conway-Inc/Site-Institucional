@@ -35,6 +35,8 @@
 #divFiltro {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  align-items: center;
 }
 
 /* Dropdown Button */
