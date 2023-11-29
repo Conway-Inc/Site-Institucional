@@ -173,7 +173,6 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Temperatura da CPU do Totem: </h1>
                     </div>
@@ -183,6 +182,18 @@
                         </div>
                         <div class="card-body">
                             <div id="temReal"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Quantidade de alertas Críticos da Temperatura Comparado aos alertas do Componente</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="chartdiv"></div>
                         </div>
                     </div>
                 </div>
@@ -209,7 +220,6 @@
         inicializarGrafico();
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="vendor/jquery/jquery.min.js"></script>

@@ -12,7 +12,6 @@ function validarGerenteAnalista() {
     } else if (sessionStorage.GERENTE_FUNCIONARIO == 1) {
         inserirGerenteOcorrencias(menu);
         inserirGerenteAna2(menu) 
-        inserirGerenteDashBia(menu);
         inserirSlideEmpresa(menu);
         inserirEmpresaFuncionarios(menu);
         inserirContaMetricas(menu);
@@ -26,6 +25,7 @@ function validarGerenteAnalista() {
     } else {
         inserirAnalistaJoao(menu);
         inserirAnalistaKauan(menu);
+        inserirAnalistaGraficoBia(menu);
         inserirAnalistaAna(menu);
         inserirAnalistaAna2(menu)
         inserirSlideConta(menu);
@@ -52,20 +52,32 @@ function inserirGerenteOcorrencias(menu) {
     menu.appendChild(liGerenteOcorrencias);
 }
 
-function inserirGerenteDashBia(menu) {
-    let liGerenteDashBia = document.createElement("li");
-    liGerenteDashBia.setAttribute("class","nav-item");
-    let aGerenteDashBia = document.createElement("a");
-    aGerenteDashBia.setAttribute("class","nav-link")
-    aGerenteDashBia.setAttribute("href","graficoBia.html");
-    let iGerenteDashBia = document.createElement("i");
-    iGerenteDashBia.className = "fas fa-fw fa-tachometer-alt";
-    let spanGerenteDashBia = document.createElement("span");
-    spanGerenteDashBia.innerHTML = "Temperatura";
-    aGerenteDashBia.appendChild(iGerenteDashBia);
-    aGerenteDashBia.appendChild(spanGerenteDashBia);
-    liGerenteDashBia.appendChild(aGerenteDashBia);
-    menu.appendChild(liGerenteDashBia);
+function inserirAnalistaGraficoBia(menu) {
+    let liAnalistaDashBia = document.createElement("li");
+    liAnalistaDashBia.setAttribute("class","nav-item");
+    let aAnalistaDashBia = document.createElement("a");
+    aAnalistaDashBia.setAttribute("class","nav-link")
+    aAnalistaDashBia.setAttribute("href","graficoBia.html");
+    let iAnalistaDashBia = document.createElement("i");
+    iAnalistaDashBia.className = "fas fa-fw fa-tachometer-alt";
+    let spanAnalistaDashBia = document.createElement("span");
+    spanAnalistaDashBia.innerHTML = "Temperatura";
+    aAnalistaDashBia.appendChild(iAnalistaDashBia);
+    aAnalistaDashBia.appendChild(spanAnalistaDashBia);
+    liAnalistaDashBia.appendChild(aAnalistaDashBia);
+    menu.appendChild(liAnalistaDashBia);
+}
+
+function inserirAnalistaDashTempoReal(menu) {
+    let liAnalistaDashBia = document.createElement("li");
+    liAnalistaDashBia.setAttribute("class","nav-item");
+    let aAnalistaDashBia = document.createElement("a");
+    aAnalistaDashBia.setAttribute("class","nav-link")
+    aAnalistaDashBia.setAttribute("href","graficoBia.html");
+    let iAnalistaDashBia = document.createElement("i");
+    iAnalistaDashBia.className = "fas fa-fw fa-tachometer-alt";
+    liAnalistaDashBia.appendChild(aAnalistaDashBia);
+    menu.appendChild(liAnalistaDashBia);
 }
 
 function inserirAnalistaKauan(menu) {
