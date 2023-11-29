@@ -11,4 +11,17 @@ router.get("/exibirTabelaTotensTemperaturaCritico/:idEmpresa", function (req, re
     graficoBiaController.exibirTabelaTotensTemperaturaCritico(req, res);
 });
 
+router.post("/getValorTotalTotens", function (req, res) {
+    graficoBiaController.getValorTotalTotens(req, res);
+});
+
+router.post("/getValorTotalTotensAlerta", function (req, res) {
+    graficoBiaController.getValorTotalTotensAlerta(req, res);
+});
+
+router.post("/getValorTotalTotensCritico", function (req, res) {
+    graficoBiaController.getValorTotalTotensCritico(req, res);
+});
+
+
 module.exports = router;

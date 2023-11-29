@@ -59,13 +59,25 @@ function buscarTotemMaisProblematico(idEmpresa) {
   console.log(
     "Acessei o graficoJoaoModel e executei a função buscarTotemMaisProblematico(): ",
   );
-  var instrucao = `
+
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
+    var instrucao = `
     SELECT nome AS nomeTotem, COUNT(idAlerta) AS totalAlertas FROM vw_alertas WHERE fkEmpresa = ${idEmpresa}
     GROUP BY idTotem, nome
     ORDER BY TotalAlertas DESC
     OFFSET 0 ROWS
     FETCH NEXT 1 ROWS ONLY; 
   `;
+
+} else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+     var instrucao = `
+    SELECT nome AS nomeTotem, COUNT(idAlerta) AS totalAlertas FROM vw_alertas WHERE fkEmpresa = ${idEmpresa}
+    GROUP BY idTotem, nomeTotem
+    ORDER BY TotalAlertas DESC
+    LIMIT 1; 
+  `;
+}
+  
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }

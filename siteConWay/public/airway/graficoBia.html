@@ -10,7 +10,7 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="css/sb-admin-2.css" rel="stylesheet">
-    <link href="css/dashBia.css" rel="stylesheet">
+    <link href="css/graficoBia.css" rel="stylesheet">
     <link rel="icon" href="img/AirWayLogo.jpg">
     <title>AirWay - Dashboard</title>
 </head>
@@ -175,7 +175,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Acompanhar temperatura da CPU</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Acompanhar ALERTAS temperatura da CPU</h1>
                     </div>
                     <div class="container-fluid">
                         <div class="row justify-content-end align-items-center">
@@ -188,10 +188,10 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
                                                     Totens com temperatura em estado de ATENÇÃO</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensAtencao">0</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorTotensAtencao">0</div>
                                             </div>
                                             <div class="col-auto">
-                                                <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdTotal_totens">0</div>
                                             </div>
                                         </div>
                                     </div>
@@ -206,10 +206,10 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
                                                     Totens com temperatura em estado CRÍTICO</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="divTotensCritico">0</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="valorTotensCritico">0</div>
                                             </div>
                                             <div class="col-auto">
-                                                <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdTotal_totens2">0</div>
                                             </div>
                                         </div>
                                     </div>
@@ -263,14 +263,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Temperatura em tempo real</h6>
-                        </div>
-                        <div class="card-body">
-                            <div id="temReal"></div>
-                        </div>
-                    </div>
                 </div>
             
             <footer class="sticky-footer bg-white">
@@ -289,15 +281,6 @@
 
 </html>
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        inicializarGrafico();
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>

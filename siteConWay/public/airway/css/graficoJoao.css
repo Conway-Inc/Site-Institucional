@@ -1,0 +1,17 @@
+.indicador-alerta-atencao{
+    height: 26px;
+    width: 30px;
+    background-image: url(../img/alerta-atencao.png);
+    background-size: cover;  
+}
+
+.indicador-alerta-critico{
+    height: 26px;
+    width: 30px;
+    background-image: url(../img/alerta-critico.png);
+    background-size: cover;  
+}
+
+.indicadores-totens-alerta{
+    display: flex;
+}

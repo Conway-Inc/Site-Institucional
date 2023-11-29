@@ -388,12 +388,12 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
 -- Inserir registros para Totens com temperatura em Alerta
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
 (78.5, '2023-11-26 10:30:00', 4, 1),
+(77.8, '2023-11-26 10:30:00', 4, 1),
 (76.0, '2023-11-26 11:15:00', 4, 2);
 
 -- Inserir registros para Totens com temperatura Crítica
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
-(80.0, '2023-11-26 13:45:00', 4, 4),
-(81.8, '2023-11-26 15:15:00', 4, 2);
+(80.0, '2023-11-26 13:45:00', 4, 4);
  
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
@@ -412,6 +412,7 @@ SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
 MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
 MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
 MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
+MAX( CASE WHEN r.fkComponente = 4 THEN r.valor END ) "temperatura",
 a.nome as nomeAero, a.municipio, a.estado, t.fkEmpresa
 FROM Registro as r JOIN Totem as t ON r.fkTotem = t.idTotem
 JOIN Aeroporto as a ON t.fkAeroporto = a.idAeroporto
@@ -434,4 +435,4 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
     INNER JOIN Aeroporto AS ar ON t.fkAeroporto = ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
-    WHERE dataHora = (SELECT dataHora FROM vw_alertas ORDER BY idAlerta DESC LIMIT 1) GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;     
+    WHERE dataHora >= NOW() - INTERVAL 10 SECOND AND dataHora <= NOW() GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;    

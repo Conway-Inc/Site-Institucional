@@ -1,3 +1,5 @@
+var metricasModel = require("../models/metricasModel");
+
 function cadastrarMetricasCpu(req, res){
     var fkEmpresa = req.body.fkEmpresaServer;
     var alertaCpu = req.body.alertaCpuServer;

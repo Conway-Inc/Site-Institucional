@@ -1,5 +1,50 @@
 var graficoBiaModel = require("../models/graficoBiaModel");
 
+function getValorTotalTotens(req, res) {
+  const { fkEmpresaServer } = req.body;
+  graficoBiaModel.getValorTotalTotens( fkEmpresaServer ).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum valor encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar o valor: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+function getValorTotalTotensCritico(req, res) {
+  const { fkEmpresaServer } = req.body;
+  graficoBiaModel.getValorTotalTotensCritico( fkEmpresaServer ).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum valor encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os valor: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+function getValorTotalTotensAlerta(req, res) {
+  const { fkEmpresaServer } = req.body;
+  graficoBiaModel.getValorTotalTotensAlerta( fkEmpresaServer ).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum valor encontrado!")
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar o valor: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 function exibirTabelaTotensTemperaturaAlerta(req, res) {
   var idEmpresa = req.params.idEmpresa;
   
@@ -33,6 +78,9 @@ function exibirTabelaTotensTemperaturaCritico(req, res) {
 }
 
 module.exports = {
-    exibirTabelaTotensTemperaturaAlerta,
-    exibirTabelaTotensTemperaturaCritico
+  getValorTotalTotens,
+  getValorTotalTotensAlerta,
+  getValorTotalTotensCritico,  
+  exibirTabelaTotensTemperaturaAlerta,
+  exibirTabelaTotensTemperaturaCritico
   };

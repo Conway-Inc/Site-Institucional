@@ -1,0 +1,7 @@
+.card-body {
+    height: 400px; /* ou qualquer altura desejada para a div card-body */
+  }
+  
+.row {
+    width: 50%;
+}

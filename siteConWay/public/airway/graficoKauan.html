@@ -178,37 +178,80 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Totens</h1>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="content">
-                        <!-- Area Chart -->
-                        <!-- <div class="escolhaAeroporto card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Aeroporto</h6>
-                            </div>
+                    <div class="row">
+                        <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
-                                <div class="container-fluid select-airport">
-                                    <label>Selecione o aeroporto desejado: </label>
-                                    <select id="select-estado" class="form-control"
-                                        onchange="exibirMunicipiosComTotens(2)">
-                                        <option>Selecione um estado...</option>
-                                    </select>
-
-                                    <select id="select-municipio" class="form-control"
-                                        onchange="exibirAeroportosComTotens()" disabled>
-                                        <option>Selecione um município...</option>
-                                    </select>
-
-                                    <select id="select-aeroporto" class="form-control"
-                                        onchange="exibirTotensAeroportos()" disabled>
-                                        <option>Selecione um aeroporto...</option>
-                                    </select>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div
+                                            class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
+                                            Totens em estado de atenção</div>
+                                        <div class="indicadores-totens-alerta">
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800"
+                                                id="divTotalTotensAtencao">X
+                                            </div>
+                                            <div class="h7 mb-0 font-weight-bold text-gray-800"
+                                                id="divAtencaoTotalTotens">/0
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                    </div>
                                 </div>
-
                             </div>
+                        </div>
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div
+                                            class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
+                                            Totens em estado de atenção</div>
+                                        <div class="indicadores-totens-alerta">
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800"
+                                                id="divTotalTotensAtencao">X
+                                            </div>
+                                            <div class="h7 mb-0 font-weight-bold text-gray-800"
+                                                id="divAtencaoTotalTotens">/0
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div
+                                            class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
+                                            Totens em estado de atenção</div>
+                                        <div class="indicadores-totens-alerta">
+                                            <div class="h3 mb-0 font-weight-bold text-gray-800"
+                                                id="divTotalTotensAtencao">X
+                                            </div>
+                                            <div class="h7 mb-0 font-weight-bold text-gray-800"
+                                                id="divAtencaoTotalTotens">/0
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                        </div> -->
-                        <div id="divGraficoComponente"></div>
+                    <div class="content">
+                        <div id="divGraficoComponente">
+                            
+                        </div>
+                        <div id="divFiltro"></div>
                         <div class="alertasAeroporto">
 
                             <div class="card shadow mb-4">
@@ -221,6 +264,7 @@
                                     <div id="divTable" class="table-responsive">
                                         <table id="dataTable" class="table table-bordered text-gray-800"
                                             style="width: 100%;" cellspacing="0">
+                                            
                                             <!-- <tr>
                                                 <th>
                                                     Totem
@@ -318,6 +362,7 @@
 <script src="js/funcionario.js"></script>
 <script src="js/graficoKauan.js"></script>
 <script>
-    plotarTabelaAlertas()
+    pegarIdUrl()
+    buscarMaiorRegistro()
     exibirNomeFunc()
 </script>

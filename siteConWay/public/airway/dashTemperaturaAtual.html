@@ -9,16 +9,14 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/dashBia.css" rel="stylesheet">
     <link rel="icon" href="img/AirWayLogo.jpg">
-    <title>AirWay</title>
+    <title>AirWay - Dashboard</title>
 </head>
 
 <body id="page-top" onload="validarGerenteAnalista()">
     <div id="wrapper">
-        <div id="cardMsg"></div>
-
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <div class="sidebar-brand d-flex align-items-center justify-content-center" >
@@ -28,7 +26,6 @@
             </div>
 
             <hr class="sidebar-divider my-0">
-
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -41,6 +38,12 @@
 
                     <ul class="navbar-nav ml-auto">
 
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">Alertas</h6>
@@ -82,6 +85,15 @@
                             </div>
                         </li>
 
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">Mensagens</h6>
@@ -159,136 +171,63 @@
 
                 </nav>
 
+                <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800">Cadastrar Métricas Gerais</h1>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Temperatura da CPU do Totem: </h1>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Temperatura em tempo real</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="temReal"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="container-fluid">
-
+                    
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">CPU</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Quantidade de alertas Críticos da Temperatura Comparado aos alertas do Componente</h6>
                         </div>
                         <div class="card-body">
-                            <div class="container-fluid">
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em ALERTA? </label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="number" id="ipt_limiteAlertaCpu" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a CPU entra em estado CRÍTICO?</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="number" id="ipt_limiteCriticoCpu" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="text-center" id="campo-botao">
-                                    <button class="btn btn-primary" id="botao-cadastrar"
-                                        onclick="cadastrarMetricasCpu()">Cadastrar</button>
-                                </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Memória</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="container-fluid">
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a Memória entra em ALERTA?</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="number" id="ipt_limiteAlertaMemo" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite a Memória entra em estado CRÍTICO?</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="NUMBER" id="ipt_limiteCriticoMemo" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="text-center" id="campo-botao">
-                                    <button class="btn btn-primary" id="botao-cadastrar"
-                                        onclick="cadastrarMetricasMemo()">Cadastrar</button>
-                                </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Disco</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="container-fluid">
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em ALERTA?</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="number" id="ipt_limiteAlertaDisco" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-md-4 col-lg-3 col-form-label">A partir de qual limite o Disco entra em estado CRÍTICO?</label>
-                                    <div class="col-md-8 col-lg-9">
-                                        <input type="NUMBER" id="ipt_limiteCriticoDisco" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="text-center" id="campo-botao">
-                                    <button class="btn btn-primary" id="botao-cadastrar"
-                                        onclick="cadastrarMetricasDisco()">Cadastrar</button>
-                                </div>
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="sticky-footer bg-white">
-                        <div class="container my-auto">
-                            <div class="copyright text-center my-auto">
-                                <span>Copyright &copy; ConWay 2023</span>
-                            </div>
-                        </div>
-                    </footer>
-                </div>
-
-            </div>
-            <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja sair?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                            <a class="btn btn-primary" href="../index.html">Sair</a>
+                            <div id="chart2div"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; ConWay 2023</span>
+                    </div>
+                </div>
+            </footer>
+        </div>            
+
+ 
+        
+    </div>
 </body>
 
 </html>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        inicializarGrafico();
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="js/validarUsuario.js"></script>
-<script src="js/empresa-metricas.js"></script>
-<script src="js/funcionario.js"></script>
-<script>
-    exibirNomeFunc()
-</script>
+<script src="js/graficoBia.js"></script>

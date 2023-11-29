@@ -42,9 +42,7 @@ CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY IDENTITY(1,1),
     nome VARCHAR(150),
     estado CHAR(2),
-    municipio VARCHAR(60),
-    latitude DECIMAL(6,4),
-    longitude DECIMAL (6,4)
+    municipio VARCHAR(60)
 );
 
 CREATE TABLE temperaturaAeroporto(
@@ -60,6 +58,20 @@ idTotem INT PRIMARY KEY IDENTITY(1,1),
 nome VARCHAR(45) UNIQUE,
 fkAeroporto INT FOREIGN KEY  REFERENCES Aeroporto(idAeroporto) ON DELETE CASCADE,
 fkEmpresa INT FOREIGN KEY REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
+);
+
+CREATE TABLE Manutencao (
+    idManutencao INT PRIMARY KEY IDENTITY(1,1),
+    dataManutencao DATE,
+    dataLimite DATE,
+    motivoManutencao VARCHAR(70),
+    urgenciaManutencao VARCHAR(70),
+    descricaoManutencao VARCHAR(255),
+    valor DECIMAL(8,2),
+    fkTotem INT,
+    aprovado BIT,
+    dataAtual DATE,
+    FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
 
 CREATE TABLE Componente (
@@ -133,16 +145,21 @@ CREATE PROCEDURE inserirDadosTotemID(@idTotem INT,
                                   @re2_valor DECIMAL(8, 2),
                                   @co3_nome VARCHAR(45),
                                   @re3_valor DECIMAL(8, 2),
+                                  @co4_nome VARCHAR(45),
+                                  @re4_valor DECIMAL(8, 2),
                                   @re_data DATETIME)
 AS
 BEGIN
     DECLARE @fkComponente1 INT;
     DECLARE @fkComponente2 INT;
     DECLARE @fkComponente3 INT;
+    DECLARE @fkComponente4 INT;
 
     SET @fkComponente1 = (SELECT idComponente FROM Componente WHERE nome = @co1_nome);
     SET @fkComponente2 = (SELECT idComponente FROM Componente WHERE nome = @co2_nome);
     SET @fkComponente3 = (SELECT idComponente FROM Componente WHERE nome = @co3_nome);
+    SET @fkComponente4 = (SELECT idComponente FROM Componente WHERE nome = @co4_nome);
+
 
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
     VALUES (@idTotem, @fkComponente1, @re1_valor, @re_data);
@@ -152,6 +169,9 @@ BEGIN
 
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
     VALUES (@idTotem, @fkComponente3, @re3_valor, @re_data);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente4, @re4_valor, @re_data);
 END
 
 -- SCRIPTs GERAIS
@@ -224,6 +244,25 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
                                                         ('PYR-8', 3, 2),
                                                         ('PYR-9', 3, 2),
                                                         ('PYR-11', 3, 2);
+GO
+
+INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
+VALUES 
+('2023-11-26', '2023-12-01', 'Falha t�cnica', 'Baixa', 'N�o funciona mais.', 650.00, 21, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informa��es que n�o deveria.', 330.00, 22, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Manuten��o preventiva', 'Baixa', 'Manuten��o para que n�o ocorra erros no per�odo de f�rias.', 100.00, 23, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manuten��o preventiva', 'Baixa', 'Precisar� de manuten��o preventiva para verifica��o dos componentes.', 140.00, 24, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualiza��o de software', 'M�dia', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manuten��o preventiva', 'Baixa', 'Manuten��o preventiva para bom funcionamento dos totens no per�odo de f�rias.', 300.00, 11, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manuten��o preventiva', 'Alta', 'Manuten��o preventiva para �poca de f�rias.', 323.00, 12, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualiza��o de software', 'Alta', 'Atualiza��o de software.', 323.00, 13, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'M�dia', 'Est� muito demorado, com fun��es que n�o deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
+('2023-11-27', '2023-12-01', 'Manuten��o preventiva', 'Alta', 'Manuten��o preventiva para �pocas de f�rias.', 124.00, 15, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualiza��o de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Falha t�cnica', 'Alta', 'Falha t�cnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualiza��o de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manuten��o preventiva', 'M�dia', 'Deve ser atualizado para as f�rias.', 128.00, 4, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manuten��o preventiva', 'Alta', 'Deve ser atualizado para as f�rias.', 128.00, 5, 0, '2023-11-26');
 GO
 
 INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
@@ -321,27 +360,6 @@ INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
                                    (3, 31, null, 85, 95);
 GO
 
-UPDATE Aeroporto SET latitude = -23.4378, longitude = -46.4813 where idAeroporto = 1071;
-UPDATE Aeroporto SET latitude =  -23.0061, longitude = -47.1418 where idAeroporto = 1092;
-UPDATE Aeroporto SET latitude =   -23.6274, longitude = -46.6556 where idAeroporto = 1;
-UPDATE Aeroporto SET latitude = -29.9953, longitude = -51.1664 where idAeroporto = 1133;
-UPDATE Aeroporto SET latitude = -28.2834, longitude =  -54.1656 where idAeroporto = 1113;
-UPDATE Aeroporto SET latitude = -29.1971, longitude = -51.1862 where idAeroporto = 1053;
-UPDATE Aeroporto SET latitude = -27.6701, longitude =  -48.5447 where idAeroporto = 1063 ;
-UPDATE Aeroporto SET latitude =  -26.8784, longitude =  -48.6494 where idAeroporto = 1112 ;
-UPDATE Aeroporto SET latitude = -26.2250, longitude = -48.7986 where idAeroporto = 1090;
-UPDATE Aeroporto SET latitude = -25.5328, longitude = -49.1674 where idAeroporto = 1051 ;
-UPDATE Aeroporto SET latitude = -3.0355, longitude = -60.0458 where idAeroporto = 1058;
-UPDATE Aeroporto SET latitude = -23.3319, longitude =  -51.1346 where idAeroporto = 1096;
-UPDATE Aeroporto SET latitude = -7.1489, longitude = -34.950 where idAeroporto = 1087;
-UPDATE Aeroporto SET latitude = -9.5108, longitude = -35.7925 where idAeroporto = 1107;
-UPDATE Aeroporto SET latitude = -22.9104, longitude = -43.1642 where idAeroporto = 1155;
-UPDATE Aeroporto SET latitude = -5.773, longitude =  -35.3621 where idAeroporto = 1160;
-UPDATE Aeroporto SET latitude = -3.7761, longitude = -38.5355 where idAeroporto = 1066;
-UPDATE Aeroporto SET latitude = -12.911, longitude = -38.335 where idAeroporto = 1169;
-UPDATE Aeroporto SET latitude = -1.3799, longitude = -48.4796 where idAeroporto = 1025;
-UPDATE Aeroporto SET latitude = -15.6595, longitude = -56.1094 where idAeroporto = 1054;
-GO
 
 SET IDENTITY_INSERT Registro ON;
 INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES (100000,0.0, '2023-11-07 12:00:00', 1,1),
@@ -415,6 +433,7 @@ SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
     MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
     MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
     MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
+    MAX( CASE WHEN r.fkComponente = 4 THEN r.valor END ) "temperatura",
     a.nome as nomeAero, 
     a.municipio, 
     a.estado, 
@@ -456,7 +475,7 @@ JOIN
     Registro ON fkRegistro = idRegistro 
 JOIN Totem ON fkTotem = idTotem 
 JOIN Aeroporto as a ON fkAeroporto = idAeroporto   
-ORDER BY idAeropoerto    
+ORDER BY idAeroporto    
 GO
 
 CREATE OR ALTER VIEW vw_totensEmAlerta AS 
@@ -473,7 +492,8 @@ FROM
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
 WHERE 
-    dataHora = (SELECT TOP 1 dataHora FROM vw_alertas ORDER BY idAlerta DESC)
+    dataHora >= DATEADD(SECOND, -10, GETDATE())
+    AND dataHora <= GETDATE()
 GROUP BY 
     idTotem, t.nome, idAeroporto, ar.nome, t.fkAeroporto, t.fkEmpresa;
 GO
