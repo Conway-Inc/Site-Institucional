@@ -133,16 +133,21 @@ CREATE PROCEDURE inserirDadosTotemID(@idTotem INT,
                                   @re2_valor DECIMAL(8, 2),
                                   @co3_nome VARCHAR(45),
                                   @re3_valor DECIMAL(8, 2),
+                                  @co4_nome VARCHAR(45),
+                                  @re4_valor DECIMAL(8, 2),
                                   @re_data DATETIME)
 AS
 BEGIN
     DECLARE @fkComponente1 INT;
     DECLARE @fkComponente2 INT;
     DECLARE @fkComponente3 INT;
+    DECLARE @fkComponente4 INT;
 
     SET @fkComponente1 = (SELECT idComponente FROM Componente WHERE nome = @co1_nome);
     SET @fkComponente2 = (SELECT idComponente FROM Componente WHERE nome = @co2_nome);
     SET @fkComponente3 = (SELECT idComponente FROM Componente WHERE nome = @co3_nome);
+    SET @fkComponente4 = (SELECT idComponente FROM Componente WHERE nome = @co4_nome);
+
 
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
     VALUES (@idTotem, @fkComponente1, @re1_valor, @re_data);
@@ -152,6 +157,9 @@ BEGIN
 
     INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
     VALUES (@idTotem, @fkComponente3, @re3_valor, @re_data);
+
+    INSERT INTO Registro (fkTotem, fkComponente, valor, dataHora)
+    VALUES (@idTotem, @fkComponente4, @re4_valor, @re_data);
 END
 
 -- SCRIPTs GERAIS
