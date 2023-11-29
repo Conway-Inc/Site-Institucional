@@ -60,6 +60,20 @@ fkAeroporto INT FOREIGN KEY  REFERENCES Aeroporto(idAeroporto) ON DELETE CASCADE
 fkEmpresa INT FOREIGN KEY REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
 );
 
+CREATE TABLE Manutencao (
+    idManutencao INT PRIMARY KEY IDENTITY(1,1),
+    dataManutencao DATE,
+    dataLimite DATE,
+    motivoManutencao VARCHAR(70),
+    urgenciaManutencao VARCHAR(70),
+    descricaoManutencao VARCHAR(255),
+    valor DECIMAL(8,2),
+    fkTotem INT,
+    aprovado BIT,
+    dataAtual DATE,
+    FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
+);
+
 CREATE TABLE Componente (
     idComponente INT PRIMARY KEY IDENTITY(1,1),
     nome VARCHAR(45),
@@ -182,16 +196,16 @@ GO
 
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
--- ('CPU', 'GHZ'), ('MemÃ³ria', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('MemÃ³ria', '%'), ('Disco', '%');
+-- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
+('CPU', '%'), ('Memória', '%'), ('Disco', '%');
 GO
 
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 GO
 
-INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'SÃ£o Paulo'),
-													   ('Brasilia International Airport', 'DF', 'BrasÃ­lia'),
+INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP', 'São Paulo'),
+													   ('Brasilia International Airport', 'DF', 'Brasília'),
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 GO
 
@@ -230,6 +244,25 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
                                                         ('PYR-8', 3, 2),
                                                         ('PYR-9', 3, 2),
                                                         ('PYR-11', 3, 2);
+GO
+
+INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
+VALUES 
+('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informações que não deveria.', 330.00, 22, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção para que não ocorra erros no período de férias.', 100.00, 23, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Precisará de manutenção preventiva para verificação dos componentes.', 140.00, 24, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualização de software', 'Média', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção preventiva para bom funcionamento dos totens no período de férias.', 300.00, 11, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para época de férias.', 323.00, 12, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualização de software', 'Alta', 'Atualização de software.', 323.00, 13, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Média', 'Está muito demorado, com funções que não deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
+('2023-11-27', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para épocas de férias.', 124.00, 15, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualização de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Falha técnica', 'Alta', 'Falha técnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualização de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
 GO
 
 INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
@@ -400,6 +433,7 @@ SELECT r.fkTotem as "idTotem", t.nome as "nome", r.dataHora as "data",
     MAX( CASE WHEN r.fkComponente = 1 THEN r.valor END ) "cpu" ,
     MAX( CASE WHEN r.fkComponente = 2 THEN r.valor END ) "memoria" ,
     MAX( CASE WHEN r.fkComponente = 3 THEN r.valor END ) "disco",
+    MAX( CASE WHEN r.fkComponente = 4 THEN r.valor END ) "temperatura",
     a.nome as nomeAero, 
     a.municipio, 
     a.estado, 
