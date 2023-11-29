@@ -224,11 +224,11 @@ function plotarGrafico(id) {
                 var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
                 chart.render();
                 divFiltro.innerHTML = ` 
-                <img src='img/imgFiltroGraficoKauan.png' style='width: 6%; height: 6%'>
+                <img src='img/imgFiltroGraficoKauan.png' style='width: 3%; height: 3%'>
                 <select name="filtro" id="slct_filtro">
-                    <option value="1">última hora</option>
-                    <option value="2">último dia</option>
-                    <option value="3">Tempo Real</option>
+                    <option onclick = "filtrarPorSelect(1)" value="1">última hora</option>
+                    <option onclick = "filtrarPorSelect(1)" value="2">último dia</option>
+                    <option onclick = "filtrarPorSelect(1)" value="3">Tempo Real</option>
                 </select>
                 `
 
@@ -368,10 +368,7 @@ function atualizarGrafico(idTotem, dados, chart) {
 
 }
 
-function filtrarPorSelect(){
-    var e = document.getElementById("slct_filtro");
-    var value = e.value;
-
+function filtrarPorSelect(value){
     id = sessionStorage.ID_TOTEM
 
     if (value == 1) {

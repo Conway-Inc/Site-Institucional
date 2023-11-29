@@ -58,9 +58,9 @@ function buscarMaiorRegistro() {
   console.log(
     "Acessei o graficoKauanModel e executei a função buscarMaiorRegistro(): ",
   );
-  var instrucao = `
-  SELECT idTotem, MAX(valor) AS max_valor
-  FROM vw_alertas 
+    var instrucao = `
+    SELECT idTotem, MAX(valor) AS max_valor
+    FROM vw_alertas 
     WHERE comp IN (
         SELECT componente_mais_problematico
         FROM (
@@ -69,13 +69,14 @@ function buscarMaiorRegistro() {
                 comp AS componente_mais_problematico,
                 COUNT(comp) AS quantidade_de_ocorrencias,
                 ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
-            FROM vw_alertas
-            GROUP BY idTotem, comp
+                FROM vw_alertas
+                GROUP BY idTotem, comp
         ) RankedComponents
         WHERE rn = 1
   )
   GROUP BY idTotem;
   `;
+      
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
@@ -86,7 +87,13 @@ function plotarGrafico(id) {
   );
   if (process.env.AMBIENTE_PROCESSO == "producao"){
     var instrucao = `
-    SELECT cpu, memoria, FORMAT(data,'D', 'pt-BR') as data FROM vw_registroEstruturado WHERE idTotem = ${id};
+    SELECT TOP 3600
+      cpu,
+      memoria,
+      FORMAT(data, 'dd MMM, HH:mm') as data
+    FROM vw_registroEstruturado
+    WHERE idTotem = ${id}
+    ORDER BY data DESC
     `;
   }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     var instrucao = `
@@ -103,7 +110,13 @@ function buscarRegistroUltimoDia(id) {
   );
   if (process.env.AMBIENTE_PROCESSO == "producao"){
     var instrucao = `
-    SELECT cpu, memoria, FORMAT(data,'D', 'pt-BR') as data FROM vw_registroEstruturado WHERE idTotem = ${id};
+    SELECT TOP 43200
+      cpu,
+      memoria,
+      FORMAT(data, 'dd MMM, HH:mm') as data
+    FROM vw_registroEstruturado
+    WHERE idTotem = ${id}
+    ORDER BY data DESC    
     `;
   }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
     var instrucao = `
@@ -119,13 +132,17 @@ function atualizarGrafico(idTotem) {
   instrucaoSql = ''
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-      instrucaoSql = `select top 1
-      dht11_temperatura as temperatura, 
-      dht11_umidade as umidade,  
-                      CONVERT(varchar, momento, 108) as momento_grafico, 
-                      fk_aquario 
-                      from medida where fk_aquario = ${idTotem} 
-                  order by id desc`;
+      instrucaoSql = `
+      SELECT 
+        cpu, 
+        memoria, 
+        FORMAT(data, 'dd MMM, HH:mm') as data 
+      FROM vw_registroEstruturado 
+      WHERE idTotem = ${idTotem}
+      ORDER BY data DESC 
+      OFFSET 0 ROWS
+      FETCH NEXT 1 ROWS ONLY;
+  `;
 
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
       instrucaoSql = `

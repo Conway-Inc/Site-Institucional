@@ -30,11 +30,20 @@
 #divGraficoComponente {
   display: flex;
   flex-direction: row;
+  margin: 5%;
 }
+
 
 #divFiltro {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+
+#divFiltro select{
+  border-radius: 10px;
 }
 
 /* Dropdown Button */
