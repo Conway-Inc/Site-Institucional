@@ -508,3 +508,46 @@ GO
 
 INSERT INTO RamoEmpresa VALUES (2,2);
 GO
+
+
+CREATE VIEW maximoValor AS
+WITH RankedComponents AS (
+    SELECT
+        idTotem,
+        comp AS componente_mais_problematico,
+        COUNT(comp) AS quantidade_de_ocorrencias,
+        ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
+    FROM vw_alertas
+    GROUP BY idTotem, comp
+)
+SELECT a.idTotem, MAX(a.valor) AS max_valor
+FROM vw_alertas a
+JOIN RankedComponents rc ON a.idTotem = rc.idTotem AND a.comp = rc.componente_mais_problematico
+WHERE rc.rn = 1
+GROUP BY a.idTotem;
+GO
+
+CREATE VIEW componenteProblematico AS
+SELECT idTotem, comp AS componente_mais_problematico
+FROM (
+    SELECT
+        idTotem,
+        comp,
+        ROW_NUMBER() OVER (PARTITION BY idTotem ORDER BY COUNT(comp) DESC) AS rn
+    FROM vw_alertas
+    GROUP BY idTotem, comp
+) AS RankedComponents
+WHERE rn = 1;
+GO
+
+CREATE VIEW infosTotem AS
+SELECT
+    idTotem,
+    nome,
+    SUM(CASE WHEN valor >= 85.00 AND comp = 1 THEN 1 ELSE 0 END) AS alertaCpu,
+    SUM(CASE WHEN valor >= 85.00 AND comp = 2 THEN 1 ELSE 0 END) AS alertaMem,
+    SUM(CASE WHEN valor >= 85.00 AND comp = 3 THEN 1 ELSE 0 END) AS alertaDisco
+FROM vw_alertas 
+GROUP BY idTotem, nome
+ORDER BY idTotem ASC;
+GO
