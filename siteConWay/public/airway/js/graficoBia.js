@@ -263,6 +263,7 @@ function inicializarGrafico() {
             name: 'Exemplo',
             data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
         }],
+        
     };
 
     var chart = new ApexCharts(document.querySelector("#temReal"), options);
