@@ -1,6 +1,7 @@
 
-var intervalId = setInterval(buscarInformacoes, 5000);
+var intervalId = setInterval(atualizarInformacoes, 5000);
 
+var chart;
 var totalTotensEmpresa = 0;
 var totensEstaveis = 0;
 var totensAtencao = 0;
@@ -11,7 +12,16 @@ var dadosGrafico = [totensCritico, totensAtencao, totensEstaveis]
 function buscarInformacoes() {
     plotarTabelaAlertas()
     plotarKPIs()
+    plotarGraficoEstadoTotens(dadosGrafico)
+    atualizarGraficoEstadoTotens(dadosGrafico)
 }
+
+function atualizarInformacoes() {
+    plotarTabelaAlertas()
+    plotarKPIs()
+    atualizarGraficoEstadoTotens(dadosGrafico)
+}
+
 
 function exibirRegistrosTotens() {
 
@@ -220,7 +230,6 @@ function plotarKPIs() {
                 progressoEfetividade.setAttribute("style", `width: ${taxaEfetividade}%`)
 
                 dadosGrafico[2] = totensEstaveis
-                plotarGraficoEstadoTotens(dadosGrafico)
 
             });
         } else {
@@ -275,7 +284,13 @@ function plotarGraficoEstadoTotens(dadosGrafico) {
         }]
     };
 
-    var chart = new ApexCharts(document.getElementById("graficoEstadoTotens"), options);
+    chart = new ApexCharts(document.getElementById("graficoEstadoTotens"), options);
     chart.render();
+
+}
+
+function atualizarGraficoEstadoTotens(dadosGrafico) {
+
+    chart.updateSeries(dadosGrafico);
 
 }
