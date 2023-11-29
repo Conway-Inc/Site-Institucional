@@ -97,9 +97,41 @@ function plotarGrafico(id) {
   return database.executar(instrucao);
 }
 
+function atualizarGrafico(idTotem) {
+
+  instrucaoSql = ''
+
+  if (process.env.AMBIENTE_PROCESSO == "producao") {
+      instrucaoSql = `select top 1
+      dht11_temperatura as temperatura, 
+      dht11_umidade as umidade,  
+                      CONVERT(varchar, momento, 108) as momento_grafico, 
+                      fk_aquario 
+                      from medida where fk_aquario = ${idTotem} 
+                  order by id desc`;
+
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      instrucaoSql = `
+      SELECT 
+        cpu, 
+        memoria, 
+        DATE_FORMAT(data, '%d de %M, %k:%i') as data 
+      FROM vw_registroEstruturado WHERE idTotem = ${idTotem}
+      ORDER BY data DESC 
+      LIMIT 1;`;
+  } else {
+      console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+      return
+  }
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarTotens,
     buscarCompProblematico,
     buscarMaiorRegistro,
-    plotarGrafico
+    plotarGrafico,
+    atualizarGrafico
   };
