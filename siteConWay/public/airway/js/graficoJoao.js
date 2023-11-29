@@ -1,5 +1,5 @@
 
-var intervalId = setInterval(buscarInformacoes, 3000);
+var intervalId = setInterval(buscarInformacoes, 5000);
 
 var totalTotensEmpresa = 0;
 var totensEstaveis = 0;
@@ -106,8 +106,8 @@ function plotarTabelaAlertas() {
 
                     var tdIndicador = document.createElement("td");
                     tdIndicador.setAttribute("scope", "row");
-                    var iIndicador = document.createElement("td");
-                    iIndicador.setAttribute("class", "fas fa-circle text-danger");
+                    var iIndicador = document.createElement("div");
+                    iIndicador.setAttribute("class", "indicador-alerta-critico");
 
 
                     var tr = document.createElement("tr");
@@ -166,8 +166,8 @@ function plotarTabelaAlertas() {
 
                     var tdIndicador = document.createElement("td");
                     tdIndicador.setAttribute("scope", "row");
-                    var iIndicador = document.createElement("td");
-                    iIndicador.setAttribute("class", "fas fa-circle text-warning");
+                    var iIndicador = document.createElement("div");
+                    iIndicador.setAttribute("class", "indicador-alerta-atencao");
 
 
                     var tr = document.createElement("tr");
