@@ -88,6 +88,13 @@ CREATE TABLE Registro (
     fkTotem INT FOREIGN KEY REFERENCES Totem(idTotem)
 );
 
+CREATE TABLE Processo (
+    idProcesso INT PRIMARY KEY IDENTITY(1,1),
+    pid INT, 
+    nome VARCHAR(100),
+    fkRegistro INT FOREIGN KEY (fkRegistro) REFERENCES Registro (idRegistro) 	
+);
+
 CREATE TABLE TotemComponente (
     fkComponente INT FOREIGN KEY  REFERENCES Componente(idComponente) ON DELETE CASCADE,
     fkTotem INT FOREIGN KEY  REFERENCES Totem(idTotem) ON DELETE CASCADE,
