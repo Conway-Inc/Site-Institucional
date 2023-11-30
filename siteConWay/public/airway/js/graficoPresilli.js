@@ -1,5 +1,3 @@
-var jaExibiu = false;
-
 function exibirTotensProcesso(fkEmpresaVar) {
     paginaProcessos = document.getElementById("paginaListaProcessos")
 
@@ -82,46 +80,46 @@ function exibirProcessos(idTotem) {
     paginaProcessos = document.getElementById("paginaListaProcessos")
     tituloTotem = document.getElementById("tituloTotem")
 
-    fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    setInterval(() => {
-                        exibirRegistrosCpu(idTotem)
-                        exibirRegistrosMemoria(idTotem)
-                        exibirRegistrosDisco(idTotem)
-                    }, 5000)
+    var listaData = [];
+    var listaQuantidade = [];
+    paginaLista.style.display = "none"
 
-                    paginaLista.style.display = "none"
+    paginaListaProcessos.style.display = "flex"
 
-                    paginaListaProcessos.style.display = "flex"
+    setInterval(() => {
+        fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (resposta) {
+                        setInterval(() => {
+                            exibirRegistrosCpu(idTotem)
+                            exibirRegistrosMemoria(idTotem)
+                            exibirRegistrosDisco(idTotem)
+                        }, 5000)
 
-                    var listaData = [];
-                    var listaQuantidade = [];
+                        for (let i = 0; i < resposta.length; i++) {
+                            const dataHora = resposta[i].dataHora
+                            const data = new Date(dataHora)
+                            const dataFormatada = data.toLocaleString('pt-BR', {
+                                timeZone: 'UTC',
+                            });
 
-                    for (let i = 0; i < resposta.length; i++) {
-                        const dataHora = resposta[i].dataHora
-                        const data = new Date(dataHora)
-                        const dataFormatada = data.toLocaleString('pt-BR', {
-                            timeZone: 'UTC',
-                        });
+                            listaData.push(dataFormatada)
 
-                        listaData.push(dataFormatada)
+                            listaQuantidade.push(resposta[i].Quantidade)
 
-                        listaQuantidade.push(resposta[i].Quantidade)
+                        }
 
-                    }
-
-                    plotarGrafico(listaData, listaQuantidade)
-
-                    tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
+                        tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
+                    });
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+    }, 10000)
+    plotarGrafico(listaData, listaQuantidade)
 }
 
 function plotarGrafico(listaData, listaQuantidade) {
