@@ -99,9 +99,9 @@ function exibirInfosFunc() {
 
     // Váriaveis abaixo para formatar a data para o formato yyyy-MM-dd
 
-    var data = new Date(sessionStorage.DATA_NASCIMENTO)
-    var dataNasc = document.getElementById("ipt_dataFunc")
-    var dia = data.getDate()
+        var data = new Date(sessionStorage.DATA_NASCIMENTO)
+        var dataNasc = document.getElementById("ipt_dataFunc")
+        var dia = data.getDate()
 
     if (dia < 10) {
         dia = `0${dia}`

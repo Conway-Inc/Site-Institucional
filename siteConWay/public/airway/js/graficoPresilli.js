@@ -1,4 +1,6 @@
 function exibirTotensProcesso(fkEmpresaVar) {
+    paginaProcessos = document.getElementById("paginaListaProcessos")
+
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
 
     fetch(`/graficoPresilli/exibirTotensProcesso/${fkEmpresaVar}`)
@@ -42,7 +44,6 @@ function exibirTotensProcesso(fkEmpresaVar) {
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            // finalizarAguardar();
         });
 }
 
@@ -71,22 +72,134 @@ function mostrarHoraAtual() {
 function exibirProcessos(idTotem) {
 
     paginaLista = document.getElementById("paginaListaTotens")
-    alert(idTotem)
+    paginaProcessos = document.getElementById("paginaListaProcessos")
+    tituloTotem = document.getElementById("tituloTotem")
 
     fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    alert("OKAY")
                     console.log(resposta)
                     paginaLista.style.display = "none"
 
+                    paginaListaProcessos.style.display = "flex"
+
+                    var listaData = [];
+                    var listaQuantidade = [];
+
+                    for (let i = 0; i < resposta.length; i++) {
+                        const dataHora = resposta[i].dataHora
+                        const data = new Date(dataHora)
+                        const dataFormatada = data.toLocaleString('pt-BR', {
+                            timeZone: 'UTC',
+                        });
+
+                        listaData.push(dataFormatada)
+
+                        listaQuantidade.push(resposta[i].Quantidade)
+
+                    }
+
+                    alert(listaData)
+
+                    plotarGrafico(listaData, listaQuantidade)
+
+                    tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
                 });
             } else {
                 throw ('Houve um erro na API!');
             }
         }).catch(function (resposta) {
             console.error(resposta);
-            // finalizarAguardar();
         });
+}
+
+function plotarGrafico(listaData, listaQuantidade) {
+    var options = {
+        chart: {
+            height: 350,
+            type: "line",
+            stacked: false
+        },
+        dataLabels: {
+            enabled: false
+        },
+        colors: ["#FF1654"],
+        series: [
+            {
+                name: "Series A",
+                data: listaQuantidade
+            },
+        ],
+        stroke: {
+            width: [4, 4]
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: "20%"
+            }
+        },
+        xaxis: {
+            categories: listaData
+        },
+        yaxis: [
+            {
+                axisTicks: {
+                    show: true
+                },
+                axisBorder: {
+                    show: true,
+                    color: "#FF1654"
+                },
+                labels: {
+                    style: {
+                        colors: "#FF1654"
+                    }
+                },
+                title: {
+                    text: "Series A",
+                    style: {
+                        color: "#FF1654"
+                    }
+                }
+            },
+            {
+                opposite: true,
+                axisTicks: {
+                    show: true
+                },
+                axisBorder: {
+                    show: true,
+                    color: "#247BA0"
+                },
+                labels: {
+                    style: {
+                        colors: "#247BA0"
+                    }
+                },
+                title: {
+                    text: "Series B",
+                    style: {
+                        color: "#247BA0"
+                    }
+                }
+            }
+        ],
+        tooltip: {
+            shared: false,
+            intersect: true,
+            x: {
+                show: false
+            }
+        },
+        legend: {
+            horizontalAlign: "left",
+            offsetX: 40
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    chart.render();
+
 }
