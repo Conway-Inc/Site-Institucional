@@ -573,6 +573,5 @@ SELECT
     SUM(CASE WHEN valor >= 85.00 AND comp = 2 THEN 1 ELSE 0 END) AS alertaMem,
     SUM(CASE WHEN valor >= 85.00 AND comp = 3 THEN 1 ELSE 0 END) AS alertaDisco
 FROM vw_alertas 
-GROUP BY idTotem, nome
-ORDER BY idTotem ASC;
+GROUP BY idTotem, nome;
 GO

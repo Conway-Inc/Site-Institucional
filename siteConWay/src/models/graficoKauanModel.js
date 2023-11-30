@@ -6,7 +6,7 @@ function buscarTotens() {
   );
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-            SELECT * FROM infosTotem;
+            SELECT * FROM infosTotem ORDER BY idTotem ASC;
             `
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
 
