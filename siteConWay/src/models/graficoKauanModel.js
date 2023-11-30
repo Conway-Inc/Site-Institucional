@@ -99,7 +99,7 @@ function plotarGrafico(id) {
       FORMAT(data, 'dd MMM, HH:mm') as data
     FROM vw_RegistroEstruturado
     WHERE idTotem = ${id}
-    ORDER BY data DESC
+    ORDER BY data ASC
     `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
