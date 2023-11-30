@@ -23,7 +23,7 @@ function exibirTotensProcesso(fkEmpresaVar) {
                         `;
 
                         var tdBotao = document.createElement("td")
-                        tdBotao.innerHTML += `<button class="btn btn-primary" id="botaoMonitorar">Monitorar</button>`
+                        tdBotao.innerHTML += `<button class="btn btn-primary" onclick="exibirProcessos(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`
 
                         var tr = document.createElement("tr");
                         var tbody = document.getElementById("tbodyTable");
@@ -66,4 +66,27 @@ function mostrarHoraAtual() {
         <h5>${DiasdaSemana[data.getDay()]} ${data.toLocaleString()}</h5>
         `
     }, 1000)
+}
+
+function exibirProcessos(idTotem) {
+
+    paginaLista = document.getElementById("paginaListaTotens")
+    alert(idTotem)
+
+    fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    alert("OKAY")
+                    console.log(resposta)
+                    paginaLista.style.display = "none"
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            // finalizarAguardar();
+        });
 }

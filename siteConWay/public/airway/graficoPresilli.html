@@ -18,7 +18,6 @@
 <body id="page-top" onload="validarGerenteAnalista(),exibirNomeFunc(), exibirTotensProcesso(), mostrarHoraAtual()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             <div class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon ">
                     <img src="img/logoairwaynovo.png" style="width: 100%;" alt="">
@@ -176,7 +175,7 @@
                     <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the.</p> -->
                         
-                        <div class="card shadow mb-4">
+                        <div id = "paginaListaTotens" class="card shadow mb-4">
                             <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Totens Existentes</h6>
                         </div>
@@ -197,8 +196,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
+            <div id="content">
+
             </div>
         </div>
     </div>
