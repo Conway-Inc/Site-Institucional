@@ -112,6 +112,7 @@ function plotarTabelaAlertas() {
 
                     var tdTotem = document.createElement("td");
                     tdTotem.setAttribute("scope", "row");
+                    tdTotem.setAttribute("onclick", `verComponentes(${dados.idTotem})`);
                     tdTotem.innerHTML = dados.nomeTotem;
 
                     var tdIndicador = document.createElement("td");
