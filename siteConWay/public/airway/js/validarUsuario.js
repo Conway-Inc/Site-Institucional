@@ -25,6 +25,7 @@ function validarGerenteAnalista() {
     } else {
         inserirAnalistaJoao(menu);
         inserirAnalistaKauan(menu);
+        inserirAnalistaPresilli(menu)
         inserirAnalistaGraficoBia(menu);
         inserirAnalistaAna(menu);
         inserirAnalistaAna2(menu)
@@ -94,6 +95,22 @@ function inserirAnalistaKauan(menu) {
     aAnalistaKauan.appendChild(spanAnalistaKauan);
     liAnalistaKauan.appendChild(aAnalistaKauan);
     menu.appendChild(liAnalistaKauan);
+}
+
+function inserirAnalistaPresilli(menu) {
+    let liAnalistaPresilli = document.createElement("li");
+    liAnalistaPresilli.setAttribute("class","nav-item");
+    let aAnalistaPresilli = document.createElement("a");
+    aAnalistaPresilli.setAttribute("class","nav-link")
+    aAnalistaPresilli.setAttribute("href","graficoPresilli.html");
+    let iAnalistaPresilli = document.createElement("i");
+    iAnalistaPresilli.className = "fas fa-fw fa-tachometer-alt";
+    let spanAnalistaPresilli = document.createElement("span");
+    spanAnalistaPresilli.innerHTML = "Processor";
+    aAnalistaPresilli.appendChild(iAnalistaPresilli);
+    aAnalistaPresilli.appendChild(spanAnalistaPresilli);
+    liAnalistaPresilli.appendChild(aAnalistaPresilli);
+    menu.appendChild(liAnalistaPresilli);
 }
 
 function inserirAnalistaAna(menu) {
