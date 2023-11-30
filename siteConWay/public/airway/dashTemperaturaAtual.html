@@ -181,19 +181,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Temperatura em tempo real</h6>
                         </div>
                         <div class="card-body">
-                            <div id="temReal"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-fluid">
-                    
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Quantidade de alertas Críticos da Temperatura Comparado aos alertas do Componente</h6>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart2div"></div>
+                            <canvas id="myChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -214,17 +202,7 @@
 
 </html>
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        inicializarGrafico();
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
