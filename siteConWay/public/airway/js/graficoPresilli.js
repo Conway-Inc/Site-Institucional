@@ -86,9 +86,11 @@ function exibirProcessos(idTotem) {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    exibirRegistrosCpu(idTotem)
-                    exibirRegistrosMemoria(idTotem)
-                    exibirRegistrosDisco(idTotem)
+                    setInterval(() => {
+                        exibirRegistrosCpu(idTotem)
+                        exibirRegistrosMemoria(idTotem)
+                        exibirRegistrosDisco(idTotem)
+                    }, 5000)
 
                     paginaLista.style.display = "none"
 
@@ -214,7 +216,7 @@ function exibirRegistrosCpu(idTotem) {
         });
 }
 
-function exibirRegistrosDisco(idTotem){
+function exibirRegistrosDisco(idTotem) {
     fetch(`/graficoPresilli/exibirRegistrosDisco/${idTotem}`)
         .then(function (resposta) {
             if (resposta.ok) {
@@ -231,7 +233,7 @@ function exibirRegistrosDisco(idTotem){
         });
 }
 
-function exibirRegistrosMemoria(idTotem){
+function exibirRegistrosMemoria(idTotem) {
     fetch(`/graficoPresilli/exibirRegistrosMemoria/${idTotem}`)
         .then(function (resposta) {
             if (resposta.ok) {
