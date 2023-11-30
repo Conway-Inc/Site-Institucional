@@ -204,7 +204,7 @@ GO
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memoria', '%'), ('Disco', '%'), ('TemperaturaCPU', '°C');
+('CPU', '%'), ('MEMORIA', '%'), ('DISCO', '%'), ('TEMPERATURA_CPU', '°C');
 GO
 
 INSERT INTO Funcionario(email,senha,nome,cpf,telefone,dataNascimento,foto,fkGerente, fkEmpresa) VALUES ('pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
