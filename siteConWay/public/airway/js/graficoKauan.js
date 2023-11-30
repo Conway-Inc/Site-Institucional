@@ -160,18 +160,19 @@ function pegarIdUrl(){
 }
 
 function plotarGrafico(id) {
-    let limite =document.getElementById("iptLimiteRegistro")
+    let limite = document.getElementById("iptLimiteRegistros").value
     
     sessionStorage.setItem('ID_TOTEM', id)
     fetch(`/graficoKauan/plotarGrafico/${id}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
+		console.log(resposta)
 
                 var dadosCpu = []
                 var dadosMemoria = []
                 var data = []
 
-                for (let i = 0; i < limite-1; i++) {
+                for (let i = 0; i < limite - 1; i++) {
                     dadosCpu[i] = Number(resposta[i].cpu);
                     dadosMemoria[i] = Number(resposta[i].memoria);
                     data[i] = resposta[i].data
