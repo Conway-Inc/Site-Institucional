@@ -112,7 +112,7 @@ CREATE TABLE Alerta (
 );
 
 CREATE TABLE Manutencao (
-     idManutenção INT PRIMARY KEY AUTO_INCREMENT,
+     idManutencao INT PRIMARY KEY AUTO_INCREMENT,
      dataManutencao DATE,
      dataLimite DATE,
      motivoManutencao VARCHAR (70),
