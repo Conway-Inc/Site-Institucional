@@ -1,13 +1,17 @@
+var jaExibiu = false;
+
 function exibirTotensProcesso(fkEmpresaVar) {
     paginaProcessos = document.getElementById("paginaListaProcessos")
 
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
-
     fetch(`/graficoPresilli/exibirTotensProcesso/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
                     console.log(resposta)
+                    var tbody = document.getElementById("tbodyTable");
+                    tbody.innerHTML = ""
+
                     for (let i = 0; i < resposta.length; i++) {
                         var lista = document.getElementById("totemProcessos");
                         var publicacao = resposta[i];
@@ -28,6 +32,7 @@ function exibirTotensProcesso(fkEmpresaVar) {
                         tdBotao.innerHTML += `<button class="btn btn-primary" onclick="exibirProcessos(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`
 
                         var tr = document.createElement("tr");
+                        tr.setAttribute("id", "trTabela");
                         var tbody = document.getElementById("tbodyTable");
 
 
@@ -45,9 +50,13 @@ function exibirTotensProcesso(fkEmpresaVar) {
         }).catch(function (resposta) {
             console.error(resposta);
         });
+
 }
 
 
+setInterval(() => {
+    exibirTotensProcesso()
+}, 5000)
 
 function mostrarHoraAtual() {
     const DiasdaSemana = [
@@ -100,8 +109,6 @@ function exibirProcessos(idTotem) {
 
                     }
 
-                    alert(listaData)
-
                     plotarGrafico(listaData, listaQuantidade)
 
                     tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
@@ -115,6 +122,7 @@ function exibirProcessos(idTotem) {
 }
 
 function plotarGrafico(listaData, listaQuantidade) {
+
     var options = {
         chart: {
             height: 350,

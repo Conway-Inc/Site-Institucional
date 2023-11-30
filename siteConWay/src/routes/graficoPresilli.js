@@ -8,7 +8,6 @@ router.get("/exibirTotensProcesso/:fkEmpresaVar", function(req, res){
 });
 
 router.get("/exibirProcessos/:idTotem", function(req, res){
-    console.log("CHEUGEU")
     graficoPresilliController.exibirProcessos(req, res);
 });
 

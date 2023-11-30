@@ -106,7 +106,7 @@ function inserirAnalistaPresilli(menu) {
     let iAnalistaPresilli = document.createElement("i");
     iAnalistaPresilli.className = "fas fa-fw fa-tachometer-alt";
     let spanAnalistaPresilli = document.createElement("span");
-    spanAnalistaPresilli.innerHTML = "Processor";
+    spanAnalistaPresilli.innerHTML = "Processos";
     aAnalistaPresilli.appendChild(iAnalistaPresilli);
     aAnalistaPresilli.appendChild(spanAnalistaPresilli);
     liAnalistaPresilli.appendChild(aAnalistaPresilli);
