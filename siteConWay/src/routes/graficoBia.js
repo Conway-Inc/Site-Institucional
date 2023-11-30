@@ -23,5 +23,9 @@ router.post("/getValorTotalTotensCritico", function (req, res) {
     graficoBiaController.getValorTotalTotensCritico(req, res);
 });
 
+router.get("/plotarTemperaturaAtualizada", function (req, res) {
+    graficoBiaController.plotarTemperaturaAtualizada(req, res);
+});
+
 
 module.exports = router;

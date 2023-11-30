@@ -1,7 +1,10 @@
-.card-body {
-    height: 400px; /* ou qualquer altura desejada para a div card-body */
-  }
-  
-.row {
-    width: 50%;
+.card {
+  width: 100%; /* Defina a largura desejada para a card */
+  height: 60%; /* Defina a altura desejada para a card */
+  border: 1px solid #ccc; /* Apenas para visualização */
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
