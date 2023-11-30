@@ -160,99 +160,19 @@ function pegarIdUrl(){
 }
 
 function plotarGrafico(id) {
-
+    let limite = document.getElementById("iptLimiteRegistros").value
+    
     sessionStorage.setItem('ID_TOTEM', id)
     fetch(`/graficoKauan/plotarGrafico/${id}`).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(function (resposta) {
+		console.log(resposta)
 
                 var dadosCpu = []
                 var dadosMemoria = []
                 var data = []
 
-                for (let i = 0; i < resposta.length; i++) {
-                    dadosCpu[i] = Number(resposta[i].cpu);
-                    dadosMemoria[i] = Number(resposta[i].memoria);
-                    data[i] = resposta[i].data
-                }
-
-                console.log(dadosCpu)
-                console.log(dadosMemoria)
-                console.log(data)
-
-                var divGraficoComponente = document.getElementById("divGraficoComponente");
-                divGraficoComponente.innerHTML = ""
-
-                var options = {
-                    series: [{
-                        name: "CPU",
-                        data: dadosCpu
-                    },
-                    {
-                        name: "Memoria",
-                        data: dadosMemoria
-                    }],
-                    chart: {
-                        height: 350,
-                        width: 650,
-                        type: 'line',
-                        zoom: {
-                            enabled: false
-                        }
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        curve: 'straight'
-                    },
-                    title: {
-                        text: 'Registros',
-                        align: 'center'
-                    },
-                    grid: {
-                        row: {
-                            colors: ['#f3f3f3', 'transparent'],
-                            opacity: 0.5
-                        },
-                    },
-                    xaxis: {
-                        name: "Data",
-                        categories: data,
-                    }
-                };
-                var chart = new ApexCharts(document.getElementById("divGraficoComponente"), options);
-                chart.render();
-                // divFiltro.innerHTML = ` 
-                // <img src='img/imgFiltroGraficoKauan.png' style='width: 3%; height: 3%'>
-                // <select name="filtro" id="slct_filtro">
-                //     <option onclick = "filtrarPorSelect(1)" value="1">última hora</option>
-                //     <option onclick = "filtrarPorSelect(1)" value="2">último dia</option>
-                //     <option onclick = "filtrarPorSelect(1)" value="3">Tempo Real</option>
-                // </select>
-                // `
-
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
-}
-
-function buscarRegistroUltimoDia() {
-    var id = sessionStorage.ID_TOTEM = id;
-
-    fetch(`/graficoKauan/buscarRegistroUltimoDia/${id}`).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(function (resposta) {
-
-                var dadosCpu = []
-                var dadosMemoria = []
-                var data = []
-
-                for (let i = 0; i < resposta.length; i++) {
+                for (let i = 0; i < limite - 1; i++) {
                     dadosCpu[i] = Number(resposta[i].cpu);
                     dadosMemoria[i] = Number(resposta[i].memoria);
                     data[i] = resposta[i].data
@@ -315,67 +235,3 @@ function buscarRegistroUltimoDia() {
     });
 }
 
-let proximaAtualizacao;
-function atualizarGrafico(idTotem, dados, chart) {
-
-    fetch(`/graficoKauan/atualizarGrafico/${idTotem}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (novoRegistro) {
-                plotarGrafico(idTotem);
-
-                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                console.log(`Dados atuais do gráfico:`);
-                console.log(dados);
-
-                let avisoCaptura = document.getElementById(`avisoCaptura${idTotem}`)
-                avisoCaptura.innerHTML = ""
-
-
-                if (novoRegistro[0].data == dados.labels[dados.labels.length - 1]) {
-                    console.log("---------------------------------------------------------------")
-                    console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                    console.log("Horário do novo dado capturado:")
-                    console.log(novoRegistro[0].data)
-                    console.log("Horário do último dado capturado:")
-                    console.log(dados.labels[dados.labels.length - 1])
-                    console.log("---------------------------------------------------------------")
-                } else {
-                    // tirando e colocando valores no gráfico
-                    dados.xaxis.categories.shift(); // apagar o primeiro
-                    dados.xaxis.categories.push(novoRegistro[0].data); // incluir um novo momento
-
-                    dados.series[0].data.shift();  // apagar o primeiro de umidade
-                    dados.series[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
-
-                    dados.series[1].data.shift();  // apagar o primeiro de temperatura
-                    dados.series[1].data.push(novoRegistro[0].memoria); // incluir uma nova medida de temperatura
-
-                    chart.update();
-                }
-
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados, chart), 2000);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados, chart), 2000);
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-
-}
-
-function filtrarPorSelect(value){
-    id = sessionStorage.ID_TOTEM
-
-    if (value == 1) {
-        plotarGrafico(id)
-    } else if (value == 2) {
-        buscarRegistroUltimoDia()
-    } else if (value == 3) {
-        atualizarGrafico()
-    }
-}
