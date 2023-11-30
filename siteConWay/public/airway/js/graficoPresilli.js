@@ -79,7 +79,6 @@ function mostrarHoraAtual() {
 }
 
 function exibirProcessos(idTotem) {
-
     paginaLista = document.getElementById("paginaListaTotens")
     paginaProcessos = document.getElementById("paginaListaProcessos")
     tituloTotem = document.getElementById("tituloTotem")
@@ -132,7 +131,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         dataLabels: {
             enabled: false
         },
-        colors: ["#FF1654"],
+        colors: ["#0D214F"],
         series: [
             {
                 name: "Series A",
@@ -144,7 +143,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         },
         plotOptions: {
             bar: {
-                columnWidth: "20%"
+                columnWidth: "30%"
             }
         },
         xaxis: {
@@ -157,41 +156,20 @@ function plotarGrafico(listaData, listaQuantidade) {
                 },
                 axisBorder: {
                     show: true,
-                    color: "#FF1654"
+                    color: "#0D214F"
                 },
                 labels: {
                     style: {
-                        colors: "#FF1654"
+                        colors: "#0D214F"
                     }
                 },
                 title: {
-                    text: "Series A",
+                    text: "Quantidade Processso",
                     style: {
-                        color: "#FF1654"
+                        color: "#0D214F"
                     }
                 }
             },
-            {
-                opposite: true,
-                axisTicks: {
-                    show: true
-                },
-                axisBorder: {
-                    show: true,
-                    color: "#247BA0"
-                },
-                labels: {
-                    style: {
-                        colors: "#247BA0"
-                    }
-                },
-                title: {
-                    text: "Series B",
-                    style: {
-                        color: "#247BA0"
-                    }
-                }
-            }
         ],
         tooltip: {
             shared: false,
@@ -210,4 +188,8 @@ function plotarGrafico(listaData, listaQuantidade) {
 
     chart.render();
 
+}
+
+function voltar(){
+    window.location.reload();
 }
