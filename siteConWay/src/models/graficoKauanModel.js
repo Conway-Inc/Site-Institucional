@@ -97,13 +97,13 @@ function plotarGrafico(id) {
       cpu,
       memoria,
       FORMAT(data, 'dd MMM, HH:mm') as data
-    FROM vw_registroEstruturado
+    FROM vw_RegistroEstruturado
     WHERE idTotem = ${id}
     ORDER BY data DESC
     `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
-    SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_registroEstruturado WHERE idTotem = ${id} LIMIT 3600;
+    SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_RegistroEstruturado WHERE idTotem = ${id} LIMIT 3600;
     `;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -120,13 +120,13 @@ function buscarRegistroUltimoDia(id) {
       cpu,
       memoria,
       FORMAT(data, 'dd MMM, HH:mm') as data
-    FROM vw_registroEstruturado
+    FROM vw_RegistroEstruturado
     WHERE idTotem = ${id}
     ORDER BY data DESC    
     `;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
-    SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_registroEstruturado WHERE idTotem = ${id} LIMIT 43200;
+    SELECT cpu, memoria, DATE_FORMAT(data, '%d de %M, %k:%i') as data FROM vw_RegistroEstruturado WHERE idTotem = ${id} LIMIT 43200;
     `;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
@@ -143,7 +143,7 @@ function atualizarGrafico(idTotem) {
         cpu, 
         memoria, 
         FORMAT(data, 'dd MMM, HH:mm') as data 
-      FROM vw_registroEstruturado 
+      FROM vw_RegistroEstruturado 
       WHERE idTotem = ${idTotem}
       ORDER BY data DESC 
       OFFSET 0 ROWS
@@ -156,7 +156,7 @@ function atualizarGrafico(idTotem) {
         cpu, 
         memoria, 
         DATE_FORMAT(data, '%d de %M, %k:%i') as data 
-      FROM vw_registroEstruturado WHERE idTotem = ${idTotem}
+      FROM vw_RegistroEstruturado WHERE idTotem = ${idTotem}
       ORDER BY data DESC 
       LIMIT 1;`;
   } else {
