@@ -8,7 +8,6 @@ function exibirTotensProcesso(fkEmpresaVar) {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    console.log(resposta)
                     var tbody = document.getElementById("tbodyTable");
                     tbody.innerHTML = ""
 
@@ -87,7 +86,10 @@ function exibirProcessos(idTotem) {
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    console.log(resposta)
+                    exibirRegistrosCpu(idTotem)
+                    exibirRegistrosMemoria(idTotem)
+                    exibirRegistrosDisco(idTotem)
+
                     paginaLista.style.display = "none"
 
                     paginaListaProcessos.style.display = "flex"
@@ -190,6 +192,58 @@ function plotarGrafico(listaData, listaQuantidade) {
 
 }
 
-function voltar(){
+function voltar() {
     window.location.reload();
+}
+
+
+function exibirRegistrosCpu(idTotem) {
+    fetch(`/graficoPresilli/exibirRegistrosCpu/${idTotem}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    var porcentagemCpu = document.getElementById("porcentagemCpu")
+
+                    porcentagemCpu.innerHTML = `${resposta[0].valor}%`
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
+function exibirRegistrosDisco(idTotem){
+    fetch(`/graficoPresilli/exibirRegistrosDisco/${idTotem}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    var porcentagemDisco = document.getElementById("porcentagemDisco")
+
+                    porcentagemDisco.innerHTML = `${resposta[0].valor}%`
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+}
+
+function exibirRegistrosMemoria(idTotem){
+    fetch(`/graficoPresilli/exibirRegistrosMemoria/${idTotem}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    var porcentagemMemoria = document.getElementById("porcentagemCpu")
+
+                    porcentagemMemoria.innerHTML = `${resposta[0].valor}%`
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
 }

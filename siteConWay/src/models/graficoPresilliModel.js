@@ -14,7 +14,32 @@ function exibirProcessos(idTotem){
     return database.executar(instrucao);
 }
 
+
+function exibirRegistrosCpu(idTotem){
+    var instrucao = `SELECT valor FROM Registro AS r JOIN Totem AS t ON fkTotem = idTotem 
+    JOIN Componente AS c ON fkComponente = idComponente WHERE idTotem = ${idTotem} AND c.nome = "CPU" ORDER BY idRegistro DESC LIMIT 1 `
+
+    return database.executar(instrucao);
+}
+
+function exibirRegistrosDisco(idTotem){
+    var instrucao = `SELECT valor FROM Registro AS r JOIN Totem AS t ON fkTotem = idTotem 
+    JOIN Componente AS c ON fkComponente = idComponente WHERE idTotem = ${idTotem} AND c.nome = "Disco" ORDER BY idRegistro DESC LIMIT 1;`
+
+    return database.executar(instrucao);
+}
+
+function exibirRegistrosMemoria(idTotem){
+    var instrucao = `SELECT valor FROM Registro AS r JOIN Totem AS t ON fkTotem = idTotem 
+    JOIN Componente AS c ON fkComponente = idComponente WHERE idTotem = ${idTotem} AND c.nome = "Memoria" ORDER BY idRegistro DESC LIMIT 1;`
+
+    return database.executar(instrucao);
+}
+
 module.exports = {
     exibirTotensProcesso,
-    exibirProcessos
+    exibirProcessos,
+    exibirRegistrosCpu,
+    exibirRegistrosDisco,
+    exibirRegistrosMemoria
 };
