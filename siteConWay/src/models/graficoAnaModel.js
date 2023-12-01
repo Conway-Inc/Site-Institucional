@@ -1,15 +1,12 @@
 var database = require("../database/config");
 
 function exibirTotensDoAeroporto(aeroporto) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função exibirTotensDoAeroporto(): ", aeroporto
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei exibirTotensDoAeroporto(${aeroporto})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
     SELECT * FROM vw_totem_estado 
     JOIN aeroporto ON vw_totem_estado.nomeAeroporto = aeroporto.nome 
-    WHERE nomeAeroporto = '${aeroporto}';
-    `;
+    WHERE nomeAeroporto = '${aeroporto}';`;
   }
   else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
@@ -22,29 +19,20 @@ function exibirTotensDoAeroporto(aeroporto) {
 }
 
 function relatarCausaManutencao(motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado, dataInicio, dataLimite, valor) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função relatarCausaManuntencao: ", motivoManutencaoTotem, urgenciaManutencaoTotem, descricaoTotem, totemSelecionado
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei exibirTotensDoAeroporto(${relatarCausaManutencao},${urgenciaManutencaoTotem},${descricaoTotem},${totemSelecionado},${dataInicio},${dataLimite},${valor})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
-    var instrucao = `INSERT INTO Manutencao VALUES
-    (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, NOW())
-  `;
-  }
-  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-    var instrucao = `INSERT INTO Manutencao VALUES
-    ('${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, GETDATE())
-  `;
+    var instrucao = `
+    INSERT INTO Manutencao VALUES (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, NOW())`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    var instrucao = `
+    INSERT INTO Manutencao VALUES ('${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, GETDATE())`;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
-
 }
 
 function exibirListaTotensManutencao(idEmpresa) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função exibirListaTotensManutencao: ",
-    idEmpresa
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei exibirListaTotensManutencao(${idEmpresa})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
     SELECT tot.idTotem, 
@@ -59,9 +47,7 @@ function exibirListaTotensManutencao(idEmpresa) {
     Totem totManutencao ON m.fkTotem = totManutencao.idTotem INNER JOIN
     Aeroporto aroManutencao ON totManutencao.fkAeroporto = aroManutencao.idAeroporto
     WHERE 
-    tot.fkEmpresa = ${idEmpresa};
-    `;
-
+    tot.fkEmpresa = ${idEmpresa};`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
       SELECT tot.idTotem, 
@@ -83,10 +69,7 @@ function exibirListaTotensManutencao(idEmpresa) {
 }
 
 function buscarInformacoes(nomeAeroportoServer, dataAtualServer) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função exibirListaTotensManutencao: ",
-    nomeAeroportoServer, dataAtualServer
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei buscarInformacoes(${nomeAeroportoServer},${dataAtualServer})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
   SELECT 
@@ -113,10 +96,8 @@ FROM
     (SELECT COUNT(*) as qtdeTotemCount 
      FROM Totem 
      JOIN Aeroporto ON Totem.fkAeroporto = Aeroporto.idAeroporto
-     WHERE Aeroporto.nome = '${nomeAeroportoServer}') as qtdeTotem;
-  `;
-  }
-  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+     WHERE Aeroporto.nome = '${nomeAeroportoServer}') as qtdeTotem;`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
     SELECT 
       qtdTotensAguardandoManutencao.qtdTotensAguardandoManutencaoCount,
@@ -146,14 +127,10 @@ FROM
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
-
 }
 
 function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função exibirTotensPendentes: ",
-    nomeAeroportoServer, nomeTotemServer
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei exibirTotensPendentes(${nomeAeroportoServer},${nomeTotemServer})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
     SELECT Totem.*, 
@@ -168,10 +145,8 @@ function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
         AND Aeroporto.nome = '${nomeAeroportoServer}'
         AND dataAtual < Manutencao.dataManutencao 
   ) AS Pendentes ON Totem.idTotem = Pendentes.fkTotem
-  WHERE Totem.nome = '${nomeTotemServer}';
-  `;
-  }
-  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+  WHERE Totem.nome = '${nomeTotemServer}';`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
   SELECT Totem.*, IF(Pendentes.fkTotem IS NOT NULL, 1, 0) AS isTotemPendente
   FROM Totem
@@ -184,64 +159,48 @@ function exibirTotensPendentes(nomeAeroportoServer, nomeTotemServer) {
         AND Aeroporto.nome = '${nomeAeroportoServer}'
         AND dataAtual < Manutencao.dataManutencao 
   ) AS Pendentes ON Totem.idTotem = Pendentes.fkTotem
-  WHERE Totem.nome = '${nomeTotemServer}';
-    `;
+  WHERE Totem.nome = '${nomeTotemServer}';`;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
 function aprovarManutencao(totemServer) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função exibirTotensPendentes: ",
-    totemServer
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei aprovarManutencao(${totemServer})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-  UPDATE Manutencao
-  SET aprovado = 1
-  WHERE fkTotem = ${totemServer};
-  `;
-  }
-  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      UPDATE Manutencao
+        SET aprovado = 1
+          WHERE fkTotem = ${totemServer};`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
-  UPDATE Manutencao
-  SET aprovado = 1
-  WHERE fkTotem = ${totemServer};
-  `;
+      UPDATE Manutencao
+        SET aprovado = 1
+          WHERE fkTotem = ${totemServer};`;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
 function reprovarManutencao(totemServer) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função exibirTotensPendentes: ",
-    totemServer
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei reprovarManutencao(${totemServer})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-  UPDATE Manutencao
-  SET aprovado = 0
-  WHERE fkTotem = ${totemServer};
-  `;
-  }
-  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+      UPDATE Manutencao
+        SET aprovado = 0
+          WHERE fkTotem = ${totemServer};`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
-  UPDATE Manutencao
-  SET aprovado = 0
-  WHERE fkTotem = ${totemServer};
-  `;
+      UPDATE Manutencao
+        SET aprovado = 0
+          WHERE fkTotem = ${totemServer};`;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 
 function listarAprovacoesEReprovacoes(idEmpresa) {
-  console.log(
-    "Acessei o graficoAnaModel e executei a função listarAprovacoesEReprovacoes: ",
-    idEmpresa
-  );
+  console.log(`Acessei o graficoAnaModel.js, executei listarAprovacoesEReprovacoes(${idEmpresa})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
   SELECT 
@@ -259,10 +218,8 @@ FROM
     INNER JOIN Aeroporto aro ON tot.fkAeroporto = aro.idAeroporto
     INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem
 WHERE 
-    dataAtual < m.dataManutencao;
-    `;
-  }
-  else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    dataAtual < m.dataManutencao;`;
+  } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
       SELECT 
         tot.idTotem,
@@ -279,8 +236,7 @@ WHERE
         INNER JOIN Aeroporto aro ON tot.fkAeroporto = aro.idAeroporto
         INNER JOIN Manutencao m ON tot.idTotem = m.fkTotem
     WHERE 
-        dataAtual < m.dataManutencao;
-        `;
+        dataAtual < m.dataManutencao;`;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
