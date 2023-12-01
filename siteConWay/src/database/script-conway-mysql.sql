@@ -44,7 +44,7 @@ CREATE TABLE Funcionario (
 
 CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(150) UNIQUE,
+    nome VARCHAR(150),
     estado CHAR(2),
     municipio VARCHAR(60)
 );
@@ -211,7 +211,7 @@ INSERT INTO RamoEmpresa VALUES (2,2);
 -- COMPONENTE
 INSERT INTO Componente (nome, unidadeMedida) VALUES
 -- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memoria', '%'), ('Disco', '%'), ('TemperaturaCPU', '°C');
+('CPU', '%'), ('MEMORIA', '%'), ('DISCO', '%'), ('TEMPERATURA_CPU', '°C');
 
 INSERT INTO Funcionario VALUES (NULL, 'pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario VALUES (NULL, 'ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
