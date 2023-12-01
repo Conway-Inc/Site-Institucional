@@ -1,9 +1,7 @@
 var database = require("../database/config");
 
 function exibirEstadosComTotens() {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função exibirEstadosComTotens(): ",
-    );
+    console.log(`Acessei o graficoBrunoModel.js, executei exibirEstadosComTotens()`);
     var instrucao = `
     SELECT estado FROM vw_totem_estado GROUP BY estado ORDER BY estado;
   `;
@@ -12,9 +10,7 @@ function exibirEstadosComTotens() {
 }
 
 function exibirMunicipiosComTotens(estado) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função exibirMunicipiosComTotens(): ", estado
-    );
+    console.log(`Acessei o graficoBrunoModel.js, executei exibirMunicipiosComTotens(${estado})`);
     var instrucao = `
     SELECT municipio FROM vw_totem_estado WHERE estado = '${estado}' GROUP BY municipio ORDER BY municipio;
   `;
@@ -23,9 +19,7 @@ function exibirMunicipiosComTotens(estado) {
 }
 
 function exibirAeroportosComTotens(municipio) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função exibirAeroportosComTotens(): ", municipio
-    );
+    console.log(`Acessei o graficoBrunoModel.js, executei exibirAeroportosComTotens(${municipio})`);
     var instrucao = `
     SELECT idAeroporto, nomeAeroporto FROM vw_totem_estado WHERE municipio = '${municipio}' GROUP BY idAeroporto, nomeAeroporto ORDER BY nomeAeroporto;
   `;
@@ -34,9 +28,7 @@ function exibirAeroportosComTotens(municipio) {
 }
 
 function valorTotem(idTotem) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função valorDisco(): ", idTotem
-    );
+    console.log(`Acessei o graficoBrunoModel.js, executei valorTotem(${idTotem})`);
     var instrucao = `
     SELECT * FROM vw_RegistroEstruturado WHERE id = ${idTotem} ORDER BY r.fkTotem, r.dataHora, data DESC;
   `;
@@ -45,9 +37,7 @@ function valorTotem(idTotem) {
 }
 
 function exibirOptionsMesAno(fkEmpresa) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função dadosRelatorio(): ", fkEmpresa
-    );
+    console.log(`Acessei o graficoBrunoModel.js, executei exibirOptionsMesAno(${fkEmpresa})`);
     var instrucao = `
     SELECT
       YEAR(dataHora) AS ano,
@@ -62,10 +52,7 @@ function exibirOptionsMesAno(fkEmpresa) {
 }
 
 function metricasGerais(tipo, texto, ano, mes) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função metricasGerais(): ", tipo, texto, ano, mes
-    );
-
+    console.log(`Acessei o graficoBrunoModel.js, executei metricasGerais(${tipo},${texto},${ano},${mes})`);
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         var instrucao = `
             SELECT
@@ -97,10 +84,7 @@ function metricasGerais(tipo, texto, ano, mes) {
 }
 
 function dadosRelatorio(comp, mes, ano, fkEmpresa, texto) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função dadosRelatorio(): ", comp, ano, mes, fkEmpresa
-    );
-
+    console.log(`Acessei o graficoBrunoModel.js, executei dadosRelatorio(${comp},${mes},${ano},${fkEmpresa},${texto})`);
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         var instrucao = `
             SELECT
@@ -127,9 +111,7 @@ function dadosRelatorio(comp, mes, ano, fkEmpresa, texto) {
 }
 
 function dadosMesAnterior(tipo, texto, ano, mes) {
-    console.log(
-        "Acessei o graficoBrunoModel e executei a função dadosMesAnterior(): ", tipo, texto, ano, mes
-    );
+    console.log(`Acessei o graficoBrunoModel.js, executei dadosMesAnterior(${tipo},${texto},${ano},${mes})`);
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         var instrucao = `
             SELECT SUM(alertaCpu) as alertaCpuAnt,
