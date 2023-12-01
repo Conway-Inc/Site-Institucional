@@ -575,10 +575,3 @@ SELECT
 FROM vw_alertas 
 GROUP BY idTotem, nome;
 GO
-
-INSERT INTO Processo(pid, nome , fkRegistro) VALUES (145, 'Google', 100001),
-													(127, 'bin', 100003),
-                                                    (189, 'IntelliJ', 100002),
-                                                    (176, 'Chrome', 100007);
-                                                    
-GO
