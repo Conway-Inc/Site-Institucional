@@ -65,22 +65,11 @@ function cadastrarComponente(componente) {
   return database.executar(instrucao);
 }
 
-function cadastrarMetricas() {
-  console.log(`Acessei o totemModel.js, executei cadastrarMetricas()`);
-  var instrucao = `
-  SELECT idComponente * FROM TotemComponete;
-  INSERT INTO TotemComponete(valor, alerta, critico, fkComponente, fkTotem) VALUES();`
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
-}
-
-
 module.exports = {
   exibirTabelaTotem,
   exibirMunicipios,
   exibirAeroportos,
   cadastrarTotem,
   cadastrarComponente,
-  criarViewTotem,
-  cadastrarMetricas
+  criarViewTotem
 };

@@ -46,9 +46,7 @@ function buscarMaiorRegistro(req, res) {
 }
 
 function plotarGrafico(req, res) {
-
-  id = req.params.id
-  console.log("O id na controle é" + id)
+  var id = req.params.id
 
   if (id == undefined) {
     res.status(400).send("O id do totem está undefined")
@@ -71,9 +69,7 @@ function plotarGrafico(req, res) {
 };
 
 function buscarRegistroUltimoDia(req, res) {
-
-  id = req.params.id
-  console.log("O id na controle é" + id)
+  var id = req.params.id
 
   if (id == undefined) {
     res.status(400).send("O id do totem está undefined")
@@ -93,24 +89,26 @@ function buscarRegistroUltimoDia(req, res) {
         }
       )
   }
-};
+}
 
 function atualizarGrafico(req, res) {
-
   var idTotem = req.params.idTotem;
-  console.log(`Recuperando medidas em tempo real`);
 
-  graficoKauanModel.atualizarGráfico(idTotem).then(function (resultado) {
+  if (idTotem == undefined) {
+    res.status(400).send("O idTotem está undefined")
+  } else {
+    graficoKauanModel.atualizarGráfico(idTotem).then(function (resultado) {
       if (resultado.length > 0) {
-          res.status(200).json(resultado);
+        res.status(200).json(resultado);
       } else {
-          res.status(204).send("Nenhum resultado encontrado!")
+        res.status(204).send("Nenhum resultado encontrado!")
       }
-  }).catch(function (erro) {
+    }).catch(function (erro) {
       console.log(erro);
       console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
       res.status(500).json(erro.sqlMessage);
-  });
+    });
+  }
 }
 
 module.exports = {
