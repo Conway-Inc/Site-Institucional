@@ -81,12 +81,14 @@ CREATE TABLE Registro (
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
 
-CREATE TABLE Processo (
-     idProcesso INT PRIMARY KEY AUTO_INCREMENT,
-     pid INT, 
-     nome VARCHAR(100),
-     fkRegistro INT,
-     FOREIGN KEY (fkRegistro) REFERENCES Registro (idRegistro) 	
+CREATE TABLE GrupoProcesso (
+     idGrupoProcesso INT PRIMARY KEY AUTO_INCREMENT,
+     quantidadeProcesso INT, 
+     dataHora DATETIME,
+     processoUsoCpu VARCHAR (100),
+     processoUsoMemoria varchar(100),
+     fkTotem INT,
+     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 	
 );
 
 CREATE TABLE TotemComponente (
