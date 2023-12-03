@@ -1,8 +1,8 @@
-function exibirTotensProcesso(fkEmpresaVar) {
+function exibirInfoTotens(fkEmpresaVar) {
     paginaProcessos = document.getElementById("paginaListaProcessos")
 
     var fkEmpresaVar = sessionStorage.FK_EMPRESA
-    fetch(`/graficoPresilli/exibirTotensProcesso/${fkEmpresaVar}`)
+    fetch(`/graficoPresilli/exibirInfoTotens/${fkEmpresaVar}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
@@ -62,7 +62,7 @@ function exibirTotensProcesso(fkEmpresaVar) {
 
 
 setInterval(() => {
-    exibirTotensProcesso()
+    exibirInfototens()
 }, 5000)
 
 function mostrarHoraAtual() {

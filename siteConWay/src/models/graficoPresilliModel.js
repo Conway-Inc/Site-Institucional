@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function exibirTotensProcesso(fkEmpresaVar){
+function exibirInfoTotens(fkEmpresaVar){
     var instrucao = `SELECT * FROM view_registrosTotem`
 
     return database.executar(instrucao);
@@ -16,6 +16,6 @@ function exibirProcessos(idTotem){
 
 
 module.exports = {
-    exibirTotensProcesso,
+    exibirInfoTotens,
     exibirProcessos
 };

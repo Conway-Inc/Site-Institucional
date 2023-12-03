@@ -1,10 +1,10 @@
 const { json } = require("express");
 var graficoPresilliModel = require("../models/graficoPresilliModel")
 
-function exibirTotensProcesso(req, res) {
+function exibirInfoTotens(req, res) {
     var fkEmpresaVar = req.params.fkEmpresaVar;
 
-    graficoPresilliModel.exibirTotensProcesso(fkEmpresaVar)
+    graficoPresilliModel.exibirInfoTotens(fkEmpresaVar)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -37,7 +37,7 @@ function exibirProcessos(req, res) {
 }
 
 module.exports = {
-    exibirTotensProcesso,
+    exibirInfoTotens,
     exibirProcessos
 };
 
