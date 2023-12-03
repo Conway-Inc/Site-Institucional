@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 function exibirTotensProcesso(fkEmpresaVar){
-    var instrucao = `SELECT * FROM view_infoTotem`
+    var instrucao = `SELECT * FROM view_registrosTotem`
 
     return database.executar(instrucao);
 }

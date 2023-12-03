@@ -377,6 +377,9 @@ INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (78.5, '202
 
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (80.0, '2023-11-26 13:45:00', 4, 4);
 
+INSERT INTO GrupoProcesso VALUES (NULL, 13, now(), "Chrome", "IntelliJ", 1),
+								 (NULL, 18, now(), "MySQL WorkBench", "Visual Studio", 2),
+                                 (NULL , 25, now(), "System", "System", 10);
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) VALUES 
 ('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
@@ -431,18 +434,27 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
     WHERE dataHora >= NOW() - INTERVAL 10 SECOND AND dataHora <= NOW() GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;    
-
-DROP VIEW IF EXISTS view_infoTotem;
-CREATE VIEW view_infoTotem AS
+    
+DROP VIEW IF EXISTS view_registrosTotem;
+CREATE VIEW view_registrosTotem AS
 SELECT
-    T.idTotem, T.nome AS nomeTotem, G.quantidadeProcesso, R.valor AS valorCpu, R_mem.valor AS valorMemoria, R_disco.valor AS valorDisco, T.fkEmpresa
-FROM GrupoProcesso G
-JOIN Totem T ON G.fkTotem = T.idTotem
-LEFT JOIN Registro R ON G.fkTotem = R.fkTotem
-    AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'CPU')
-LEFT JOIN Registro R_mem ON G.fkTotem = R_mem.fkTotem
+    G.quantidadeProcesso,
+    R_cpu.valor AS valorCpu,
+    R_mem.valor AS valorMemoria,
+    R_disco.valor AS valorDisco,
+    G.fkTotem
+FROM
+    GrupoProcesso G
+JOIN
+    Totem T ON G.fkTotem = T.idTotem
+LEFT JOIN
+    Registro R_cpu ON G.fkTotem = R_cpu.fkTotem
+    AND R_cpu.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'CPU')
+LEFT JOIN
+    Registro R_mem ON G.fkTotem = R_mem.fkTotem
     AND R_mem.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Memória')
-LEFT JOIN Registro R_disco ON G.fkTotem = R_disco.fkTotem
+LEFT JOIN
+    Registro R_disco ON G.fkTotem = R_disco.fkTotem
     AND R_disco.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Disco');
 
 -- USUÁRIO
