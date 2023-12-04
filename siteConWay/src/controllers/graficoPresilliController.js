@@ -18,10 +18,10 @@ function exibirInfoTotens(req, res) {
         });
 }
 
-function exibirProcessos(req, res) {
+function infoProcessosTotem(req, res) {
     var idTotem = req.params.idTotem;
 
-    graficoPresilliModel.exibirProcessos(idTotem)
+    graficoPresilliModel.infoProcessosTotem(idTotem)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -36,8 +36,26 @@ function exibirProcessos(req, res) {
 
 }
 
+function exibirRegistros(req, res){
+    var idTotem = req.params.idTotem;
+
+    graficoPresilliModel.exibirRegistros(idTotem)
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os registros do totem: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     exibirInfoTotens,
-    exibirProcessos
+    infoProcessosTotem,
+    exibirRegistros
 };
 

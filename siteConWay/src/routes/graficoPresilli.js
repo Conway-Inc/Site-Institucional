@@ -7,8 +7,12 @@ router.get("/exibirInfoTotens/:fkEmpresaVar", function(req, res){
     graficoPresilliController.exibirInfoTotens(req, res);
 });
 
-router.get("/exibirProcessos/:idTotem", function(req, res){
-    graficoPresilliController.exibirProcessos(req, res);
+router.get("/exibirRegistros/:idTotem", function(req, res){
+    graficoPresilliController.exibirRegistros(req,res)
+})
+
+router.get("/infoProcessosTotem/:idTotem", function(req, res){
+    graficoPresilliController.infoProcessosTotem(req, res);
 });
 
 

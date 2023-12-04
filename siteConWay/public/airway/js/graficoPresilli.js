@@ -8,6 +8,7 @@ function exibirInfoTotens(fkEmpresaVar) {
                 resposta.json().then(function (resposta) {
                     var tbody = document.getElementById("tbodyTable");
                     tbody.innerHTML = ""
+                    console.log(resposta)
 
                     for (let i = 0; i < resposta.length; i++) {
                         var lista = document.getElementById("totemProcessos");
@@ -16,33 +17,53 @@ function exibirInfoTotens(fkEmpresaVar) {
                         var tdIdtotem = document.createElement("td");
                         tdIdtotem.innerHTML = publicacao.idTotem;
 
+                        var tdQuantidade = document.createElement("td");
+                        var tdCpu = document.createElement("td")
+                        var tdMemoria = document.createElement("td")
+                        var tdDisco = document.createElement("td")
+
+                        exibirRegistros(publicacao.idTotem)
+
+
+                        if (resposta.ultimaQuantidadeProcesso == "" || resposta.ultimaQuantidadeProcesso == null || resposta.ultimaQuantidadeProcesso == undefined) {
+                            tdQuantidade.innerHTML = 0
+                        } else {
+                            tdQuantidade.innerHTML = resposta.ultimaQuantidadeProcesso;
+                        }
+
+                        if (resposta.ultimoValorCpu == "" || resposta.ultimoValorCpu == null || resposta.ultimoValorCpu == undefined) {
+                            tdCpu.innerHTML = "0.0"
+                        } else {
+                            tdCpu.innerHTML = resposta.ultimoValorCpu
+                        }
+
+                        if (resposta.ultimoValorMemoria == "" || resposta.ultimoValorMemoria == null || resposta.ultimoValorMemoria == undefined) {
+                            tdMemoria.innerHTML = "0.0"
+                        } else {
+                            tdMemoria.innerHTML = resposta.ultimoValorMemoria
+                        }
+
+                        if (resposta.ultimoValorMemoria == "" || resposta.ultimoValorDisco == null || resposta.ultimoValorDisco == undefined) {
+                            tdDisco.innerHTML = "0.0"
+                        } else {
+                            tdDisco.innerHTML = resposta.ultimoValorDisco
+                        }
+
+
                         var tdNome = document.createElement("td");
                         tdNome.setAttribute("scope", "row");
-                        tdNome.innerHTML = publicacao.nomeTotem;
-
-                        var tdQuantidade = document.createElement("td");
-                        tdQuantidade.innerHTML = publicacao.quantidadeProcesso;
-                        
-                        var tdCpu = document.createElement("td")
-                        tdCpu.innerHTML = publicacao.valorCpu
-
-                        var tdMemoria = document.createElement("td")
-                        tdMemoria.innerHTML = publicacao.valorMemoria
-
-                        var tdDisco = document.createElement("td")
-                        tdMemoria.innerHTML = publicacao.valorDisco
+                        tdNome.innerHTML = publicacao.nome;
 
                         var tdBotao = document.createElement("td")
-                        tdBotao.innerHTML += `<button class="btn btn-primary" onclick="exibirProcessos(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`
+                        tdBotao.innerHTML += `<button class="btn btn-primary" onclick="infoProcessosTotem(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`
 
                         var tr = document.createElement("tr");
                         tr.setAttribute("id", "trTabela");
                         var tbody = document.getElementById("tbodyTable");
 
-
                         tr.appendChild(tdIdtotem);
                         tr.appendChild(tdNome);
-                        tr.appendChild(tdQuantidade);
+                        tr.appendChild(tdQuantidade)
                         tr.appendChild(tdCpu);
                         tr.appendChild(tdMemoria);
                         tr.appendChild(tdDisco);
@@ -61,9 +82,26 @@ function exibirInfoTotens(fkEmpresaVar) {
 }
 
 
-setInterval(() => {
-    exibirInfototens()
-}, 5000)
+function exibirRegistros(idTotem) {
+    fetch(`/graficoPresilli/exibirRegistros/${idTotem}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            return resposta.json();
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+        throw error;
+    });
+}
+
 
 function mostrarHoraAtual() {
     const DiasdaSemana = [
@@ -85,52 +123,29 @@ function mostrarHoraAtual() {
     }, 1000)
 }
 
-function exibirProcessos(idTotem) {
-    paginaLista = document.getElementById("paginaListaTotens")
-    paginaProcessos = document.getElementById("paginaListaProcessos")
-    tituloTotem = document.getElementById("tituloTotem")
+// function exibirProcessos(idTotem) {
 
-    var listaData = [];
-    var listaQuantidade = [];
-    paginaLista.style.display = "none"
 
-    paginaListaProcessos.style.display = "flex"
+//     var listaData = [];
+//     var listaQuantidade = [];
 
-    setInterval(() => {
-        fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    resposta.json().then(function (resposta) {
-                        setInterval(() => {
-                            exibirRegistrosCpu(idTotem)
-                            exibirRegistrosMemoria(idTotem)
-                            exibirRegistrosDisco(idTotem)
-                        }, 5000)
 
-                        for (let i = 0; i < resposta.length; i++) {
-                            const dataHora = resposta[i].dataHora
-                            const data = new Date(dataHora)
-                            const dataFormatada = data.toLocaleString('pt-BR', {
-                                timeZone: 'UTC',
-                            });
+//     setInterval(() => {
+//         fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
+//             .then(function (resposta) {
+//                 if (resposta.ok) {
+//                     resposta.json().then(function (resposta) {
 
-                            listaData.push(dataFormatada)
-
-                            listaQuantidade.push(resposta[i].Quantidade)
-
-                        }
-
-                        tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
-                    });
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-    }, 10000)
-    plotarGrafico(listaData, listaQuantidade)
-}
+//                     });
+//                 } else {
+//                     throw ('Houve um erro na API!');
+//                 }
+//             }).catch(function (resposta) {
+//                 console.error(resposta);
+//             });
+//     }, 10000)
+//     plotarGrafico(listaData, listaQuantidade)
+// }
 
 function plotarGrafico(listaData, listaQuantidade) {
 
@@ -146,7 +161,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         colors: ["#0D214F"],
         series: [
             {
-                name: "Series A",
+                name: "Quantidade Processos",
                 data: listaQuantidade
             },
         ],
@@ -204,4 +219,52 @@ function plotarGrafico(listaData, listaQuantidade) {
 
 function voltar() {
     window.location.reload();
+}
+
+function infoProcessosTotem(idTotem) {
+    paginaLista = document.getElementById("paginaListaTotens")
+    paginaProcessos = document.getElementById("paginaListaProcessos")
+    tituloTotem = document.getElementById("tituloTotem")
+
+    paginaLista.style.display = "none"
+    paginaListaProcessos.style.display = "flex"
+
+    fetch(`/graficoPresilli/infoProcessosTotem/${idTotem}`)
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    const dataHora = resposta[0].dataHora
+                    const data = new Date(dataHora)
+                    const dataFormatada = data.toLocaleString('pt-BR', {
+                        timeZone: 'UTC',
+                    });
+
+                    var listaData = [];
+                    var listaQuantidade = [];
+
+                    var tituloTotem = document.getElementById("tituloTotem")
+                    tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
+
+                    var nomeCpu = document.getElementById("nomeCpu")
+                    nomeCpu.innerHTML = `${resposta[0].processoUsoCpu}`
+
+
+                    var nomeMemoria = document.getElementById("nomeMemoria")
+                    nomeMemoria.innerHTML = `${resposta[0].processoUsoMemoria}`
+
+
+                    listaData.push(dataFormatada)
+
+                    listaQuantidade.push(resposta[0].quantidadeProcesso)
+
+                    plotarGrafico(listaData, listaQuantidade)
+
+
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
 }
