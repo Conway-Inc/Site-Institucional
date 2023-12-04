@@ -438,25 +438,15 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
 DROP VIEW IF EXISTS view_registrosTotem;
 CREATE VIEW view_registrosTotem AS
 SELECT
-    G.quantidadeProcesso,
-    R_cpu.valor AS valorCpu,
-    R_mem.valor AS valorMemoria,
-    R_disco.valor AS valorDisco,
-    G.fkTotem
+    G.fkTotem,
+    G.dataHora,
+    G.quantidadeProcesso AS ultimoQuantidadeProcesso,
+    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'CPU') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorCpu,
+    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Memória') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorMemoria,
+    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Disco') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorDisco
 FROM
-    GrupoProcesso G
-JOIN
-    Totem T ON G.fkTotem = T.idTotem
-LEFT JOIN
-    Registro R_cpu ON G.fkTotem = R_cpu.fkTotem
-    AND R_cpu.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'CPU')
-LEFT JOIN
-    Registro R_mem ON G.fkTotem = R_mem.fkTotem
-    AND R_mem.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Memória')
-LEFT JOIN
-    Registro R_disco ON G.fkTotem = R_disco.fkTotem
-    AND R_disco.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Disco');
-
+    GrupoProcesso G;
+    
 -- USUÁRIO
 DROP USER IF EXISTS 'user_conway'@'localhost';
 CREATE USER 'user_conway'@'localhost' IDENTIFIED WITH mysql_native_password BY 'urubu100';
