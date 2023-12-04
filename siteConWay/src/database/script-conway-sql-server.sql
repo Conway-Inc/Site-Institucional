@@ -89,7 +89,7 @@ CREATE TABLE Registro (
 );
 
 CREATE TABLE GrupoProcesso (
-     idGrupoProcesso INT PRIMARY KEY AUTO_INCREMENT,
+     idGrupoProcesso INT PRIMARY KEY IDENTITY(1,1),
      quantidadeProcesso INT, 
      dataHora DATETIME,
      processoUsoCpu VARCHAR (100),
@@ -329,9 +329,9 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
                                              (1,100025); 
 GO
 
-INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem )VALUES (13, now(), "Chrome", "IntelliJ", 1),
-						                                                                                      (18, now(), "MySQL WorkBench", "Visual Studio", 2),
-                                                                                                              (25, now(), "System", "System", 10);
+INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem )VALUES (13, '2023-10-16 00:00:00', 'Chrome', 'IntelliJ', 1),
+						                                                                                      (18, '2023-10-16 00:00:00', 'MySQL WorkBench', 'Visual Studio', 2),
+                                                                                                              (25, '2023-10-16 00:00:00', 'System', 'System', 10);
 GO
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
@@ -590,9 +590,40 @@ SELECT
     G.fkTotem,
     G.dataHora,
     G.quantidadeProcesso AS ultimoQuantidadeProcesso,
-    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'CPU') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorCpu,
-    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Memória') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorMemoria,
-    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Disco') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorDisco
+    (
+        SELECT TOP 1 R.valor
+        FROM Registro R
+        WHERE R.fkTotem = G.fkTotem
+        AND R.fkComponente = (
+            SELECT TOP 1 idComponente
+            FROM Componente
+            WHERE nome = 'CPU'
+        )
+        ORDER BY R.dataHora DESC
+    ) AS ultimoValorCpu,
+    (
+        SELECT TOP 1 R.valor
+        FROM Registro R
+        WHERE R.fkTotem = G.fkTotem
+        AND R.fkComponente = (
+            SELECT TOP 1 idComponente
+            FROM Componente
+            WHERE nome = 'Memória'
+        )
+        ORDER BY R.dataHora DESC
+    ) AS ultimoValorMemoria,
+    (
+        SELECT TOP 1 R.valor
+        FROM Registro R
+        WHERE R.fkTotem = G.fkTotem
+        AND R.fkComponente = (
+            SELECT TOP 1 idComponente
+            FROM Componente
+            WHERE nome = 'Disco'
+        )
+        ORDER BY R.dataHora DESC
+    ) AS ultimoValorDisco
 FROM
     GrupoProcesso G;
 GO
+
