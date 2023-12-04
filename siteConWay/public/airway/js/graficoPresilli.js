@@ -236,9 +236,8 @@ function infoProcessosTotem(idTotem) {
     paginaListaProcessos.style.display = "flex"
     var listaData = [];
     var listaQuantidade = [];
-    
-    setInterval(()=>{
 
+    setInterval(()=>{
         fetch(`/graficoPresilli/infoProcessosTotem/${idTotem}`)
         .then(function (resposta) {
             if (resposta.ok) {
@@ -264,9 +263,7 @@ function infoProcessosTotem(idTotem) {
                     
                     listaData.push(dataFormatada)
                     
-                    listaQuantidade.push(resposta[0].quantidadeProcesso)
-                    
-                    
+                    listaQuantidade.push(resposta[0].quantidadeProcesso)                
                     
                 });
             } else {

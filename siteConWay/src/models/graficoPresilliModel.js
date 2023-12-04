@@ -34,7 +34,11 @@ function exibirRegistros(idTotem){
 }
 
 function exibirCpuProcessos(idTotem){
-    var instrucao = `SELECT ultimoQuantidadeProcesso, ultimoValorMemoria, dataHora FROM view_registrosTotem WHERE fkTotem = ${idTotem}`;
+    if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+        var instrucao = `SELECT ultimoQuantidadeProcesso, ultimoValorMemoria, dataHora FROM view_registrosTotem WHERE fkTotem = ${idTotem} LIMIT 10`;
+    }else if(process.env.AMBIENTE_PROCESSO == "producao"){
+        var instrucao = `SELECT TOP 10 ultimoQuantidadeProcesso, ultimoValorMemoria, dataHora FROM view_registrosTotem WHERE fkTotem = ${idTotem}`
+    }
 
     return database.executar(instrucao);
 }
