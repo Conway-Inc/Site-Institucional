@@ -15,5 +15,9 @@ router.get("/infoProcessosTotem/:idTotem", function(req, res){
     graficoPresilliController.infoProcessosTotem(req, res);
 });
 
+router.get("exibirCpuProcessos/:idTotem", function(req, res){
+    graficoPresilliController.exibirCpuProcessos(req, res);
+});
+
 
 module.exports = router;

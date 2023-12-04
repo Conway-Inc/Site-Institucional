@@ -23,9 +23,15 @@ function exibirRegistros(idTotem){
     return database.executar(instrucao);
 }
 
+function exibirCpuProcessos(idTotem){
+    var instrucao = `SELECT ultimoQuantidadeProcesso, ultimoValorMemoria, dataHora FROM view_registrosTotem WHERE fkTotem = ${idTotem}`;
+
+    return database.executar(instrucao);
+}
 
 module.exports = {
     exibirInfoTotens,
     infoProcessosTotem,
-    exibirRegistros
+    exibirRegistros,
+    exibirCpuProcessos
 };

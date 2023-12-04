@@ -259,7 +259,7 @@ function infoProcessosTotem(idTotem) {
 
                     plotarGrafico(listaData, listaQuantidade)
 
-
+                    
                 });
             } else {
                 throw ('Houve um erro na API!');
@@ -269,6 +269,35 @@ function infoProcessosTotem(idTotem) {
         });
 }
 
-function filtarGraficos(){
-    
-}
+function filtarGraficos(id){
+    var botaoCpu = document.getElementById("botaoCpu")
+    var botaoMemoria = document.getElementById("botaoMemoria")
+    var botaoLimpar = document.getElementById("botaoLimpar")
+
+    if(id == "botaoCpu"){
+        fetch(`/graficoPresilli/exibirCpuProcessos/${idTotem}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                
+                
+
+            } else {
+                resposta.text().then(textoErro => {
+                    console.error(textoErro);
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            throw error;
+        });
+    }
+    else if (id ==  "botaoMemoria"){
+        alert("botaoMemoria")
+    } else {
+        alert("botaoLimpar")
+    }
+}   
