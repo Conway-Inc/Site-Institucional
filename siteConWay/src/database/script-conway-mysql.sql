@@ -377,9 +377,9 @@ INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (78.5, '202
 
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (80.0, '2023-11-26 13:45:00', 4, 4);
 
-INSERT INTO GrupoProcesso VALUES (NULL, 13, now(), "Chrome", "IntelliJ", 1),
-								 (NULL, 18, now(), "MySQL WorkBench", "Visual Studio", 2),
-                                 (NULL , 25, now(), "System", "System", 10);
+INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, now(), "Chrome", "IntelliJ", 1),
+						                                                                                      (18, now(), "MySQL WorkBench", "Visual Studio", 2),
+                                                                                                              (25, now(), "System", "System", 10);
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) VALUES 
 ('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
