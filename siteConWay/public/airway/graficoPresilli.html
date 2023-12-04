@@ -217,8 +217,7 @@
                                                     <div class="h3 mb-0 font-weight-bold text-gray-800"
                                                         id="nomeCpu">
                                                     </div>
-                                                    <div class="h7 mb-0 font-weight-bold text-gray-800"
-                                                        id="divAtencaoTotalTotens">
+                                                    <div class="h7 mb-0 font-weight-bold text-gray-800">
                                                     </div>
                                                 </div>
                                         </div>
@@ -241,8 +240,7 @@
                                                 <div class="h3 mb-0 font-weight-bold text-gray-800"
                                                     id="nomeMemoria">
                                                 </div>
-                                                <div class="h7 mb-0 font-weight-bold text-gray-800"
-                                                    id="divCriticoTotalTotens">
+                                                <div class="h7 mb-0 font-weight-bold text-gray-800">
                                                 </div>
                                             </div>
                                         </div>
@@ -263,6 +261,13 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Quantidade de Processos em tempo real</h6>
                                 </div>
                                 <div class="card-body">
+                                    <span>Mostrar últimos registros: </span> 
+                                    &nbsp;
+                                    <button class="btn btn-primary" onclick ="filtarGraficos('id')" id="botaoCpu">CPU</button>
+                                    &nbsp;
+                                    <button class="btn btn-primary" onclick ="filtarGraficos('id')" id="botaoMemoria">Memória</button>
+                                    &nbsp;
+                                    <button class="btn btn-primary" onclick ="filtarGraficos('id')" id="botaoLimpar">Limpar</button>
                                     <div id="chart">
                                     </div>  
                                 </div>

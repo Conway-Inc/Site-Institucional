@@ -268,3 +268,7 @@ function infoProcessosTotem(idTotem) {
             console.error(resposta);
         });
 }
+
+function filtarGraficos(){
+    
+}
