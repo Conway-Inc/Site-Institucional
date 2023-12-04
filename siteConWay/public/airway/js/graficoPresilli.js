@@ -1,3 +1,8 @@
+setInterval(()=>{
+    exibirInfoTotens()
+}, 5000)
+
+
 function exibirInfoTotens(fkEmpresaVar) {
     paginaProcessos = document.getElementById("paginaListaProcessos")
 
@@ -90,7 +95,7 @@ function exibirRegistros(idTotem) {
         },
     }).then(function (resposta) {
         if (resposta.ok) {
-            return resposta.json();
+            // return resposta.json();
         } else {
             resposta.text().then(textoErro => {
                 console.error(textoErro);
@@ -100,6 +105,7 @@ function exibirRegistros(idTotem) {
         console.error(resposta);
         throw error;
     });
+    
 }
 
 
@@ -228,19 +234,22 @@ function infoProcessosTotem(idTotem) {
 
     paginaLista.style.display = "none"
     paginaListaProcessos.style.display = "flex"
+    var listaData = [];
+    var listaQuantidade = [];
+    
+    setInterval(()=>{
 
-    fetch(`/graficoPresilli/infoProcessosTotem/${idTotem}`)
+        fetch(`/graficoPresilli/infoProcessosTotem/${idTotem}`)
         .then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
+                    
                     const dataHora = resposta[0].dataHora
                     const data = new Date(dataHora)
                     const dataFormatada = data.toLocaleString('pt-BR', {
                         timeZone: 'UTC',
                     });
 
-                    var listaData = [];
-                    var listaQuantidade = [];
 
                     var tituloTotem = document.getElementById("tituloTotem")
                     tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
@@ -251,14 +260,13 @@ function infoProcessosTotem(idTotem) {
 
                     var nomeMemoria = document.getElementById("nomeMemoria")
                     nomeMemoria.innerHTML = `${resposta[0].processoUsoMemoria}`
-
-
+                    
+                    
                     listaData.push(dataFormatada)
-
+                    
                     listaQuantidade.push(resposta[0].quantidadeProcesso)
-
-                    plotarGrafico(listaData, listaQuantidade)
-
+                    
+                    
                     
                 });
             } else {
@@ -267,8 +275,10 @@ function infoProcessosTotem(idTotem) {
         }).catch(function (resposta) {
             console.error(resposta);
         });
+    }, 5000)
+    plotarGrafico(listaData, listaQuantidade)
 }
-
+    
 function filtarGraficos(id){
     var botaoCpu = document.getElementById("botaoCpu")
     var botaoMemoria = document.getElementById("botaoMemoria")

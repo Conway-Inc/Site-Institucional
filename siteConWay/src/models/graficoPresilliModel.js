@@ -7,8 +7,20 @@ function exibirInfoTotens(fkEmpresaVar){
 }
 
 function infoProcessosTotem(idTotem){
-    var instrucao = `SELECT nome, quantidadeProcesso, processoUsoCpu, processoUsoMemoria, dataHora FROM GrupoProcesso JOIN Totem ON fkTotem = idTotem WHERE idTotem = ${idTotem} ORDER BY idGrupoProcesso DESC LIMIT 1;
-    `
+    if(process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+        var instrucao = `SELECT nome, quantidadeProcesso, processoUsoCpu, processoUsoMemoria, dataHora FROM GrupoProcesso JOIN Totem ON fkTotem = idTotem WHERE idTotem = ${idTotem} ORDER BY idGrupoProcesso DESC LIMIT 1
+        `
+    }else if(process.env.AMBIENTE_PROCESSO == "producao"){
+        var instrucao = `SELECT nome, quantidadeProcesso, processoUsoCpu, processoUsoMemoria, dataHora FROM GrupoProcesso
+        INNER JOIN Totem ON GrupoProcesso.fkTotem = Totem.idTotem
+    WHERE
+        Totem.idTotem = ${idTotem}
+    ORDER BY
+        GrupoProcesso.idGrupoProcesso DESC
+    LIMIT
+        1;`
+    }
+    
 
     return database.executar(instrucao);
 }
