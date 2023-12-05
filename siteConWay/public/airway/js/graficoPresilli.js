@@ -1,111 +1,87 @@
-setInterval(()=>{
+setInterval(() => {
     exibirInfoTotens()
-}, 5000)
+}, 10000)
 
 
-function exibirInfoTotens(fkEmpresaVar) {
-    paginaProcessos = document.getElementById("paginaListaProcessos")
+async function exibirInfoTotens(fkEmpresaVar) {
+    paginaProcessos = document.getElementById("paginaListaProcessos");
 
-    var fkEmpresaVar = sessionStorage.FK_EMPRESA
-    fetch(`/graficoPresilli/exibirInfoTotens/${fkEmpresaVar}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    var tbody = document.getElementById("tbodyTable");
-                    tbody.innerHTML = ""
-                    console.log(resposta)
-
-                    for (let i = 0; i < resposta.length; i++) {
-                        var lista = document.getElementById("totemProcessos");
-                        var publicacao = resposta[i];
-
-                        var tdIdtotem = document.createElement("td");
-                        tdIdtotem.innerHTML = publicacao.idTotem;
-
-                        var tdQuantidade = document.createElement("td");
-                        var tdCpu = document.createElement("td")
-                        var tdMemoria = document.createElement("td")
-                        var tdDisco = document.createElement("td")
-
-                        exibirRegistros(publicacao.idTotem)
-
-
-                        if (resposta.ultimaQuantidadeProcesso == "" || resposta.ultimaQuantidadeProcesso == null || resposta.ultimaQuantidadeProcesso == undefined) {
-                            tdQuantidade.innerHTML = 0
-                        } else {
-                            tdQuantidade.innerHTML = resposta.ultimaQuantidadeProcesso;
-                        }
-
-                        if (resposta.ultimoValorCpu == "" || resposta.ultimoValorCpu == null || resposta.ultimoValorCpu == undefined) {
-                            tdCpu.innerHTML = "0.0"
-                        } else {
-                            tdCpu.innerHTML = resposta.ultimoValorCpu
-                        }
-
-                        if (resposta.ultimoValorMemoria == "" || resposta.ultimoValorMemoria == null || resposta.ultimoValorMemoria == undefined) {
-                            tdMemoria.innerHTML = "0.0"
-                        } else {
-                            tdMemoria.innerHTML = resposta.ultimoValorMemoria
-                        }
-
-                        if (resposta.ultimoValorMemoria == "" || resposta.ultimoValorDisco == null || resposta.ultimoValorDisco == undefined) {
-                            tdDisco.innerHTML = "0.0"
-                        } else {
-                            tdDisco.innerHTML = resposta.ultimoValorDisco
-                        }
-
-
-                        var tdNome = document.createElement("td");
-                        tdNome.setAttribute("scope", "row");
-                        tdNome.innerHTML = publicacao.nome;
-
-                        var tdBotao = document.createElement("td")
-                        tdBotao.innerHTML += `<button class="btn btn-primary" onclick="infoProcessosTotem(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`
-
-                        var tr = document.createElement("tr");
-                        tr.setAttribute("id", "trTabela");
-                        var tbody = document.getElementById("tbodyTable");
-
-                        tr.appendChild(tdIdtotem);
-                        tr.appendChild(tdNome);
-                        tr.appendChild(tdQuantidade)
-                        tr.appendChild(tdCpu);
-                        tr.appendChild(tdMemoria);
-                        tr.appendChild(tdDisco);
-                        tr.appendChild(tdBotao);
-                        tbody.appendChild(tr);
-                        lista.appendChild(tbody);
-                    }
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
-
-}
-
-
-function exibirRegistros(idTotem) {
-    fetch(`/graficoPresilli/exibirRegistros/${idTotem}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            return resposta
-        } else {
-            resposta.text().then(textoErro => {
-                console.error(textoErro);
-            });
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-        throw error;
-    });
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA;
     
+    try {
+        const respostaInfoTotens = await fetch(`/graficoPresilli/exibirInfoTotens/${fkEmpresaVar}`);
+
+        if (respostaInfoTotens.ok) {
+            const listaTotens = await respostaInfoTotens.json();
+            var tbody = document.getElementById("tbodyTable");
+            tbody.innerHTML = "";
+
+            for (let i = 0; i < listaTotens.length; i++) {
+                var lista = document.getElementById("totemProcessos");
+                var publicacao = listaTotens[i];
+
+                var tdIdtotem = document.createElement("td");
+                tdIdtotem.innerHTML = publicacao.idTotem;
+
+                var tdQuantidade = document.createElement("td");
+                var tdCpu = document.createElement("td");
+                var tdMemoria = document.createElement("td");
+                var tdDisco = document.createElement("td");
+
+                const respostaRegistros = await fetch(`/graficoPresilli/exibirRegistros/${publicacao.idTotem}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+
+                if (respostaRegistros.ok) {
+                    const registros = await respostaRegistros.json();
+                    
+                    for (let i = 0; i < registros.length; i++){
+                        console.log(registros[i])
+                        tdQuantidade.innerHTML = registros[i].ultimoQuantidadeProcesso;
+                        tdCpu.innerHTML = registros[i].ultimoValorCpu || "0.0";
+                        tdMemoria.innerHTML = registros[i].ultimoValorMemoria || "0.0";
+                        tdDisco.innerHTML = registros[i].ultimoValorDisco || "0.0";
+                    }
+                    
+                } else {
+                    console.warn("Resposta não OK para exibirRegistros: ", respostaRegistros.status);
+                    // Defina valores padrão em caso de erro
+                    tdQuantidade.innerHTML = 0;
+                    tdCpu.innerHTML = "0.0";
+                    tdMemoria.innerHTML = "0.0";
+                    tdDisco.innerHTML = "0.0";
+                }
+
+                var tdNome = document.createElement("td");
+                tdNome.setAttribute("scope", "row");
+                tdNome.innerHTML = publicacao.nome;
+
+                var tdBotao = document.createElement("td");
+                tdBotao.innerHTML += `<button class="btn btn-primary" onclick="infoProcessosTotem(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`;
+
+                var tr = document.createElement("tr");
+                tr.setAttribute("id", "trTabela");
+                var tbody = document.getElementById("tbodyTable");
+
+                tr.appendChild(tdIdtotem);
+                tr.appendChild(tdNome);
+                tr.appendChild(tdQuantidade);
+                tr.appendChild(tdCpu);
+                tr.appendChild(tdMemoria);
+                tr.appendChild(tdDisco);
+                tr.appendChild(tdBotao);
+                tbody.appendChild(tr);
+                lista.appendChild(tbody);
+            }
+        } else {
+            throw new Error('Houve um erro na API para exibirInfoTotens!');
+        }
+    } catch (erro) {
+        console.error(erro);
+    }
 }
 
 
@@ -223,7 +199,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         }
     };
 
-    
+
     var chart = new ApexCharts(document.querySelector("#chart"), options);
 
     chart.render();
@@ -290,34 +266,3 @@ function infoProcessosTotem(idTotem) {
     var intervaloRepeticao = 5000; // em milissegundos (5 segundos neste exemplo)
     setInterval(fetchAndPlot, intervaloRepeticao);
 }
-
-    // function filtarGraficos(id){
-        //     var botaoCpu = document.getElementById("botaoCpu")
-//     var botaoMemoria = document.getElementById("botaoMemoria")
-//     var botaoLimpar = document.getElementById("botaoLimpar")
-
-//     if(id == "botaoCpu"){
-//         fetch(`/graficoPresilli/exibirCpuProcessos/${idTotem}`, {
-//             method: "GET",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//         }).then(function (resposta) {
-//             if (resposta.ok) {
-                
-//             } else {
-//                 resposta.text().then(textoErro => {
-//                     console.error(textoErro);
-//                 });
-//             }
-//         }).catch(function (resposta) {
-//             console.error(resposta);
-//             throw error;
-//         });
-//     }
-//     else if (id ==  "botaoMemoria"){
-//         alert("botaoMemoria")
-//     } else {
-//         alert("botaoLimpar")
-//     }
-// }   
