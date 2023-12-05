@@ -95,7 +95,7 @@ function exibirRegistros(idTotem) {
         },
     }).then(function (resposta) {
         if (resposta.ok) {
-            // return resposta.json();
+            return resposta
         } else {
             resposta.text().then(textoErro => {
                 console.error(textoErro);
@@ -154,6 +154,12 @@ function mostrarHoraAtual() {
 // }
 
 function plotarGrafico(listaData, listaQuantidade) {
+    var chartElement = document.querySelector("#chart");
+
+    if (chartElement) {
+        // Destruir a instância existente antes de criar um novo gráfico
+        ApexCharts.exec("chart", "destroy");
+    }
 
     var options = {
         chart: {
@@ -217,6 +223,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         }
     };
 
+    
     var chart = new ApexCharts(document.querySelector("#chart"), options);
 
     chart.render();
@@ -234,77 +241,83 @@ function infoProcessosTotem(idTotem) {
 
     paginaLista.style.display = "none"
     paginaListaProcessos.style.display = "flex"
-    var listaData = [];
-    var listaQuantidade = [];
 
-    setInterval(()=>{
+    function fetchAndPlot() {
+        var listaData = [];
+        var listaQuantidade = [];
+
         fetch(`/graficoPresilli/infoProcessosTotem/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    
-                    const dataHora = resposta[0].dataHora
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            })
+            .then(function (resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    const dataHora = resposta[i].dataHora
                     const data = new Date(dataHora)
                     const dataFormatada = data.toLocaleString('pt-BR', {
                         timeZone: 'UTC',
                     });
 
-
                     var tituloTotem = document.getElementById("tituloTotem")
-                    tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
+                    tituloTotem.innerHTML = `Nome do totem: ${resposta[i].nome}`
 
                     var nomeCpu = document.getElementById("nomeCpu")
-                    nomeCpu.innerHTML = `${resposta[0].processoUsoCpu}`
-
+                    nomeCpu.innerHTML = `${resposta[i].processoUsoCpu}`
 
                     var nomeMemoria = document.getElementById("nomeMemoria")
-                    nomeMemoria.innerHTML = `${resposta[0].processoUsoMemoria}`
-                    
-                    
+                    nomeMemoria.innerHTML = `${resposta[i].processoUsoMemoria}`
+
                     listaData.push(dataFormatada)
-                    
-                    listaQuantidade.push(resposta[0].quantidadeProcesso)                
-                    
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
-    }, 5000)
-    plotarGrafico(listaData, listaQuantidade)
+                    listaQuantidade.push(resposta[0].quantidadeProcesso)
+                }
+
+                // Chamada para plotarGrafico ocorre com os novos valores atualizados
+                plotarGrafico(listaData, listaQuantidade);
+            })
+            .catch(function (erro) {
+                console.error(erro);
+            });
+    }
+
+    // Chame fetchAndPlot inicialmente para exibir os dados pela primeira vez
+    fetchAndPlot();
+
+    // Configurar setInterval para chamar fetchAndPlot a cada 5 segundos (por exemplo)
+    var intervaloRepeticao = 5000; // em milissegundos (5 segundos neste exemplo)
+    setInterval(fetchAndPlot, intervaloRepeticao);
 }
-    
-function filtarGraficos(id){
-    var botaoCpu = document.getElementById("botaoCpu")
-    var botaoMemoria = document.getElementById("botaoMemoria")
-    var botaoLimpar = document.getElementById("botaoLimpar")
 
-    if(id == "botaoCpu"){
-        fetch(`/graficoPresilli/exibirCpuProcessos/${idTotem}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                
-                
+    // function filtarGraficos(id){
+        //     var botaoCpu = document.getElementById("botaoCpu")
+//     var botaoMemoria = document.getElementById("botaoMemoria")
+//     var botaoLimpar = document.getElementById("botaoLimpar")
 
-            } else {
-                resposta.text().then(textoErro => {
-                    console.error(textoErro);
-                });
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-            throw error;
-        });
-    }
-    else if (id ==  "botaoMemoria"){
-        alert("botaoMemoria")
-    } else {
-        alert("botaoLimpar")
-    }
-}   
+//     if(id == "botaoCpu"){
+//         fetch(`/graficoPresilli/exibirCpuProcessos/${idTotem}`, {
+//             method: "GET",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//         }).then(function (resposta) {
+//             if (resposta.ok) {
+                
+//             } else {
+//                 resposta.text().then(textoErro => {
+//                     console.error(textoErro);
+//                 });
+//             }
+//         }).catch(function (resposta) {
+//             console.error(resposta);
+//             throw error;
+//         });
+//     }
+//     else if (id ==  "botaoMemoria"){
+//         alert("botaoMemoria")
+//     } else {
+//         alert("botaoLimpar")
+//     }
+// }   
