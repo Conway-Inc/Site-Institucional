@@ -252,7 +252,7 @@ function exibirTabelaTotensTemperaturaCritico() {
     });
 }
 
-function plotarTemperaturaAtualizada(temperatura){
+function plotarTemperaturaAtualizada(temperatura, idTotem){
   var idTotem = sessionStorage.ID_TOTEM_SELECIONADO;
 
   // Recupere o contexto do canvas onde o gráfico está renderizado
