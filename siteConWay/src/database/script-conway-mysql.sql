@@ -1,5 +1,3 @@
--- Active: 1695823604597@@127.0.0.1@3306@ConWay
-
 DROP DATABASE IF EXISTS ConWay ;
 CREATE DATABASE ConWay;
 USE ConWay; 
@@ -44,7 +42,7 @@ CREATE TABLE Funcionario (
 
 CREATE TABLE Aeroporto (
     idAeroporto INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(150) UNIQUE,
+    nome VARCHAR(150),
     estado CHAR(2),
     municipio VARCHAR(60)
 );
@@ -83,12 +81,14 @@ CREATE TABLE Registro (
     FOREIGN KEY (fkTotem) REFERENCES Totem(idTotem)
 );
 
-CREATE TABLE Processo (
-     idProcesso INT PRIMARY KEY AUTO_INCREMENT,
-     pid INT, 
-     nome VARCHAR(100),
-     fkRegistro INT,
-     FOREIGN KEY (fkRegistro) REFERENCES Registro (idRegistro) 	
+CREATE TABLE GrupoProcesso (
+     idGrupoProcesso INT PRIMARY KEY AUTO_INCREMENT,
+     quantidadeProcesso INT, 
+     dataHora DATETIME,
+     processoUsoCpu VARCHAR (100),
+     processoUsoMemoria varchar(100),
+     fkTotem INT,
+     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 	
 );
 
 CREATE TABLE TotemComponente (
@@ -142,7 +142,7 @@ CREATE PROCEDURE cadastrarTotem(
     fkEmpresa INT
 )
 BEGIN 
-	INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES(nomeTotem, fkAeroporto, fkEmpresa) ;
+	INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES(nomeTotem, fkAeroporto, fkEmpresa);
     SELECT MAX(idTotem) AS idTotem FROM Totem;
 END//
 DELIMITER ;
@@ -200,19 +200,11 @@ INSERT INTO Ramo VALUES (1, 'AirWay'), (2, 'BusWay');
 -- ADMIN
 INSERT INTO Empresa (idEmpresa, cnpj, nome) VALUES (1,'1212312300099', 'Airway');
 INSERT INTO RamoEmpresa VALUES (2,1);
-
-
 INSERT INTO Funcionario VALUES (NULL, 'adm@airway.com', '12345', 'ADMIN AIRWAY', '91836727364', 11956890451, '2000-01-01', NULL, NULL, 1);
 
 -- LATAM
 INSERT INTO Empresa VALUES (NULL, '33937681000178', 'LATAM AIRLINES GROUP S/A', '04634042', 'Rua Atica' , 673, '11226872400');
 INSERT INTO RamoEmpresa VALUES (2,2);
-
--- COMPONENTE
-INSERT INTO Componente (nome, unidadeMedida) VALUES
--- ('CPU', 'GHZ'), ('Memória', 'GB'), ('Disco', 'KB'),
-('CPU', '%'), ('Memoria', '%'), ('Disco', '%'), ('TemperaturaCPU', '°C');
-
 INSERT INTO Funcionario VALUES (NULL, 'pedro.henrique@latam.com', '12345', 'Pedro Henrique', '54693866209', '19273526271', '1986-01-01', NULL,1, 2);
 INSERT INTO Funcionario VALUES (NULL, 'ana.carolina@latam.com', '12345', 'Ana Carolina', '99988823417', '18273817261', '1994-01-01', NULL, 2, 2);
 
@@ -220,13 +212,16 @@ INSERT INTO Aeroporto (nome, estado, municipio) VALUES ('Congonhas Airport', 'SP
 													   ('Brasilia International Airport', 'DF', 'Brasília'),
 													   ('Belo Horizonte International Airport', 'BH', 'Confins');
 
+-- COMPONENTE
+INSERT INTO Componente (nome, unidadeMedida) VALUES
+('CPU', '%'), ('MEMORIA', '%'), ('DISCO', '%'), ('TEMPERATURA_CPU', '°C');
 
 INSERT INTO Totem (idTotem, nome, fkAeroporto, fkEmpresa) VALUES (1,'TLT-1', 1, 2),
-                                                        (2,'TLT-8', 1, 2),
-                                                        (3,'JDK-3', 2, 2),
-                                                        (4,'JDK-9', 2, 2),
-                                                        (5,'PYR-3', 3, 2),
-                                                        (6,'PYR-10', 3, 2);
+																 (2,'TLT-8', 1, 2),
+																 (3,'JDK-3', 2, 2),
+																 (4,'JDK-9', 2, 2),
+																 (5,'PYR-3', 3, 2),
+															     (6,'PYR-10', 3, 2);
                                                         
 INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
 													    ('TLT-3', 1, 2),
@@ -253,24 +248,6 @@ INSERT INTO Totem (nome, fkAeroporto, fkEmpresa) VALUES ('TLT-2', 1, 2),
                                                         ('PYR-8', 3, 2),
                                                         ('PYR-9', 3, 2),
                                                         ('PYR-11', 3, 2);
-
-INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
-VALUES 
-('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informações que não deveria.', 330.00, 22, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção para que não ocorra erros no período de férias.', 100.00, 23, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Precisará de manutenção preventiva para verificação dos componentes.', 140.00, 24, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Atualização de software', 'Média', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção preventiva para bom funcionamento dos totens no período de férias.', 300.00, 11, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para época de férias.', 323.00, 12, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Atualização de software', 'Alta', 'Atualização de software.', 323.00, 13, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Média', 'Está muito demorado, com funções que não deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
-('2023-11-27', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para épocas de férias.', 124.00, 15, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Atualização de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
-('2023-11-26', '2023-12-01', 'Falha técnica', 'Alta', 'Falha técnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Atualização de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
-('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
 
 INSERT INTO TotemComponente VALUES (1, 1, null, 85, 95),
                                    (2, 1, null, 85, 95),
@@ -392,22 +369,34 @@ INSERT INTO Registro (idRegistro,valor, dataHora, fkComponente, fkTotem) VALUES 
                                                                                 (100023,0.0, '2023-11-07 12:10:00', 2,6),
                                                                                 (100024,0.0, '2023-10-16 00:00:00', 1,6),
  																	            (100025,0.0, '2023-10-16 00:00:00', 1,6);
-                                                                                
--- Inserir registros para Totens com temperatura em Alerta
-INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
-(78.5, '2023-11-26 10:30:00', 4, 1),
-(77.8, '2023-11-26 10:30:00', 4, 1),
-(76.0, '2023-11-26 11:15:00', 4, 2);
+             
 
--- Inserir registros para Totens com temperatura Crítica
-INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES
-(80.0, '2023-11-26 13:45:00', 4, 4);
- 
--- USUÁRIO
-DROP USER IF EXISTS 'user_conway'@'localhost';
-CREATE USER 'user_conway'@'localhost' IDENTIFIED WITH mysql_native_password BY 'urubu100';
-GRANT ALL ON ConWay.* TO 'user_conway'@'localhost';
-FLUSH PRIVILEGES;
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (78.5, '2023-11-26 10:30:00', 4, 1),
+																	 (77.8, '2023-11-26 10:30:00', 4, 1),
+																	 (76.0, '2023-11-26 11:15:00', 4, 2);
+
+INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (80.0, '2023-11-26 13:45:00', 4, 4);
+
+INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, now(), "Chrome", "IntelliJ", 1),
+						                                                                                      (18, now(), "MySQL WorkBench", "Visual Studio", 2),
+                                                                                                              (25, now(), "System", "System", 10);
+
+INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) VALUES 
+('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Alta', 'Mostra informações que não deveria.', 330.00, 22, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção para que não ocorra erros no período de férias.', 100.00, 23, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Precisará de manutenção preventiva para verificação dos componentes.', 140.00, 24, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualização de software', 'Média', 'Muitos erros de software.', 120.00, 25, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Baixa', 'Manutenção preventiva para bom funcionamento dos totens no período de férias.', 300.00, 11, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para época de férias.', 323.00, 12, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualização de software', 'Alta', 'Atualização de software.', 323.00, 13, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Desempenho anormal', 'Média', 'Está muito demorado, com funções que não deveriam aparecer para os clientes.', 124.00, 14, 0, '2023-11-26'),
+('2023-11-27', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Manutenção preventiva para épocas de férias.', 124.00, 15, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Atualização de software', 'Baixa', 'Software muito antigo, deve ser atualizado.', 300.00, 1, 0, '2023-11-26'),
+('2023-11-26', '2023-12-01', 'Falha técnica', 'Alta', 'Falha técnica no totem, deve ser concertado imediatamente.', 128.00, 2, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Atualização de software', 'Baixa', 'Deve ser atualizado mais para frente, por enquanto tem um bom funcionamento.', 128.00, 3, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Média', 'Deve ser atualizado para as férias.', 128.00, 4, 0, '2023-11-26'),
+('2023-11-30', '2023-12-01', 'Manutenção preventiva', 'Alta', 'Deve ser atualizado para as férias.', 128.00, 5, 0, '2023-11-26');
 
 -- VIEW
 DROP VIEW IF EXISTS vw_aeroportos;
@@ -437,6 +426,7 @@ CREATE VIEW vw_alertas AS
 SELECT idAlerta, dataHora, tipo, idRegistro, valor, fkComponente as comp, idTotem, Totem.nome, a.idAeroporto as idAero, a.nome as aeroporto, a.estado, a.municipio, fkEmpresa
 		FROM Alerta JOIN Registro ON fkRegistro = idRegistro JOIN Totem ON fkTotem = idTotem JOIN Aeroporto as a ON fkAeroporto = idAeroporto ORDER BY dataHora DESC;       
 
+DROP VIEW IF EXISTS vw_totensEmAlerta;
 CREATE VIEW vw_totensEmAlerta AS 
 SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto, ar.nome AS nomeAeroporto, t.fkEmpresa AS idEmpresa
     FROM Totem AS t
@@ -444,3 +434,21 @@ SELECT t.idTotem, t.nome AS nomeTotem, min(a.tipo) AS tipoAlerta, ar.idAeroporto
     INNER JOIN Registro AS r ON t.idTotem = r.fkTotem
     INNER JOIN Alerta AS a ON r.idRegistro = a.fkRegistro
     WHERE dataHora >= NOW() - INTERVAL 10 SECOND AND dataHora <= NOW() GROUP BY idTotem, nomeTotem, idAeroporto, nomeAeroporto;    
+    
+DROP VIEW IF EXISTS view_registrosTotem;
+CREATE VIEW view_registrosTotem AS
+SELECT
+    G.fkTotem,
+    G.dataHora,
+    G.quantidadeProcesso AS ultimoQuantidadeProcesso,
+    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'CPU') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorCpu,
+    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Memória') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorMemoria,
+    (SELECT R.valor FROM Registro R WHERE R.fkTotem = G.fkTotem AND R.fkComponente = (SELECT idComponente FROM Componente WHERE nome = 'Disco') ORDER BY R.dataHora DESC LIMIT 1) AS ultimoValorDisco
+FROM
+    GrupoProcesso G;
+    
+-- USUÁRIO
+DROP USER IF EXISTS 'user_conway'@'localhost';
+CREATE USER 'user_conway'@'localhost' IDENTIFIED WITH mysql_native_password BY 'urubu100';
+GRANT ALL ON ConWay.* TO 'user_conway'@'localhost';
+FLUSH PRIVILEGES;

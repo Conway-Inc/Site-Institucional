@@ -88,11 +88,14 @@ CREATE TABLE Registro (
     fkTotem INT FOREIGN KEY REFERENCES Totem(idTotem)
 );
 
-CREATE TABLE Processo (
-    idProcesso INT PRIMARY KEY IDENTITY(1,1),
-    pid INT, 
-    nome VARCHAR(100),
-    fkRegistro INT FOREIGN KEY (fkRegistro) REFERENCES Registro (idRegistro) 	
+CREATE TABLE GrupoProcesso (
+     idGrupoProcesso INT PRIMARY KEY IDENTITY(1,1),
+     quantidadeProcesso INT, 
+     dataHora DATETIME,
+     processoUsoCpu VARCHAR (100),
+     processoUsoMemoria varchar(100),
+     fkTotem INT,
+     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 	
 );
 
 CREATE TABLE TotemComponente (
@@ -326,6 +329,10 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
                                              (1,100025); 
 GO
 
+INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem )VALUES (13, '2023-10-16 00:00:00', 'Chrome', 'IntelliJ', 1),
+						                                                                                      (18, '2023-10-16 00:00:00', 'MySQL WorkBench', 'Visual Studio', 2),
+                                                                                                              (25, '2023-10-16 00:00:00', 'System', 'System', 10);
+GO
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 
 VALUES 
@@ -575,3 +582,48 @@ SELECT
 FROM vw_alertas 
 GROUP BY idTotem, nome;
 GO
+
+DROP VIEW IF EXISTS view_registrosTotem;
+GO
+CREATE VIEW view_registrosTotem AS
+SELECT
+    G.fkTotem,
+    G.dataHora,
+    G.quantidadeProcesso AS ultimoQuantidadeProcesso,
+    (
+        SELECT TOP 1 R.valor
+        FROM Registro R
+        WHERE R.fkTotem = G.fkTotem
+        AND R.fkComponente = (
+            SELECT TOP 1 idComponente
+            FROM Componente
+            WHERE nome = 'CPU'
+        )
+        ORDER BY R.dataHora DESC
+    ) AS ultimoValorCpu,
+    (
+        SELECT TOP 1 R.valor
+        FROM Registro R
+        WHERE R.fkTotem = G.fkTotem
+        AND R.fkComponente = (
+            SELECT TOP 1 idComponente
+            FROM Componente
+            WHERE nome = 'Memória'
+        )
+        ORDER BY R.dataHora DESC
+    ) AS ultimoValorMemoria,
+    (
+        SELECT TOP 1 R.valor
+        FROM Registro R
+        WHERE R.fkTotem = G.fkTotem
+        AND R.fkComponente = (
+            SELECT TOP 1 idComponente
+            FROM Componente
+            WHERE nome = 'Disco'
+        )
+        ORDER BY R.dataHora DESC
+    ) AS ultimoValorDisco
+FROM
+    GrupoProcesso G;
+GO
+

@@ -8,16 +8,16 @@ var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 80;
 
 var app = express();
 
+var loginRouter = require("./src/routes/login");
 var totemRouter = require("./src/routes/totem");
 var empresaRouter = require("./src/routes/empresa");
+var funcionarioRouter = require("./src/routes/funcionario")
 var metricasRouter = require("./src/routes/metricas");
+var graficoAnaRouter = require("./src/routes/graficoAna");
+var graficoBiaRouter = require("./src/routes/graficoBia");
 var graficoBrunoRouter = require("./src/routes/graficoBruno");
 var graficoJoaoRouter = require("./src/routes/graficoJoao");
 var graficoKauanRouter = require("./src/routes/graficoKauan");
-var loginRouter = require("./src/routes/login");
-var funcionarioRouter = require("./src/routes/funcionario")
-var graficoAnaRouter = require("./src/routes/graficoAna");
-var graficoBiaRouter = require("./src/routes/graficoBia");
 var graficoPresilliRouter = require("./src/routes/graficoPresilli")
 
 
@@ -27,17 +27,16 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-
-app.use("/funcionario", funcionarioRouter)
-app.use("/totem", totemRouter);
-app.use("/metricas", metricasRouter);
-app.use("/graficoBruno", graficoBrunoRouter);
-app.use("/graficoAna", graficoAnaRouter)
-app.use("/graficoJoao", graficoJoaoRouter);
-app.use("/graficoBia", graficoBiaRouter);
-app.use("/graficoKauan", graficoKauanRouter);
 app.use("/login", loginRouter);
+app.use("/totem", totemRouter);
 app.use("/empresa", empresaRouter);
+app.use("/funcionario", funcionarioRouter)
+app.use("/metricas", metricasRouter);
+app.use("/graficoAna", graficoAnaRouter)
+app.use("/graficoBia", graficoBiaRouter);
+app.use("/graficoBruno", graficoBrunoRouter);
+app.use("/graficoJoao", graficoJoaoRouter);
+app.use("/graficoKauan", graficoKauanRouter);
 app.use("/graficoPresilli", graficoPresilliRouter);
 
 app.listen(PORTA, function () {

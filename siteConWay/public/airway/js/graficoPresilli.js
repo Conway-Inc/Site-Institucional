@@ -1,59 +1,89 @@
-function exibirTotensProcesso(fkEmpresaVar) {
-    paginaProcessos = document.getElementById("paginaListaProcessos")
-
-    var fkEmpresaVar = sessionStorage.FK_EMPRESA
-    fetch(`/graficoPresilli/exibirTotensProcesso/${fkEmpresaVar}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    var tbody = document.getElementById("tbodyTable");
-                    tbody.innerHTML = ""
-
-                    for (let i = 0; i < resposta.length; i++) {
-                        var lista = document.getElementById("totemProcessos");
-                        var publicacao = resposta[i];
-
-                        var tdIdtotem = document.createElement("td");
-                        tdIdtotem.innerHTML = publicacao.idTotem;
-
-                        var tdNome = document.createElement("td");
-                        tdNome.setAttribute("scope", "row");
-                        tdNome.innerHTML = publicacao.nome;
+setInterval(() => {
+    exibirInfoTotens()
+}, 10000)
 
 
-                        var tdQuantidade = document.createElement("td");
-                        tdQuantidade.innerHTML = `${publicacao.Quantidade}
-                        `;
+async function exibirInfoTotens(fkEmpresaVar) {
+    paginaProcessos = document.getElementById("paginaListaProcessos");
 
-                        var tdBotao = document.createElement("td")
-                        tdBotao.innerHTML += `<button class="btn btn-primary" onclick="exibirProcessos(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`
+    var fkEmpresaVar = sessionStorage.FK_EMPRESA;
+    
+    try {
+        const respostaInfoTotens = await fetch(`/graficoPresilli/exibirInfoTotens/${fkEmpresaVar}`);
 
-                        var tr = document.createElement("tr");
-                        tr.setAttribute("id", "trTabela");
-                        var tbody = document.getElementById("tbodyTable");
+        if (respostaInfoTotens.ok) {
+            const listaTotens = await respostaInfoTotens.json();
+            var tbody = document.getElementById("tbodyTable");
+            tbody.innerHTML = "";
 
+            for (let i = 0; i < listaTotens.length; i++) {
+                var lista = document.getElementById("totemProcessos");
+                var publicacao = listaTotens[i];
 
-                        tr.appendChild(tdIdtotem);
-                        tr.appendChild(tdNome);
-                        tr.appendChild(tdQuantidade);
-                        tr.appendChild(tdBotao);
-                        tbody.appendChild(tr);
-                        lista.appendChild(tbody);
-                    }
+                var tdIdtotem = document.createElement("td");
+                tdIdtotem.innerHTML = publicacao.idTotem;
+
+                var tdQuantidade = document.createElement("td");
+                var tdCpu = document.createElement("td");
+                var tdMemoria = document.createElement("td");
+                var tdDisco = document.createElement("td");
+
+                const respostaRegistros = await fetch(`/graficoPresilli/exibirRegistros/${publicacao.idTotem}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
                 });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
 
+                if (respostaRegistros.ok) {
+                    const registros = await respostaRegistros.json();
+                    
+                    for (let i = 0; i < registros.length; i++){
+                        console.log(registros[i])
+                        tdQuantidade.innerHTML = registros[i].ultimoQuantidadeProcesso;
+                        tdCpu.innerHTML = registros[i].ultimoValorCpu || "0.0";
+                        tdMemoria.innerHTML = registros[i].ultimoValorMemoria || "0.0";
+                        tdDisco.innerHTML = registros[i].ultimoValorDisco || "0.0";
+                    }
+                    
+                } else {
+                    console.warn("Resposta não OK para exibirRegistros: ", respostaRegistros.status);
+                    // Defina valores padrão em caso de erro
+                    tdQuantidade.innerHTML = 0;
+                    tdCpu.innerHTML = "0.0";
+                    tdMemoria.innerHTML = "0.0";
+                    tdDisco.innerHTML = "0.0";
+                }
+
+                var tdNome = document.createElement("td");
+                tdNome.setAttribute("scope", "row");
+                tdNome.innerHTML = publicacao.nome;
+
+                var tdBotao = document.createElement("td");
+                tdBotao.innerHTML += `<button class="btn btn-primary" onclick="infoProcessosTotem(${publicacao.idTotem})" id="botaoMonitorar">Monitorar</button>`;
+
+                var tr = document.createElement("tr");
+                tr.setAttribute("id", "trTabela");
+                var tbody = document.getElementById("tbodyTable");
+
+                tr.appendChild(tdIdtotem);
+                tr.appendChild(tdNome);
+                tr.appendChild(tdQuantidade);
+                tr.appendChild(tdCpu);
+                tr.appendChild(tdMemoria);
+                tr.appendChild(tdDisco);
+                tr.appendChild(tdBotao);
+                tbody.appendChild(tr);
+                lista.appendChild(tbody);
+            }
+        } else {
+            throw new Error('Houve um erro na API para exibirInfoTotens!');
+        }
+    } catch (erro) {
+        console.error(erro);
+    }
 }
 
-
-setInterval(() => {
-    exibirTotensProcesso()
-}, 5000)
 
 function mostrarHoraAtual() {
     const DiasdaSemana = [
@@ -75,54 +105,37 @@ function mostrarHoraAtual() {
     }, 1000)
 }
 
-function exibirProcessos(idTotem) {
-    paginaLista = document.getElementById("paginaListaTotens")
-    paginaProcessos = document.getElementById("paginaListaProcessos")
-    tituloTotem = document.getElementById("tituloTotem")
+// function exibirProcessos(idTotem) {
 
-    var listaData = [];
-    var listaQuantidade = [];
-    paginaLista.style.display = "none"
 
-    paginaListaProcessos.style.display = "flex"
+//     var listaData = [];
+//     var listaQuantidade = [];
 
-    setInterval(() => {
-        fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    resposta.json().then(function (resposta) {
-                        setInterval(() => {
-                            exibirRegistrosCpu(idTotem)
-                            exibirRegistrosMemoria(idTotem)
-                            exibirRegistrosDisco(idTotem)
-                        }, 5000)
 
-                        for (let i = 0; i < resposta.length; i++) {
-                            const dataHora = resposta[i].dataHora
-                            const data = new Date(dataHora)
-                            const dataFormatada = data.toLocaleString('pt-BR', {
-                                timeZone: 'UTC',
-                            });
+//     setInterval(() => {
+//         fetch(`/graficoPresilli/exibirProcessos/${idTotem}`)
+//             .then(function (resposta) {
+//                 if (resposta.ok) {
+//                     resposta.json().then(function (resposta) {
 
-                            listaData.push(dataFormatada)
-
-                            listaQuantidade.push(resposta[i].Quantidade)
-
-                        }
-
-                        tituloTotem.innerHTML = `Nome do totem: ${resposta[0].nome}`
-                    });
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-            });
-    }, 10000)
-    plotarGrafico(listaData, listaQuantidade)
-}
+//                     });
+//                 } else {
+//                     throw ('Houve um erro na API!');
+//                 }
+//             }).catch(function (resposta) {
+//                 console.error(resposta);
+//             });
+//     }, 10000)
+//     plotarGrafico(listaData, listaQuantidade)
+// }
 
 function plotarGrafico(listaData, listaQuantidade) {
+    var chartElement = document.querySelector("#chart");
+
+    if (chartElement) {
+        // Destruir a instância existente antes de criar um novo gráfico
+        ApexCharts.exec("chart", "destroy");
+    }
 
     var options = {
         chart: {
@@ -136,7 +149,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         colors: ["#0D214F"],
         series: [
             {
-                name: "Series A",
+                name: "Quantidade Processos",
                 data: listaQuantidade
             },
         ],
@@ -186,6 +199,7 @@ function plotarGrafico(listaData, listaQuantidade) {
         }
     };
 
+
     var chart = new ApexCharts(document.querySelector("#chart"), options);
 
     chart.render();
@@ -196,54 +210,59 @@ function voltar() {
     window.location.reload();
 }
 
+function infoProcessosTotem(idTotem) {
+    paginaLista = document.getElementById("paginaListaTotens")
+    paginaProcessos = document.getElementById("paginaListaProcessos")
+    tituloTotem = document.getElementById("tituloTotem")
 
-function exibirRegistrosCpu(idTotem) {
-    fetch(`/graficoPresilli/exibirRegistrosCpu/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    var porcentagemCpu = document.getElementById("porcentagemCpu")
+    paginaLista.style.display = "none"
+    paginaListaProcessos.style.display = "flex"
 
-                    porcentagemCpu.innerHTML = `${resposta[0].valor}%`
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
-}
+    function fetchAndPlot() {
+        var listaData = [];
+        var listaQuantidade = [];
 
-function exibirRegistrosDisco(idTotem) {
-    fetch(`/graficoPresilli/exibirRegistrosDisco/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    var porcentagemDisco = document.getElementById("porcentagemDisco")
+        fetch(`/graficoPresilli/infoProcessosTotem/${idTotem}`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            })
+            .then(function (resposta) {
+                for (let i = 0; i < resposta.length; i++) {
+                    const dataHora = resposta[i].dataHora
+                    const data = new Date(dataHora)
+                    const dataFormatada = data.toLocaleString('pt-BR', {
+                        timeZone: 'UTC',
+                    });
 
-                    porcentagemDisco.innerHTML = `${resposta[0].valor}%`
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
-}
+                    var tituloTotem = document.getElementById("tituloTotem")
+                    tituloTotem.innerHTML = `Nome do totem: ${resposta[i].nome}`
 
-function exibirRegistrosMemoria(idTotem) {
-    fetch(`/graficoPresilli/exibirRegistrosMemoria/${idTotem}`)
-        .then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
-                    var porcentagemMemoria = document.getElementById("porcentagemCpu")
+                    var nomeCpu = document.getElementById("nomeCpu")
+                    nomeCpu.innerHTML = `${resposta[i].processoUsoCpu}`
 
-                    porcentagemMemoria.innerHTML = `${resposta[0].valor}%`
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
+                    var nomeMemoria = document.getElementById("nomeMemoria")
+                    nomeMemoria.innerHTML = `${resposta[i].processoUsoMemoria}`
+
+                    listaData.push(dataFormatada)
+                    listaQuantidade.push(resposta[0].quantidadeProcesso)
+                }
+
+                // Chamada para plotarGrafico ocorre com os novos valores atualizados
+                plotarGrafico(listaData, listaQuantidade);
+            })
+            .catch(function (erro) {
+                console.error(erro);
+            });
+    }
+
+    // Chame fetchAndPlot inicialmente para exibir os dados pela primeira vez
+    fetchAndPlot();
+
+    // Configurar setInterval para chamar fetchAndPlot a cada 5 segundos (por exemplo)
+    var intervaloRepeticao = 5000; // em milissegundos (5 segundos neste exemplo)
+    setInterval(fetchAndPlot, intervaloRepeticao);
 }

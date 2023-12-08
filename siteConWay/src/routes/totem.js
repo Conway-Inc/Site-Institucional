@@ -15,11 +15,9 @@ router.get("/exibirAeroportos/:municipio", function (req, res) {
 router.post("/cadastrarTotem", function(req,res){
     totemController.cadastrarTotem(req,res)
 });
-
 router.post("/cadastrarComponente", function(req,res){
     totemController.cadastrarComponente(req,res)
 });
-
 router.post("/criarViewTotem", function(req,res){
     totemController.criarViewTotem(req,res)
 });

@@ -15,7 +15,7 @@
     <title>AirWay - Dashboard</title>
 </head>
 
-<body id="page-top" onload="validarGerenteAnalista(),exibirNomeFunc(), exibirTotensProcesso(), mostrarHoraAtual()">
+<body id="page-top" onload="validarGerenteAnalista(),exibirNomeFunc(), exibirInfoTotens(), mostrarHoraAtual()">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <div class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -186,9 +186,12 @@
                                         cellspacing="0">
                                         <thead>
                                             <tr id="listaTitulos">
-                                                <th>IdTotem</th>
+                                                <th>IDTotem</th>
                                                 <th>Nome</th>
-                                                <th>Quantidade de Processos Ativos</th>
+                                                <th>Processos Ativos</th>
+                                                <th>CPU</th>
+                                                <th>Memória</th>
+                                                <th>Disco</th>
                                                 <th>Monitorar</th>
                                             </tr>
                                         </thead>
@@ -209,13 +212,12 @@
                                         <div class="col mr-2">
                                             <div
                                                 class="text-xs font-weight-bold text-primary text-uppercase text-warning mb-1">
-                                                Porcentagem uso CPU</div>
+                                                Processo com mais uso de CPU</div>
                                                 <div class="indicadores-totens-alerta">
                                                     <div class="h3 mb-0 font-weight-bold text-gray-800"
-                                                        id="porcentagemCpu">0 %
+                                                        id="nomeCpu">
                                                     </div>
-                                                    <div class="h7 mb-0 font-weight-bold text-gray-800"
-                                                        id="divAtencaoTotalTotens">
+                                                    <div class="h7 mb-0 font-weight-bold text-gray-800">
                                                     </div>
                                                 </div>
                                         </div>
@@ -233,42 +235,17 @@
                                         <div class="col mr-2">
                                             <div
                                                 class="text-xs font-weight-bold text-success text-uppercase text-danger mb-1">
-                                                Porcentagem uso memória</div>
+                                                Processo com mais uso memória</div>
                                             <div class="indicadores-totens-alerta">
                                                 <div class="h3 mb-0 font-weight-bold text-gray-800"
-                                                    id="porcentagemMemoria">0 %
+                                                    id="nomeMemoria">
                                                 </div>
-                                                <div class="h7 mb-0 font-weight-bold text-gray-800"
-                                                    id="divCriticoTotalTotens">
+                                                <div class="h7 mb-0 font-weight-bold text-gray-800">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-auto">
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div
-                                                class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Porcentagem uso Disco</div>
-                                            <div class="indicadores-totens-alerta">
-                                                <div class="h3 mb-0 font-weight-bold text-gray-800"
-                                                    id="porcentagemDisco">0 %
-                                                </div>
-                                                <div class="h7 mb-0 font-weight-bold text-gray-800"
-                                                    id="divCriticoTotalTotens">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- <i class="fas fa-clipboard-list fa-2x text-gray-300"></i> -->
                                         </div>
                                     </div>
                                 </div>

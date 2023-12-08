@@ -1,10 +1,10 @@
 const { json } = require("express");
 var graficoPresilliModel = require("../models/graficoPresilliModel")
 
-function exibirTotensProcesso(req, res) {
+function exibirInfoTotens(req, res) {
     var fkEmpresaVar = req.params.fkEmpresaVar;
 
-    graficoPresilliModel.exibirTotensProcesso(fkEmpresaVar)
+    graficoPresilliModel.exibirInfoTotens(fkEmpresaVar)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -18,10 +18,10 @@ function exibirTotensProcesso(req, res) {
         });
 }
 
-function exibirProcessos(req, res) {
+function infoProcessosTotem(req, res) {
     var idTotem = req.params.idTotem;
 
-    graficoPresilliModel.exibirProcessos(idTotem)
+    graficoPresilliModel.infoProcessosTotem(idTotem)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -36,66 +36,46 @@ function exibirProcessos(req, res) {
 
 }
 
-function exibirRegistrosCpu(req, res) {
+function exibirRegistros(req, res){
     var idTotem = req.params.idTotem;
 
-    graficoPresilliModel.exibirRegistrosCpu(idTotem)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar os processos do totem: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        })
-
-}
-
-function exibirRegistrosDisco(req, res) {
-    var idTotem = req.params.idTotem;
-
-    graficoPresilliModel.exibirRegistrosDisco(idTotem)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar os processos do totem: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        })
-
+    graficoPresilliModel.exibirRegistros(idTotem)
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os registros do totem: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
 }
 
 
-function exibirRegistrosMemoria(req, res) {
+function exibirCpuProcessos(req, res){
     var idTotem = req.params.idTotem;
 
-    graficoPresilliModel.exibirRegistrosMemoria(idTotem)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar os processos do totem: ", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        })
-
+    graficoPresilliModel.exibirCpuProcessos(idTotem)
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os registros do totem: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
 }
+
 
 module.exports = {
-    exibirTotensProcesso,
-    exibirProcessos,
-    exibirRegistrosCpu,
-    exibirRegistrosDisco,
-    exibirRegistrosMemoria
+    exibirInfoTotens,
+    infoProcessosTotem,
+    exibirRegistros,
+    exibirCpuProcessos
 };
 

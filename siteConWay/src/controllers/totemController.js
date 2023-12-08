@@ -3,6 +3,9 @@ var totemModel = require("../models/totemModel");
 function exibirTabelaTotem(req, res) {
   var idEmpresa = req.params.idEmpresa;
 
+  if (idEmpresa == undefined) {
+    res.status(400).send("O idEmpresa está undefined")
+  } else {
   totemModel.exibirTabelaTotem(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
@@ -13,12 +16,15 @@ function exibirTabelaTotem(req, res) {
     console.log(erro);
     console.log("Houve um erro ao buscar os totens cadastrados: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
-  });
+  });}
 }
 
 function exibirMunicipios(req, res) {
   var estado = req.params.estado;
 
+  if (estado == undefined) {
+    res.status(400).send("O estado está undefined")
+  } else {
   totemModel.exibirMunicipios(estado).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
@@ -29,12 +35,15 @@ function exibirMunicipios(req, res) {
     console.log(erro);
     console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
-  });
+  });}
 }
 
 function exibirAeroportos(req, res) {
   var municipio = req.params.municipio;
 
+  if (municipio == undefined) {
+    res.status(400).send("O municipio está undefined")
+  } else {
   totemModel.exibirAeroportos(municipio).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
@@ -45,7 +54,7 @@ function exibirAeroportos(req, res) {
     console.log(erro);
     console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
-  });
+  });}
 }
 
 function cadastrarTotem(req, res){
@@ -103,7 +112,6 @@ function criarViewTotem(req, res){
 }
 
 function cadastrarComponente(req, res){
-    
   var componente = req.body.componenteServer
 
   if (componente == undefined) {
