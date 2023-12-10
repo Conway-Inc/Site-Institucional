@@ -22,10 +22,10 @@ function relatarCausaManutencao(motivoManutencaoTotem, urgenciaManutencaoTotem, 
   console.log(`Acessei o graficoAnaModel.js, executei exibirTotensDoAeroporto(${relatarCausaManutencao},${urgenciaManutencaoTotem},${descricaoTotem},${totemSelecionado},${dataInicio},${dataLimite},${valor})`);
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     var instrucao = `
-    INSERT INTO Manutencao VALUES (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, NOW())`;
+    INSERT INTO Manutencao VALUES (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, GETDATE())`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     var instrucao = `
-    INSERT INTO Manutencao VALUES ('${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0, GETDATE())`;
+    INSERT INTO Manutencao VALUES (NULL, '${dataInicio}', '${dataLimite}', '${motivoManutencaoTotem}', '${urgenciaManutencaoTotem}', '${descricaoTotem}', ${valor}, ${totemSelecionado}, 0,  NOW())`;
   }
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
