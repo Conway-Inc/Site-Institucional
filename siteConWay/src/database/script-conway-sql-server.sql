@@ -3,13 +3,13 @@
 USE ConWay; 
 
 CREATE TABLE Empresa (
-idEmpresa INT PRIMARY KEY IDENTITY(1,1), 
-cnpj CHAR(14),
-nome VARCHAR(60),
-cep CHAR(8),
-logradouro VARCHAR(150),
-num INT,
-telefone CHAR(11)
+    idEmpresa INT PRIMARY KEY IDENTITY(1,1), 
+    cnpj CHAR(14),
+    nome VARCHAR(60),
+    cep CHAR(8),
+    logradouro VARCHAR(150),
+    num INT,
+    telefone CHAR(11)
 );
 
 CREATE TABLE Ramo (
@@ -329,9 +329,37 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
                                              (1,100025); 
 GO
 
-INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem )VALUES (13, '2023-10-16 00:00:00', 'Chrome', 'IntelliJ', 1),
-						                                                                                      (18, '2023-10-16 00:00:00', 'MySQL WorkBench', 'Visual Studio', 2),
-                                                                                                              (25, '2023-10-16 00:00:00', 'System', 'System', 10);
+INSERT INTO GrupoProcesso (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, '2023-10-16 00:00:00', "Chrome", "IntelliJ", 1),
+																											 (18, '2023-10-16 00:00:00', "MySQL WorkBench", "Visual Studio", 2),
+																											 (25, '2023-10-16 00:00:00', "System", "System", 3),
+                                                                                                             (124, '2023-10-16 00:00:00', "Code", "Code", 4),
+                                                                                                             (167, '2023-10-16 00:00:00', "Valorant", "Valorant", 5),
+                                                                                                             (145, '2023-10-16 00:00:00', "Valorant", "Valorant", 6),
+                                                                                                             (25, '2023-10-16 00:00:00', "System", "System", 7),
+                                                                                                             (198, '2023-10-16 00:00:00', "Bash", "Bash", 8),
+                                                                                                             (124, '2023-10-16 00:00:00', "Node", "Node", 9),
+                                                                                                             (132, '2023-10-16 00:00:00', "Chrome", "IntelliJ", 10),
+																											 (51, '2023-10-16 00:00:00', "MySQL WorkBench", "Visual Studio", 11),
+																											 (21, '2023-10-16 00:00:00', "System", "System", 12),
+                                                                                                             (190, '2023-10-16 00:00:00', "Code", "Code", 13),
+                                                                                                             (211, '2023-10-16 00:00:00', "Valorant", "Valorant", 14),
+                                                                                                             (259, '2023-10-16 00:00:00', "Valorant", "Valorant", 15),
+                                                                                                             (299, '2023-10-16 00:00:00', "System", "System", 16),
+                                                                                                             (311, '2023-10-16 00:00:00', "Bash", "Bash", 17),
+                                                                                                             (56, '2023-10-16 00:00:00', "Node", "Node", 18),
+                                                                                                             (124, '2023-10-16 00:00:00', "Node", "Node", 19),
+                                                                                                             (132, '2023-10-16 00:00:00', "Chrome", "IntelliJ", 20),
+																											 (51, '2023-10-16 00:00:00', "MySQL WorkBench", "Visual Studio", 21),
+																											 (21, '2023-10-16 00:00:00', "System", "System", 22),
+                                                                                                             (190, '2023-10-16 00:00:00', "Code", "Code", 23),
+                                                                                                             (211, '2023-10-16 00:00:00', "Valorant", "Valorant", 24),
+                                                                                                             (259, '2023-10-16 00:00:00', "Valorant", "Valorant", 25),
+                                                                                                             (299, '2023-10-16 00:00:00', "System", "System", 26),
+                                                                                                             (311, '2023-10-16 00:00:00', "Bash", "Bash", 27),
+                                                                                                             (56, '2023-10-16 00:00:00', "Node", "Node", 28),
+                                                                                                             (124, n'2023-10-16 00:00:00', "Node", "Node", 29),
+                                                                                                             (132, '2023-10-16 00:00:00', "Chrome", "IntelliJ", 30),
+																											 (51, '2023-10-16 00:00:00', "MySQL WorkBench", "Visual Studio", 31);
 GO
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) 

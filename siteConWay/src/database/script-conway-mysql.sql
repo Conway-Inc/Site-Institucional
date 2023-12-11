@@ -3,13 +3,13 @@ CREATE DATABASE ConWay;
 USE ConWay; 
 
 CREATE TABLE Empresa (
-idEmpresa INT PRIMARY KEY AUTO_INCREMENT, 
-cnpj CHAR(14),
-nome VARCHAR(60),
-cep CHAR(8),
-logradouro VARCHAR(150),
-num INT,
-telefone CHAR(11)
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT, 
+    cnpj CHAR(14),
+    nome VARCHAR(60),
+    cep CHAR(8),
+    logradouro VARCHAR(150),
+    num INT,
+    telefone CHAR(11)
 );
 
 CREATE TABLE Ramo (
@@ -57,12 +57,12 @@ CREATE TABLE temperaturaAeroporto(
 );
 
 CREATE TABLE Totem (
-idTotem INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45) UNIQUE,
-fkAeroporto INT,
-fkEmpresa INT,
-FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto) ON DELETE CASCADE,
-FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
+    idTotem INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45) UNIQUE,
+    fkAeroporto INT,
+    fkEmpresa INT,
+    FOREIGN KEY (fkAeroporto) REFERENCES Aeroporto(idAeroporto) ON DELETE CASCADE,
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa) ON DELETE CASCADE
 );
 
 CREATE TABLE Componente (
@@ -82,13 +82,13 @@ CREATE TABLE Registro (
 );
 
 CREATE TABLE GrupoProcesso (
-     idGrupoProcesso INT PRIMARY KEY AUTO_INCREMENT,
-     quantidadeProcesso INT, 
-     dataHora DATETIME,
-     processoUsoCpu VARCHAR (100),
-     processoUsoMemoria varchar(100),
-     fkTotem INT,
-     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 	
+    idGrupoProcesso INT PRIMARY KEY AUTO_INCREMENT,
+    quantidadeProcesso INT, 
+    dataHora DATETIME,
+    processoUsoCpu VARCHAR (100),
+    processoUsoMemoria varchar(100),
+    fkTotem INT,
+    FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 	
 );
 
 CREATE TABLE TotemComponente (
@@ -112,17 +112,17 @@ CREATE TABLE Alerta (
 );
 
 CREATE TABLE Manutencao (
-     idManutencao INT PRIMARY KEY AUTO_INCREMENT,
-     dataManutencao DATE,
-     dataLimite DATE,
-     motivoManutencao VARCHAR (70),
-     urgenciaManutencao VARCHAR (70),
-     descricaoManutencao VARCHAR (255),
-     valor DECIMAL (8,2),
-	 fkTotem INT,
-     aprovado BOOLEAN,
-     dataAtual DATE,
-     FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
+    idManutencao INT PRIMARY KEY AUTO_INCREMENT,
+    dataManutencao DATE,
+    dataLimite DATE,
+    motivoManutencao VARCHAR (70),
+    urgenciaManutencao VARCHAR (70),
+    descricaoManutencao VARCHAR (255),
+    valor DECIMAL (8,2),
+	fkTotem INT,
+    aprovado BOOLEAN,
+    dataAtual DATE,
+    FOREIGN KEY (fkTotem) REFERENCES Totem (idTotem) 
 );
 
 
@@ -377,9 +377,40 @@ INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (78.5, '202
 
 INSERT INTO Registro (valor, dataHora, fkComponente, fkTotem) VALUES (80.0, '2023-11-26 13:45:00', 4, 4);
 
-INSERT INTO GrupoProcesso  (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, now(), "Chrome", "IntelliJ", 1),
-						                                                                                      (18, now(), "MySQL WorkBench", "Visual Studio", 2),
-                                                                                                              (25, now(), "System", "System", 10);
+INSERT INTO GrupoProcesso (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, now(), "Chrome", "IntelliJ", 1),
+																											 (18, now(), "MySQL WorkBench", "Visual Studio", 2),
+																											 (25, now(), "System", "System", 3),
+                                                                                                             (124, now(), "Code", "Code", 4),
+                                                                                                             (167, now(), "Valorant", "Valorant", 5),
+                                                                                                             (145, now(), "Valorant", "Valorant", 6),
+                                                                                                             (25, now(), "System", "System", 7),
+                                                                                                             (198, now(), "Bash", "Bash", 8),
+                                                                                                             (124, now(), "Node", "Node", 9),
+                                                                                                             (132, now(), "Chrome", "IntelliJ", 10),
+																											 (51, now(), "MySQL WorkBench", "Visual Studio", 11),
+																											 (21, now(), "System", "System", 12),
+                                                                                                             (190, now(), "Code", "Code", 13),
+                                                                                                             (211, now(), "Valorant", "Valorant", 14),
+                                                                                                             (259, now(), "Valorant", "Valorant", 15),
+                                                                                                             (299, now(), "System", "System", 16),
+                                                                                                             (311, now(), "Bash", "Bash", 17),
+                                                                                                             (56, now(), "Node", "Node", 18),
+                                                                                                             (124, now(), "Node", "Node", 19),
+                                                                                                             (132, now(), "Chrome", "IntelliJ", 20),
+																											 (51, now(), "MySQL WorkBench", "Visual Studio", 21),
+																											 (21, now(), "System", "System", 22),
+                                                                                                             (190, now(), "Code", "Code", 23),
+                                                                                                             (211, now(), "Valorant", "Valorant", 24),
+                                                                                                             (259, now(), "Valorant", "Valorant", 25),
+                                                                                                             (299, now(), "System", "System", 26),
+                                                                                                             (311, now(), "Bash", "Bash", 27),
+                                                                                                             (56, now(), "Node", "Node", 28),
+                                                                                                             (124, now(), "Node", "Node", 29),
+                                                                                                             (132, now(), "Chrome", "IntelliJ", 30),
+																											 (51, now(), "MySQL WorkBench", "Visual Studio", 31);
+		
+																											
+                                                                                                             
 
 INSERT INTO Manutencao (dataManutencao, dataLimite, motivoManutencao, urgenciaManutencao, descricaoManutencao, valor, fkTotem, aprovado, dataAtual) VALUES 
 ('2023-11-26', '2023-12-01', 'Falha técnica', 'Baixa', 'Não funciona mais.', 650.00, 21, 0, '2023-11-26'),
