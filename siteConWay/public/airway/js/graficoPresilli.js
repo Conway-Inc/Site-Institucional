@@ -7,7 +7,7 @@ async function exibirInfoTotens(fkEmpresaVar) {
     paginaProcessos = document.getElementById("paginaListaProcessos");
 
     var fkEmpresaVar = sessionStorage.FK_EMPRESA;
-    
+
     try {
         const respostaInfoTotens = await fetch(`/graficoPresilli/exibirInfoTotens/${fkEmpresaVar}`);
 
@@ -16,7 +16,9 @@ async function exibirInfoTotens(fkEmpresaVar) {
             var tbody = document.getElementById("tbodyTable");
             tbody.innerHTML = "";
 
+            
             for (let i = 0; i < listaTotens.length; i++) {
+                
                 var lista = document.getElementById("totemProcessos");
                 var publicacao = listaTotens[i];
 
@@ -28,6 +30,7 @@ async function exibirInfoTotens(fkEmpresaVar) {
                 var tdMemoria = document.createElement("td");
                 var tdDisco = document.createElement("td");
 
+
                 const respostaRegistros = await fetch(`/graficoPresilli/exibirRegistros/${publicacao.idTotem}`, {
                     method: "GET",
                     headers: {
@@ -37,15 +40,48 @@ async function exibirInfoTotens(fkEmpresaVar) {
 
                 if (respostaRegistros.ok) {
                     const registros = await respostaRegistros.json();
-                    
-                    for (let i = 0; i < registros.length; i++){
-                        console.log(registros[i])
-                        tdQuantidade.innerHTML = registros[i].ultimoQuantidadeProcesso;
-                        tdCpu.innerHTML = registros[i].ultimoValorCpu || "0.0";
-                        tdMemoria.innerHTML = registros[i].ultimoValorMemoria || "0.0";
-                        tdDisco.innerHTML = registros[i].ultimoValorDisco || "0.0";
+
+                    for (let i = 0; i < registros.length; i++) {
+                        let publi = registros[i];
+
+                        if (publi.ultimoQuantidadeProcesso == 0 || publi.ultimoQuantidadeProcesso == "0" || publi.ultimoQuantidadeProcesso == null
+                            || publi.ultimoQuantidadeProcesso == undefined) {
+
+                            tdQuantidade.innerHTML = "0";
+                        }
+                        else {
+                            tdQuantidade.innerHTML = `${publi.ultimoQuantidadeProcesso}`
+                        }
+
+                        if (publi.ultimoValorCpu == 0 || publi.ultimoValorCpu == "0" || publi.ultimoValorCpu == null
+                            || publi.ultimoValorCpu == undefined) {
+
+                            tdCpu.innerHTML = "0.00%"
+
+                        } else {
+                            tdCpu.innerHTML = publi.ultimoValorCpu
+                        }
+
+
+                        if (publi.ultimoValorMemoria == 0 || publi.ultimoValorMemoria == "0" || publi.ultimoValorMemoria == null
+                            || publi.ultimoValorMemoria == undefined) {
+
+                            tdMemoria.innerHTML = "0.00%"
+                        }
+                        else {
+                            tdMemoria.innerHTML = publi.ultimoValorMemoria;
+                        }
+
+                        if (publi.ultimoValorDisco == 0 || publi.ultimoValorDisco == "0" || publi.ultimoValorDisco == null
+                            || publi.ultimoValorDisco == undefined) {
+
+                            tdDisco.innerHTML = "0.00%";
+                        } else {
+                            tdDisco.innerHTML = publi.ultimoValorDisco
+                        }
+
                     }
-                    
+
                 } else {
                     console.warn("Resposta não OK para exibirRegistros: ", respostaRegistros.status);
                     // Defina valores padrão em caso de erro
