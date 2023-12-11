@@ -329,7 +329,7 @@ INSERT INTO Alerta (tipo, fkRegistro) VALUES (1,100000),
                                              (1,100025); 
 GO
 
-INSERT INTO GrupoProcesso (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, n'2023-10-16 00:00:00', 'Chrome', 'IntelliJ', 1),
+INSERT INTO GrupoProcesso (quantidadeProcesso, dataHora, processoUsoCpu, processoUsoMemoria, fkTotem) VALUES (13, '2023-10-16 00:00:00', 'Chrome', 'IntelliJ', 1),
 																											 (18, '2023-10-16 00:00:00', 'MySQL WorkBench', 'Visual Studio', 2),
 																											 (25, '2023-10-16 00:00:00', 'System', 'System', 3),
                                                                                                              (124, '2023-10-16 00:00:00', 'Code', 'Code', 4),
@@ -357,7 +357,7 @@ INSERT INTO GrupoProcesso (quantidadeProcesso, dataHora, processoUsoCpu, process
                                                                                                              (299, '2023-10-16 00:00:00', 'System', 'System', 26),
                                                                                                              (311, '2023-10-16 00:00:00', 'Bash', 'Bash', 27),
                                                                                                              (56, '2023-10-16 00:00:00', 'Node', 'Node', 28),
-                                                                                                             (124, n'2023-10-16 00:00:00', 'Node', 'Node', 29),
+                                                                                                             (124, '2023-10-16 00:00:00', 'Node', 'Node', 29),
                                                                                                              (132, '2023-10-16 00:00:00', 'Chrome', 'IntelliJ', 30),
 																											 (51, '2023-10-16 00:00:00', 'MySQL WorkBench', 'Visual Studio', 31);
 GO
