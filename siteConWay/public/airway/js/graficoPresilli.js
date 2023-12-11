@@ -59,7 +59,7 @@ async function exibirInfoTotens(fkEmpresaVar) {
                             tdCpu.innerHTML = "0.00%"
 
                         } else {
-                            tdCpu.innerHTML = publi.ultimoValorCpu
+                            tdCpu.innerHTML = `${publi.ultimoValorCpu}%`
                         }
 
 
@@ -69,7 +69,7 @@ async function exibirInfoTotens(fkEmpresaVar) {
                             tdMemoria.innerHTML = "0.00%"
                         }
                         else {
-                            tdMemoria.innerHTML = publi.ultimoValorMemoria;
+                            tdMemoria.innerHTML = `${publi.ultimoValorMemoria}%`;
                         }
 
                         if (publi.ultimoValorDisco == 0 || publi.ultimoValorDisco == "0" || publi.ultimoValorDisco == null
@@ -77,7 +77,7 @@ async function exibirInfoTotens(fkEmpresaVar) {
 
                             tdDisco.innerHTML = "0.00%";
                         } else {
-                            tdDisco.innerHTML = publi.ultimoValorDisco
+                            tdDisco.innerHTML = `${publi.ultimoValorDisco}%`
                         }
 
                     }
