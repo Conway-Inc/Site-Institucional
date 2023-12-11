@@ -1,6 +1,6 @@
 setInterval(() => {
     exibirInfoTotens()
-}, 10000)
+}, 60000)
 
 
 async function exibirInfoTotens(fkEmpresaVar) {
@@ -61,7 +61,6 @@ async function exibirInfoTotens(fkEmpresaVar) {
                         } else {
                             tdCpu.innerHTML = `${publi.ultimoValorCpu}%`
                         }
-
 
                         if (publi.ultimoValorMemoria == 0 || publi.ultimoValorMemoria == "0" || publi.ultimoValorMemoria == null
                             || publi.ultimoValorMemoria == undefined) {

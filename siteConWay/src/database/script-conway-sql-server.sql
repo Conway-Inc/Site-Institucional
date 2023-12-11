@@ -636,7 +636,7 @@ SELECT
         AND R.fkComponente = (
             SELECT TOP 1 idComponente
             FROM Componente
-            WHERE nome = 'Memória'
+            WHERE nome = 'Memoria'
         )
         ORDER BY R.dataHora DESC
     ) AS ultimoValorMemoria,
